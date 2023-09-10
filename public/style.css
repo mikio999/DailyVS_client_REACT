@@ -1,0 +1,21 @@
+@font-face {
+  font-family: 'NEXON Lv1 Gothic OTF';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff')
+    format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+html {
+  width: 100vw;
+  display: flex;
+}
+
+#root {
+  box-shadow:
+    -5px 0px 5px rgba(0, 0, 0, 0.1),
+    5px 0px 5px rgba(0, 0, 0, 0.1);
+  margin-left: auto;
+  margin-right: auto;
+  width: 500px;
+}
