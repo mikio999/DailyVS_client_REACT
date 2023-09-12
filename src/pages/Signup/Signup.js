@@ -14,10 +14,9 @@ const Signup = () => {
     signupPW: '',
     signupMBTI: '',
     signupNickName: '',
-    signupGender: '',
+    signupGender: selectedGender,
   });
-  console.log(userSignupInfo);
-  // const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
   const {
     signupEmail,
     signupID,
@@ -30,9 +29,11 @@ const Signup = () => {
   const emailRegEx =
     /^[A-Za-z0-9]([-_.]?[A-Za-z0-9])*@[A-Za-z0-9]([-_.]?[A-Za-z0-9])*\.[A-Za-z]{2,3}$/i;
   const passwordRegEx = /^[A-Za-z0-9]{8,15}$/;
+
   const emailCheck = userSignupEmail => {
     return emailRegEx.test(userSignupEmail); //형식에 맞을 경우, true 리턴
   };
+
   const passwordCheck = userSignupPW => {
     if (userSignupPW.match(passwordRegEx) === null) {
       //형식에 맞지 않을 경우 아래 콘솔 출력
@@ -43,6 +44,7 @@ const Signup = () => {
       console.log('비밀번호 형식이 맞아요');
     }
   };
+
   const passwordDoubleCheck = (userSignupPW, signupPWCheck) => {
     if (userSignupPW !== signupPWCheck) {
       console.log('비밀번호가 다릅니다.');
@@ -52,18 +54,23 @@ const Signup = () => {
     }
   };
 
-  const isSignupValid =
-    userSignupInfo.signupEmail.length >= 10 &&
-    5 <= userSignupInfo.signupID.length <= 10 &&
-    8 <= userSignupInfo.signupPW.length <= 15 &&
-    userSignupInfo.signupMBTI.length === 4 &&
-    2 <= userSignupInfo.signupNickName <= 10 &&
-    userSignupInfo.signupGender.length === 2;
+  const onSubmit = e => {
+    e.preventDefault();
+    console.log(userSignupInfo);
+  };
+
+  // const isSignupValid =
+  //   userSignupInfo.signupEmail.length >= 10 &&
+  //   5 <= userSignupInfo.signupID.length <= 10 &&
+  //   8 <= userSignupInfo.signupPW.length <= 15 &&
+  //   userSignupInfo.signupMBTI.length === 4 &&
+  //   2 <= userSignupInfo.signupNickName <= 10 &&
+  //   userSignupInfo.signupGender.length === 2;
   return (
     <>
       <LoginNav />
       <SignupPage>
-        <SignupContainer>
+        <SignupContainer onSubmit={onSubmit}>
           <SignupLogo src="images/LoginNav/Only_Tex.png" />
           <SignupEmailInput
             value={signupEmail}
@@ -138,7 +145,13 @@ const Signup = () => {
               name="gender"
               value="male"
               checked={selectedGender === 'male'}
-              onChange={e => setSelectedGender('male')}
+              onChange={() => {
+                setSelectedGender('male');
+                setUserSignupInfo({
+                  ...userSignupInfo,
+                  signupGender: 'male',
+                });
+              }}
             />
             <GenderLabel htmlFor="male">남성</GenderLabel>
             <GenderRadio
@@ -147,15 +160,19 @@ const Signup = () => {
               name="gender"
               value="female"
               checked={selectedGender === 'female'}
-              onChange={() => setSelectedGender('female')}
+              onChange={() => {
+                setSelectedGender('female');
+                setUserSignupInfo({
+                  ...userSignupInfo,
+                  signupGender: 'female',
+                });
+              }}
             />
             <GenderLabel htmlFor="female">여성</GenderLabel>
-            {/* Add more options if needed */}
           </GenderRadioGroup>
 
-          <SignupBtn disabled={isSignupValid ? false : true}>
-            회원가입
-          </SignupBtn>
+          {/* <SignupBtn disabled={isSignupValid ? false : true}> */}
+          <SignupBtn>회원가입</SignupBtn>
           <SignupToLogin>
             바로 <SignupLoginBtn to="/login">로그인</SignupLoginBtn>하러 가기
           </SignupToLogin>
@@ -172,7 +189,7 @@ const SignupPage = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-size: 20px;
+  font-size: 18px;
 `;
 
 const SignupContainer = styled.form`
@@ -188,7 +205,7 @@ const SignupEmailInput = styled.input`
   width: 300px;
   height: 50px;
   margin-bottom: 10px;
-  font-size: 20px;
+  font-size: 18px;
   border: 1px rgba(128, 128, 128, 0.2) solid;
   background-color: #f4faff;
   padding-left: 20px;
@@ -198,7 +215,7 @@ const SignupIdInput = styled.input`
   width: 300px;
   height: 50px;
   margin-bottom: 10px;
-  font-size: 20px;
+  font-size: 18px;
   border: 1px rgba(128, 128, 128, 0.2) solid;
   background-color: #f4faff;
   padding-left: 20px;
@@ -208,7 +225,7 @@ const SignupPwInput = styled.input`
   width: 300px;
   height: 50px;
   margin-bottom: 10px;
-  font-size: 20px;
+  font-size: 18px;
   border: 1px rgba(128, 128, 128, 0.2) solid;
   background-color: #f4faff;
   padding-left: 20px;
@@ -218,7 +235,7 @@ const SignupPwCheckInput = styled.input`
   width: 300px;
   height: 50px;
   margin-bottom: 10px;
-  font-size: 20px;
+  font-size: 18px;
   border: 1px rgba(128, 128, 128, 0.2) solid;
   background-color: #f4faff;
   padding-left: 20px;
@@ -228,7 +245,7 @@ const SignupMBTIInput = styled.input`
   width: 300px;
   height: 50px;
   margin-bottom: 10px;
-  font-size: 20px;
+  font-size: 18px;
   border: 1px rgba(128, 128, 128, 0.2) solid;
   background-color: #f4faff;
   padding-left: 20px;
@@ -238,7 +255,7 @@ const SignupNickNameInput = styled.input`
   width: 300px;
   height: 50px;
   margin-bottom: 10px;
-  font-size: 20px;
+  font-size: 18px;
   border: 1px rgba(128, 128, 128, 0.2) solid;
   background-color: #f4faff;
   padding-left: 20px;
@@ -246,7 +263,7 @@ const SignupNickNameInput = styled.input`
 
 const GenderLabel = styled.label`
   margin-top: 10px;
-  font-size: 20px;
+  font-size: 18px;
 `;
 
 const GenderRadioGroup = styled.div`

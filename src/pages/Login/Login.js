@@ -1,35 +1,59 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import LoginNav from '../../components/LoginNav/LoginNav';
 
 const Login = () => {
-  const [userInfo, setuserInfo] = useState({ userID: '', userPW: '' });
-  const { userID, userPW } = userInfo;
-  const onChangeHandler = e => {
-    const { name, value } = e.target;
-    setuserInfo({ ...userInfo, [name]: value });
+  const [logInError, setLogInError] = useState(false);
+  const [userId, setUserId] = useState('');
+  const [password, setPassword] = useState('');
+
+  const navigate = useNavigate();
+
+  const onSubmit = e => {
+    e.preventDefault();
+    fetch(`http://localhost:3095/api/users/login`, {
+      method: 'POST',
+      headers: { 'content-Type': 'application/json;charset=utf-8' },
+      body: JSON.stringify({
+        userId: userId,
+        password: password,
+      }),
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (data) {
+          localStorage.setItem('token', data.access_token);
+          alert('환영합니다!');
+          navigate('/');
+        }
+      })
+      .catch(error => {
+        setLogInError(error.response?.data?.statusCode === 401);
+        alert(logInError + ': 아이디와 비밀번호를 다시 한번 확인해주세요');
+      });
   };
 
-  const isValid = userInfo.userID.length >= 5 && userInfo.userPW.length >= 8;
+  const isValid = userId.length >= 5 && password.length >= 8;
 
   return (
     <>
       <LoginNav />
-      <LoginPage>
+      <LoginPage onSubmit={onSubmit}>
         <LoginLogo src="images/Nav/main_logo.png" />
         <LoginIdInput
           type="text"
-          name="userID"
-          value={userID}
-          onChange={onChangeHandler}
+          name="userId"
+          value={userId}
+          onChange={e => setUserId(e.target.value)}
           placeholder="아이디"
         />
         <LoginPwInput
-          type="text"
-          name="userPW"
-          value={userPW}
-          onChange={onChangeHandler}
+          type="password"
+          name="password"
+          value={password}
+          onChange={e => setPassword(e.target.value)}
           placeholder="비밀번호"
         />
         <LoginSubmitBtn disabled={isValid ? false : true}>
@@ -38,7 +62,6 @@ const Login = () => {
         <LoginAsk>
           아직 로그인 계정이 없으신가요?
           <LoginToSignup to="/signup">회원가입</LoginToSignup>
-          <SignupPwLine>|</SignupPwLine>
           <LoginFindPw>비밀번호 찾기</LoginFindPw>
         </LoginAsk>
       </LoginPage>
@@ -48,7 +71,7 @@ const Login = () => {
 
 export default Login;
 
-const LoginPage = styled.div`
+const LoginPage = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -111,11 +134,8 @@ const LoginToSignup = styled(Link)`
   }
 `;
 
-const SignupPwLine = styled.span`
-  margin: auto 3px;
-`;
-
 const LoginFindPw = styled(Link)`
+  margin-left: 6px;
   color: #457c9e;
   font-weight: bold;
   &:hover {

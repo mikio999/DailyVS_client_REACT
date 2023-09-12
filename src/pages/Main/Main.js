@@ -24,6 +24,7 @@ const Main = () => {
         console.log(result);
       });
   }, []);
+
   return (
     <Container>
       <MainPage>

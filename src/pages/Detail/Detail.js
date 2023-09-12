@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const Detail = () => {
   const [voteDetail, setVoteDetail] = useState([]);
   const [selectedOption, setSelectedOption] = useState('');
+
   useEffect(() => {
     fetch('/data/vote_list.json')
       .then(response => response.json())
@@ -21,9 +22,32 @@ const Detail = () => {
     setSelectedOption(event.target.value);
   };
 
+  const navigate = useNavigate();
   const handleVoteSubmit = () => {
     console.log('Selected Option:', selectedOption);
+    navigate(`/vote-result/${id}`);
   };
+
+  // const handleVoteSubmit = () => {
+  //   // 선택한 옵션 데이터를 백엔드로 전송
+  //   fetch('/api/vote', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify({ selectedOption }),
+  //   })
+  //     .then(response => response.json())
+  //     .then(result => {
+  //       console.log('Selected Option:', selectedOption);
+  //       if (result.success) {
+  //         // 선택한 투표의 ID를 결과 페이지로 전달
+  //         navigate(`/vote-result/${id}`);
+  //       } else {
+  //         console.error('투표 처리 실패');
+  //       }
+  //     });
+  // };
 
   return (
     <DetailContainer>
