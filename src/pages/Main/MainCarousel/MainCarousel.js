@@ -8,7 +8,7 @@ import 'swiper/swiper-bundle.min.css';
 // SwiperCore modules
 SwiperCore.use([Navigation, Pagination, Autoplay]);
 
-const MainCarousel = ({ loading }) => {
+const MainCarousel = ({ loading, apiList }) => {
   const [mainVote, setMainVote] = useState([]);
 
   useEffect(() => {
@@ -47,9 +47,9 @@ const MainCarousel = ({ loading }) => {
             <SwiperSlide key={mainVotes.id}>
               <MainVoteCard
                 id={mainVotes.id}
-                name={mainVotes.name}
-                explain={mainVotes.explain}
-                url={mainVotes.url}
+                title={mainVotes.title}
+                thumbnail={mainVotes.thumbnail}
+                content={mainVotes.content}
               />
             </SwiperSlide>
           ))}

@@ -2,15 +2,15 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-const MainGridCard = ({ id, url, name }) => {
+const MainGridCard = ({ id, thumbnail, title }) => {
   const navigate = useNavigate();
   const onClickDetailButton = () => {
     navigate(`/vote-detail/${id}`);
   };
   return (
     <Container onClick={onClickDetailButton}>
-      <GridThumbnail src={url} alt={name} />
-      <GridName>{name}</GridName>
+      <GridThumbnail src={thumbnail} alt={title} />
+      <GridName>{title}</GridName>
     </Container>
   );
 };

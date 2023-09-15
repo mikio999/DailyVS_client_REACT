@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-const MainVoteCard = ({ id, url, name, explain }) => {
+const MainVoteCard = ({ id, thumbnail, title, content }) => {
   const navigate = useNavigate();
 
   const onClickDetailButton = () => {
@@ -13,9 +13,13 @@ const MainVoteCard = ({ id, url, name, explain }) => {
 
   return (
     <Container>
-      <VoteThumnail src={url} alt="투표썸네일" onClick={onClickDetailButton} />
-      <VoteName>{name}</VoteName>
-      <VoteExplanation>{explain}</VoteExplanation>
+      <VoteThumnail
+        src={thumbnail}
+        alt="투표썸네일"
+        onClick={onClickDetailButton}
+      />
+      <VoteName>{title}</VoteName>
+      <VoteExplanation>{content}</VoteExplanation>
     </Container>
   );
 };
