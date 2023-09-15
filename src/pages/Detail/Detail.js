@@ -7,10 +7,11 @@ const Detail = () => {
   const [selectedOption, setSelectedOption] = useState('');
 
   useEffect(() => {
-    fetch('/data/vote_list.json')
+    fetch('http://127.0.0.1:8000/api/')
       .then(response => response.json())
       .then(result => {
         setVoteDetail(result);
+        console.log(result);
       });
   }, []);
   const location = useLocation();

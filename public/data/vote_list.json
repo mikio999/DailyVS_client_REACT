@@ -1,9 +1,9 @@
 [
   {
     "id": 1,
-    "name": "민트 초코",
-    "url": "/images/Carousel/mintchoco.jpg",
-    "explain": "민초 vs 반민초",
+    "title": "민트 초코",
+    "thumbnail": "/images/Carousel/mintchoco.jpg",
+    "content": "민초 vs 반민초",
     "option_1": "민초파",
     "option_2": "반민초파",
     "option_1_url": "https://sallysbakingaddiction.com/wp-content/uploads/2015/03/Easy-Mint-Chocolate-Bark-6.jpg",
@@ -11,9 +11,9 @@
   },
   {
     "id": 2,
-    "name": "하반기 아이돌 대전",
-    "url": "/images/Carousel/ive.webp",
-    "explain": "아이브 vs 르세라핌",
+    "title": "하반기 아이돌 대전",
+    "thumbnail": "/images/Carousel/ive.webp",
+    "content": "아이브 vs 르세라핌",
     "option_1": "아이브",
     "option_2": "르세라핌",
     "option_1_url": "https://talkimg.imbc.com/TVianUpload/tvian/TViews/image/2022/12/03/e4073bd2-ea7a-4bb9-8b1f-d409eef3e053.jpg",
@@ -31,9 +31,9 @@
   },
   {
     "id": 4,
-    "name": "진짜 판다",
-    "url": "/images/Carousel/pandas.jpg",
-    "explain": "자이언트 판다 vs 렛서 판다",
+    "title": "진짜 판다",
+    "thumbnail": "/images/Carousel/pandas.jpg",
+    "content": "자이언트 판다 vs 렛서 판다",
     "option_1": "자이언트 판다",
     "option_2": "렛서 판다",
     "option_1_url": "https://blog.kakaocdn.net/dn/bq7aS9/btqSIYWoFWc/uECunLf1LkTa3jkXKtQkO0/img.jpg",

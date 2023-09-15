@@ -7,7 +7,7 @@ const MainGrid = ({ loading }) => {
 
   useEffect(() => {
     if (!loading) {
-      fetch('/data/vote_list.json')
+      fetch(`http://127.0.0.1:8000/api/`)
         .then(response => response.json())
         .then(result => {
           setMainGridVote(result);
@@ -23,8 +23,8 @@ const MainGrid = ({ loading }) => {
           <MainGridVote key={mainGridVotes.id}>
             <MainGridCard
               id={mainGridVotes.id}
-              name={mainGridVotes.name}
-              url={mainGridVotes.url}
+              title={mainGridVotes.title}
+              thumbnail={mainGridVotes.thumbnail}
             />
           </MainGridVote>
         ))}
