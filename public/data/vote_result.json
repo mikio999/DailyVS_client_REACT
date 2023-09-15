@@ -17,17 +17,17 @@
     "explain": "아이브 vs 르세라핌",
     "option_1": "아이브",
     "option_2": "르세라핌",
-    "option_1_percentage": 60,
-    "option_2_percentage": 40,
+    "option_1_percentage": 50,
+    "option_2_percentage": 50,
     "total_vote_people": 120
   },
   {
     "id": 3,
     "name": "프로그래밍 언어",
     "url": "/images/Carousel/computer.jpg",
-    "explain": "입문용 프로그래밍 언어 추천좀  JS vs Python",
+    "explain": "입문용 프로그래밍 언어 추천좀  JS vs C",
     "option_1": "Javascript",
-    "option_2": "Python",
+    "option_2": "C",
     "option_1_percentage": 60,
     "option_2_percentage": 40,
     "total_vote_people": 150
