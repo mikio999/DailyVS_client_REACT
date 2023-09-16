@@ -18,4 +18,5 @@ html {
   margin-left: auto;
   margin-right: auto;
   width: 500px;
+  min-height: 1000px;
 }

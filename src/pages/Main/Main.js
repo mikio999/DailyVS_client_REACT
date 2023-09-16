@@ -24,12 +24,12 @@ const Main = () => {
         console.log(result);
       });
   }, []);
+
   return (
     <Container>
       <MainPage>
         <MainCarousel loading={loading} />
-        <MainGrid loading={loading} />
-        {/* <MainApi>{apiList}</MainApi> */}
+        <MainGrid loading={loading} apiList={apiList} />
       </MainPage>
     </Container>
   );
@@ -47,12 +47,12 @@ const MainPage = styled.h1`
   color: black;
 `;
 
-const MainApi = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 500px;
-  margin: 30px auto 30px auto;
-`;
+// const MainApi = styled.div`
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   width: 500px;
+//   margin: 30px auto 30px auto;
+// `;
 
 export default Main;
