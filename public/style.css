@@ -20,3 +20,7 @@ html {
   width: 500px;
   min-height: 1000px;
 }
+
+.radio-input {
+  display: none;
+}

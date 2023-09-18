@@ -6,7 +6,7 @@ import LoginNav from '../../components/LoginNav/LoginNav';
 
 const Login = () => {
   const [logInError, setLogInError] = useState(false);
-  const [userId, setUserId] = useState('');
+  const [email, setemail] = useState('');
   const [password, setPassword] = useState('');
 
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ const Login = () => {
       method: 'POST',
       headers: { 'content-Type': 'application/json;charset=utf-8' },
       body: JSON.stringify({
-        userId: userId,
+        email: email,
         password: password,
       }),
     })
@@ -31,11 +31,15 @@ const Login = () => {
       })
       .catch(error => {
         setLogInError(error.response?.data?.statusCode === 401);
-        alert(logInError + ': 아이디와 비밀번호를 다시 한번 확인해주세요');
+        alert(logInError + ': 이메일과 비밀번호를 다시 한번 확인해주세요');
       });
   };
 
-  const isValid = userId.length >= 5 && password.length >= 8;
+  const isValid =
+    email.length >= 8 &&
+    email.includes('@') &&
+    email.includes('.') &&
+    password.length >= 8;
 
   return (
     <>
@@ -44,10 +48,10 @@ const Login = () => {
         <LoginLogo src="images/Nav/main_logo.png" />
         <LoginIdInput
           type="text"
-          name="userId"
-          value={userId}
-          onChange={e => setUserId(e.target.value)}
-          placeholder="아이디"
+          name="email"
+          value={email}
+          onChange={e => setemail(e.target.value)}
+          placeholder="이메일"
         />
         <LoginPwInput
           type="password"
@@ -89,7 +93,7 @@ const LoginIdInput = styled.input`
   width: 300px;
   height: 50px;
   margin-bottom: 10px;
-  font-size: 20px;
+  font-size: 18px;
   border: 1px rgba(128, 128, 128, 0.2) solid;
   background-color: #f4faff;
   padding-left: 20px;
@@ -99,7 +103,7 @@ const LoginPwInput = styled.input`
   width: 300px;
   height: 50px;
   margin-bottom: 30px;
-  font-size: 20px;
+  font-size: 18px;
   border: 1px rgba(128, 128, 128, 0.2) solid;
   background-color: #f4faff;
   padding-left: 20px;
