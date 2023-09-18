@@ -18,8 +18,7 @@ const Signup = () => {
 
   const navigate = useNavigate();
   const [selectedGender, setSelectedGender] = useState('');
-  const [showEmailVerificationModal, setShowEmailVerificationModal] =
-    useState(false);
+
   const handleGenderChange = e => {
     setSelectedGender(e.target.value);
   };
@@ -38,15 +37,15 @@ const Signup = () => {
     return userSignupPW === signupPWCheck;
   };
 
-  // 모달 열기 함수
-  const openEmailVerificationModal = () => {
-    setShowEmailVerificationModal(true);
-  };
+  // // 모달 열기 함수
+  // const openEmailVerificationModal = () => {
+  //   setShowEmailVerificationModal(true);
+  // };
 
-  // 모달 닫기 함수
-  const closeEmailVerificationModal = () => {
-    setShowEmailVerificationModal(false);
-  };
+  // // 모달 닫기 함수
+  // const closeEmailVerificationModal = () => {
+  //   setShowEmailVerificationModal(false);
+  // };
 
   const isFormValid = () => {
     return (
@@ -73,13 +72,11 @@ const Signup = () => {
     }
 
     if (!isFormValid()) {
-      // 유효성 검사 실패 시 경고 메시지를 표시하거나 다른 처리를 수행할 수 있습니다.
       alert('입력 정보를 확인해주세요.');
       return;
     }
 
     try {
-      // 서버로 회원가입 데이터 전송
       const response = await fetch('서버_회원가입_API_URL', {
         method: 'POST',
         headers: {
@@ -89,8 +86,8 @@ const Signup = () => {
       });
 
       if (response.ok) {
-        // 회원가입 성공 시 로그인 페이지로 이동
-        navigate('/login');
+        // 회원가입 성공 시 이메일 인증 페이지로 이동
+        navigate('/email-verification');
       } else {
         // 회원가입 실패 시 적절한 처리를 수행합니다.
         const data = await response.json();
@@ -98,7 +95,7 @@ const Signup = () => {
       }
     } catch (error) {
       console.error('회원가입 에러:', error);
-      // 에러 처리 로직 추가
+      alert('회원가입 에러:', error);
     }
   };
   // MBTI 선택 항목
@@ -223,17 +220,8 @@ const Signup = () => {
           <SignupToLogin>
             바로 <SignupLoginBtn to="/login">로그인</SignupLoginBtn>하러 가기
           </SignupToLogin>
-          {/* 이메일 인증 모달 */}
-          {showEmailVerificationModal && (
-            <EmailVerification
-              user={{ username: signupNickName }}
-              code="인증 코드 여기에"
-              onClose={closeEmailVerificationModal} // 모달 닫기 함수 전달
-            />
-          )}
         </SignupContainer>
       </SignupPage>
-      <FakeBtn onClick={openEmailVerificationModal}>임시버튼</FakeBtn>
     </>
   );
 };
@@ -325,8 +313,4 @@ const MBTIDropdown = styled.select`
   border: 1px rgba(128, 128, 128, 0.2) solid;
   background-color: #f4faff;
   padding-left: 20px;
-`;
-
-const FakeBtn = styled.button`
-  width: 150px;
 `;
