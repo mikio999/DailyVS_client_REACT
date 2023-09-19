@@ -1,20 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
 import LoginNav from '../../components/LoginNav/LoginNav';
-import EmailVerification from './EmailVerification';
+import { connect } from 'react-redux';
+import { signup } from '../../actions/auth';
+import axios from 'axios';
 
-const Signup = () => {
-  const [userSignupInfo, setUserSignupInfo] = useState({
-    signupEmail: '',
-    signupPW: '',
-    signupMBTI: '',
-    signupNickName: '',
-    signupGender: '',
+const Signup = ({ signup, isAuthenticated }) => {
+  const [accountCreated, setAccountCreated] = useState(false);
+  const [formData, setFormData] = useState({
+    email: '',
+    nickname: '',
+    gender: '',
+    mbti: '',
+    password: '',
+    re_password: '',
   });
+  const { email, nickname, gender, mbti, password, re_password } = formData;
+
   const [signupPWCheck, setSignupPWCheck] = useState('');
-  const { signupEmail, signupPW, signupMBTI, signupNickName, signupGender } =
-    userSignupInfo;
   const [passwordMatch, setPasswordMatch] = useState(false);
 
   const navigate = useNavigate();
@@ -22,9 +26,9 @@ const Signup = () => {
 
   const handleGenderChange = e => {
     setSelectedGender(e.target.value);
-    setUserSignupInfo({
-      ...userSignupInfo,
-      signupGender: e.target.value,
+    setFormData({
+      ...formData,
+      gender: e.target.value,
     });
   };
 
@@ -34,71 +38,48 @@ const Signup = () => {
 
   const emailCheck = userSignupEmail => emailRegEx.test(userSignupEmail);
 
-  const passwordCheck = userSignupPW => {
-    return userSignupPW.match(passwordRegEx) !== null;
+  const passwordCheck = password => {
+    return password.match(passwordRegEx) !== null;
   };
 
-  const passwordDoubleCheck = (userSignupPW, signupPWCheck) => {
-    const match = userSignupPW === signupPWCheck;
+  const passwordDoubleCheck = (password, re_password) => {
+    const match = password === re_password;
     setPasswordMatch(match);
     return match;
   };
 
   const isFormValid = () => {
-    console.log('Email:', signupEmail);
-    console.log('MBTI:', signupMBTI);
-    console.log('NickName:', signupNickName);
-    console.log('Gender:', signupGender);
-
     return (
-      signupEmail.length > 0 &&
-      signupMBTI.length > 0 &&
-      signupNickName.length >= 2 &&
-      signupGender.length > 0
+      email.length > 0 &&
+      mbti.length > 0 &&
+      password.length > 0 &&
+      nickname.length >= 2 &&
+      gender.length > 0
     );
   };
 
-  const onSubmit = async e => {
+  const onSubmit = e => {
     e.preventDefault();
-    console.log(userSignupInfo);
+    console.log(formData);
 
-    if (!passwordCheck(signupPW)) {
-      alert('비밀번호 형식을 확인해주세요.');
-      return;
-    }
-
-    if (!passwordDoubleCheck(signupPW, signupPWCheck)) {
-      alert('비밀번호가 일치하지 않습니다.');
-      return;
-    }
-
-    if (!isFormValid()) {
-      alert('입력 정보를 확인해주세요.');
-      return;
-    }
-
-    try {
-      const response = await fetch('http://127.0.0.1:8000/account/signup/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(userSignupInfo),
-      });
-
-      if (response.ok) {
-        // 회원가입 성공 시 이메일 인증 페이지로 이동
-        navigate('/email-verification');
-      } else {
-        const data = await response.json();
-        alert(data.message);
-      }
-    } catch (response) {
-      console.error('Server Error:', response.statusText);
-      alert('회원가입 에러:', response.statusText);
+    if (password === re_password) {
+      signup(email, nickname, gender, mbti, password, re_password);
+      setAccountCreated(true);
     }
   };
-  // MBTI 선택 항목
+
+  useEffect(() => {
+    if (accountCreated) {
+      navigate('/login');
+    }
+  }, [accountCreated, navigate]);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/');
+    }
+  }, [isAuthenticated, navigate]);
+
   const mbtiOptions = [
     'ISTJ',
     'ISFJ',
@@ -126,29 +107,22 @@ const Signup = () => {
           <SignupLogo src="images/LoginNav/Only_Tex.png" />
           <SignupLabel>이메일</SignupLabel>
           <TextInput
-            value={signupEmail}
+            value={email}
             type="email"
             placeholder="이메일 주소"
-            onChange={e => {
-              setUserSignupInfo({
-                ...userSignupInfo,
-                signupEmail: e.target.value,
-              });
-              emailCheck(e.target.value);
-            }}
+            onChange={e => setFormData({ ...formData, email: e.target.value })}
+            required
+            autoComplete="new-password"
           />
           <SignupLabel>비밀번호(8자 이상 15자 이하) </SignupLabel>
           <TextInput
-            value={signupPW}
+            value={password}
             type="password"
             placeholder="비밀번호"
-            onChange={e => {
-              setUserSignupInfo({
-                ...userSignupInfo,
-                signupPW: e.target.value,
-              });
-              passwordCheck(e.target.value);
-            }}
+            onChange={e =>
+              setFormData({ ...formData, password: e.target.value })
+            }
+            required
           />
           <SignupLabel>
             확인 비밀번호
@@ -159,23 +133,18 @@ const Signup = () => {
             )}
           </SignupLabel>
           <TextInput
-            value={signupPWCheck}
             type="password"
             placeholder="확인 비밀번호"
-            onChange={e => {
-              setSignupPWCheck(e.target.value);
-              passwordDoubleCheck(signupPW, e.target.value);
-            }}
+            name="re_password"
+            value={re_password}
+            onChange={e =>
+              setFormData({ ...formData, re_password: e.target.value })
+            }
           />
           <SignupLabel>기타 정보 (성향 분석에 필요합니다!)</SignupLabel>
           <MBTIDropdown
-            value={signupMBTI}
-            onChange={e =>
-              setUserSignupInfo({
-                ...userSignupInfo,
-                signupMBTI: e.target.value,
-              })
-            }
+            value={mbti}
+            onChange={e => setFormData({ ...formData, mbti: e.target.value })}
           >
             <option value="">MBTI 선택</option>
             {mbtiOptions.map(option => (
@@ -185,13 +154,10 @@ const Signup = () => {
             ))}
           </MBTIDropdown>
           <TextInput
-            value={signupNickName}
+            value={nickname}
             placeholder="닉네임 (2자 이상 10자 이하)"
             onChange={e =>
-              setUserSignupInfo({
-                ...userSignupInfo,
-                signupNickName: e.target.value,
-              })
+              setFormData({ ...formData, nickname: e.target.value })
             }
           />
           <GenderRadioGroup>
@@ -199,14 +165,14 @@ const Signup = () => {
               className="radio-input"
               type="radio"
               name="gender"
-              value="male"
-              checked={selectedGender === 'male'}
-              onChange={handleGenderChange}
+              value="M"
+              checked={gender === 'M'}
+              onChange={e => handleGenderChange(e)}
               id="male-radio"
             />
             <GenderOption
               htmlFor="male-radio"
-              className={selectedGender === 'male' ? 'selected' : ''}
+              className={gender === 'M' ? 'selected' : ''}
             >
               남성
             </GenderOption>
@@ -215,14 +181,14 @@ const Signup = () => {
               className="radio-input"
               type="radio"
               name="gender"
-              value="female"
-              checked={selectedGender === 'female'}
-              onChange={handleGenderChange}
+              value="W"
+              checked={gender === 'W'}
+              onChange={e => handleGenderChange(e)}
               id="female-radio"
             />
             <GenderOption
               htmlFor="female-radio"
-              className={selectedGender === 'female' ? 'selected' : ''}
+              className={gender === 'W' ? 'selected' : ''}
             >
               여성
             </GenderOption>
@@ -237,7 +203,11 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps, { signup })(Signup);
 
 const SignupPage = styled.div`
   display: flex;
@@ -307,6 +277,10 @@ const GenderOption = styled.label`
 
   .radio-input {
     display: none;
+  }
+
+  &:hover {
+    border: 5px #17355a solid;
   }
 
   .radio-input:checked + & {
