@@ -15,12 +15,17 @@ const Signup = () => {
   const [signupPWCheck, setSignupPWCheck] = useState('');
   const { signupEmail, signupPW, signupMBTI, signupNickName, signupGender } =
     userSignupInfo;
+  const [passwordMatch, setPasswordMatch] = useState(false);
 
   const navigate = useNavigate();
   const [selectedGender, setSelectedGender] = useState('');
 
   const handleGenderChange = e => {
     setSelectedGender(e.target.value);
+    setUserSignupInfo({
+      ...userSignupInfo,
+      signupGender: e.target.value,
+    });
   };
 
   const emailRegEx =
@@ -34,23 +39,19 @@ const Signup = () => {
   };
 
   const passwordDoubleCheck = (userSignupPW, signupPWCheck) => {
-    return userSignupPW === signupPWCheck;
+    const match = userSignupPW === signupPWCheck;
+    setPasswordMatch(match);
+    return match;
   };
 
-  // // 모달 열기 함수
-  // const openEmailVerificationModal = () => {
-  //   setShowEmailVerificationModal(true);
-  // };
-
-  // // 모달 닫기 함수
-  // const closeEmailVerificationModal = () => {
-  //   setShowEmailVerificationModal(false);
-  // };
-
   const isFormValid = () => {
+    console.log('Email:', signupEmail);
+    console.log('MBTI:', signupMBTI);
+    console.log('NickName:', signupNickName);
+    console.log('Gender:', signupGender);
+
     return (
       signupEmail.length > 0 &&
-      passwordCheck(signupPW) &&
       signupMBTI.length > 0 &&
       signupNickName.length >= 2 &&
       signupGender.length > 0
@@ -77,7 +78,7 @@ const Signup = () => {
     }
 
     try {
-      const response = await fetch('서버_회원가입_API_URL', {
+      const response = await fetch('http://127.0.0.1:8000/account/signup/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -89,13 +90,12 @@ const Signup = () => {
         // 회원가입 성공 시 이메일 인증 페이지로 이동
         navigate('/email-verification');
       } else {
-        // 회원가입 실패 시 적절한 처리를 수행합니다.
         const data = await response.json();
-        alert(data.message); // 서버에서 반환한 에러 메시지 표시
+        alert(data.message);
       }
-    } catch (error) {
-      console.error('회원가입 에러:', error);
-      alert('회원가입 에러:', error);
+    } catch (response) {
+      console.error('Server Error:', response.statusText);
+      alert('회원가입 에러:', response.statusText);
     }
   };
   // MBTI 선택 항목
@@ -124,6 +124,7 @@ const Signup = () => {
       <SignupPage>
         <SignupContainer onSubmit={onSubmit}>
           <SignupLogo src="images/LoginNav/Only_Tex.png" />
+          <SignupLabel>이메일</SignupLabel>
           <TextInput
             value={signupEmail}
             type="email"
@@ -136,10 +137,11 @@ const Signup = () => {
               emailCheck(e.target.value);
             }}
           />
+          <SignupLabel>비밀번호(8자 이상 15자 이하) </SignupLabel>
           <TextInput
             value={signupPW}
             type="password"
-            placeholder="비밀번호 (8자 이상 15자 이하)"
+            placeholder="비밀번호"
             onChange={e => {
               setUserSignupInfo({
                 ...userSignupInfo,
@@ -148,6 +150,14 @@ const Signup = () => {
               passwordCheck(e.target.value);
             }}
           />
+          <SignupLabel>
+            확인 비밀번호
+            {passwordMatch && (
+              <PasswordMatchText>
+                비밀번호 일치 <PassWordCheck src="images/LoginNav/check.png" />
+              </PasswordMatchText>
+            )}
+          </SignupLabel>
           <TextInput
             value={signupPWCheck}
             type="password"
@@ -157,6 +167,7 @@ const Signup = () => {
               passwordDoubleCheck(signupPW, e.target.value);
             }}
           />
+          <SignupLabel>기타 정보 (성향 분석에 필요합니다!)</SignupLabel>
           <MBTIDropdown
             value={signupMBTI}
             onChange={e =>
@@ -243,6 +254,28 @@ const SignupContainer = styled.form`
 
 const SignupLogo = styled.img`
   width: 280px;
+`;
+
+const PassWordCheck = styled.img`
+  opacity: 0.9;
+  width: 20px;
+  margin-left: 5px;
+`;
+
+const PasswordMatchText = styled.span`
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+  color: green;
+  transition: opacity 0.3s ease;
+`;
+
+const SignupLabel = styled.label`
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  height: 20px;
 `;
 
 const TextInput = styled.input`
