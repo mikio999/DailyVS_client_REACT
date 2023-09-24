@@ -7,5 +7,26 @@
   "option_2": "반민초파",
   "option_1_percentage": 60,
   "option_2_percentage": 40,
-  "total_vote_people": 120
+  "total_count": 120,
+  "choice1_man_percentage": 34,
+  "choice1_woman_percentage": 66,
+  "choice2_man_percentage": 77,
+  "choice2_woman_percentage": 23,
+  "e_choice1_percentage": 30,
+  "e_choice2_percentage": 70,
+  "i_choice1_percentage": 60,
+
+  "i_choice2_percentage": 40,
+  "s_choice1_percentage": 80,
+  "s_choice2_percentage": 20,
+  "n_choice1_percentage": 50,
+  "n_choice2_percentage": 50,
+  "t_choice1_percentage": 65,
+  "t_choice2_percentage": 35,
+  "f_choice1_percentage": 51,
+  "f_choice2_percentage": 49,
+  "p_choice1_percentage": 90,
+  "p_choice2_percentage": 10,
+  "j_choice1_percentage": 45,
+  "j_choice2_percentage": 55
 }

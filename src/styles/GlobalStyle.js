@@ -1,6 +1,8 @@
 import { createGlobalStyle } from 'styled-components';
 // import NEXONFont from './fonts/NEXON-Gothic-Regular.otf';
 import esamanruMedium from './fonts/esamanru-Light.otf';
+import esamanruBold from './fonts/esamanru-Bold.otf';
+import esamanruLight from './fonts/esamanru-Light.otf';
 
 import reset from 'styled-reset';
 
@@ -25,7 +27,16 @@ const GlobalStyle = createGlobalStyle`
     src: url(${esamanruMedium});
   }
   
+    @font-face {
+    font-family: 'GongGothicLight';
+    src: url(${esamanruLight});
+  }
   
+    @font-face {
+    font-family: 'GongGothicBold';
+    src: url(${esamanruBold});
+  }
+
   * {
     box-sizing: border-box;
     font-family: 'NEXON Lv1 Gothic OTF', sans-serif;
@@ -44,6 +55,10 @@ const GlobalStyle = createGlobalStyle`
   a {
     text-decoration: none;
     color: black;
+  }
+
+  .apexcharts-menu-icon {
+    opacity: 0;
   }
 `;
 

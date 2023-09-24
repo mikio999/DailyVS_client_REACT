@@ -20,7 +20,7 @@ const ResultTop = ({ voteResult }) => {
       </ResultPercentage>
       <ResultTotalPeople>
         <ResultTotal>총 투표수:</ResultTotal>
-        <TotalPeople>{voteResult.total_vote_people}</TotalPeople>
+        <TotalPeople>{voteResult.total_count}</TotalPeople>
         <ResultTotal>건</ResultTotal>
       </ResultTotalPeople>
     </ResultTopContainer>
