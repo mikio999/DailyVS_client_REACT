@@ -1,10 +1,11 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import Chart from 'chart.js/auto';
 
 const ResultGraph = ({ voteResult }) => {
   const chartRef = useRef(null);
   const chartInstance = useRef(null);
+  const [chartId, setChartId] = useState(null);
 
   useEffect(() => {
     if (voteResult) {
@@ -17,11 +18,17 @@ const ResultGraph = ({ voteResult }) => {
         ],
       };
 
-      if (chartInstance.current) {
+      // 이전 차트 파괴
+      if (chartId) {
         chartInstance.current.destroy();
       }
 
-      new Chart(ctx, {
+      // 새로운 ID 생성
+      const newChartId = `chart-${Date.now()}`;
+      setChartId(newChartId);
+
+      // 차트 그리기
+      chartInstance.current = new Chart(ctx, {
         type: 'doughnut',
         data: {
           labels: graphData.labels,
