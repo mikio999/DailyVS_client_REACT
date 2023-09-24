@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { useLocation } from 'react-router-dom';
 import ResultGraph from './ResultGraph/ResultGraph';
 
 const Result = () => {
@@ -14,36 +13,24 @@ const Result = () => {
       });
   }, []);
 
-  const location = useLocation();
-  const pathnameParts = location.pathname.split('/');
-  const id = pathnameParts[pathnameParts.length - 1];
-  const selectedVoteResult = voteResult[id - 1];
-
   return (
     <ResultContainer>
-      {selectedVoteResult ? (
-        <>
-          <ResultTitle>{selectedVoteResult.name}</ResultTitle>
-          <ResultExplanation>{selectedVoteResult.explain}</ResultExplanation>
-          <ResultPercentage>
-            <FirstOption>
-              <FirstOptionName>{selectedVoteResult.option_1}</FirstOptionName>
-              <FirstPercentage>
-                {selectedVoteResult.option_1_percentage} %
-              </FirstPercentage>
-            </FirstOption>
-            <SecondOption>
-              <SecondOptionName>{selectedVoteResult.option_2}</SecondOptionName>
-              <SecondPercentage>
-                {selectedVoteResult.option_2_percentage} %
-              </SecondPercentage>
-            </SecondOption>
-          </ResultPercentage>
-        </>
-      ) : (
-        <p>Result not found</p>
-      )}
-      <ResultGraph selectedVoteResult={selectedVoteResult} />
+      <ResultTitle>{voteResult.name}</ResultTitle>
+      <ResultExplanation>{voteResult.explain}</ResultExplanation>
+      <ResultPercentage>
+        <FirstOption>
+          <FirstOptionName>{voteResult.option_1}</FirstOptionName>
+          <FirstPercentage>{voteResult.option_1_percentage} %</FirstPercentage>
+        </FirstOption>
+        <SecondOption>
+          <SecondOptionName>{voteResult.option_2}</SecondOptionName>
+          <SecondPercentage>
+            {voteResult.option_2_percentage} %
+          </SecondPercentage>
+        </SecondOption>
+      </ResultPercentage>
+
+      <ResultGraph voteResult={voteResult} />
     </ResultContainer>
   );
 };

@@ -1,12 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../../AuthContext';
 
 const Nav = () => {
+  const { user, logout } = useAuth();
   return (
     <NavContainer>
       <NavList>
-        <NavLogin to="/login">로그인</NavLogin>
+        {user ? (
+          <NavLink to="/" onClick={logout}>
+            로그아웃
+          </NavLink>
+        ) : (
+          <NavLink to="/login">로그인</NavLink>
+        )}
         <NavLogo to="/">
           <LogoImg src="/images/Nav/Row.png" />
         </NavLogo>
@@ -25,7 +33,7 @@ const NavContainer = styled.div`
   width: 500px;
   height: 10vh;
   margin: 0 auto;
-  background-color: ${props => props.theme.colors.blueBgColor};
+  background: linear-gradient(135deg, #e0e9ff, #f5e8fc, #ffdbe3);
 `;
 
 const NavList = styled.div`
@@ -35,7 +43,7 @@ const NavList = styled.div`
   font-size: 15px;
 `;
 
-const NavLogin = styled(Link)`
+const NavLink = styled(Link)`
   display: flex;
   align-items: center;
   justify-content: center;

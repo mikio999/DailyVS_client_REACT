@@ -1,36 +1,64 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
+import { useAuth } from '../../AuthContext';
 
 const Detail = () => {
   const [voteDetail, setVoteDetail] = useState([]);
   const [selectedOption, setSelectedOption] = useState('');
+  const { detailId } = useParams();
+  const { user } = useAuth();
+  console.log({ user });
+  const location = useLocation();
+
+  // useEffect(() => {
+  //   fetch(`http://127.0.0.1:8000/api/${detailId}`)
+  //     .then(response => response.json())
+  //     .then(result => {
+  //       setVoteDetail(result);
+  //       console.log(result);
+  //     });
+  // }, []);
 
   useEffect(() => {
-    fetch('http://127.0.0.1:8000/api/')
+    fetch('/data/data.json')
       .then(response => response.json())
       .then(result => {
         setVoteDetail(result);
         console.log(result);
       });
   }, []);
-  const location = useLocation();
-  const pathnameParts = location.pathname.split('/');
-  const id = pathnameParts[pathnameParts.length - 1];
-  const selectedVoteDetail = voteDetail[id - 1];
 
   const handleOptionChange = event => {
     setSelectedOption(event.target.value);
+    console.log(selectedOption);
   };
 
   const navigate = useNavigate();
-  const handleVoteSubmit = () => {
+  const handleVoteSubmit = e => {
+    e.preventDefault();
     console.log('Selected Option:', selectedOption);
-    navigate(`/vote-result/${id}`);
+    if (user) {
+      // 로그인된 경우
+      navigate(`/vote-result/${detailId}`);
+    } else {
+      // 로그인되지 않은 경우
+      const nextLocation = `/vote-detail-gender/${detailId}`;
+      navigate(nextLocation, { state: { prevLocation: location.pathname } });
+    }
+  };
+
+  const handleOptionSelect = selectedOption => {
+    const nextLocation = `/vote-detail-gender/${detailId}?selectedOption=${selectedOption}`;
+    navigate(nextLocation);
+  };
+
+  const isFormValid = () => {
+    return selectedOption !== '';
   };
 
   // const handleVoteSubmit = () => {
-  //   // 선택한 옵션 데이터를 백엔드로 전송
+
   //   fetch('/api/vote', {
   //     method: 'POST',
   //     headers: {
@@ -43,7 +71,13 @@ const Detail = () => {
   //       console.log('Selected Option:', selectedOption);
   //       if (result.success) {
   //         // 선택한 투표의 ID를 결과 페이지로 전달
-  //         navigate(`/vote-result/${id}`);
+  //         if (user) {
+  //           // 로그인된 경우
+  //           navigate(`/vote-result/${detailId}`);
+  //         } else {
+  //           // 로그인되지 않은 경우
+  //            navigate(`/vote-detail-gender/${detailId}`);
+  //         }
   //       } else {
   //         console.error('투표 처리 실패');
   //       }
@@ -52,35 +86,49 @@ const Detail = () => {
 
   return (
     <DetailContainer>
-      {selectedVoteDetail ? (
+      {voteDetail ? (
         <>
-          <DetailTitle>{selectedVoteDetail.name}</DetailTitle>
-          <DetailExplain>{selectedVoteDetail.explain}</DetailExplain>
-          <DetailImage
-            src={selectedVoteDetail.url}
-            alt={selectedVoteDetail.name}
+          <DetailTitle>{voteDetail.name}</DetailTitle>
+          <DetailExplain>{voteDetail.explain}</DetailExplain>
+          <DetailImage src={voteDetail.url} alt={voteDetail.name} />
+
+          <DetailOption
+            className="radio-input"
+            type="radio"
+            name="option"
+            value="option_1"
+            checked={selectedOption === 'option_1'}
+            onChange={e => handleOptionChange(e)}
+            id="option1-radio"
           />
-          <DetailOptionName>
-            <DetailOption
-              type="radio"
-              name="option"
-              value={selectedVoteDetail.option_1}
-              checked={selectedOption === selectedVoteDetail.option_1}
-              onChange={handleOptionChange}
-            />
-            {selectedVoteDetail.option_1}
+
+          <DetailOptionName
+            htmlFor="option1-radio"
+            className={selectedOption === 'option_1' ? 'selected' : ''}
+            onClick={() => setSelectedOption('option_1')}
+          >
+            {voteDetail.option_1}
           </DetailOptionName>
-          <DetailOptionName>
-            <DetailOption
-              type="radio"
-              name="option"
-              value={selectedVoteDetail.option_2}
-              checked={selectedOption === selectedVoteDetail.option_2}
-              onChange={handleOptionChange}
-            />
-            {selectedVoteDetail.option_2}
+
+          <DetailOption
+            className="radio-input"
+            type="radio"
+            name="option"
+            value="option_2"
+            checked={selectedOption === 'option_2'}
+            onChange={e => handleOptionChange(e)}
+            id="option2-radio"
+          />
+          <DetailOptionName
+            htmlFor="option2-radio"
+            className={selectedOption === 'option_2' ? 'selected' : ''}
+            onClick={() => setSelectedOption('option_2')}
+          >
+            {voteDetail.option_2}
           </DetailOptionName>
-          <DetailSubmitBtn onClick={handleVoteSubmit}>투표하기</DetailSubmitBtn>
+          <DetailSubmitBtn onClick={handleVoteSubmit} disabled={!isFormValid()}>
+            투표하기
+          </DetailSubmitBtn>
         </>
       ) : (
         <p>Vote not found</p>
@@ -91,12 +139,13 @@ const Detail = () => {
 
 export default Detail;
 
-const DetailContainer = styled.div`
+const DetailContainer = styled.form`
   width: 500px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: 10px auto;
+  margin: 0 auto;
+  background-color: #f8f8ff;
 `;
 
 const DetailTitle = styled.h1`
@@ -104,7 +153,7 @@ const DetailTitle = styled.h1`
   text-align: center;
   align-items: center;
   font-size: 24px;
-  margin: 10px auto;
+  margin: 30px auto;
 `;
 
 const DetailExplain = styled.div`
@@ -122,6 +171,40 @@ const DetailImage = styled.img`
   object-fit: cover;
 `;
 
-const DetailOptionName = styled.div``;
-const DetailOption = styled.input``;
-const DetailSubmitBtn = styled.button``;
+const DetailOptionName = styled.div`
+  display: flex;
+  margin: 10px auto;
+  border: 1px rgba(128, 128, 128, 0.2) solid;
+  height: 200px;
+  width: 350px;
+  cursor: pointer;
+  transition: border 0.3s ease;
+  &:hover {
+    border: 10px #17355a solid;
+  }
+`;
+
+const DetailOption = styled.input`
+  display: none;
+
+  &:checked + ${DetailOptionName} {
+    border: 10px #17355a solid;
+  }
+`;
+
+const DetailSubmitBtn = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px auto;
+  width: 300px;
+  height: 50px;
+  font-size: 24px;
+  background-color: ${props => (props.disabled ? '#BDBDBD' : '#17355a')};
+  color: white;
+  border: none;
+  border-radius: 15px;
+  &:hover {
+    cursor: pointer;
+  }
+`;

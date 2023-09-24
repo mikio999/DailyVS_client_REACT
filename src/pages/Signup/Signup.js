@@ -18,7 +18,6 @@ const Signup = ({ signup, isAuthenticated }) => {
   });
   const { email, nickname, gender, mbti, password, re_password } = formData;
 
-  const [signupPWCheck, setSignupPWCheck] = useState('');
   const [passwordMatch, setPasswordMatch] = useState(false);
 
   const navigate = useNavigate();
@@ -30,22 +29,6 @@ const Signup = ({ signup, isAuthenticated }) => {
       ...formData,
       gender: e.target.value,
     });
-  };
-
-  const emailRegEx =
-    /^[A-Za-z0-9]([-_.]?[A-Za-z0-9])*@[A-Za-z0-9]([-_.]?[A-Za-z0-9])*\.[A-Za-z]{2,3}$/i;
-  const passwordRegEx = /^[A-Za-z0-9]{8,15}$/;
-
-  const emailCheck = userSignupEmail => emailRegEx.test(userSignupEmail);
-
-  const passwordCheck = password => {
-    return password.match(passwordRegEx) !== null;
-  };
-
-  const passwordDoubleCheck = (password, re_password) => {
-    const match = password === re_password;
-    setPasswordMatch(match);
-    return match;
   };
 
   const isFormValid = () => {
@@ -69,16 +52,16 @@ const Signup = ({ signup, isAuthenticated }) => {
   };
 
   useEffect(() => {
-    if (accountCreated) {
-      navigate('/login');
-    }
-  }, [accountCreated, navigate]);
-
-  useEffect(() => {
     if (isAuthenticated) {
       navigate('/');
     }
   }, [isAuthenticated, navigate]);
+
+  useEffect(() => {
+    if (accountCreated) {
+      navigate('/login');
+    }
+  }, [accountCreated, navigate]);
 
   const mbtiOptions = [
     'ISTJ',

@@ -6,30 +6,40 @@ import 'swiper/swiper-bundle.min.css';
 
 const Main = () => {
   const [loading, setLoading] = useState(true);
-  const [apiList, setApiList] = useState('');
+  const [gridList, setGridList] = useState('');
+
+  // useEffect(() => {
+  //   fetch(`http://127.0.0.1:8000/api/`)
+  //     .then(response => response.json())
+  //     .then(result => {
+  //       setLoading(false);
+  //     });
+  // }, []);
+
+  // useEffect(() => {
+  //   fetch(`http://127.0.0.1:8000/api/`)
+  //     .then(response => response.json())
+  //     .then(result => {
+  //       setApiList(result);
+  //       console.log(result);
+  //     });
+  // }, []);
 
   useEffect(() => {
     fetch('/data/vote_list.json')
       .then(response => response.json())
       .then(result => {
         setLoading(false);
-      });
-  }, []);
-
-  useEffect(() => {
-    fetch(`http://127.0.0.1:8000/api/`)
-      .then(response => response.json())
-      .then(result => {
-        setApiList(result);
+        setGridList(result);
         console.log(result);
       });
   }, []);
-
   return (
     <Container>
       <MainPage>
         <MainCarousel loading={loading} />
-        <MainGrid loading={loading} apiList={apiList} />
+        {/* <MainGrid loading={loading} gridList={gridList} /> */}
+        <MainGrid loading={loading} gridList={gridList} />
       </MainPage>
     </Container>
   );
@@ -40,19 +50,12 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   width: 500px;
-  margin: 30px auto 30px auto;
+  margin: auto;
+  background-color: ${props => props.theme.colors.blueBgColor};
 `;
 
 const MainPage = styled.h1`
   color: black;
 `;
-
-// const MainApi = styled.div`
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   width: 500px;
-//   margin: 30px auto 30px auto;
-// `;
 
 export default Main;

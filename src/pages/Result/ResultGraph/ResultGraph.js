@@ -2,18 +2,18 @@ import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import Chart from 'chart.js/auto';
 
-const ResultGraph = ({ selectedVoteResult }) => {
+const ResultGraph = ({ votedResult }) => {
   const chartRef = useRef(null);
   const chartInstance = useRef(null);
 
   useEffect(() => {
-    if (selectedVoteResult) {
+    if (votedResult) {
       const ctx = chartRef.current.getContext('2d');
       const graphData = {
-        labels: [selectedVoteResult.option_1, selectedVoteResult.option_2],
+        labels: [votedResult.option_1, votedResult.option_2],
         percentages: [
-          selectedVoteResult.option_1_percentage,
-          selectedVoteResult.option_2_percentage,
+          votedResult.option_1_percentage,
+          votedResult.option_2_percentage,
         ],
       };
 
@@ -40,7 +40,7 @@ const ResultGraph = ({ selectedVoteResult }) => {
         },
       });
     }
-  }, [selectedVoteResult]);
+  }, [votedResult]);
 
   return (
     <GraphContainer>

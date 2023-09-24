@@ -5,15 +5,26 @@ import MainGridCard from './MainGridCard';
 const MainGrid = ({ loading }) => {
   const [mainGridVote, setMainGridVote] = useState([]);
 
+  // useEffect(() => {
+  //   if (!loading) {
+  //     fetch(`http://127.0.0.1:8000/api/`)
+  //       .then(response => response.json())
+  //       .then(result => {
+  //         setMainGridVote(result);
+  //       });
+  //   }
+  // }, [loading]);
+
   useEffect(() => {
     if (!loading) {
-      fetch(`http://127.0.0.1:8000/api/`)
+      fetch('data/vote_list.json')
         .then(response => response.json())
         .then(result => {
           setMainGridVote(result);
         });
     }
   }, [loading]);
+
   console.log(mainGridVote);
   return (
     <MainGridSection>
