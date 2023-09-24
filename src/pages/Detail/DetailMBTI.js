@@ -19,6 +19,7 @@ const DetailMBTI = () => {
     setSelectedOptions(updatedOptions);
     console.log(updatedOptions);
   };
+
   const mixedMBTI = () => {
     const { EI, NS, TF, PJ } = selectedOptions;
     const newUserMBTI = EI + NS + TF + PJ;
