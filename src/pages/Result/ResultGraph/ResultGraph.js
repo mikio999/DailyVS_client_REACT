@@ -5,6 +5,7 @@ import EIGraph from './EIGraph/EIGraph.js';
 import PJGraph from './PJGraph/PJGraph.js';
 import SNGraph from './SNGraph/SNGraph.js';
 import TFGraph from './TFGraph/TFGraph.js';
+import GenderGraph from './GenderGraph/GenderGraph.js';
 
 const ResultGraph = ({ voteResult }) => {
   const chartRef = useRef(null);
@@ -56,6 +57,14 @@ const ResultGraph = ({ voteResult }) => {
   return (
     <GraphContainer>
       <canvas ref={chartRef} style={{ margin: '10px auto' }}></canvas>
+      <GenderGraph
+        option1={voteResult.option_1}
+        option2={voteResult.option_2}
+        choice1ManPercentage={voteResult.choice1_man_percentage}
+        choice2ManPercentage={voteResult.choice2_man_percentage}
+        choice1WomanPercentage={voteResult.choice1_woman_percentage}
+        choice2WomanPercentage={voteResult.choice2_woman_percentage}
+      />
       <EIGraph
         option1={voteResult.option_1}
         option2={voteResult.option_2}
