@@ -8,6 +8,7 @@ import VoteDetail from './pages/Detail/Detail';
 import VoteResult from './pages/Result/Result';
 import DetailGender from './pages/Detail/DetailGender';
 import DetailMBTI from './pages/Detail/DetailMBTI';
+import Mypage from './pages/Mypage/Mypage';
 
 const RouteWithNavFooter = () => {
   return (
@@ -20,6 +21,7 @@ const RouteWithNavFooter = () => {
         <Route path="/vote-detail-mbti/:id" element={<DetailMBTI />} />
         <Route path="/vote-result/:id" element={<VoteResult />} />
         <Route path="/fortune" element={<Fortune />} />
+        <Route path="/my-page" element={<Mypage />} />
       </Routes>
       <Footer />
     </>

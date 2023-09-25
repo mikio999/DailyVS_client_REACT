@@ -9,16 +9,23 @@ const Nav = () => {
     <NavContainer>
       <NavList>
         {user ? (
-          <NavLink to="/" onClick={logout}>
-            로그아웃
-          </NavLink>
+          <NavLink2 to="/">
+            <img src="images/Nav/Unlogged.png" />
+            마이페이지
+          </NavLink2>
         ) : (
-          <NavLink to="/login">로그인</NavLink>
+          <NavLink1 to="/login">
+            {' '}
+            <img src="images/Nav/Logged.png" />
+            로그인
+          </NavLink1>
         )}
         <NavLogo to="/">
           <LogoImg src="/images/Nav/Row.png" />
         </NavLogo>
-        <NavFortune to="/fortune">포춘쿠키</NavFortune>
+        <NavFortune to="/fortune">
+          <img src="/images/Fortune/Cookie.png" />
+        </NavFortune>
       </NavList>
     </NavContainer>
   );
@@ -43,13 +50,41 @@ const NavList = styled.div`
   font-size: 15px;
 `;
 
-const NavLink = styled(Link)`
+const NavLink1 = styled(Link)`
   display: flex;
   align-items: center;
   justify-content: center;
+  font-family: 'GongGothicLight';
+  font-size: 18px;
+  color: #17355a;
   &:hover {
-    opacity: 0.6;
+    opacity: 0.9;
     cursor: pointer;
+    text-decoration: none;
+  }
+
+  & img {
+    width: 30px;
+    margin-right: 10px;
+  }
+`;
+
+const NavLink2 = styled(Link)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'GongGothicLight';
+  font-size: 18px;
+  color: #ff495a;
+  &:hover {
+    opacity: 0.9;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  & img {
+    width: 30px;
+    margin-right: 10px;
   }
 `;
 
@@ -72,7 +107,11 @@ const NavFortune = styled(Link)`
   align-items: center;
   justify-content: center;
   &:hover {
-    opacity: 0.6;
+    opacity: 0.8;
     cursor: pointer;
+  }
+
+  & img {
+    width: 60px;
   }
 `;
