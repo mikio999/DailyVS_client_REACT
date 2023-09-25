@@ -1,8 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
+import MypageInformation from './MypageInformation';
+import MypageVoteList from './MypageVoteList';
+import MypageLikeList from './MypageLikeList';
 
 const Mypage = () => {
-  return <Container>마이페이지입니다~</Container>;
+  return (
+    <Container>
+      <MypageInformation />
+      <MypageVoteList />
+      <MypageLikeList />
+    </Container>
+  );
 };
 
 export default Mypage;
