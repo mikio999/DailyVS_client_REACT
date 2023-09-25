@@ -53,11 +53,6 @@ const EIGraphAnalysis = ({
     fill: {
       opacity: 1,
     },
-    legend: {
-      position: 'top',
-      horizontalAlign: 'right',
-      offsetX: 40,
-    },
   };
 
   return (
@@ -78,12 +73,8 @@ export default EIGraphAnalysis;
 const EIContainer = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: -40px;
+  margin-top: -30px;
   & tspan {
     font-size: 16px;
-  }
-
-  & .apexcharts-legend-series {
-    opacity: 0;
   }
 `;

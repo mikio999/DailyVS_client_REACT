@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import ManChartAnalysis from './ManChartAnalysis';
 import WomanChartAnalysis from './WomanChartAnalysis';
@@ -9,7 +9,6 @@ const GenderGraphAnalysis = ({ voteResult }) => {
     !voteResult.choice1_man_percentage ||
     !voteResult.choice1_woman_percentage
   ) {
-    // voteResult가 없거나 필요한 속성이 없을 때 에러를 방지하기 위해 렌더링하지 않음
     return null;
   }
 

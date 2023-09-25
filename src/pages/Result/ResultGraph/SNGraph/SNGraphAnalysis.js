@@ -53,11 +53,6 @@ const SNGraphAnalysis = ({
     fill: {
       opacity: 1,
     },
-    legend: {
-      position: 'top',
-      horizontalAlign: 'right',
-      offsetX: 40,
-    },
   };
 
   return (
@@ -81,9 +76,5 @@ const SNContainer = styled.div`
   margin-top: -40px;
   & tspan {
     font-size: 16px;
-  }
-
-  & .apexcharts-legend-series {
-    opacity: 0;
   }
 `;
