@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
 const ResultBtn = ({ onCapture }) => {
+  const [captureEnabled, setCaptureEnabled] = useState(false);
   const location = useLocation();
   const baseUrl = 'https://daily-vs.com';
   const text = `${baseUrl}${location.pathname}`;
 
-  console.log(location);
   const handleCopyClipBoard = async () => {
     try {
       await navigator.clipboard.writeText(text);
@@ -17,14 +17,17 @@ const ResultBtn = ({ onCapture }) => {
     }
   };
 
-  const ShareImg = styled.img`
-    margin-left: 5px;
-    width: 20px;
-    content: url('/images/Buttons/share.png');
-    &:hover {
-      content: url('/images/Buttons/share_blue.png');
-    }
-  `;
+  useEffect(() => {
+    // 화면이 렌더링된 후 5초 뒤에 캡쳐 버튼 활성화
+    const timeoutId = setTimeout(() => {
+      setCaptureEnabled(true);
+    }, 5000);
+
+    // 컴포넌트 언마운트 시 타이머 클리어
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, []);
 
   return (
     <Container>
@@ -34,7 +37,7 @@ const ResultBtn = ({ onCapture }) => {
         <ShareWord>URL복사</ShareWord>
         <ShareImg alt="share" />
       </ShareBtn>
-      <CaptureBtn onClick={onCapture}>
+      <CaptureBtn onClick={onCapture} disabled={!captureEnabled}>
         <CaptureWord>캡쳐하기</CaptureWord>
         <CaptureImg alt="capture" />
       </CaptureBtn>
@@ -70,6 +73,15 @@ const ShareBtn = styled.button`
   }
 `;
 
+const ShareImg = styled.img`
+  margin-left: 5px;
+  width: 20px;
+  content: url('/images/Buttons/share.png');
+  &:hover {
+    content: url('/images/Buttons/share_blue.png');
+  }
+`;
+
 const ShareWord = styled.div``;
 
 const CaptureBtn = styled.button`
@@ -81,12 +93,12 @@ const CaptureBtn = styled.button`
   border: solid #17355a 1px;
   border-radius: 5px;
   color: white;
-  background-color: ${props => props.theme.colors.darkbluePrimaryColor};
+  background-color: ${props =>
+    props.disabled ? '#bdbdbd' : props.theme.colors.darkbluePrimaryColor};
   margin: 10px;
   transition: box-shadow 0.3s;
   &:hover {
     box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.25);
-    cursor: pointer;
   }
 `;
 

@@ -10,6 +10,7 @@ import ResultBtn from './ResultBtn/ResultBtn';
 
 const Result = () => {
   const [voteResult, setVoteResult] = useState([]);
+  const [showWatermark, setShowWatermark] = useState(false);
   const resultRef = useRef(null);
 
   useEffect(() => {
@@ -21,12 +22,14 @@ const Result = () => {
   }, []);
 
   const handleCapture = () => {
+    setShowWatermark(true);
     html2canvas(resultRef.current, { scale: 4 }).then(canvas => {
       const capturedImage = canvas.toDataURL('image/png');
       const link = document.createElement('a');
       link.href = capturedImage;
       link.download = 'result_capture.png';
       link.click();
+      setShowWatermark(false);
     });
   };
 
@@ -43,6 +46,7 @@ const Result = () => {
           voteResult={voteResult}
           SpecialKey={voteResult.special_key}
         />
+        <WaterMark />
       </CaptureContainer>
       <ResultBtn onCapture={handleCapture} />
       <ResultGraph voteResult={voteResult} />
@@ -61,3 +65,10 @@ const ResultContainer = styled.div`
 `;
 
 const CaptureContainer = styled.div``;
+
+const WaterMark = styled.img`
+  content: url('/images/Nav/main_logo.png');
+  width: 200px;
+  display: ${props => (props.showWatermark ? 'flex' : 'none')};
+  margin: 0px auto;
+`;

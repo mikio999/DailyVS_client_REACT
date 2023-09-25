@@ -15,13 +15,6 @@ const GlobalStyle = createGlobalStyle`
       format('woff');
   }
 
-  /* @font-face {
-    font-family: 'GongGothicMedium';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10@1.0/GongGothicMedium.woff')
-      format('woff');
-  }
-   */
-
     @font-face {
     font-family: 'GongGothicMedium';
     src: url(${esamanruMedium});
