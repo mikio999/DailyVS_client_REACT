@@ -1,6 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 // import NEXONFont from './fonts/NEXON-Gothic-Regular.otf';
-import esamanruMedium from './fonts/esamanru-Light.otf';
+import esamanruMedium from './fonts/esamanru-Medium.otf';
 import esamanruBold from './fonts/esamanru-Bold.otf';
 import esamanruLight from './fonts/esamanru-Light.otf';
 
