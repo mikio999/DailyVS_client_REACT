@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import ResultTop from './ResultTop';
+import ResultTop from './ResultTop/ResultTop';
+import TotalGraph from './ResultTop/TotalGraph';
 import ResultGraph from './ResultGraph/ResultGraph';
+import ResultAnalysis from './ResultTop/ResultAnalysis';
+import AnalysisChart from './ResultGraph/AnalysisChart';
+import ResultBtn from './ResultBtn/ResultBtn';
 
 const Result = () => {
   const [voteResult, setVoteResult] = useState([]);
@@ -17,6 +21,16 @@ const Result = () => {
   return (
     <ResultContainer>
       <ResultTop voteResult={voteResult} />
+      <TotalGraph voteResult={voteResult} />
+      <ResultAnalysis
+        SpecialKey={voteResult.special_key}
+        Analysis={voteResult.analysis}
+      />
+      <AnalysisChart
+        voteResult={voteResult}
+        SpecialKey={voteResult.special_key}
+      />
+      <ResultBtn />
       <ResultGraph voteResult={voteResult} />
     </ResultContainer>
   );

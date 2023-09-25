@@ -180,7 +180,7 @@ const DetailOptionName = styled.div`
   cursor: pointer;
   transition: border 0.3s ease;
   &:hover {
-    border: 10px #17355a solid;
+    border: 15px #ff495a solid;
   }
 `;
 
@@ -188,7 +188,7 @@ const DetailOption = styled.input`
   display: none;
 
   &:checked + ${DetailOptionName} {
-    border: 10px #17355a solid;
+    border: 15px #ff495a solid;
   }
 `;
 
