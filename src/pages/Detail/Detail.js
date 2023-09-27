@@ -89,9 +89,8 @@ const Detail = () => {
       {voteDetail ? (
         <>
           <DetailTitle>{voteDetail.name}</DetailTitle>
-          <DetailExplain>{voteDetail.explain}</DetailExplain>
           <DetailImage src={voteDetail.url} alt={voteDetail.name} />
-
+          <DetailExplain>{voteDetail.explain}</DetailExplain>
           <DetailOption
             className="radio-input"
             type="radio"
@@ -106,10 +105,14 @@ const Detail = () => {
             htmlFor="option1-radio"
             className={selectedOption === 'option_1' ? 'selected' : ''}
             onClick={() => setSelectedOption('option_1')}
+            style={{ backgroundImage: `url("${voteDetail.option_1_url}")` }}
           >
-            {voteDetail.option_1}
+            <VoteNameWhite>{voteDetail.option_1}</VoteNameWhite>
           </DetailOptionName>
-
+          <VSWord>
+            <VSRed>V</VSRed>
+            <VSBlue>S</VSBlue>
+          </VSWord>
           <DetailOption
             className="radio-input"
             type="radio"
@@ -123,8 +126,9 @@ const Detail = () => {
             htmlFor="option2-radio"
             className={selectedOption === 'option_2' ? 'selected' : ''}
             onClick={() => setSelectedOption('option_2')}
+            style={{ backgroundImage: `url("${voteDetail.option_2_url}")` }}
           >
-            {voteDetail.option_2}
+            <VoteNameWhite>{voteDetail.option_2}</VoteNameWhite>
           </DetailOptionName>
           <DetailSubmitBtn onClick={handleVoteSubmit} disabled={!isFormValid()}>
             투표하기
@@ -149,11 +153,13 @@ const DetailContainer = styled.form`
 `;
 
 const DetailTitle = styled.h1`
+  font-family: 'GongGothicMedium';
   display: flex;
   text-align: center;
   align-items: center;
-  font-size: 24px;
-  margin: 30px auto;
+  font-size: 30px;
+  margin: 30px auto 10px auto;
+  color: #17355a;
 `;
 
 const DetailExplain = styled.div`
@@ -177,11 +183,53 @@ const DetailOptionName = styled.div`
   border: 1px rgba(128, 128, 128, 0.2) solid;
   height: 200px;
   width: 350px;
+  position: relative;
+  color: white;
   cursor: pointer;
+  background-size: cover;
+  background-position: center;
   transition: border 0.3s ease;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+  }
+
   &:hover {
     border: 15px #ff495a solid;
   }
+`;
+
+const VoteNameWhite = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  font-size: 40px;
+  font-family: 'GongGothicLight';
+  color: white;
+  z-index: 3;
+`;
+
+const VSWord = styled.div`
+  font-size: 30px;
+  display: flex;
+  font-family: 'GongGothicMedium';
+  margin: 0 auto;
+`;
+
+const VSRed = styled.div`
+  color: #ff495a;
+`;
+
+const VSBlue = styled.div`
+  color: #17355a;
 `;
 
 const DetailOption = styled.input`

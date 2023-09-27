@@ -1,21 +1,23 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const MypageVoteList = () => {
+const MypageLikeList = () => {
   return (
     <Container>
-      <VoteListTitle>나의 VOTE LIST</VoteListTitle>
+      <LikeTitle>나의 VOTE 좋아요 LIST</LikeTitle>
     </Container>
   );
 };
 
-export default MypageVoteList;
+export default MypageLikeList;
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
 `;
 
-const VoteListTitle = styled.h1`
+const LikeTitle = styled.h1`
   font-family: 'GongGothicMedium';
+  font-size: 24px;
+  margin: 20px;
 `;
