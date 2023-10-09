@@ -25,7 +25,6 @@ const MainGrid = ({ loading }) => {
     }
   }, [loading]);
 
-  console.log(mainGridVote);
   return (
     <MainGridSection>
       <MainGridName>📓 투표 모음 📊</MainGridName>

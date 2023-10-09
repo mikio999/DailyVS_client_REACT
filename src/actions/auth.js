@@ -99,7 +99,7 @@ export const login = (email, password) => async dispatch => {
 
   try {
     const res = await axios.post(
-      'http://127.0.0.1:8000/account/auth/jwt/create/',
+      'http://localhost:8000/accounts/login/',
       body,
       config,
     );
@@ -137,7 +137,7 @@ export const signup =
 
     try {
       const res = await axios.post(
-        `http://127.0.0.1:8000/account/auth/users/`,
+        `http://13.125.153.252:8000/accounts/`,
         body,
         config,
       );

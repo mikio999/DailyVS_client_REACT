@@ -66,7 +66,7 @@ const FortuneModal = ({ isOpen, onClose }) => {
         <ModalCloseButton onClick={onClose}>&times;</ModalCloseButton>
         <ModalContent ref={fortuneRef}>
           <DailyVSLogo>Daily VS</DailyVSLogo>
-          <img src="/images/Fortune/Fortune_open.png" />
+          <img src="/images/Fortune/Fortune_open.png" alt="포춘쿠키 열기" />
           <FortuneWords>{typingText}</FortuneWords>
         </ModalContent>
         <ModalBtns>

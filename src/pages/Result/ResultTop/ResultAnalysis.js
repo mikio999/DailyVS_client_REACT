@@ -47,7 +47,7 @@ const ResultAnalysis = ({ SpecialKey, Analysis }) => {
     <Container>
       <Analyzing>
         {showSpinner && (
-          <div className="spinner-border text-secondary" role="status"></div>
+          <div className="spinner-border text-secondary" role="status" />
         )}
         <Loading>{analysisMessage}</Loading>
       </Analyzing>

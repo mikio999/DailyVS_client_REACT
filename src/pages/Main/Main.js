@@ -31,7 +31,6 @@ const Main = () => {
       .then(result => {
         setLoading(false);
         setGridList(result);
-        console.log(result);
       });
   }, []);
   return (

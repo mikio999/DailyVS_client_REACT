@@ -8,7 +8,6 @@ const Detail = () => {
   const [selectedOption, setSelectedOption] = useState('');
   const { detailId } = useParams();
   const { user } = useAuth();
-  console.log({ user });
   const location = useLocation();
 
   // useEffect(() => {
@@ -25,19 +24,17 @@ const Detail = () => {
       .then(response => response.json())
       .then(result => {
         setVoteDetail(result);
-        console.log(result);
       });
   }, []);
 
   const handleOptionChange = event => {
     setSelectedOption(event.target.value);
-    console.log(selectedOption);
   };
 
   const navigate = useNavigate();
   const handleVoteSubmit = e => {
     e.preventDefault();
-    console.log('Selected Option:', selectedOption);
+
     if (user) {
       // 로그인된 경우
       navigate(`/vote-result/${detailId}`);
@@ -46,11 +43,6 @@ const Detail = () => {
       const nextLocation = `/vote-detail-gender/${detailId}`;
       navigate(nextLocation, { state: { prevLocation: location.pathname } });
     }
-  };
-
-  const handleOptionSelect = selectedOption => {
-    const nextLocation = `/vote-detail-gender/${detailId}?selectedOption=${selectedOption}`;
-    navigate(nextLocation);
   };
 
   const isFormValid = () => {
