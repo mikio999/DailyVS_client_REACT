@@ -4,7 +4,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import LoginNav from '../../components/LoginNav/LoginNav';
 import { connect } from 'react-redux';
 import { signup } from '../../actions/auth';
-import axios from 'axios';
 
 const Signup = ({ signup, isAuthenticated }) => {
   const [accountCreated, setAccountCreated] = useState(false);
@@ -15,9 +14,12 @@ const Signup = ({ signup, isAuthenticated }) => {
     mbti: '',
     password: '',
     re_password: '',
+    age: '',
   });
-  const { email, nickname, gender, mbti, password, re_password } = formData;
+  const { email, nickname, gender, mbti, password, re_password, age } =
+    formData;
 
+  console.log(formData);
   const [passwordMatch, setPasswordMatch] = useState(false);
 
   const navigate = useNavigate();
@@ -37,13 +39,13 @@ const Signup = ({ signup, isAuthenticated }) => {
       mbti.length > 0 &&
       password.length > 0 &&
       nickname.length >= 2 &&
-      gender.length > 0
+      gender.length > 0 &&
+      age.length > 0
     );
   };
 
   const onSubmit = e => {
     e.preventDefault();
-    console.log(formData);
 
     if (password === re_password) {
       signup(email, nickname, gender, mbti, password, re_password);
@@ -80,6 +82,15 @@ const Signup = ({ signup, isAuthenticated }) => {
     'ESFJ',
     'ENFJ',
     'ENTJ',
+  ];
+
+  const ageOptions = [
+    { label: '10대', value: '10' },
+    { label: '20대 초반', value: '20_1' },
+    { label: '20대 후반', value: '20_2' },
+    { label: '30대 초반', value: '30_1' },
+    { label: '30대 후반', value: '30_2' },
+    { label: '40대', value: '40' },
   ];
 
   return (
@@ -176,6 +187,18 @@ const Signup = ({ signup, isAuthenticated }) => {
               여성
             </GenderOption>
           </GenderRadioGroup>
+          <SignupLabel>나이</SignupLabel>
+          <MBTIDropdown
+            value={age}
+            onChange={e => setFormData({ ...formData, age: e.target.value })}
+          >
+            <option value="">나이 선택</option>
+            {ageOptions.map(option => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </MBTIDropdown>
           <SignupBtn disabled={!isFormValid()}>회원가입</SignupBtn>
           <SignupToLogin>
             바로 <SignupLoginBtn to="/login">로그인</SignupLoginBtn>하러 가기
@@ -227,7 +250,8 @@ const SignupLabel = styled.label`
   font-size: 14px;
   display: flex;
   align-items: center;
-  margin-bottom: 10px;
+  margin-top: 10px;
+
   height: 20px;
 `;
 

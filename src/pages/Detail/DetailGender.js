@@ -6,7 +6,6 @@ const DetailGender = () => {
   const [selectedGender, setSelectedGender] = useState('');
   const handleGenderChange = e => {
     setSelectedGender(e.target.value);
-    console.log(selectedGender);
   };
   const { detailId } = useParams();
   const navigate = useNavigate();
@@ -15,7 +14,6 @@ const DetailGender = () => {
   };
 
   const handleVoteSubmit = () => {
-    console.log('Selected Gender:', selectedGender);
     navigate(`/vote-detail-mbti/${detailId}`);
   };
 

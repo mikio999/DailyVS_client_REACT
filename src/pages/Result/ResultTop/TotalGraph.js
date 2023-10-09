@@ -51,7 +51,7 @@ const TotalGraph = ({ voteResult }) => {
 
   return (
     <GraphContainer>
-      <canvas ref={chartRef} style={{ margin: '0px auto' }}></canvas>
+      <canvas ref={chartRef} style={{ margin: '0px auto' }} />
     </GraphContainer>
   );
 };

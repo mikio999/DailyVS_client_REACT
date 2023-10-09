@@ -4,27 +4,26 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../../AuthContext';
 
 const Nav = () => {
-  const { user, logout } = useAuth();
+  const { user } = useAuth();
   return (
     <NavContainer>
       <NavList>
         {user ? (
           <NavLink2 to="/">
-            <img src="images/Nav/Unlogged.png" />
+            <img src="images/Nav/Unlogged.png" alt="마이페이지" />
             마이페이지
           </NavLink2>
         ) : (
           <NavLink1 to="/login">
-            {' '}
-            <img src="images/Nav/Logged.png" />
+            <img src="images/Nav/Logged.png" alt="로그인" />
             로그인
           </NavLink1>
         )}
         <NavLogo to="/">
-          <LogoImg src="/images/Nav/Row.png" />
+          <LogoImg src="/images/Nav/Row.png" alt="로고" />
         </NavLogo>
         <NavFortune to="/fortune">
-          <img src="/images/Fortune/Cookie.png" />
+          <img src="/images/Fortune/Cookie.png" alt="포춘쿠키" />
         </NavFortune>
       </NavList>
     </NavContainer>

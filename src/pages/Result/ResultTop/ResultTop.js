@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 const ResultTop = ({ voteResult }) => {
@@ -8,12 +8,12 @@ const ResultTop = ({ voteResult }) => {
       <ResultExplanation>{voteResult.explain}</ResultExplanation>
       <ResultPercentage>
         <Option>
-          <FirstCircle></FirstCircle>
+          <FirstCircle />
           <Percentage>{voteResult.option_1_percentage} %</Percentage>
           <OptionName>{voteResult.option_1}</OptionName>
         </Option>
         <Option>
-          <SecondCircle></SecondCircle>
+          <SecondCircle />
           <Percentage>{voteResult.option_2_percentage} %</Percentage>
           <OptionName>{voteResult.option_2}</OptionName>
         </Option>

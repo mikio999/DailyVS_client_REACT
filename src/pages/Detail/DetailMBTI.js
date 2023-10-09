@@ -17,7 +17,6 @@ const DetailMBTI = () => {
   const handleOptionClick = (option, category) => {
     const updatedOptions = { ...selectedOptions, [category]: option };
     setSelectedOptions(updatedOptions);
-    console.log(updatedOptions);
   };
 
   const mixedMBTI = () => {
@@ -27,9 +26,8 @@ const DetailMBTI = () => {
   };
 
   const handleMBTISubmit = () => {
-    const newUserMBTI = mixedMBTI(); // mixedMBTI 함수를 호출하여 MBTI 조합을 가져옴
+    const newUserMBTI = mixedMBTI();
     setUserMBTI(newUserMBTI);
-    console.log('userMBTI:', newUserMBTI);
     navigate(`/vote-result/${detailId}`);
   };
 

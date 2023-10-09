@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { login } from '../../actions/auth';
-import axios from 'axios';
 import LoginNav from '../../components/LoginNav/LoginNav';
 
 const Login = ({ login, isAuthenticated }) => {
