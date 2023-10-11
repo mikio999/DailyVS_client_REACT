@@ -18,6 +18,7 @@ const Result = () => {
       .then(response => response.json())
       .then(result => {
         setVoteResult(result);
+        console.log(result);
       });
   }, []);
 

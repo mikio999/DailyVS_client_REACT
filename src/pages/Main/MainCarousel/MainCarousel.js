@@ -13,10 +13,10 @@ const MainCarousel = ({ loading, apiList }) => {
 
   useEffect(() => {
     if (!loading) {
-      fetch('/data/vote_list.json')
+      fetch(`http://localhost:8000/`)
         .then(response => response.json())
         .then(result => {
-          setMainVote(result);
+          setMainVote(result.promotion_polls);
         });
     }
   }, [loading]);

@@ -26,11 +26,12 @@ const Main = () => {
   // }, []);
 
   useEffect(() => {
-    fetch('/data/vote_list.json')
+    fetch(`http://localhost:8000/`)
       .then(response => response.json())
       .then(result => {
         setLoading(false);
         setGridList(result);
+        console.log(result);
       });
   }, []);
   return (

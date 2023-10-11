@@ -4,7 +4,7 @@ import Nav from './components/Nav/Nav';
 import Footer from './components/Footer/Footer';
 import Main from './pages/Main/Main';
 import Fortune from './pages/Fortune/Fortune';
-import VoteDetail from './pages/Detail/Detail';
+import VoteDetail from './pages/Detail/Detail/Detail';
 import VoteResult from './pages/Result/Result';
 import DetailGender from './pages/Detail/DetailGender';
 import DetailMBTI from './pages/Detail/DetailMBTI';

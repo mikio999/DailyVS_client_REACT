@@ -17,10 +17,10 @@ const MainGrid = ({ loading }) => {
 
   useEffect(() => {
     if (!loading) {
-      fetch('data/vote_list.json')
+      fetch(`http://localhost:8000/`)
         .then(response => response.json())
         .then(result => {
-          setMainGridVote(result);
+          setMainGridVote(result.polls);
         });
     }
   }, [loading]);
