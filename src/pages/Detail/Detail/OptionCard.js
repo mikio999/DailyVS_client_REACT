@@ -10,7 +10,7 @@ const OptionCard = ({ voteDetail, selectedOption, setSelectedOption }) => {
     <DetailContainer>
       {voteDetail && voteDetail.choice_text ? (
         voteDetail.choice_text.map((choice, index) => (
-          <div key={index}>
+          <OptionCardContainer key={index}>
             <DetailOption
               className="radio-input"
               type="radio"
@@ -30,7 +30,13 @@ const OptionCard = ({ voteDetail, selectedOption, setSelectedOption }) => {
             >
               <VoteName>{choice}</VoteName>
             </DetailOptionName>
-          </div>
+            {index < voteDetail.choice_text.length - 1 && (
+              <VSWord>
+                <VSRed>V</VSRed>
+                <VSBlue>S</VSBlue>
+              </VSWord>
+            )}
+          </OptionCardContainer>
         ))
       ) : (
         <p>Choice text not available</p>
@@ -48,6 +54,11 @@ const DetailContainer = styled.div`
   justify-content: center;
   margin: 0 auto;
   background-color: #f8f8ff;
+`;
+
+const OptionCardContainer = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 const DetailOptionName = styled.div`

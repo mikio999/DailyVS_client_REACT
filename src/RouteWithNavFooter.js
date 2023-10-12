@@ -6,8 +6,8 @@ import Main from './pages/Main/Main';
 import Fortune from './pages/Fortune/Fortune';
 import VoteDetail from './pages/Detail/Detail/Detail';
 import VoteResult from './pages/Result/Result';
-import DetailGender from './pages/Detail/DetailGender';
-import DetailMBTI from './pages/Detail/DetailMBTI';
+import DetailGender from './pages/Detail/DetailGender/DetailGender';
+import DetailMBTI from './pages/Detail/DetailMBTI/DetailMBTI';
 import Mypage from './pages/Mypage/Mypage';
 
 const RouteWithNavFooter = () => {
