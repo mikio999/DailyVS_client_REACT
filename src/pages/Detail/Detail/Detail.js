@@ -4,14 +4,24 @@ import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../../AuthContext';
 import DetailCard from './DetailCard';
 import OptionCard from './OptionCard';
+import { setOption } from '../../../actions/actions';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Detail = () => {
+  const dispatch = useDispatch();
+
   const [voteDetail, setVoteDetail] = useState([]);
   const [selectedOption, setSelectedOption] = useState('');
   const params = useParams();
   const detailId = params.id;
   const { user } = useAuth();
   const location = useLocation();
+
+  const handleDispatch = selectedOption => {
+    dispatch(setOption(selectedOption));
+  };
+
+  handleDispatch(selectedOption);
 
   useEffect(() => {
     if (detailId) {
@@ -23,11 +33,8 @@ const Detail = () => {
     }
   }, [detailId]);
 
-  const handleOptionChange = event => {
-    setSelectedOption(event.target.value);
-  };
-
   const navigate = useNavigate();
+
   const handleVoteSubmit = e => {
     e.preventDefault();
 
@@ -88,7 +95,7 @@ const DetailSubmitBtn = styled.button`
   background-color: ${props => (props.disabled ? '#BDBDBD' : '#17355a')};
   color: white;
   border: none;
-  border-radius: 15px;
+  border-radius: 10px;
   &:hover {
     cursor: pointer;
   }

@@ -1,23 +1,36 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useParams, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setGender } from '../../../actions/actions';
 
 const DetailGender = () => {
+  const dispatch = useDispatch();
   const [selectedGender, setSelectedGender] = useState('');
+
   const handleGenderChange = e => {
-    setSelectedGender(e.target.value);
+    const selectedGender = e.target.value;
+    setSelectedGender(selectedGender);
   };
-  const { detailId } = useParams();
+
+  const handleDispatch = selectedGender => {
+    dispatch(setGender(selectedGender));
+  };
+
+  handleDispatch(selectedGender);
+
+  const params = useParams();
+  const detailId = params.id;
   const navigate = useNavigate();
   const isFormValid = () => {
     return selectedGender !== '';
   };
+  console.log(selectedGender);
 
   const handleVoteSubmit = () => {
     navigate(`/vote-detail-mbti/${detailId}`);
   };
 
-  // JSX를 리턴합니다.
   return (
     <DetailGenderContainer>
       <GenderQuestion>당신의 성별은?</GenderQuestion>
@@ -126,7 +139,7 @@ const GenderButton = styled.button`
   background-color: ${props => (props.disabled ? '#BDBDBD' : '#17355a')};
   color: white;
   border: none;
-  border-radius: 15px;
+  border-radius: 10px;
   &:hover {
     cursor: pointer;
   }
