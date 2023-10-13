@@ -29,22 +29,23 @@ const DetailMBTI = () => {
     return newUserMBTI;
   };
 
-  const selectedOption = useSelector(state => state.option.selectedOption);
-  const selectedGender = useSelector(state => state.gender.selectedGender);
-  const selectedMBTI = useSelector(state => state.mbti.selectedMBTI);
-
   const handleMBTISubmit = () => {
     const newUserMBTI = mixedMBTI();
     setUserMBTI(newUserMBTI);
-
     navigate(`/vote-result/${detailId}`);
-
-    console.log({
-      'Selected Option': selectedOption,
-      'Selected Gender': selectedGender,
-      'Selected MBTI': selectedMBTI,
-    });
   };
+
+  const selectedOption = useSelector(state => state.option.selectedOption);
+  const selectedGender = useSelector(state => state.gender.selectedGender);
+  const selectedMBTI = useSelector(state => state.mbti.selectedMBTI);
+  const selectedAge = useSelector(state => state.age.selectedAge);
+
+  console.log({
+    'Selected Option': selectedOption,
+    'Selected Gender': selectedGender,
+    'Selected MBTI': selectedMBTI,
+    'Selected Age': selectedAge,
+  });
 
   return (
     <Container>

@@ -12,12 +12,11 @@ const Signup = ({ signup, isAuthenticated }) => {
     nickname: '',
     gender: '',
     mbti: '',
-    password: '',
-    re_password: '',
+    password1: '',
+    password2: '',
     age: '',
   });
-  const { email, nickname, gender, mbti, password, re_password, age } =
-    formData;
+  const { email, nickname, gender, mbti, password1, password2, age } = formData;
 
   console.log(formData);
   const [passwordMatch, setPasswordMatch] = useState(false);
@@ -37,7 +36,7 @@ const Signup = ({ signup, isAuthenticated }) => {
     return (
       email.length > 0 &&
       mbti.length > 0 &&
-      password.length > 0 &&
+      password1.length > 0 &&
       nickname.length >= 2 &&
       gender.length > 0 &&
       age.length > 0
@@ -47,8 +46,8 @@ const Signup = ({ signup, isAuthenticated }) => {
   const onSubmit = e => {
     e.preventDefault();
 
-    if (password === re_password) {
-      signup(email, nickname, gender, mbti, password, re_password);
+    if (password1 === password2) {
+      signup(email, nickname, gender, mbti, password1, password2, age);
       setAccountCreated(true);
     }
   };
@@ -110,11 +109,11 @@ const Signup = ({ signup, isAuthenticated }) => {
           />
           <SignupLabel>비밀번호(8자 이상 15자 이하) </SignupLabel>
           <TextInput
-            value={password}
+            value={password1}
             type="password"
             placeholder="비밀번호"
             onChange={e =>
-              setFormData({ ...formData, password: e.target.value })
+              setFormData({ ...formData, password1: e.target.value })
             }
             required
           />
@@ -129,10 +128,10 @@ const Signup = ({ signup, isAuthenticated }) => {
           <TextInput
             type="password"
             placeholder="확인 비밀번호"
-            name="re_password"
-            value={re_password}
+            name="password2"
+            value={password2}
             onChange={e =>
-              setFormData({ ...formData, re_password: e.target.value })
+              setFormData({ ...formData, password2: e.target.value })
             }
           />
           <SignupLabel>기타 정보 (성향 분석에 필요합니다!)</SignupLabel>
@@ -210,7 +209,7 @@ const Signup = ({ signup, isAuthenticated }) => {
 };
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated,
+  isAuthenticated: state.auth?.isAuthenticated,
 });
 
 export default connect(mapStateToProps, { signup })(Signup);

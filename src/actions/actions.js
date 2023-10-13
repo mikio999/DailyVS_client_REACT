@@ -18,3 +18,10 @@ export const setMBTI = mbti => {
     payload: mbti,
   };
 };
+
+export const setAge = age => {
+  return {
+    type: 'SET_AGE',
+    payload: age,
+  };
+};
