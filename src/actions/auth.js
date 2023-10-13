@@ -119,7 +119,8 @@ export const login = (email, password) => async dispatch => {
 };
 
 export const signup =
-  (email, nickname, gender, mbti, password, re_password) => async dispatch => {
+  (email, nickname, gender, mbti, password1, password2, age) =>
+  async dispatch => {
     const config = {
       headers: {
         'Content-Type': 'application/json',
@@ -131,8 +132,9 @@ export const signup =
       nickname,
       gender,
       mbti,
-      password,
-      re_password,
+      password1,
+      password2,
+      age,
     });
 
     try {

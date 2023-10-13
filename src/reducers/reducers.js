@@ -39,10 +39,24 @@ const mbtiReducer = (state = initialMBTIState, action) => {
   }
 };
 
+const initialAgeState = {
+  selectedAge: '',
+};
+
+const ageReducer = (state = initialAgeState, action) => {
+  switch (action.type) {
+    case 'SET_AGE':
+      return { ...state, selectedAge: action.payload };
+    default:
+      return state;
+  }
+};
+
 const rootReducer = combineReducers({
   option: optionReducer,
   gender: genderReducer,
   mbti: mbtiReducer,
+  age: ageReducer,
 });
 
 export default rootReducer;

@@ -28,7 +28,7 @@ const DetailGender = () => {
   console.log(selectedGender);
 
   const handleVoteSubmit = () => {
-    navigate(`/vote-detail-mbti/${detailId}`);
+    navigate(`/vote-detail-age/${detailId}`);
   };
 
   return (
