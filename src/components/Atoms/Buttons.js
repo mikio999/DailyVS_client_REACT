@@ -21,49 +21,81 @@ const MintButtonCSS = styled.div`
 `;
 export default MintButton;
 
-export const ArrowLeft = () => {
+export const ArrowLeft = ({ onClick, style, opacity = 1 }) => {
   const refSlideLeft = useRef(null);
 
   const handleSlideBtnMD = () => {
-    if (refSlideLeft.current) {
+    if (refSlideLeft.current && opacity === 1) {
       refSlideLeft.current.style.transform = 'scale(0.9)';
     }
   };
   const handleSlideBtnMU = () => {
-    if (refSlideLeft.current) {
+    if (refSlideLeft.current && opacity === 1) {
       refSlideLeft.current.style.transform = 'scale(1)';
     }
   };
+
   return (
     <img
       src="/images/Buttons/arrowLeft.png"
-      style={{ width: 40, height: 40 }}
+      alt="arrowLeft"
+      style={{
+        ...style,
+        width: 40,
+        height: 40,
+        transition: '0.3s',
+        opacity: opacity,
+      }}
       ref={refSlideLeft}
       onMouseDown={handleSlideBtnMD}
       onMouseUp={handleSlideBtnMU}
+      onMouseEnter={() =>
+        (refSlideLeft.current.style.transform =
+          opacity === 1 ? 'scale(1.1)' : 'scale(1)')
+      }
+      onMouseLeave={() =>
+        (refSlideLeft.current.style.transform =
+          opacity === 1 ? 'scale(1.1)' : 'scale(1)')
+      }
+      onClick={onClick}
     />
   );
 };
 
-export const ArrowRight = () => {
+export const ArrowRight = ({ onClick, style, opacity = 1 }) => {
   const refSlideRight = useRef(null);
   const handleSlideBtnMD = () => {
-    if (refSlideRight.current) {
+    if (refSlideRight.current && opacity === 1) {
       refSlideRight.current.style.transform = 'scale(0.9)';
     }
   };
   const handleSlideBtnMU = () => {
-    if (refSlideRight.current) {
+    if (refSlideRight.current && opacity === 1) {
       refSlideRight.current.style.transform = 'scale(1)';
     }
   };
   return (
     <img
       src="/images/Buttons/arrowRight.png"
-      style={{ width: 40, height: 40 }}
+      style={{
+        ...style,
+        width: 40,
+        height: 40,
+        transition: '0.3s',
+        opacity: opacity,
+      }}
       ref={refSlideRight}
       onMouseDown={handleSlideBtnMD}
       onMouseUp={handleSlideBtnMU}
+      onMouseEnter={() =>
+        (refSlideRight.current.style.transform =
+          opacity === 1 ? 'scale(1.1)' : 'scale(1)')
+      }
+      onMouseLeave={() =>
+        (refSlideRight.current.style.transform =
+          opacity === 1 ? 'scale(1.1)' : 'scale(1)')
+      }
+      onClick={onClick}
     />
   );
 };

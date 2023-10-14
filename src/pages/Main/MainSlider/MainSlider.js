@@ -1,9 +1,52 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import theme from '../../../styles/theme';
 import { ArrowLeft, ArrowRight } from '../../../components/Atoms/Buttons';
+import MainSliderCard from './MainSliderCard';
 
-function MainSlider({ title }) {
+function MainSlider({ title, list }) {
+  const [gridList, setGridList] = useState([]);
+
+  const containerWidth = 200 * list.length + 10 * (list.length - 1) + 20;
+  console.log(containerWidth);
+  let slideUnit;
+  if (containerWidth === 1200) {
+    slideUnit = Math.floor(containerWidth / 2);
+  } else {
+    slideUnit = Math.floor(containerWidth / 3);
+  }
+
+  useEffect(() => {
+    if (list.length > 0) {
+      setGridList(list);
+    }
+  }, [list]);
+
+  // slider 구현
+  const [slidepx, setSlidepx] = useState(0);
+  const toPrev = () => {
+    if (slidepx < 0) setSlidepx(slidepx + slideUnit);
+  };
+  const toNext = () => {
+    slidepx > -1200 && setSlidepx(slidepx - slideUnit);
+  };
+  useEffect(() => {
+    console.log(slidepx);
+  }, [slidepx]);
+
+  const MovingContainer = () => {
+    return (
+      <InnerContents slidepx={slidepx} listNum={list.length}>
+        {gridList.length > 0 &&
+          gridList.map(card => (
+            <MainSliderCard
+              key={card.id}
+              title={card.title}
+              thumbnail={card.thumbnail}
+            />
+          ))}
+      </InnerContents>
+    );
+  };
   return (
     <>
       <Header>
@@ -12,26 +55,16 @@ function MainSlider({ title }) {
           <span>더보기</span>
         </div>
         <div>
-          <ArrowLeft />
-          <ArrowRight />
+          <ArrowLeft onClick={toPrev} opacity={slidepx === 0 ? 0.5 : 1} />
+          <ArrowRight
+            onClick={toNext}
+            opacity={slidepx === -containerWidth ? 0.5 : 1}
+          />
         </div>
       </Header>
       <Contents>
         <div>
-          <div>
-            <MainSliderCard />
-            <MainSliderCard />
-            <MainSliderCard />
-            <MainSliderCard />
-            <MainSliderCard />
-            <MainSliderCard />
-            <MainSliderCard />
-            <MainSliderCard />
-            <MainSliderCard />
-            <MainSliderCard />
-            <div />
-            <div />
-          </div>
+          <MovingContainer />
         </div>
       </Contents>
     </>
@@ -59,18 +92,13 @@ const Header = styled.div`
     opacity: 1;
     visibility: visible;
   }
-  & img {
-    transition: 0.3s;
-  }
-  & img:hover {
-    scale: 1.1;
-  }
 `;
 const Contents = styled.div`
   width: 100%;
   height: 180px;
   position: relative;
   overflow: hidden;
+  transition: all 0.3s;
   &::before {
     z-index: 10;
     width: 20px;
@@ -102,24 +130,18 @@ const Contents = styled.div`
   & > div {
     flex: 1;
     height: 100%;
-    overflow-x: scroll;
     padding: 10px 20px;
-  }
-  & > div > div {
-    display: grid;
-    grid-template-columns: repeat(12, 200px);
-    height: 100%;
-    grid-gap: 10px;
+    /* overflow-x: scroll; */
+    transition: all 0.3s;
   }
 `;
-const MainSliderCard = styled.div`
+const InnerContents = styled.div`
+  display: grid;
+  grid-template-columns: repeat(${props => props.listNum}, 200px);
   height: 100%;
-  background-color: ${theme.colors.lightGrayColor};
-  border-radius: 10px;
-  transition: 0.3s;
-  &:hover {
-    scale: 1.05;
-  }
+  grid-gap: 10px;
+  transition: all 0.3s;
+  transform: translateX(${props => props.slidepx}px);
 `;
 
 export default MainSlider;

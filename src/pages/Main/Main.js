@@ -31,18 +31,23 @@ const Main = () => {
   // }, []);
 
   useEffect(() => {
+    getVoteList();
+  }, []);
+
+  const getVoteList = () => {
     fetch('/data/vote_list.json')
       .then(response => response.json())
       .then(result => {
-        setLoading(false);
         setGridList(result);
+        setLoading(false);
       });
-  }, []);
+  };
 
   const [width, setWidth] = useState(0);
   const ref = useRef(null);
   useEffect(() => {
     setWidth(ref.current.clientWidth);
+    console.log(width);
   }, [width]);
 
   return (
@@ -57,10 +62,10 @@ const Main = () => {
       <MainSliderContainer>
         {width < 1200 ? null : <MainSliderSideLeft />}
         <div className="mainSlider-wrapper" ref={ref}>
-          <MainSlider title="새로 올라온 VS" />
-          <MainSlider title="ISTP가 주목하는 VS" />
-          <MainSlider title="막상막하! 요즘 핫한 VS" />
-          <MainSlider title="MZ가 주목하는 VS" />
+          <MainSlider title="새로 올라온 VS" list={gridList} />
+          <MainSlider title="ISTP가 주목하는 VS" list={gridList} />
+          <MainSlider title="막상막하! 요즘 핫한 VS" list={gridList} />
+          <MainSlider title="MZ가 주목하는 VS" list={gridList} />
         </div>
         {width < 1200 ? null : <MainSliderSideRight />}
       </MainSliderContainer>
@@ -121,17 +126,26 @@ const MainSliderContainer = styled.div`
   & > .mainSlider-right img:nth-child(4) {
     animation: SideFloating1 30s ease-in-out infinite;
   }
-  & > .mainSlider-left img:nth-child(2),
-  & > .mainSlider-right img:nth-child(2) {
+  & > .mainSlider-left img:nth-child(2) {
     animation: SideFloating2 30s ease-in-out infinite;
   }
-  & > .mainSlider-left img:nth-child(3),
-  & > .mainSlider-right img:nth-child(3) {
+  & > .mainSlider-left img:nth-child(3) {
     animation: SideFloating3 30s ease-in-out infinite;
   }
-  & > .mainSlider-left img:nth-child(4),
-  & > .mainSlider-right img:nth-child(1) {
+  & > .mainSlider-left img:nth-child(4) {
     animation: SideFloating4 30s ease-in-out infinite;
+  }
+  & > .mainSlider-right img:nth-child(1) {
+    animation: SideFloating5 30s ease-in-out infinite;
+  }
+  & > .mainSlider-right img:nth-child(2) {
+    animation: SideFloating6 30s ease-in-out infinite;
+  }
+  & > .mainSlider-right img:nth-child(3) {
+    animation: SideFloating7 30s ease-in-out infinite;
+  }
+  & > .mainSlider-right img:nth-child(5) {
+    animation: SideFloating8 30s ease-in-out infinite;
   }
   @keyframes SideFloating1 {
     0%,
@@ -230,6 +244,108 @@ const MainSliderContainer = styled.div`
       width: 40px;
       left: 55%;
       top: 85%;
+    }
+  }
+  @keyframes SideFloating5 {
+    0%,
+    100% {
+      width: 30px;
+      left: 70%;
+      top: 35%;
+    }
+    20%,
+    80% {
+      width: 30px;
+      left: 65%;
+      top: 30%;
+    }
+    40%,
+    60% {
+      width: 40px;
+      left: 60%;
+      top: 25%;
+    }
+    50% {
+      width: 40px;
+      left: 55%;
+      top: 20%;
+    }
+  }
+  @keyframes SideFloating6 {
+    0%,
+    100% {
+      width: 45px;
+      left: 10%;
+      top: 50%;
+    }
+    20%,
+    80% {
+      width: 50px;
+      left: 14%;
+      top: 53%;
+    }
+    40%,
+    60% {
+      width: 50px;
+      left: 18%;
+      top: 56%;
+    }
+    50% {
+      width: 45px;
+      left: 22%;
+      top: 60%;
+    }
+  }
+  @keyframes SideFloating7 {
+    0%,
+    100% {
+      width: 45px;
+      left: 10%;
+      top: 5%;
+      transform: rotate(20deg);
+    }
+    20%,
+    80% {
+      width: 50px;
+      left: 14%;
+      top: 7%;
+    }
+    40%,
+    60% {
+      width: 50px;
+      left: 18%;
+      top: 10%;
+    }
+    50% {
+      width: 45px;
+      left: 22%;
+      top: 15%;
+    }
+  }
+  @keyframes SideFloating8 {
+    0%,
+    100% {
+      width: 60px;
+      left: 70%;
+      top: 90%;
+      transform: rotate(50deg);
+    }
+    20%,
+    80% {
+      width: 65px;
+      left: 66%;
+      top: 86%;
+    }
+    40%,
+    60% {
+      width: 67px;
+      left: 60%;
+      top: 83%;
+    }
+    50% {
+      width: 70px;
+      left: 56%;
+      top: 80%;
     }
   }
 `;

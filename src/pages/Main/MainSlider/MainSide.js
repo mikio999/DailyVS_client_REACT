@@ -17,6 +17,7 @@ export const MainSliderSideRight = () => {
       <img src="/images/MainSide/Evil.png" alt="악마" style={{ width: 50 }} />
       <img src="/images/MainSide/Angel.png" alt="천사" style={{ width: 50 }} />
       <img src="/images/MainSide/Ellipse.png" alt="원" style={{ width: 50 }} />
+      <img src="/images/MainSide/Angel.png" alt="천사" style={{ width: 50 }} />
     </div>
   );
 };
