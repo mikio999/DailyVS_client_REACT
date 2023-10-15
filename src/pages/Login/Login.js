@@ -35,7 +35,7 @@ const Login = ({ login, isAuthenticated }) => {
     password.length >= 8;
 
   return (
-    <>
+    <Container>
       <LoginNav />
       <LoginPage onSubmit={e => onSubmit(e)}>
         <LoginLogo src="images/Nav/main_logo.png" />
@@ -64,7 +64,7 @@ const Login = ({ login, isAuthenticated }) => {
           <LoginFindPw>비밀번호 찾기</LoginFindPw>
         </LoginAsk>
       </LoginPage>
-    </>
+    </Container>
   );
 };
 
@@ -74,22 +74,29 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps, { login })(Login);
 
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow-x: hidden;
+`;
 const LoginPage = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 500px;
+  width: 100%;
   margin: 10px auto;
+  padding: 0 20px;
 `;
 
 const LoginLogo = styled.img`
   margin-top: 30px;
-  width: 250px;
+  width: min(100%, 250px);
 `;
 
 const LoginIdInput = styled.input`
-  width: 300px;
+  width: min(100%, 300px);
   height: 50px;
   margin-bottom: 10px;
   font-size: 18px;
@@ -99,7 +106,7 @@ const LoginIdInput = styled.input`
 `;
 
 const LoginPwInput = styled.input`
-  width: 300px;
+  width: min(100%, 300px);
   height: 50px;
   margin-bottom: 30px;
   font-size: 18px;
@@ -109,7 +116,7 @@ const LoginPwInput = styled.input`
 `;
 
 const LoginSubmitBtn = styled.button`
-  width: 300px;
+  width: min(100%, 300px);
   height: 50px;
   font-size: 20px;
   color: white;
@@ -124,7 +131,7 @@ const LoginAsk = styled.div`
   flex-direction: row;
   margin-top: 20px;
   font-size: 14px;
-  height: 200px;
+  /* height: 200px; */
 `;
 
 const LoginToSignup = styled(Link)`

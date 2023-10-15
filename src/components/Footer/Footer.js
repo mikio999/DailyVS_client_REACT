@@ -17,11 +17,12 @@ const FooterContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 500px;
+  width: 100%;
   height: 20vh;
-  margin: 0 auto;
+  margin: 50px auto 0;
+  padding: 100px 0;
   color: gray;
-  background-color: ${props => props.theme.colors.blueBgColor};
+  background-color: ${props => props.theme.colors.pinkBgColor};
 `;
 
 const FooterTeamLogo = styled.img`

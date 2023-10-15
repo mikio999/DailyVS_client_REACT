@@ -4,24 +4,27 @@ import { Link } from 'react-router-dom';
 
 const LoginNav = () => {
   return (
-    <LoginNavContainer>
-      <NavBackLogo to="/">
-        <BackImg src="/images/LoginNav/left_page.png" />
-      </NavBackLogo>
-    </LoginNavContainer>
+    <Container>
+      <LoginNavContainer>
+        <NavBackLogo to="/">
+          <BackImg src="/images/LoginNav/left_page.png" />
+        </NavBackLogo>
+      </LoginNavContainer>
+    </Container>
   );
 };
 
 export default LoginNav;
-
+const Container = styled.div`
+  background-color: ${props => props.theme.colors.pinkBgColor};
+`;
 const LoginNavContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 500px;
+  width: min(100%, 1200px);
   height: 10vh;
   margin: 0 auto;
-  background-color: ${props => props.theme.colors.pinkBgColor};
 `;
 
 const BackImg = styled.img`
