@@ -22,14 +22,14 @@ export const load_user = () => async dispatch => {
     const config = {
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `JWT ${localStorage.getItem('access')}`,
+        Authorization: `Bearer ${localStorage.getItem('access')}`,
         Accept: 'application/json',
       },
     };
 
     try {
       const res = await axios.get(
-        `${process.env.REACT_APP_API_URL}/auth/users/me/`,
+        `http://127.0.0.1:8000/accounts/user`,
         config,
       );
 
@@ -62,7 +62,7 @@ export const checkAuthenticated = () => async dispatch => {
 
     try {
       const res = await axios.post(
-        `${process.env.REACT_APP_API_URL}/auth/jwt/verify/`,
+        `http://localhost:8000/accounts/token/verify/`,
         body,
         config,
       );

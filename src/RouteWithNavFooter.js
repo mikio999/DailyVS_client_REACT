@@ -10,8 +10,11 @@ import DetailGender from './pages/Detail/DetailGender/DetailGender';
 import DetailMBTI from './pages/Detail/DetailMBTI/DetailMBTI';
 import DetailAge from './pages/Detail/DetailAge/DetailAge';
 import Mypage from './pages/Mypage/Mypage';
+import ErrorPage from './pages/ErrorPage/ErrorPage';
+import { useSelector } from 'react-redux';
 
 const RouteWithNavFooter = () => {
+  const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
   return (
     <>
       <Nav />
@@ -23,7 +26,12 @@ const RouteWithNavFooter = () => {
         <Route path="/vote-detail-age/:id" element={<DetailAge />} />
         <Route path="/vote-result/:id" element={<VoteResult />} />
         <Route path="/fortune" element={<Fortune />} />
-        <Route path="/my-page" element={<Mypage />} />
+        {isAuthenticated ? (
+          <Route path="/my-page" element={<Mypage />} />
+        ) : (
+          <Route path="/my-page" element={<Main />} />
+        )}
+        <Route path="*" element={<ErrorPage />} />
       </Routes>
       <Footer />
     </>

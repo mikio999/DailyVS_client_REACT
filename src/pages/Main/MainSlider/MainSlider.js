@@ -7,7 +7,6 @@ function MainSlider({ title, list }) {
   const [gridList, setGridList] = useState([]);
 
   const containerWidth = 200 * list.length + 10 * (list.length - 1) + 20;
-  console.log(containerWidth);
   let slideUnit;
   if (containerWidth === 1200) {
     slideUnit = Math.floor(containerWidth / 2);
@@ -29,9 +28,7 @@ function MainSlider({ title, list }) {
   const toNext = () => {
     slidepx > -1200 && setSlidepx(slidepx - slideUnit);
   };
-  useEffect(() => {
-    console.log(slidepx);
-  }, [slidepx]);
+  useEffect(() => {}, [slidepx]);
 
   const MovingContainer = () => {
     return (

@@ -4,13 +4,44 @@ import styled from 'styled-components';
 const MypageInformation = () => {
   const [userInformation, setUserInformation] = useState('');
   useEffect(() => {
-    fetch('/data/user.json')
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    const accessToken = localStorage.getItem('access');
+    if (accessToken) {
+      headers.append('Authorization', `Bearer ${accessToken}`);
+    }
+
+    const requestOptions = {
+      method: 'GET',
+      headers: headers,
+    };
+
+    fetch(`http://127.0.0.1:8000/accounts/mypage_info/`, requestOptions)
       .then(response => response.json())
       .then(result => {
         setUserInformation(result);
         console.log(result);
       });
   }, []);
+
+  function getAgeRange(age) {
+    if (age === '10') {
+      return '10대';
+    } else if (age === '20_1') {
+      return '20대 초반';
+    } else if (age === '20_2') {
+      return '20대 후반';
+    } else if (age === '30_1') {
+      return '30대 초반';
+    } else if (age === '30_2') {
+      return '30대 후반';
+    } else {
+      return '40대';
+    }
+  }
+
+  const ageRange = getAgeRange(userInformation.age);
 
   return (
     <Container>
@@ -33,6 +64,9 @@ const MypageInformation = () => {
             <UserGender>
               성별 : <GenderSpan>{userInformation.gender}</GenderSpan>
             </UserGender>
+            <UserAge>
+              나이 : <AgeSpan>{ageRange}</AgeSpan>
+            </UserAge>
           </UserCharacter>
         </UserFeature>
       </UserBox>
@@ -71,12 +105,27 @@ const UserName = styled.h2`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 22px;
+  font-size: 24px;
   font-family: 'GongGothicLight';
+  color: #457c9e;
 `;
 
 const UserSpan = styled.span`
   color: gray;
+  margin-left: 5px;
+`;
+
+const UserAge = styled.h2`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  font-family: 'GongGothicLight';
+  margin-left: 1rem;
+`;
+
+const AgeSpan = styled.span`
+  color: #ff495a;
   margin-left: 5px;
 `;
 
@@ -121,7 +170,7 @@ const MBTISpan = styled.span`
 `;
 
 const UserGender = styled.div`
-  margin-left: 30px;
+  margin-left: 20px;
   font-size: 20px;
   font-family: 'GongGothicLight';
 `;
