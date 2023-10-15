@@ -22,7 +22,8 @@ function MainSliderCard({ id, thumbnail, title }) {
   );
 }
 const Container = styled.div`
-  height: 100%;
+  height: 200px;
+  margin: 10px;
   border-radius: 10px;
   transition: 0.3s;
   overflow: hidden;
