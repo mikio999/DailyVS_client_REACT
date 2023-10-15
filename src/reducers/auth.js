@@ -19,13 +19,12 @@ import {
 const initialState = {
   access: localStorage.getItem('access'),
   refresh: localStorage.getItem('refresh'),
-  isAuthenticated: null,
+  isAuthenticated: false,
   user: null,
 };
 
 export default function (state = initialState, action) {
   const { type, payload } = action;
-
   switch (type) {
     case AUTHENTICATED_SUCCESS:
       return {

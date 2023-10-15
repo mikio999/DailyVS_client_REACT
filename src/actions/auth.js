@@ -99,7 +99,7 @@ export const login = (email, password) => async dispatch => {
 
   try {
     const res = await axios.post(
-      'http://localhost:8000/accounts/login/',
+      `http://localhost:8000/accounts/login/`,
       body,
       config,
     );
@@ -119,7 +119,8 @@ export const login = (email, password) => async dispatch => {
 };
 
 export const signup =
-  (email, nickname, gender, mbti, password, re_password) => async dispatch => {
+  (email, nickname, gender, mbti, password1, password2, age) =>
+  async dispatch => {
     const config = {
       headers: {
         'Content-Type': 'application/json',
@@ -131,13 +132,14 @@ export const signup =
       nickname,
       gender,
       mbti,
-      password,
-      re_password,
+      password1,
+      password2,
+      age,
     });
 
     try {
       const res = await axios.post(
-        `http://13.125.153.252:8000/accounts/`,
+        `http://127.0.0.1:8000/accounts/`,
         body,
         config,
       );
