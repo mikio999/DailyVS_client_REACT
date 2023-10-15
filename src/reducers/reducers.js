@@ -1,4 +1,6 @@
 import { combineReducers } from 'redux';
+import { USER_LOADED_SUCCESS, USER_LOADED_FAIL } from '../actions/types';
+import auth from './auth';
 
 const initialOptionState = {
   selectedOption: '',
@@ -52,7 +54,32 @@ const ageReducer = (state = initialAgeState, action) => {
   }
 };
 
+const initialUserState = {
+  userInfo: null,
+};
+
+const userReducer = (state = initialUserState, action) => {
+  switch (action.type) {
+    case USER_LOADED_SUCCESS:
+      return {
+        ...state,
+        userInfo: action.payload,
+        loading: false,
+      };
+    case USER_LOADED_FAIL:
+      return {
+        ...state,
+        userInfo: null,
+        loading: false,
+      };
+    default:
+      return state;
+  }
+};
+
 const rootReducer = combineReducers({
+  auth,
+  user: userReducer,
   option: optionReducer,
   gender: genderReducer,
   mbti: mbtiReducer,

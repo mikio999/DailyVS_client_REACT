@@ -1,11 +1,47 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { useAuth } from '../../AuthContext';
 import Marquee from 'react-fast-marquee';
+import SearchIcon from '../Atoms/SearchIcon';
+import { connect } from 'react-redux';
+import { checkAuthenticated, load_user, logout } from '../../actions/auth';
 
-const Nav = () => {
-  const { user } = useAuth();
+const Nav = ({ checkAuthenticated, load_user, logout, isAuthenticated }) => {
+  const [redirect, setRedirect] = useState(false);
+  const [userInfo, setUserInfo] = useState('');
+  useEffect(() => {
+    checkAuthenticated();
+    load_user();
+  }, []);
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem('access');
+    if (!accessToken) {
+      // 만약 액세스 토큰이 없으면 요청을 보내지 않는다.
+      return;
+    }
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${accessToken}`,
+        Accept: 'application/json',
+      },
+    };
+
+    fetch(`http://127.0.0.1:8000//accounts/user_info/`, {
+      headers: config.headers,
+    })
+      .then(response => response.json())
+      .then(result => {
+        setUserInfo(result);
+      });
+  }, []);
+
+  const logout_user = () => {
+    logout();
+    setRedirect(true);
+  };
   return (
     <>
       <Marquee
@@ -29,22 +65,28 @@ const Nav = () => {
           <NavFortune to="/fortune">
             <img src="/images/Fortune/Cookie.png" alt="포춘쿠키" />
           </NavFortune>
+          <NavSearch>
+            <SearchIcon />
+          </NavSearch>
 
           <NavLogo to="/">
             <LogoImg src="/images/Nav/Row.png" alt="로고" />
           </NavLogo>
+
           <SearchMyPage>
-            <Link>
-              <img src="images/Nav/search.png" alt="검색" />
-            </Link>
-            {user ? (
-              <NavLink2 to="/">
-                <img src="images/Nav/Unlogged.png" alt="마이페이지" />
-                마이페이지
-              </NavLink2>
+            {isAuthenticated ? (
+              <>
+                <NavLink2 to="/my-page">
+                  <img src="images/Nav/Logged.png" alt="마이페이지" />
+                  <UserNickName>{userInfo.nickname}</UserNickName>님
+                </NavLink2>
+                <Logout href="/login" onClick={logout_user}>
+                  로그아웃
+                </Logout>
+              </>
             ) : (
               <NavLink1 to="/login">
-                <img src="images/Nav/Logged.png" alt="로그인" />
+                <img src="images/Nav/unLogged.png" alt="로그인" />
                 로그인
               </NavLink1>
             )}
@@ -55,7 +97,15 @@ const Nav = () => {
   );
 };
 
-export default Nav;
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps, {
+  checkAuthenticated,
+  load_user,
+  logout,
+})(Nav);
 
 const InnerMarquee = styled.div`
   padding: 10px 0;
@@ -84,6 +134,7 @@ const NavList = styled.div`
   position: relative;
   margin: 0 20px;
 `;
+
 const SearchMyPage = styled.div`
   display: flex;
   align-items: center;
@@ -91,7 +142,7 @@ const SearchMyPage = styled.div`
 
   & img {
     width: 30px;
-    margin-right: 10px;
+    margin-right: 5px;
   }
   @media screen and (min-width: 768px) {
     margin-left: auto;
@@ -103,8 +154,8 @@ const NavLink1 = styled(Link)`
   align-items: center;
   justify-content: center;
   font-family: 'GongGothicLight';
-  font-size: 18px;
-  color: #17355a;
+  font-size: 15px;
+  color: #ff495a !important;
   &:hover {
     opacity: 0.9;
     cursor: pointer;
@@ -117,13 +168,17 @@ const NavLink2 = styled(Link)`
   align-items: center;
   justify-content: center;
   font-family: 'GongGothicLight';
-  font-size: 18px;
+  font-size: 15px;
   color: #ff495a;
   &:hover {
     opacity: 0.9;
     cursor: pointer;
     text-decoration: none;
   }
+`;
+
+const UserNickName = styled.span`
+  color: #457c9e;
 `;
 
 const NavLogo = styled(Link)`
@@ -155,5 +210,33 @@ const NavFortune = styled(Link)`
   }
   @media screen and (min-width: 768px) {
     display: none;
+  }
+`;
+
+const NavSearch = styled(Link)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &:hover {
+    opacity: 0.8;
+    cursor: pointer;
+  }
+
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+`;
+
+const Logout = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'GongGothicLight';
+  font-size: 15px;
+  color: #17355a;
+
+  &:hover {
+    opacity: 0.8;
+    cursor: pointer;
   }
 `;

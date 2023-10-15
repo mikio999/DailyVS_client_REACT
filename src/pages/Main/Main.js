@@ -47,7 +47,6 @@ const Main = () => {
   const ref = useRef(null);
   useEffect(() => {
     setWidth(ref.current.clientWidth);
-    console.log(width);
   }, [width]);
 
   return (

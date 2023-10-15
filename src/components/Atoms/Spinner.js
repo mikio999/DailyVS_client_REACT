@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 import { Dna } from 'react-loader-spinner';
 
 const Spinner = () => {
