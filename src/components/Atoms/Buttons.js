@@ -26,12 +26,12 @@ export const ArrowLeft = ({ onClick, style, opacity = 1 }) => {
 
   const handleSlideBtnMD = () => {
     if (refSlideLeft.current && opacity === 1) {
-      refSlideLeft.current.style.transform = 'scale(0.9)';
+      refSlideLeft.current.style.transform = 'scale(1)';
     }
   };
   const handleSlideBtnMU = () => {
     if (refSlideLeft.current && opacity === 1) {
-      refSlideLeft.current.style.transform = 'scale(1)';
+      refSlideLeft.current.style.transform = 'scale(1.1)';
     }
   };
 
@@ -53,10 +53,7 @@ export const ArrowLeft = ({ onClick, style, opacity = 1 }) => {
         (refSlideLeft.current.style.transform =
           opacity === 1 ? 'scale(1.1)' : 'scale(1)')
       }
-      onMouseLeave={() =>
-        (refSlideLeft.current.style.transform =
-          opacity === 1 ? 'scale(1.1)' : 'scale(1)')
-      }
+      onMouseLeave={() => (refSlideLeft.current.style.transform = 'scale(1)')}
       onClick={onClick}
     />
   );
@@ -66,12 +63,12 @@ export const ArrowRight = ({ onClick, style, opacity = 1 }) => {
   const refSlideRight = useRef(null);
   const handleSlideBtnMD = () => {
     if (refSlideRight.current && opacity === 1) {
-      refSlideRight.current.style.transform = 'scale(0.9)';
+      refSlideRight.current.style.transform = 'scale(1)';
     }
   };
   const handleSlideBtnMU = () => {
     if (refSlideRight.current && opacity === 1) {
-      refSlideRight.current.style.transform = 'scale(1)';
+      refSlideRight.current.style.transform = 'scale(1.1)';
     }
   };
   return (
@@ -91,10 +88,7 @@ export const ArrowRight = ({ onClick, style, opacity = 1 }) => {
         (refSlideRight.current.style.transform =
           opacity === 1 ? 'scale(1.1)' : 'scale(1)')
       }
-      onMouseLeave={() =>
-        (refSlideRight.current.style.transform =
-          opacity === 1 ? 'scale(1.1)' : 'scale(1)')
-      }
+      onMouseLeave={() => (refSlideRight.current.style.transform = 'scale(1)')}
       onClick={onClick}
     />
   );
