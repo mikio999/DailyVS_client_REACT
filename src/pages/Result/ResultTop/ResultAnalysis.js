@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-
+import Spinner from '../../../components/Atoms/Spinner';
 const ResultAnalysis = ({ SpecialKey, Analysis }) => {
   const [typedText, setTypedText] = useState('');
   const [showCursor, setShowCursor] = useState(true);
@@ -46,9 +46,7 @@ const ResultAnalysis = ({ SpecialKey, Analysis }) => {
   return (
     <Container>
       <Analyzing>
-        {showSpinner && (
-          <div className="spinner-border text-secondary" role="status" />
-        )}
+        {showSpinner && <Spinner />}
         <Loading>{analysisMessage}</Loading>
       </Analyzing>
       <Analyze>

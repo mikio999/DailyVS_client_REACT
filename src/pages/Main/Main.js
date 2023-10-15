@@ -36,12 +36,10 @@ const Main = () => {
 
   const getVoteList = () => {
     fetch('/data/vote_list.json')
-//     fetch(`http://localhost:8000/`)
       .then(response => response.json())
       .then(result => {
         setGridList(result);
         setLoading(false);
-
       });
   };
 
