@@ -226,6 +226,7 @@ const SignupPage = styled.div`
 const SignupContainer = styled.form`
   display: flex;
   flex-direction: column;
+  padding: 0 20px 100px;
 `;
 
 const SignupLogo = styled.img`
