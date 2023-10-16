@@ -72,7 +72,6 @@ function MainSlider({ title, list }) {
       }}
     >
       <ArrowLeft onClick={() => previous()} />
-
       <ArrowRight onClick={() => next()} />
     </div>
   );

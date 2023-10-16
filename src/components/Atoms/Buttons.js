@@ -3,10 +3,16 @@ import styled from 'styled-components';
 import theme from '../../styles/theme';
 import { Link } from 'react-router-dom';
 
-const MintButton = ({ content, link }) => (
+const MintButtonSubmit = ({ content, link }) => (
   <Link to={link}>
     <MintButtonCSS>{content}</MintButtonCSS>
   </Link>
+);
+
+export const MintButton = ({ content, onClick }) => (
+  <div>
+    <MintButtonCSS onClick={onClick}>{content}</MintButtonCSS>
+  </div>
 );
 
 const MintButtonCSS = styled.div`
@@ -15,11 +21,14 @@ const MintButtonCSS = styled.div`
   cursor: pointer;
   color: white;
   border-radius: 6px;
+  font-size: 16px;
+  text-align: center;
+  transition: 0.3s;
   &:hover {
     background-color: ${theme.colors.turquoisSecondaryColorHover};
   }
 `;
-export default MintButton;
+export default MintButtonSubmit;
 
 export const ArrowLeft = ({ onClick, style, opacity = 1 }) => {
   const refSlideLeft = useRef(null);

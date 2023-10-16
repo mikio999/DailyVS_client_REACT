@@ -5,6 +5,7 @@ import Footer from './components/Footer/Footer';
 import Main from './pages/Main/Main';
 import Fortune from './pages/Fortune/Fortune';
 import VoteDetail from './pages/Detail/Detail/Detail';
+import Create from './pages/Create/Create';
 import VoteResult from './pages/Result/Result';
 import DetailGender from './pages/Detail/DetailGender/DetailGender';
 import DetailMBTI from './pages/Detail/DetailMBTI/DetailMBTI';
@@ -26,6 +27,7 @@ const RouteWithNavFooter = () => {
         <Route path="/vote-detail-age/:id" element={<DetailAge />} />
         <Route path="/vote-result/:id" element={<VoteResult />} />
         <Route path="/fortune" element={<Fortune />} />
+        <Route path="/create" element={<Create />} />
         {isAuthenticated ? (
           <Route path="/my-page" element={<Mypage />} />
         ) : (
