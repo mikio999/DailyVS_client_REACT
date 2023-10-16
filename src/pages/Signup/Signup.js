@@ -115,7 +115,7 @@ const Signup = ({ signup, isAuthenticated }) => {
       <LoginNav />
       <SignupPage>
         <SignupContainer onSubmit={onSubmit}>
-          <SignupLogo src="images/LoginNav/Only_Tex.png" />
+          <SignupLogo src="/images/LoginNav/Only_Tex.png" />
           <SignupLabel>이메일</SignupLabel>
           <TextInput
             value={email}
@@ -273,7 +273,6 @@ const SignupLabel = styled.label`
   display: flex;
   align-items: center;
   margin-top: 10px;
-
   height: 20px;
 `;
 

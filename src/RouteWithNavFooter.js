@@ -11,6 +11,8 @@ import DetailMBTI from './pages/Detail/DetailMBTI/DetailMBTI';
 import DetailAge from './pages/Detail/DetailAge/DetailAge';
 import Mypage from './pages/Mypage/Mypage';
 import ErrorPage from './pages/ErrorPage/ErrorPage';
+import Modify from './pages/Mypage/Modify/Modify';
+import FixPassWord from './pages/Mypage/Modify/FixPassWord';
 import { useSelector } from 'react-redux';
 
 const RouteWithNavFooter = () => {
@@ -30,6 +32,16 @@ const RouteWithNavFooter = () => {
           <Route path="/my-page" element={<Mypage />} />
         ) : (
           <Route path="/my-page" element={<Main />} />
+        )}
+        {isAuthenticated ? (
+          <Route path="/my-page/fix" element={<Modify />} />
+        ) : (
+          <Route path="/my-page/fix" element={<Main />} />
+        )}
+        {isAuthenticated ? (
+          <Route path="/my-page/fix/password" element={<FixPassWord />} />
+        ) : (
+          <Route path="/my-page/fix/password" element={<Main />} />
         )}
         <Route path="*" element={<ErrorPage />} />
       </Routes>

@@ -2,13 +2,18 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import LoginNav from '../../components/LoginNav/LoginNav';
 import axios from 'axios';
+import { reset_password } from '../../actions/auth';
 import { useDispatch } from 'react-redux';
 import { setEmail } from '../../actions/actions';
+import Sending from '../../components/Atoms/Sending';
 
 const Password = () => {
   const dispatch = useDispatch();
   const [newemail, setNewemail] = useState('');
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+  const [isSending, setIsSending] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [successMessage, setSuccessMessage] = useState(null);
 
   const handleEmailChange = e => {
     const newEmail = e.target.value;
@@ -23,18 +28,45 @@ const Password = () => {
   };
 
   console.log(newemail);
-  const handleResendEmail = async () => {
-    try {
-      await axios.post(`http://localhost:8000/accounts/password/reset/`);
-    } catch (error) {
-      console.error('Error resending email:', error);
+  const onSubmit = e => {
+    e.preventDefault();
+
+    if (!isButtonDisabled) {
+      setIsSending(true);
+      sendResetPasswordRequest(newemail);
     }
+  };
+
+  const sendResetPasswordRequest = email => {
+    fetch(`http://127.0.0.1:8000/accounts/password/reset/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email }),
+    })
+      .then(response => {
+        if (response.ok) {
+          setIsSending(false);
+          console.log('Password reset successful');
+          setSuccessMessage(`${newemail}`);
+        } else {
+          setIsSending(false);
+          console.error('Password reset failed');
+          setErrorMessage('이메일 전송 실패');
+        }
+      })
+      .catch(error => {
+        setIsSending(false);
+        console.error('Error:', error);
+        setErrorMessage('이메일 전송 중 오류 발생');
+      });
   };
 
   return (
     <>
       <LoginNav />
-      <Container>
+      <Container onSubmit={onSubmit}>
         <LogoImg src="/images/LoginNav/Only_Tex.png" />
         <EmailTitle>비밀번호 재설정</EmailTitle>
         <EmailQuestion>
@@ -49,19 +81,32 @@ const Password = () => {
         <EmailRegister
           onClick={() => {
             handleEmailDispatch(newemail);
-            handleResendEmail();
           }}
           disabled={isButtonDisabled}
         >
           이메일 전송하기
         </EmailRegister>
+        {isSending && (
+          <EmailSending>
+            이메일 전송중...
+            <Sending />
+          </EmailSending>
+        )}
+        {successMessage && (
+          <>
+            <SuccessMent>이메일 전송 성공!</SuccessMent>
+            <SuccessMessage>{successMessage}</SuccessMessage>
+            <SuccessMent>을 확인해주세요!</SuccessMent>
+          </>
+        )}
+        {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
       </Container>
     </>
   );
 };
 export default Password;
 
-const Container = styled.div`
+const Container = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -115,4 +160,34 @@ const EmailRegister = styled.button`
   &:hover {
     cursor: pointer;
   }
+`;
+
+const EmailSending = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #457c9e;
+`;
+
+const ErrorMessage = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ff495a;
+`;
+
+const SuccessMessage = styled.div`
+  margin-top: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #17355a;
+  font-family: 'GongGothicLight';
+`;
+
+const SuccessMent = styled.div`
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;

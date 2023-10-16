@@ -34,7 +34,10 @@ const Router = () => {
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/signup/email" element={<Email />} />
                 <Route path="/find-password" element={<Password />} />
-                <Route path="/new-password" element={<PasswordInput />} />
+                <Route
+                  path="/new-password/:uid/:token"
+                  element={<PasswordInput />}
+                />
                 <Route path="/login" element={<Login />} />
               </>
             )}

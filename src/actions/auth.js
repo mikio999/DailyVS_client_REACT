@@ -187,12 +187,12 @@ export const reset_password = email => async dispatch => {
       'Content-Type': 'application/json',
     },
   };
-
+  console.log(config);
   const body = JSON.stringify({ email });
 
   try {
     await axios.post(
-      `${process.env.REACT_APP_API_URL}/auth/users/reset_password/`,
+      `http://127.0.0.1:8000/accounts/password/reset/`,
       body,
       config,
     );
