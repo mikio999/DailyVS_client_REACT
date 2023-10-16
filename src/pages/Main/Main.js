@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import MainCarousel from './MainCarousel/MainCarousel';
 import MainGrid from './MainGrid/MainGrid';
 import 'swiper/swiper-bundle.min.css';
-import MintButton from '../../components/Atoms/Buttons';
+import MintButtonSubmit from '../../components/Atoms/Buttons';
 import theme from '../../styles/theme';
 import MainHero from './MainHero/MainHero';
 import { MainSliderSideLeft, MainSliderSideRight } from './MainSlider/MainSide';
@@ -54,7 +54,7 @@ const Main = () => {
       <MakeVoteBanner>
         <div>
           <span>겨루고 싶은 VS가 있다면? 👉 👉</span>
-          <MintButton content="투표 만들러 가기" />
+          <MintButtonSubmit content="투표 만들러 가기" link={'/create'} />
         </div>
       </MakeVoteBanner>
       <MainHero />
@@ -68,10 +68,6 @@ const Main = () => {
         </div>
         {width < 1200 ? null : <MainSliderSideRight />}
       </MainSliderContainer>
-
-      {/* <MainCarousel loading={loading} /> */}
-      {/* <MainGrid loading={loading} gridList={gridList} /> */}
-      {/* <MainGrid loading={loading} gridList={gridList} /> */}
     </Container>
   );
 };

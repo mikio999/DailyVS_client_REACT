@@ -25,7 +25,7 @@ function MainHero() {
               <img src="/images/Fortune/Cookie.png" alt="포춘쿠키" />
             </div>
           </FortuneContainer>
-          <MakeVoteContainer className="heroMenu">
+          <MakeVoteContainer to="/create" className="heroMenu">
             <div className="makeVoteHeader">
               <h2>투표 만들러 가기</h2>
             </div>
