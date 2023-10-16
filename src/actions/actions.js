@@ -25,3 +25,17 @@ export const setAge = age => {
     payload: age,
   };
 };
+
+export const setEmail = email => {
+  return {
+    type: 'SET_EMAIL',
+    payload: email,
+  };
+};
+
+export const setNickname = nickname => {
+  return {
+    type: 'SET_NICKNAME',
+    payload: nickname,
+  };
+};

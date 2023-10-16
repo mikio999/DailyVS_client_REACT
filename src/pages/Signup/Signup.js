@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
 import LoginNav from '../../components/LoginNav/LoginNav';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { signup } from '../../actions/auth';
+import { setEmail, setNickname } from '../../actions/actions';
 
 const Signup = ({ signup, isAuthenticated }) => {
+  const dispatch = useDispatch();
   const [accountCreated, setAccountCreated] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
@@ -20,6 +22,14 @@ const Signup = ({ signup, isAuthenticated }) => {
 
   console.log(formData);
   const [passwordMatch, setPasswordMatch] = useState(false);
+
+  useEffect(() => {
+    if (password1 === password2 && password1.length >= 8) {
+      setPasswordMatch(true);
+    } else {
+      setPasswordMatch(false);
+    }
+  }, [password1, password2]);
 
   const navigate = useNavigate();
   const [selectedGender, setSelectedGender] = useState('');
@@ -43,9 +53,17 @@ const Signup = ({ signup, isAuthenticated }) => {
     );
   };
 
+  const handleEmailDispatch = selectedEmail => {
+    dispatch(setEmail(selectedEmail));
+  };
+  const handleNicknameDispatch = selectedNickname => {
+    dispatch(setNickname(selectedNickname));
+  };
+
   const onSubmit = e => {
     e.preventDefault();
-
+    handleEmailDispatch(formData.email);
+    handleNicknameDispatch(formData.nickname);
     if (password1 === password2) {
       signup(email, nickname, gender, mbti, password1, password2, age);
       setAccountCreated(true);
@@ -60,7 +78,7 @@ const Signup = ({ signup, isAuthenticated }) => {
 
   useEffect(() => {
     if (accountCreated) {
-      navigate('/login');
+      navigate('/signup/email');
     }
   }, [accountCreated, navigate]);
 
@@ -112,9 +130,11 @@ const Signup = ({ signup, isAuthenticated }) => {
             value={password1}
             type="password"
             placeholder="비밀번호"
-            onChange={e =>
-              setFormData({ ...formData, password1: e.target.value })
-            }
+            onChange={e => {
+              const newPassword = e.target.value;
+              setFormData({ ...formData, password1: newPassword });
+              setPasswordMatch(newPassword === password2);
+            }}
             required
           />
           <SignupLabel>
@@ -130,9 +150,11 @@ const Signup = ({ signup, isAuthenticated }) => {
             placeholder="확인 비밀번호"
             name="password2"
             value={password2}
-            onChange={e =>
-              setFormData({ ...formData, password2: e.target.value })
-            }
+            onChange={e => {
+              const newPassword = e.target.value;
+              setFormData({ ...formData, password2: newPassword });
+              setPasswordMatch(newPassword === password2);
+            }}
           />
           <SignupLabel>기타 정보 (성향 분석에 필요합니다!)</SignupLabel>
           <MBTIDropdown

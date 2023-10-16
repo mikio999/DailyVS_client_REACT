@@ -9,6 +9,7 @@ import { checkAuthenticated, load_user, logout } from '../../actions/auth';
 const Nav = ({ checkAuthenticated, load_user, logout, isAuthenticated }) => {
   const [redirect, setRedirect] = useState(false);
   const [userInfo, setUserInfo] = useState('');
+
   useEffect(() => {
     checkAuthenticated();
     load_user();
@@ -17,7 +18,6 @@ const Nav = ({ checkAuthenticated, load_user, logout, isAuthenticated }) => {
   useEffect(() => {
     const accessToken = localStorage.getItem('access');
     if (!accessToken) {
-      // 만약 액세스 토큰이 없으면 요청을 보내지 않는다.
       return;
     }
 
@@ -39,8 +39,11 @@ const Nav = ({ checkAuthenticated, load_user, logout, isAuthenticated }) => {
   }, []);
 
   const logout_user = () => {
-    logout();
-    setRedirect(true);
+    const shouldLogout = window.confirm('로그아웃 하시겠습니까?');
+    if (shouldLogout) {
+      logout();
+      setRedirect(true);
+    }
   };
   return (
     <>
