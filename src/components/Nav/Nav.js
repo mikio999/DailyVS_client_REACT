@@ -80,7 +80,7 @@ const Nav = ({ checkAuthenticated, load_user, logout, isAuthenticated }) => {
             {isAuthenticated ? (
               <>
                 <NavLink2 to="/my-page">
-                  <img src="images/Nav/Logged.png" alt="마이페이지" />
+                  <img src="/images/Nav/Logged.png" alt="마이페이지" />
                   <UserNickName>{userInfo.nickname}</UserNickName>님
                 </NavLink2>
                 <Logout href="/login" onClick={logout_user}>
@@ -89,7 +89,7 @@ const Nav = ({ checkAuthenticated, load_user, logout, isAuthenticated }) => {
               </>
             ) : (
               <NavLink1 to="/login">
-                <img src="images/Nav/unLogged.png" alt="로그인" />
+                <img src="/images/Nav/unLogged.png" alt="로그인" />
                 로그인
               </NavLink1>
             )}

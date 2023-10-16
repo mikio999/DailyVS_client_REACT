@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 const MypageInformation = () => {
   const [userInformation, setUserInformation] = useState('');
+  const navigate = useNavigate();
+
   useEffect(() => {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -43,6 +46,10 @@ const MypageInformation = () => {
 
   const ageRange = getAgeRange(userInformation.age);
 
+  const moveToModify = () => {
+    navigate('/my-page/fix');
+  };
+
   return (
     <Container>
       <InformationTitle>나의 정보</InformationTitle>
@@ -54,7 +61,7 @@ const MypageInformation = () => {
               {userInformation.nickname}
               <UserSpan>님</UserSpan>
             </UserName>
-            <UserModify>개인정보 수정</UserModify>
+            <UserModify onClick={moveToModify}>개인정보 수정</UserModify>
           </FeatureTop>
 
           <UserCharacter>
