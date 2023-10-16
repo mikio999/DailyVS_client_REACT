@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { login } from '../../actions/auth';
 import LoginNav from '../../components/LoginNav/LoginNav';
 import { AuthContext } from '../../AuthContext';
+import { useSelector } from 'react-redux';
 
 const Login = ({ login, isAuthenticated }) => {
   const [formData, setFormData] = useState({
@@ -61,7 +62,7 @@ const Login = ({ login, isAuthenticated }) => {
         <LoginAsk>
           아직 로그인 계정이 없으신가요?
           <LoginToSignup to="/signup">회원가입</LoginToSignup>
-          <LoginFindPw>비밀번호 찾기</LoginFindPw>
+          <LoginFindPw to="/find-password">비밀번호 찾기</LoginFindPw>
         </LoginAsk>
       </LoginPage>
     </Container>
@@ -136,7 +137,7 @@ const LoginAsk = styled.div`
 
 const LoginToSignup = styled(Link)`
   margin-left: 5px;
-  color: #ff495a;
+  color: #ff495a !important;
   font-weight: bold;
   &:hover {
     opacity: 0.6;
@@ -146,7 +147,7 @@ const LoginToSignup = styled(Link)`
 
 const LoginFindPw = styled(Link)`
   margin-left: 6px;
-  color: #457c9e;
+  color: #457c9e !important;
   font-weight: bold;
   &:hover {
     opacity: 0.6;

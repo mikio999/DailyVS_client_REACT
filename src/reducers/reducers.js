@@ -2,6 +2,33 @@ import { combineReducers } from 'redux';
 import { USER_LOADED_SUCCESS, USER_LOADED_FAIL } from '../actions/types';
 import auth from './auth';
 
+const initialNicknameState = {
+  selectedNickname: '',
+};
+
+const nicknameReducer = (state = initialNicknameState, action) => {
+  switch (action.type) {
+    case 'SET_NICKNAME':
+      return { ...state, selectedNickname: action.payload };
+    default:
+      return state;
+  }
+};
+
+const initialEmailState = {
+  selectedEmail: '',
+};
+
+const emailReducer = (state = initialEmailState, action) => {
+  switch (action.type) {
+    case 'SET_EMAIL':
+      console.log(action.payload);
+      return { ...state, selectedEmail: action.payload };
+    default:
+      return state;
+  }
+};
+
 const initialOptionState = {
   selectedOption: '',
 };
@@ -79,6 +106,8 @@ const userReducer = (state = initialUserState, action) => {
 
 const rootReducer = combineReducers({
   auth,
+  nickname: nicknameReducer,
+  email: emailReducer,
   user: userReducer,
   option: optionReducer,
   gender: genderReducer,
