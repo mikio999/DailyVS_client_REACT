@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import TextareaWithLimit from '../../components/Atoms/Textarea';
 import HeaderText from '../../components/Atoms/HeaderText';
+import theme from '../../styles/theme';
 
 function CreateTTC({ formData, setFormData }) {
   const handleChange = e => {
@@ -82,12 +83,14 @@ const Input = styled.input`
   font-size: 16px;
   color: #17355a;
   padding: 7px 12px;
-  margin: 5px 0 10px 0;
+  margin: 5px 0 20px 0;
   flex: 1;
   border: 2px solid black;
+  border: none;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 
   &::placeholder {
-    color: lightgray;
+    color: ${theme.colors.placeholder};
   }
 `;
 

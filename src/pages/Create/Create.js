@@ -31,7 +31,7 @@ function Create() {
     content: '',
     thumbnail: '',
     category: '',
-    choice: '',
+    choice: {},
   });
   const handleSubmit = e => {
     e.preventDefault();

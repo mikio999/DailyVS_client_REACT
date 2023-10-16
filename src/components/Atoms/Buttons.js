@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import styled from 'styled-components';
 import theme from '../../styles/theme';
 import { Link } from 'react-router-dom';
+import useClickEffect from '../../utils/hooks/useClickEffect';
 
 const MintButtonSubmit = ({ content, link }) => (
   <Link to={link}>
@@ -33,16 +34,10 @@ export default MintButtonSubmit;
 export const ArrowLeft = ({ onClick, style, opacity = 1 }) => {
   const refSlideLeft = useRef(null);
 
-  const handleSlideBtnMD = () => {
-    if (refSlideLeft.current && opacity === 1) {
-      refSlideLeft.current.style.transform = 'scale(1)';
-    }
-  };
-  const handleSlideBtnMU = () => {
-    if (refSlideLeft.current && opacity === 1) {
-      refSlideLeft.current.style.transform = 'scale(1.1)';
-    }
-  };
+  const { handleBtnMD, handleBtnMU, handleBtnME, handleBtnML } = useClickEffect(
+    refSlideLeft,
+    opacity,
+  );
 
   return (
     <img
@@ -56,13 +51,10 @@ export const ArrowLeft = ({ onClick, style, opacity = 1 }) => {
         opacity: opacity,
       }}
       ref={refSlideLeft}
-      onMouseDown={handleSlideBtnMD}
-      onMouseUp={handleSlideBtnMU}
-      onMouseEnter={() =>
-        (refSlideLeft.current.style.transform =
-          opacity === 1 ? 'scale(1.1)' : 'scale(1)')
-      }
-      onMouseLeave={() => (refSlideLeft.current.style.transform = 'scale(1)')}
+      onMouseDown={handleBtnMD}
+      onMouseUp={handleBtnMU}
+      onMouseEnter={handleBtnME}
+      onMouseLeave={handleBtnML}
       onClick={onClick}
     />
   );
@@ -70,16 +62,11 @@ export const ArrowLeft = ({ onClick, style, opacity = 1 }) => {
 
 export const ArrowRight = ({ onClick, style, opacity = 1 }) => {
   const refSlideRight = useRef(null);
-  const handleSlideBtnMD = () => {
-    if (refSlideRight.current && opacity === 1) {
-      refSlideRight.current.style.transform = 'scale(1)';
-    }
-  };
-  const handleSlideBtnMU = () => {
-    if (refSlideRight.current && opacity === 1) {
-      refSlideRight.current.style.transform = 'scale(1.1)';
-    }
-  };
+
+  const { handleBtnMD, handleBtnMU, handleBtnME, handleBtnML } = useClickEffect(
+    refSlideRight,
+    opacity,
+  );
   return (
     <img
       src="/images/Buttons/arrowRight.png"
@@ -91,13 +78,10 @@ export const ArrowRight = ({ onClick, style, opacity = 1 }) => {
         opacity: opacity,
       }}
       ref={refSlideRight}
-      onMouseDown={handleSlideBtnMD}
-      onMouseUp={handleSlideBtnMU}
-      onMouseEnter={() =>
-        (refSlideRight.current.style.transform =
-          opacity === 1 ? 'scale(1.1)' : 'scale(1)')
-      }
-      onMouseLeave={() => (refSlideRight.current.style.transform = 'scale(1)')}
+      onMouseDown={handleBtnMD}
+      onMouseUp={handleBtnMU}
+      onMouseEnter={handleBtnME}
+      onMouseLeave={handleBtnML}
       onClick={onClick}
     />
   );

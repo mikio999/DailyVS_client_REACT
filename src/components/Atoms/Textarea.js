@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import theme from '../../styles/theme';
 
 function TextareaWithLimit({
   value,
@@ -46,15 +47,17 @@ const Textarea = styled.textarea`
   font-size: 16px;
   color: #17355a;
   padding: 7px 12px;
-  margin: 5px 0;
+  margin: 5px 0 10px;
   flex: 1;
   resize: none;
-  border: 2px solid black;
+  border: none;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+
   &:focus {
     outline: none;
   }
   &::placeholder {
-    color: lightgray;
+    color: ${theme.colors.placeholder};
   }
 `;
 
