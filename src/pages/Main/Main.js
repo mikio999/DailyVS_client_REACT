@@ -68,10 +68,6 @@ const Main = () => {
         </div>
         {width < 1200 ? null : <MainSliderSideRight />}
       </MainSliderContainer>
-
-      {/* <MainCarousel loading={loading} /> */}
-      {/* <MainGrid loading={loading} gridList={gridList} /> */}
-      {/* <MainGrid loading={loading} gridList={gridList} /> */}
     </Container>
   );
 };

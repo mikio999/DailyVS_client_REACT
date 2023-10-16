@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
+import TextareaWithLimit from '../../components/Atoms/Textarea';
+import HeaderText from '../../components/Atoms/HeaderText';
 
 function CreateTTC({ formData, setFormData }) {
-  const handleInputChange = e => {
+  const handleChange = e => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
@@ -10,32 +12,33 @@ function CreateTTC({ formData, setFormData }) {
     });
     console.log(name, value);
   };
+
   return (
     <Container>
+      <HeaderText content="투표 만들기" />
       <Thumbnail src={'images/Nav/unLogged.png'} alt={'test'} />
       <CreateBottom>
-        <div>
+        <Wrapper>
           <label for="createTitle">제목:</label>
           <Input
             id="createTitle"
             type="text"
             name="title"
             value={formData.title}
-            onChange={handleInputChange}
+            onChange={handleChange}
             placeholder="약먹고 물먹기 vs 물먹고 약먹기"
           />
-        </div>
-        <div>
-          <label for="createContent">투표 설명: </label>
-          <Input
-            id="createContent"
-            type="text"
-            name="content"
-            value={formData.content}
-            onChange={handleInputChange}
-            placeholder="당신의 선택은?"
-          />
-        </div>
+        </Wrapper>
+
+        <TextareaWithLimit
+          id="createContent"
+          name="content"
+          value={formData.content}
+          onChange={handleChange}
+          placeholder="당신의 선택은?"
+          max={100}
+          label={'투표 설명'}
+        />
       </CreateBottom>
     </Container>
   );
@@ -67,23 +70,21 @@ const CreateBottom = styled.div`
   box-shadow:
     rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
     rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
-
-  & > div {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
+`;
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 const Input = styled.input`
-  font-family: 'GongGothicMedium';
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 16px;
   color: #17355a;
   padding: 7px 12px;
-  margin: 5px;
+  margin: 5px 0 10px 0;
   flex: 1;
+  border: 2px solid black;
 
   &::placeholder {
     color: lightgray;

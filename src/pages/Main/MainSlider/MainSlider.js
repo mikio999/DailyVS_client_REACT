@@ -82,8 +82,6 @@ function MainSlider({ title, list }) {
           <h2 style={{ fontSize: 24, fontWeight: 900 }}>{title}</h2>
           <span>더보기</span>
         </div>
-
-        {/* <CustomButtonGroupAsArrows /> */}
       </Header>
       <div
         style={{

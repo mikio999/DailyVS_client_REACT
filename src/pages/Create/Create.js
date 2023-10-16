@@ -5,6 +5,9 @@ import styled from 'styled-components';
 import CreateTTC from './CreateTTC';
 import Carousel from 'react-multi-carousel';
 import MintButtonSubmit, { MintButton } from '../../components/Atoms/Buttons';
+import axios from 'axios';
+import CreateChoice from './CreateChoice';
+import CreateCat from './CreateCat';
 
 const responsive = {
   desktop: {
@@ -30,20 +33,42 @@ function Create() {
     category: '',
     choice: '',
   });
-
-  const CustomButtonGroup = ({ next, previous }) => (
-    <ButtonGroup>
-      <MintButton content={'이전'} onClick={() => previous()} />
-      <MintButton content={'다음'} onClick={() => next()} />
-    </ButtonGroup>
-  );
+  const handleSubmit = e => {
+    e.preventDefault();
+    console.log('제출:', formData);
+    // axios
+    //   .post('http://localhost:3000/create', formData)
+    //   .then(response => {
+    //     console.log(response.data);
+    //   })
+    //   .catch(error => {
+    //     console.error(error);
+    //   });
+  };
+  const CustomButtonGroup = ({ next, previous, ...rest }) => {
+    const {
+      carouselState: { currentSlide },
+    } = rest;
+    return (
+      <ButtonGroup>
+        {currentSlide === 0 ? null : (
+          <MintButton content={'이전으로'} onClick={() => previous()} />
+        )}
+        {currentSlide === 2 ? (
+          <MintButton as="button" content={'제출하기'} type="submit" />
+        ) : (
+          <MintButton content={'다음으로'} onClick={() => next()} />
+        )}
+      </ButtonGroup>
+    );
+  };
   return (
-    <Container>
+    <Container onSubmit={handleSubmit}>
       <Carousel
         responsive={responsive}
         autoPlay={false}
-        swipeable={false}
-        draggable={false}
+        swipeable={true}
+        draggable={true}
         showDots={true}
         infinite={false}
         partialVisible={false}
@@ -53,31 +78,31 @@ function Create() {
         customButtonGroup={<CustomButtonGroup />}
       >
         <CreateTTC formData={formData} setFormData={setFormData} />
-        <CreateTTC formData={formData} setFormData={setFormData} />
-        <CreateTTC formData={formData} setFormData={setFormData} />
+        <CreateChoice formData={formData} setFormData={setFormData} />
+        <CreateCat formData={formData} setFormData={setFormData} />
       </Carousel>
     </Container>
   );
 }
 
-const Container = styled.div`
+const Container = styled.form`
   width: min(100%, 1200px);
-  height: 500px;
-  margin: 0 auto 150px;
+  margin: 0 auto 100px;
   position: relative;
 `;
 const ButtonGroup = styled.div`
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  bottom: -120px;
+  bottom: -70px;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 5px;
   width: min(100%, 400px);
   height: 56px;
-  & > div {
+  & > div,
+  & > button {
     flex: 1;
   }
 `;
