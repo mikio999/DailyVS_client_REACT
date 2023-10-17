@@ -26,6 +26,20 @@ export const setAge = age => {
   };
 };
 
+export const setCategory = category => {
+  return {
+    type: 'SET_CATEGORY',
+    payload: category,
+  };
+};
+
+export const setCategoryList = categoryList => {
+  return {
+    type: 'SET_CATEGORYLIST',
+    payload: categoryList,
+  };
+};
+
 export const setEmail = email => {
   return {
     type: 'SET_EMAIL',

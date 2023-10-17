@@ -28,6 +28,18 @@
   "p_choice2_percentage": 10,
   "j_choice1_percentage": 45,
   "j_choice2_percentage": 55,
+  "choice1_10_percentage": 10,
+  "choice2_10_percentage": 90,
+  "choice1_20_1_percentage": 30,
+  "choice2_20_1_percentage": 70,
+  "choice1_20_2_percentage": 65,
+  "choice2_20_2_percentage": 35,
+  "choice1_30_1_percentage": 50,
+  "choice2_30_1_percentage": 50,
+  "choice1_30_2_percentage": 65,
+  "choice2_30_2_percentage": 35,
+  "choice1_40_percentage": 75,
+  "choice2_40_percentage": 25,
   "special_key": "여성",
   "analysis": "당신은 여성이지만 80%의 여성과는 다른 선택을 하였습니다."
 }

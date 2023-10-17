@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setAge } from '../../../actions/actions';
+import RegisterBtn from '../../../components/Molecules/RegisterBtn';
 
 const AGE_LIST = [
   { label: '10대', value: '10' },
@@ -33,15 +33,8 @@ const DetailAge = () => {
 
   handleDispatch(selectedAge);
 
-  const params = useParams();
-  const detailId = params.id;
-  const navigate = useNavigate();
   const isFormValid = () => {
     return selectedAge !== '';
-  };
-
-  const handleVoteSubmit = () => {
-    navigate(`/vote-detail-mbti/${detailId}`);
   };
 
   return (
@@ -67,9 +60,7 @@ const DetailAge = () => {
           </AgeRow>
         ))}
       </AgeSection>
-      <AgeButton onClick={handleVoteSubmit} disabled={!isFormValid()}>
-        등록하기
-      </AgeButton>
+      <RegisterBtn isFormValid={isFormValid} />
     </Container>
   );
 };
@@ -127,22 +118,5 @@ const AgeOption = styled.input`
   &:checked + ${AgeSquare} {
     background-color: #ff495a;
     color: white;
-  }
-`;
-
-const AgeButton = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 40px auto;
-  width: 300px;
-  height: 50px;
-  font-size: 24px;
-  background-color: ${props => (props.disabled ? '#BDBDBD' : '#17355a')};
-  color: white;
-  border: none;
-  border-radius: 10px;
-  &:hover {
-    cursor: pointer;
   }
 `;

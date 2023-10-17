@@ -38,10 +38,12 @@ const DetailTitle = styled.h1`
 
 const DetailExplain = styled.div`
   display: flex;
-  text-align: center;
+  text-align: left;
   align-items: center;
   font-size: 16px;
   margin: 0 auto;
+  word-break: keep-all;
+  line-height: 1.2;
 `;
 
 const DetailBottom = styled.div`

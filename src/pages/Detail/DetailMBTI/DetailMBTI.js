@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setMBTI } from '../../../actions/actions';
+import RegisterBtn from '../../../components/Molecules/RegisterBtn';
 
 const DetailMBTI = () => {
   const dispatch = useDispatch();
@@ -29,23 +30,10 @@ const DetailMBTI = () => {
     return newUserMBTI;
   };
 
-  const handleMBTISubmit = () => {
-    const newUserMBTI = mixedMBTI();
-    setUserMBTI(newUserMBTI);
-    navigate(`/vote-result/${detailId}`);
+  const isFormValid = selectedOptions => {
+    const mbtiValue = mixedMBTI(selectedOptions);
+    return mbtiValue.length === 4;
   };
-
-  const selectedOption = useSelector(state => state.option.selectedOption);
-  const selectedGender = useSelector(state => state.gender.selectedGender);
-  const selectedMBTI = useSelector(state => state.mbti.selectedMBTI);
-  const selectedAge = useSelector(state => state.age.selectedAge);
-
-  console.log({
-    'Selected Option': selectedOption,
-    'Selected Gender': selectedGender,
-    'Selected MBTI': selectedMBTI,
-    'Selected Age': selectedAge,
-  });
 
   return (
     <Container>
@@ -120,17 +108,7 @@ const DetailMBTI = () => {
         <MBTIMix>선택된 MBTI 조합 :</MBTIMix>
         <MBTIMixValue>{mixedMBTI()}</MBTIMixValue>
       </MBTICooperation>
-      <SubmitButton
-        onClick={handleMBTISubmit}
-        disabled={
-          !selectedOptions.EI ||
-          !selectedOptions.NS ||
-          !selectedOptions.TF ||
-          !selectedOptions.PJ
-        }
-      >
-        등록하기
-      </SubmitButton>
+      <RegisterBtn isFormValid={isFormValid} />
     </Container>
   );
 };

@@ -5,6 +5,7 @@ import PJGraph from './PJGraph/PJGraph.js';
 import SNGraph from './SNGraph/SNGraph.js';
 import TFGraph from './TFGraph/TFGraph.js';
 import GenderGraph from './GenderGraph/GenderGraph.js';
+import AgeGraph from './AgeGraph/AgeGraph.js';
 
 const ResultGraph = ({ voteResult }) => {
   return (
@@ -49,6 +50,22 @@ const ResultGraph = ({ voteResult }) => {
         jChoice1Percentage={voteResult.j_choice1_percentage}
         pChoice2Percentage={voteResult.p_choice2_percentage}
         jChoice2Percentage={voteResult.j_choice2_percentage}
+      />
+      <AgeGraph
+        option1={voteResult.option_1}
+        option2={voteResult.option_2}
+        choice1_10_Percentage={voteResult.choice1_10_percentage}
+        choice2_10_Percentage={voteResult.choice2_10_percentage}
+        choice1_20_1_Percentage={voteResult.choice1_20_1_percentage}
+        choice2_20_1_Percentage={voteResult.choice2_20_1_percentage}
+        choice1_20_2_Percentage={voteResult.choice1_20_2_percentage}
+        choice2_20_2_Percentage={voteResult.choice2_20_2_percentage}
+        choice1_30_1_Percentage={voteResult.choice1_30_1_percentage}
+        choice2_30_1_Percentage={voteResult.choice2_30_1_percentage}
+        choice1_30_2_Percentage={voteResult.choice1_30_2_percentage}
+        choice2_30_2_Percentage={voteResult.choice2_30_2_percentage}
+        choice1_40_Percentage={voteResult.choice1_40_percentage}
+        choice2_40_Percentage={voteResult.choice2_40_percentage}
       />
     </GraphContainer>
   );

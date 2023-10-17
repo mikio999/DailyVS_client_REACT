@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const OptionCard = ({ voteDetail, selectedOption, setSelectedOption }) => {
-  const handleOptionChange = event => {
-    setSelectedOption(event.target.value);
+  const handleOptionChange = index => {
+    setSelectedOption(index);
   };
 
   return (
@@ -15,18 +15,16 @@ const OptionCard = ({ voteDetail, selectedOption, setSelectedOption }) => {
               className="radio-input"
               type="radio"
               name="option"
-              value={`option_${index + 1}`}
-              checked={selectedOption === `option_${index + 1}`}
-              onChange={e => handleOptionChange(e)}
-              id={`option${index + 1}-radio`}
+              value={`option_${index}`}
+              checked={selectedOption === index}
+              onChange={() => handleOptionChange(index)}
+              id={`option${index}-radio`}
             />
 
             <DetailOptionName
-              htmlFor={`option${index + 1}-radio`}
-              className={
-                selectedOption === `option_${index + 1}` ? 'selected' : ''
-              }
-              onClick={() => setSelectedOption(`option_${index + 1}`)}
+              htmlFor={`option${index}-radio`}
+              className={selectedOption === index ? 'selected' : ''}
+              onClick={() => setSelectedOption(index)}
             >
               <VoteName>{choice}</VoteName>
             </DetailOptionName>
