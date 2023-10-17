@@ -24,9 +24,9 @@ const RouteWithNavFooter = () => {
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/vote-detail/:id" element={<VoteDetail />} />
-        <Route path="/vote-detail-gender/:id" element={<DetailGender />} />
-        <Route path="/vote-detail-mbti/:id" element={<DetailMBTI />} />
-        <Route path="/vote-detail-age/:id" element={<DetailAge />} />
+        <Route path="/vote-detail/gender/:id" element={<DetailGender />} />
+        <Route path="/vote-detail/mbti/:id" element={<DetailMBTI />} />
+        <Route path="/vote-detail/age/:id" element={<DetailAge />} />
         <Route path="/vote-result/:id" element={<VoteResult />} />
         <Route path="/fortune" element={<Fortune />} />
         <Route path="/create" element={<Create />} />

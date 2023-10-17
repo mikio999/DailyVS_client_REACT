@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setGender } from '../../../actions/actions';
+import RegisterBtn from '../../../components/Molecules/RegisterBtn';
 
 const DetailGender = () => {
   const dispatch = useDispatch();
@@ -19,17 +20,10 @@ const DetailGender = () => {
 
   handleDispatch(selectedGender);
 
-  const params = useParams();
-  const detailId = params.id;
-  const navigate = useNavigate();
   const isFormValid = () => {
     return selectedGender !== '';
   };
   console.log(selectedGender);
-
-  const handleVoteSubmit = () => {
-    navigate(`/vote-detail-age/${detailId}`);
-  };
 
   return (
     <DetailGenderContainer>
@@ -68,9 +62,7 @@ const DetailGender = () => {
           여성
         </GenderOptionName>
       </GenderOptionContainer>
-      <GenderButton onClick={handleVoteSubmit} disabled={!isFormValid()}>
-        등록하기
-      </GenderButton>
+      <RegisterBtn isFormValid={isFormValid} />
     </DetailGenderContainer>
   );
 };
