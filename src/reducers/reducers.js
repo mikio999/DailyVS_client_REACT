@@ -81,6 +81,32 @@ const ageReducer = (state = initialAgeState, action) => {
   }
 };
 
+const initialCategoryState = {
+  selectedCategory: '',
+};
+
+const categoryReducer = (state = initialCategoryState, action) => {
+  switch (action.type) {
+    case 'SET_CATEGORY':
+      return { ...state, selectedCategory: action.payload };
+    default:
+      return state;
+  }
+};
+
+const initialCategoryListState = {
+  selectedCategoryList: '',
+};
+
+const categoryListReducer = (state = initialCategoryListState, action) => {
+  switch (action.type) {
+    case 'SET_CATEGORYLIST':
+      return { ...state, selectedCategoryList: action.payload };
+    default:
+      return state;
+  }
+};
+
 const initialUserState = {
   userInfo: null,
 };
@@ -113,6 +139,8 @@ const rootReducer = combineReducers({
   gender: genderReducer,
   mbti: mbtiReducer,
   age: ageReducer,
+  category: categoryReducer,
+  categoryList: categoryListReducer,
 });
 
 export default rootReducer;
