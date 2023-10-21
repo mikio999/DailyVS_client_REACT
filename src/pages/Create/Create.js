@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAuth } from '../../AuthContext';
 import DetailCard from '../Detail/Detail/DetailCard';
 import styled from 'styled-components';
@@ -8,7 +8,37 @@ import MintButtonSubmit, { MintButton } from '../../components/Atoms/Buttons';
 import axios from 'axios';
 import CreateChoice from './CreateChoice';
 import CreateCat from './CreateCat';
-
+// 자기가 만든 detail로 redirect
+// {
+//   "owner": {
+//       "nickname": "한소리임당",
+//       "age": "20_1",
+//       "gender": "W",
+//       "mbti": "INFP"
+//   },
+//   "choices": [
+//       {
+//           "choice_text": "부먹"
+//       },
+//       {
+//           "choice_text": "찍먹"
+//       }
+//   ],
+//   "category": [
+//       {
+//           "id": 1,
+//       },
+//       {
+//           "id": 2,
+//       },
+//       {
+//           "id": 3,
+//       }
+//   ],
+//   "title": "test제목",
+//   "content": "test내용",
+//   "thumbnail": "",
+// }
 const responsive = {
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
@@ -30,9 +60,16 @@ function Create() {
     title: '',
     content: '',
     thumbnail: '',
-    category: '',
-    choice: {},
+    category: [],
+    choice: [],
   });
+  useEffect(() => {
+    console.log(formData);
+  }, [formData]);
+  const dataProps = {
+    formData,
+    setFormData,
+  };
   const handleSubmit = e => {
     e.preventDefault();
     console.log('제출:', formData);
@@ -77,9 +114,9 @@ function Create() {
         renderButtonGroupOutside
         customButtonGroup={<CustomButtonGroup />}
       >
-        <CreateTTC formData={formData} setFormData={setFormData} />
-        <CreateChoice formData={formData} setFormData={setFormData} />
-        <CreateCat formData={formData} setFormData={setFormData} />
+        <CreateTTC {...dataProps} />
+        <CreateChoice {...dataProps} />
+        <CreateCat {...dataProps} />
       </Carousel>
     </Container>
   );

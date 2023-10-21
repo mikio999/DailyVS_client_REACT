@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import HeaderText from '../../components/Atoms/HeaderText';
-import InputPollBox from '../../components/Atoms/InputPollBox';
+import InputPollBox from '../../components/Molecules/InputPollBox';
 import Versus from '../../components/Atoms/VersusText';
 import Plus from '../../components/Atoms/Plus';
 import HeaderSubText from '../../components/Atoms/HeaderSubText';
@@ -18,52 +18,54 @@ const AddChoice = ({ value, index, handleClick }) => {
   const refPlusText = useRef(null);
   const { handleBtnMD, handleBtnMU, handleBtnME, handleBtnML } =
     useClickEffect(refPlusText);
-  return (
-    <>
-      <PlusWrap onClick={handleClick}>
-        <div style={{ opacity: 0, cursor: 'default' }}>
-          <HeaderSubText content={'선택지 추가하기'} />
-        </div>
-        <div
-          ref={refPlus}
-          style={{ transition: '0.3s' }}
-          onMouseDown={handleBtnMD}
-          onMouseUp={handleBtnMU}
-          onMouseEnter={handleBtnME}
-          onMouseLeave={handleBtnML}
-        >
-          <Plus />
-        </div>
-        <div
-          ref={refPlusText}
-          style={{ cursor: 'pointer', transition: '0.3s', padding: 10 }}
-          onMouseDown={() => {
-            handleBtnMD();
-            buttonMD();
-          }}
-          onMouseUp={() => {
-            handleBtnMU();
-            buttonMU();
-          }}
-          onMouseEnter={() => {
-            handleBtnME();
-            buttonME();
-          }}
-          onMouseLeave={() => {
-            handleBtnML();
-            buttonML();
-          }}
-        >
-          <HeaderSubText content={'선택지 추가하기'} />
-        </div>
-      </PlusWrap>
+  if (index < 5) {
+    return (
+      <>
+        <PlusWrap onClick={handleClick}>
+          <div style={{ opacity: 0, cursor: 'default' }}>
+            <HeaderSubText content={'선택지 추가하기'} />
+          </div>
+          <div
+            ref={refPlus}
+            style={{ transition: '0.3s' }}
+            onMouseDown={handleBtnMD}
+            onMouseUp={handleBtnMU}
+            onMouseEnter={handleBtnME}
+            onMouseLeave={handleBtnML}
+          >
+            <Plus />
+          </div>
+          <div
+            ref={refPlusText}
+            style={{ cursor: 'pointer', transition: '0.3s', padding: 10 }}
+            onMouseDown={() => {
+              handleBtnMD();
+              buttonMD();
+            }}
+            onMouseUp={() => {
+              handleBtnMU();
+              buttonMU();
+            }}
+            onMouseEnter={() => {
+              handleBtnME();
+              buttonME();
+            }}
+            onMouseLeave={() => {
+              handleBtnML();
+              buttonML();
+            }}
+          >
+            <HeaderSubText content={'선택지 추가하기'} />
+          </div>
+        </PlusWrap>
 
-      <OpacityWrap>
-        <Versus />
-        <InputPollBox value={value} index={index} readOnly={true} />
-      </OpacityWrap>
-    </>
-  );
+        <OpacityWrap>
+          <Versus />
+          <InputPollBox value={value} index={index} readOnly={true} />
+        </OpacityWrap>
+      </>
+    );
+  }
 };
 const OpacityWrap = styled.div`
   opacity: 0.5;
@@ -87,9 +89,12 @@ function CreateChoice({ formData, setFormData }) {
     const { name, value } = e.target;
     setFormData({
       ...formData,
-      choice: {
-        [name]: value,
-      },
+      choice: [
+        {
+          id: name,
+          choice_text: value,
+        },
+      ],
     });
   };
   const handleAddChoice = () => {
