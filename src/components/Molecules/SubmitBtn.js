@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
@@ -7,7 +7,9 @@ const SubmitBtn = ({ isFormValid }) => {
   const params = useParams();
   const navigate = useNavigate();
   const detailId = params.id;
+  const [userInformation, setUserInformation] = useState('');
 
+  const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
   const selectedOption = useSelector(state => state.option.selectedOption);
   const selectedGender = useSelector(state => state.gender.selectedGender);
   const selectedMBTI = useSelector(state => state.mbti.selectedMBTI);
@@ -15,18 +17,16 @@ const SubmitBtn = ({ isFormValid }) => {
   const selectedCategoryList = useSelector(
     state => state.categoryList.selectedCategoryList,
   );
-  const selectedCategory = useSelector(
-    state => state.category.selectedCategory,
-  );
-  console.log('dI', detailId);
+
   console.log({
-    'Selected Option': selectedOption,
-    'Selected Gender': selectedGender,
-    'Selected MBTI': selectedMBTI,
-    'Selected Age': selectedAge,
-    'Selected Category List': selectedCategoryList,
-    'Selected Category': selectedCategory,
+    choice_id: selectedOption,
+    gender: selectedGender,
+    mbti: selectedMBTI,
+    age: selectedAge,
+    category_list: selectedCategoryList,
   });
+
+  console.log(isAuthenticated);
 
   const handleInformationClick = () => {
     fetch(`http://localhost:8000/${detailId}/poll_result_page`, {
@@ -55,12 +55,12 @@ const SubmitBtn = ({ isFormValid }) => {
             age: selectedAge,
           }),
         );
-        if (result.success) {
+        console.log(result);
+        if (result) {
           navigate(`/vote-result/${detailId}`);
         }
       })
       .catch(error => {
-        // 네트워크 오류 또는 예외 처리
         console.error('POST 요청 오류:', error);
       });
   };

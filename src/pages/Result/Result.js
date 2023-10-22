@@ -7,14 +7,17 @@ import ResultGraph from './ResultGraph/ResultGraph';
 import ResultAnalysis from './ResultTop/ResultAnalysis';
 import AnalysisChart from './ResultGraph/AnalysisChart';
 import ResultBtn from './ResultBtn/ResultBtn';
+import { Params, useParams } from 'react-router-dom';
 
 const Result = () => {
   const [voteResult, setVoteResult] = useState([]);
   const [showWatermark, setShowWatermark] = useState(false);
   const resultRef = useRef(null);
+  const params = useParams();
+  const detailId = params.id;
 
   useEffect(() => {
-    fetch('/data/vote_result.json')
+    fetch(`http://localhost:8000/${detailId}/poll_result_page`)
       .then(response => response.json())
       .then(result => {
         setVoteResult(result);
