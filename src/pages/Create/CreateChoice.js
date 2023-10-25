@@ -85,38 +85,66 @@ const PlusWrap = styled.div`
   padding: 0 20px;
 `;
 function CreateChoice({ formData, setFormData }) {
-  const handleChange = e => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      choice: [
-        {
-          id: name,
-          choice_text: value,
-        },
-      ],
-    });
-  };
   const handleAddChoice = () => {
     setIndex(prev => prev + 1);
   };
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState(Array(5).fill(''));
   const [index, setIndex] = useState(1);
+  const valueProps = {
+    value,
+    setValue,
+  };
+  useEffect(() => {
+    const transformedValue = [];
+    value.map(item => {
+      if (item.length > 0) {
+        transformedValue.push({ choice_text: item });
+      }
+    });
+    setFormData({
+      ...formData,
+      choice: transformedValue,
+    });
+  }, [value]);
 
-  const addedInputPollBoxes = [];
+  let addedInputPollBoxes = [];
+  const handleDelete = e => {
+    const newValue = [...value];
+    const Dindex =
+      e.target.parentElement.parentElement.getAttribute('data-index');
+
+    newValue[Dindex] = '';
+    newValue.map((v, i) => {
+      if (i > Dindex) {
+        newValue[i - 1] = newValue[i];
+        newValue[i] = '';
+      }
+    });
+    setIndex(prev => prev - 1);
+    setValue(newValue);
+  };
   for (let idx = 2; idx <= index; idx++) {
     addedInputPollBoxes.push(
-      <InputPollBox key={idx} value={value} index={idx} deleteBtn={true} />,
+      <InputPollBox
+        key={idx}
+        index={idx}
+        deleteBtn={true}
+        handleDelete={handleDelete}
+        {...valueProps}
+      />,
     );
   }
-
   return (
     <Container>
       <HeaderText content="투표 선택지" />
-      <InputPollBox value={value} index={0} />
-      <InputPollBox value={value} index={1} />
+      <InputPollBox index={0} {...valueProps} />
+      <InputPollBox index={1} {...valueProps} />
       {addedInputPollBoxes}
-      <AddChoice index={index + 1} handleClick={handleAddChoice} />
+      <AddChoice
+        value={value}
+        index={index + 1}
+        handleClick={handleAddChoice}
+      />
     </Container>
   );
 }

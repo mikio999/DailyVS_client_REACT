@@ -2,13 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 import theme from '../../styles/theme';
 
-function InputBox({ value, placeholder, readOnly = false }) {
+function InputBox({ value, placeholder, readOnly = false, onChange }) {
   return (
     <Choice
       type="text"
       value={value}
       placeholder={placeholder}
       readOnly={readOnly}
+      onChange={onChange}
     />
   );
 }
