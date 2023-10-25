@@ -6,19 +6,28 @@ import DeleteBtn from '../Atoms/DeleteBtn';
 import InputBox from '../Atoms/InputBox';
 
 function InputPollBox({
-  value = '',
+  value,
   index,
   readOnly = false,
   deleteBtn = false,
+  setValue,
 }) {
+  console.log('this:', index, value[index]);
+  const handleChange = e => {
+    const newValue = [...value];
+    newValue[index] = e.target.value;
+    setValue(newValue);
+    console.log('old:', value, 'new: ', newValue);
+  };
   return (
     <>
       <Versus index={index} />
       <div style={{ position: 'relative' }}>
         <InputBox
-          value={value}
+          value={value[index]}
           placeholder={`선택지 ${index + 1}`}
           readOnly={readOnly}
+          onChange={handleChange}
         />
         {!!deleteBtn && (
           <Delete>

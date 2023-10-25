@@ -91,7 +91,6 @@ function CreateChoice({ formData, setFormData }) {
       ...formData,
       choice: [
         {
-          id: name,
           choice_text: value,
         },
       ],
@@ -100,23 +99,33 @@ function CreateChoice({ formData, setFormData }) {
   const handleAddChoice = () => {
     setIndex(prev => prev + 1);
   };
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState(Array(5).fill(''));
   const [index, setIndex] = useState(1);
+  const valueProps = {
+    value,
+    setValue,
+  };
 
   const addedInputPollBoxes = [];
   for (let idx = 2; idx <= index; idx++) {
     addedInputPollBoxes.push(
-      <InputPollBox key={idx} value={value} index={idx} deleteBtn={true} />,
+      <InputPollBox key={idx} index={idx} deleteBtn={true} {...valueProps} />,
     );
   }
-
+  useEffect(() => {
+    console.log('value: ', value);
+  }, [value]);
   return (
     <Container>
       <HeaderText content="투표 선택지" />
-      <InputPollBox value={value} index={0} />
-      <InputPollBox value={value} index={1} />
+      <InputPollBox index={0} {...valueProps} />
+      <InputPollBox index={1} {...valueProps} />
       {addedInputPollBoxes}
-      <AddChoice index={index + 1} handleClick={handleAddChoice} />
+      <AddChoice
+        value={value}
+        index={index + 1}
+        handleClick={handleAddChoice}
+      />
     </Container>
   );
 }
