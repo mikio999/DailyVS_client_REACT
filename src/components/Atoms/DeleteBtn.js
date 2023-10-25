@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import useClickEffect from '../../utils/hooks/useClickEffect';
 
-function DeleteBtn({ onClick }) {
+function DeleteBtn({ onClick, index }) {
   const ref = useRef(null);
   const { handleBtnMD, handleBtnMU, handleBtnME, handleBtnML } =
     useClickEffect(ref);

@@ -10,19 +10,18 @@ function InputPollBox({
   index,
   readOnly = false,
   deleteBtn = false,
+  handleDelete,
   setValue,
 }) {
-  console.log('this:', index, value[index]);
   const handleChange = e => {
     const newValue = [...value];
     newValue[index] = e.target.value;
     setValue(newValue);
-    console.log('old:', value, 'new: ', newValue);
   };
   return (
     <>
       <Versus index={index} />
-      <div style={{ position: 'relative' }}>
+      <div data-index={index} style={{ position: 'relative' }}>
         <InputBox
           value={value[index]}
           placeholder={`선택지 ${index + 1}`}
@@ -31,7 +30,7 @@ function InputPollBox({
         />
         {!!deleteBtn && (
           <Delete>
-            <DeleteBtn />
+            <DeleteBtn onClick={handleDelete} />
           </Delete>
         )}
       </div>
