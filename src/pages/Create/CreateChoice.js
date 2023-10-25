@@ -85,17 +85,6 @@ const PlusWrap = styled.div`
   padding: 0 20px;
 `;
 function CreateChoice({ formData, setFormData }) {
-  // const handleChange = e => {
-  //   const { name, value } = e.target;
-  //   setFormData({
-  //     ...formData,
-  //     choice: [
-  //       {
-  //         choice_text: value,
-  //       },
-  //     ],
-  //   });
-  // };
   const handleAddChoice = () => {
     setIndex(prev => prev + 1);
   };
@@ -133,7 +122,6 @@ function CreateChoice({ formData, setFormData }) {
     });
     setIndex(prev => prev - 1);
     setValue(newValue);
-    console.log('value:', value);
   };
   for (let idx = 2; idx <= index; idx++) {
     addedInputPollBoxes.push(
