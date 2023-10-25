@@ -8,6 +8,7 @@ import theme from '../../styles/theme';
 import MainHero from './MainHero/MainHero';
 import { MainSliderSideLeft, MainSliderSideRight } from './MainSlider/MainSide';
 import MainSlider from './MainSlider/MainSlider';
+import useClickEffect from '../../utils/hooks/useClickEffect';
 
 const Main = () => {
   const [loading, setLoading] = useState(true);
@@ -85,6 +86,8 @@ const MakeVoteBanner = styled.div`
   background-color: ${theme.colors.lightGrayColor};
   display: flex;
   justify-content: center;
+  border-bottom: 1px solid ${theme.colors.placeholder};
+
   & > div {
     padding: 10px 20px;
     width: min(100%, 500px);
@@ -92,7 +95,7 @@ const MakeVoteBanner = styled.div`
     justify-content: space-between;
     align-items: center;
   }
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: 800px) {
     display: none;
   }
 `;
