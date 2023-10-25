@@ -1,20 +1,84 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import theme from '../../../styles/theme';
 import { Link } from 'react-router-dom';
-import MintButton from '../../../components/Atoms/Buttons';
+import useClickEffect from '../../../utils/hooks/useClickEffect';
 
 function MainHero() {
+  const [btnLeftIdx, setBtnLeftIdx] = useState(0);
+  const [btnRightIdx, setBtnRightIdx] = useState(0);
+  const buttonLeft = [
+    '/images/TodayVS/buttonBlue.png',
+    '/images/TodayVS/buttonBlue_pressed.png',
+  ];
+  const buttonRight = [
+    '/images/TodayVS/buttonRed_pressed.png',
+    '/images/TodayVS/buttonRed.png',
+  ];
+  const handleBtnLeftChange = () => {
+    setBtnLeftIdx(prev => (prev === 0 ? 1 : 0));
+  };
+  const handleBtnRightChange = () => {
+    setBtnRightIdx(prev => (prev === 0 ? 1 : 0));
+  };
+  useEffect(() => {
+    const Linterval = setInterval(handleBtnLeftChange, 1000);
+    return () => clearInterval(Linterval);
+  }, []);
+  useEffect(() => {
+    const Rinterval = setInterval(handleBtnRightChange, 1000);
+    return () => clearInterval(Rinterval);
+  }, []);
+  const btnLeft = useRef(null);
+  const btnRight = useRef(null);
+  const {
+    handleBtnMD: handleLBtnMD,
+    handleBtnMU: handleLBtnMU,
+    handleBtnME: handleLBtnME,
+    handleBtnML: handleLBtnML,
+  } = useClickEffect(btnLeft);
+  const {
+    handleBtnMD: handleRBtnMD,
+    handleBtnMU: handleRBtnMU,
+    handleBtnME: handleRBtnME,
+    handleBtnML: handleRBtnML,
+  } = useClickEffect(btnRight);
   return (
     <Wrapper>
       <Container>
         <DailyVS>
-          <DailyVSText>
-            <h2>오늘의 VS</h2>
-            <p>다시 돌아온 계절 대전!</p>
-            <p>여름 vs 겨울</p>
-            <MintButton content="지금 바로 투표하러 가기 👉" />
-          </DailyVSText>
+          <div className="tag">오늘의 VS</div>
+          <Title>다시 돌아온 계절 대전!</Title>
+          <VS>
+            <div>
+              <img src="/images/Letters/v.svg" alt="V of VS" />
+            </div>
+            <div>
+              <img src="/images/Letters/s.svg" alt="S of VS" />
+            </div>
+          </VS>
+          <ButtonPress>
+            <div
+              className="buttonLeft"
+              ref={btnLeft}
+              onMouseDown={handleLBtnMD}
+              onMouseUp={handleLBtnMU}
+              onMouseEnter={handleLBtnME}
+              onMouseLeave={handleLBtnML}
+            >
+              <img src={buttonLeft[btnLeftIdx]} />
+            </div>
+            <div
+              className="buttonRight"
+              ref={btnRight}
+              onMouseDown={handleRBtnMD}
+              onMouseUp={handleRBtnMU}
+              onMouseEnter={handleRBtnME}
+              onMouseLeave={handleRBtnML}
+            >
+              <img src={buttonRight[btnRightIdx]} />
+            </div>
+          </ButtonPress>
         </DailyVS>
         <HeroMenuContainer>
           <FortuneContainer to="/fortune" className="heroMenu">
@@ -50,32 +114,94 @@ const DailyVS = styled.div`
   flex: 1;
   background-color: aliceblue;
   position: relative;
-`;
-
-const DailyVSText = styled.div`
-  position: absolute;
-  bottom: 16px;
-  left: 16px;
-  width: 50%;
-  /* height: 60%; */
-  background-color: rgba(0, 0, 0, 0.7);
-  padding: 16px 16px 32px 16px;
-  border-radius: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: white;
-  text-align: center;
-  & h2 {
-    font-size: 36px;
-    margin: 16px 0;
+  justify-content: space-between;
+  padding: 10px;
+
+  &::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 30%;
+    bottom: 0;
+    left: 0;
+    background-color: ${theme.colors.mintSecondaryColor};
   }
-  & p {
-    font-size: 24px;
-    margin: 8px;
+  & > .tag {
+    position: absolute;
+    background-color: ${theme.colors.lightGrayColor};
+    left: 0;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom-right-radius: 15px;
+    padding: 10px 20px;
+    font-weight: 900;
   }
 `;
+const Title = styled.div`
+  padding: 5px 20px;
+  margin-bottom: 100px;
+  background-color: ${theme.colors.darkbluePrimaryColor};
+  border-radius: 10px;
+  border: 2px solid ${theme.colors.mintSecondaryColor};
+  color: white;
+  text-align: center;
+  font-size: 20px;
+`;
+const ButtonPress = styled.div`
+  display: flex;
+  cursor: pointer;
+  z-index: 10;
+  & div {
+    transition: 0.1s;
+  }
+  & img {
+    width: 130px;
+    z-index: 100;
+  }
+`;
+const VS = styled.div`
+  position: relative;
+  width: 160px;
+  height: 160px;
 
+  & > div {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: absolute;
+  }
+  & > div:first-child {
+    top: 0;
+    left: 0;
+  }
+  & > div:last-child {
+    right: 0;
+    bottom: 0;
+  }
+  & > div::before {
+    position: absolute;
+    content: '';
+    background-color: rgba(167, 220, 221, 0.5);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+  }
+  & > div:last-child:before {
+    background-color: rgba(69, 124, 158, 0.65);
+  }
+  & > div > img {
+    z-index: 5;
+  }
+`;
 const HeroMenuContainer = styled.div`
   width: 350px;
   background-color: ${theme.colors.darkbluePrimaryColor};
@@ -86,6 +212,9 @@ const HeroMenuContainer = styled.div`
   & > .heroMenu {
     width: 100%;
     cursor: pointer;
+  }
+  @media screen and (max-width: 800px) {
+    display: none;
   }
 `;
 const FortuneContainer = styled(Link)`

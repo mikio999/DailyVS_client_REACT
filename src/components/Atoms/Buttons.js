@@ -4,11 +4,24 @@ import theme from '../../styles/theme';
 import { Link } from 'react-router-dom';
 import useClickEffect from '../../utils/hooks/useClickEffect';
 
-const MintButtonSubmit = ({ content, link }) => (
-  <Link to={link}>
-    <MintButtonCSS>{content}</MintButtonCSS>
-  </Link>
-);
+const MintButtonSubmit = ({ content, link }) => {
+  const makeVoteRef = useRef(null);
+  const { handleBtnMD, handleBtnMU, handleBtnME, handleBtnML } =
+    useClickEffect(makeVoteRef);
+  return (
+    <Link
+      to={link}
+      ref={makeVoteRef}
+      onMouseDown={handleBtnMD}
+      onMouseUp={handleBtnMU}
+      onMouseEnter={handleBtnME}
+      onMouseLeave={handleBtnML}
+      style={{ transition: '0.3s' }}
+    >
+      <MintButtonCSS>{content}</MintButtonCSS>
+    </Link>
+  );
+};
 
 export const MintButton = ({ content, onClick }) => (
   <div>
