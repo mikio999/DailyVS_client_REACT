@@ -78,7 +78,7 @@ function MainHero() {
               onMouseEnter={handleLBtnME}
               onMouseLeave={handleLBtnML}
             >
-              <img src={buttonLeft[btnLeftIdx]} />
+              <img src={buttonLeft[btnLeftIdx]} alt="buttonleft" />
             </div>
             <div
               className="buttonRight"
@@ -88,7 +88,7 @@ function MainHero() {
               onMouseEnter={handleRBtnME}
               onMouseLeave={handleRBtnML}
             >
-              <img src={buttonRight[btnRightIdx]} />
+              <img src={buttonRight[btnRightIdx]} alt="buttonRight" />
             </div>
           </ButtonPress>
           <TV>

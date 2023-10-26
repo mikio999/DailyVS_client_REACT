@@ -1,23 +1,65 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import TextareaWithLimit from '../../components/Atoms/Textarea';
 import HeaderText from '../../components/Atoms/HeaderText';
 import theme from '../../styles/theme';
+import DeleteBtn from '../../components/Atoms/DeleteBtn';
 
 function CreateTTC({ formData, setFormData }) {
+  const [selectedImage, setSelectedImage] = useState(null);
+
   const handleChange = e => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
       [name]: value,
     });
-    console.log(name, value);
+  };
+  const handleFileChange = e => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = e => {
+        const imageDataURL = e.target.result;
+        setSelectedImage(imageDataURL);
+
+        uploadImageToServer(file);
+      };
+      reader.readAsDataURL(file);
+    } else {
+      setSelectedImage(null);
+    }
+  };
+
+  const uploadImageToServer = imageFile => {
+    setFormData({
+      ...formData,
+      thumbnail: imageFile,
+    });
+  };
+  const handleDeleteImage = () => {
+    setSelectedImage(null);
   };
 
   return (
     <Container>
       <HeaderText content="투표 만들기" />
-      <Thumbnail src={'images/Nav/unLogged.png'} alt={'test'} />
+      <ThumbnailContainer>
+        {selectedImage ? (
+          <>
+            <Thumbnail src={selectedImage} alt={'test'} />
+            <DeleteBtnWrap>
+              <DeleteBtn onClick={handleDeleteImage} />
+            </DeleteBtnWrap>
+          </>
+        ) : (
+          <label className="custom-file-input">
+            <span>이미지 넣기</span>
+            <img src="images/Buttons/image.png" alt="image icon" />
+            <input type="file" accept="image/*" onChange={handleFileChange} />
+          </label>
+        )}
+      </ThumbnailContainer>
       <CreateBottom>
         <Wrapper>
           <label for="createTitle">제목:</label>
@@ -44,6 +86,11 @@ function CreateTTC({ formData, setFormData }) {
     </Container>
   );
 }
+const DeleteBtnWrap = styled.div`
+  position: absolute;
+  right: -15px;
+  top: -15px;
+`;
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -52,16 +99,58 @@ const Container = styled.div`
   margin: 20px auto;
   width: min(100%, 400px);
 `;
-const Thumbnail = styled.img`
-  margin: 10px auto 0 auto;
+const ThumbnailContainer = styled.div`
   width: 100%;
   height: 360px;
+  margin: 10px auto 0 auto;
+  background-color: ${theme.colors.mintSecondaryColor};
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  object-fit: cover;
   box-shadow:
     rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
     rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+  padding: 20px;
+  position: relative;
+  /* overflow: hidden; */
+
+  & .custom-file-input {
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    cursor: pointer;
+    height: 100%;
+
+    & img {
+      width: 30px;
+      transition: 0.3s;
+    }
+    & span {
+      cursor: pointer;
+    }
+    &:hover img {
+      transform: scale(1.1);
+    }
+  }
+  & .custom-file-input input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+  }
+`;
+const Thumbnail = styled.img`
+  height: 100%;
+  position: absolute;
+  object-fit: cover;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 20px solid ${theme.colors.mintSecondaryColor};
 `;
 const CreateBottom = styled.div`
   width: min(100%, 400px);
