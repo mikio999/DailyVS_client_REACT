@@ -43,6 +43,18 @@ function MainHero() {
     handleBtnME: handleRBtnME,
     handleBtnML: handleRBtnML,
   } = useClickEffect(btnRight);
+  const TVImgLeftRef = useRef(null);
+  const TVImgRightRef = useRef(null);
+
+  const [width, setWidth] = useState(0);
+  useEffect(() => {
+    if (TVImgLeftRef.current) {
+      let TVLwidth = TVImgLeftRef.current.clientWidth;
+      setWidth(TVLwidth);
+      TVImgLeftRef.current.style.height = `${width}px`;
+      TVImgRightRef.current.style.height = `${width}px`;
+    }
+  }, [width]);
   return (
     <Wrapper>
       <Container>
@@ -79,6 +91,14 @@ function MainHero() {
               <img src={buttonRight[btnRightIdx]} />
             </div>
           </ButtonPress>
+          <TV>
+            <div>
+              <TVImgLeft ref={TVImgLeftRef}></TVImgLeft>
+            </div>
+            <div>
+              <TVImgRight ref={TVImgRightRef}></TVImgRight>
+            </div>
+          </TV>
         </DailyVS>
         <HeroMenuContainer>
           <FortuneContainer to="/fortune" className="heroMenu">
@@ -99,6 +119,85 @@ function MainHero() {
     </Wrapper>
   );
 }
+const TV = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  gap: 110px;
+
+  & > div {
+    flex: 1;
+    height: 300px;
+    text-align: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    position: relative;
+
+    /* border: 2px solid red; */
+  }
+  & > div:first-child {
+    background-image: url('images/TodayVS/tv_left.png');
+    background-position: right center;
+  }
+  & > div:last-child {
+    background-image: url('images/TodayVS/tv_right.png');
+    background-position: left center;
+  }
+
+  @media screen and (max-width: 500px) {
+    gap: 0px;
+  }
+`;
+const TVImgLeft = styled.div`
+  width: 174px;
+  height: 174px;
+  background-color: black;
+  position: absolute;
+  top: 31%;
+  right: 34px;
+  border-radius: 7px;
+  background-color: white;
+  overflow: hidden;
+  z-index: -1;
+  @media screen and (max-width: 700px) {
+    width: 60%;
+    height: 56%;
+    right: 10%;
+  }
+  @media screen and (max-width: 500px) {
+    top: 34%;
+  }
+  @media screen and (max-width: 400px) {
+    top: 39%;
+  }
+`;
+const TVImgRight = styled.div`
+  width: 174px;
+  height: 174px;
+  background-color: black;
+  position: absolute;
+  border-radius: 7px;
+  top: 31%;
+  left: 43px;
+  background-color: white;
+  overflow: hidden;
+  z-index: -1;
+  @media screen and (max-width: 700px) {
+    width: 60%;
+    left: 13%;
+  }
+  @media screen and (max-width: 500px) {
+    top: 35%;
+  }
+  @media screen and (max-width: 400px) {
+    top: 39%;
+  }
+`;
+
 const Wrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -107,10 +206,13 @@ const Wrapper = styled.div`
 `;
 const Container = styled.div`
   width: min(100%, 1200px);
-  height: 500px;
   display: flex;
+  @media screen and (max-width: 1000px) {
+    flex-direction: column;
+  }
 `;
 const DailyVS = styled.div`
+  height: 500px;
   flex: 1;
   background-color: aliceblue;
   position: relative;
@@ -141,16 +243,30 @@ const DailyVS = styled.div`
     padding: 10px 20px;
     font-weight: 900;
   }
+  @media screen and (max-width: 500px) {
+    & > .tag {
+      left: 50%;
+      transform: translate(-50%);
+      border-bottom-left-radius: 15px;
+      background-color: ${theme.colors.blueBgColor};
+      border: 4px solid ${theme.colors.redpinkPrimaryColor};
+      border-top: none;
+    }
+  }
 `;
 const Title = styled.div`
-  padding: 5px 20px;
-  margin-bottom: 100px;
+  padding: 10px 28px;
+  margin-bottom: 80px;
+  margin-top: 20px;
   background-color: ${theme.colors.darkbluePrimaryColor};
   border-radius: 10px;
   border: 2px solid ${theme.colors.mintSecondaryColor};
   color: white;
   text-align: center;
   font-size: 20px;
+  @media screen and (max-width: 500px) {
+    margin-top: 30px;
+  }
 `;
 const ButtonPress = styled.div`
   display: flex;
@@ -201,9 +317,14 @@ const VS = styled.div`
   & > div > img {
     z-index: 5;
   }
+  @media screen and (max-width: 500px) {
+    top: -100px;
+    transform: scale(0.6);
+  }
 `;
 const HeroMenuContainer = styled.div`
   width: 350px;
+
   background-color: ${theme.colors.darkbluePrimaryColor};
   padding: 16px;
   grid-gap: 16px;
@@ -212,6 +333,12 @@ const HeroMenuContainer = styled.div`
   & > .heroMenu {
     width: 100%;
     cursor: pointer;
+  }
+  @media screen and (max-width: 1000px) {
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    height: 270px;
   }
   @media screen and (max-width: 800px) {
     display: none;
