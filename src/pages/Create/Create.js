@@ -16,7 +16,7 @@ import CreateCat from './CreateCat';
 //       "gender": "W",
 //       "mbti": "INFP"
 //   },
-//   "choices": [
+//   "choice": [
 //       {
 //           "choice_text": "부먹"
 //       },
@@ -63,24 +63,40 @@ function Create() {
     category: [],
     choice: [],
   });
-  useEffect(() => {
-    console.log(formData);
-  }, [formData]);
+
   const dataProps = {
     formData,
     setFormData,
   };
   const handleSubmit = e => {
     e.preventDefault();
-    console.log('제출:', formData);
-    // axios
-    //   .post('http://localhost:3000/create', formData)
-    //   .then(response => {
-    //     console.log(response.data);
-    //   })
-    //   .catch(error => {
-    //     console.error(error);
-    //   });
+
+    const sendData = new FormData();
+    sendData.append('title', formData.title);
+    sendData.append('content', formData.content);
+    sendData.append('thumbnail', formData.thumbnail);
+    for (let i = 0; i < formData.category.length; i++) {
+      sendData.append('category', JSON.stringify(formData.category[i]));
+    }
+    for (let j = 0; j < formData.choice.length; j++) {
+      sendData.append('choice', JSON.stringify(formData.choice[j]));
+    }
+
+    // sendData.forEach((value, key) => {
+    //   console.log(key, value);
+    // });
+
+    fetch('/create', {
+      method: 'POST',
+      body: formData,
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log('데이터 받기 성공:', data);
+      })
+      .catch(error => {
+        console.error(error);
+      });
   };
   const CustomButtonGroup = ({ next, previous, ...rest }) => {
     const {
@@ -92,7 +108,12 @@ function Create() {
           <MintButton content={'이전으로'} onClick={() => previous()} />
         )}
         {currentSlide === 2 ? (
-          <MintButton as="button" content={'제출하기'} type="submit" />
+          <MintButton
+            as="button"
+            content={'제출하기'}
+            type="submit"
+            onClick={handleSubmit}
+          />
         ) : (
           <MintButton content={'다음으로'} onClick={() => next()} />
         )}
