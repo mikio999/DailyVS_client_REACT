@@ -2,14 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import ApexCharts from 'react-apexcharts';
 
-const EIGraph = ({
-  option1,
-  option2,
-  eChoice1Percentage,
-  iChoice1Percentage,
-  eChoice2Percentage,
-  iChoice2Percentage,
-}) => {
+const EIGraph = ({ choices, e_choices, i_choices }) => {
   const [isGraphVisible, setIsGraphVisible] = useState(false);
   const [isRotated, setIsRotated] = useState(true);
 
@@ -19,17 +12,8 @@ const EIGraph = ({
   };
 
   const chartOptions = {
-    series: [
-      {
-        name: option1,
-        data: [eChoice1Percentage, iChoice1Percentage],
-      },
-      {
-        name: option2,
-        data: [eChoice2Percentage, iChoice2Percentage],
-      },
-    ],
-    colors: ['#17355a', '#ff495a'],
+    series: [],
+    colors: ['#17355a', '#457c9e', '#a7dcdd', '#D9D9D9', '#4F4F4F'],
     chart: {
       type: 'bar',
       stacked: true,
@@ -68,6 +52,12 @@ const EIGraph = ({
     },
   };
 
+  choices?.forEach((choice, index) => {
+    chartOptions.series.push({
+      name: choice.choice_text,
+      data: [e_choices[index], i_choices[index]],
+    });
+  });
   return (
     <EIContainer>
       <Toggler onClick={toggleRotation}>

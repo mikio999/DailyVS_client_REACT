@@ -3,14 +3,7 @@ import styled from 'styled-components';
 import ManChart from './ManChart';
 import WomanChart from './WomanChart';
 
-const GenderGraph = ({
-  option1,
-  option2,
-  choice1ManPercentage,
-  choice2ManPercentage,
-  choice1WomanPercentage,
-  choice2WomanPercentage,
-}) => {
+const GenderGraph = ({ choices, man_choices, woman_choices }) => {
   const [isRotated, setIsRotated] = useState(false);
   const [isGraphVisible, setIsGraphVisible] = useState(true);
 
@@ -31,18 +24,8 @@ const GenderGraph = ({
       </Toggler>
       {isGraphVisible && (
         <Charts>
-          <ManChart
-            choice1ManPercentage={choice1ManPercentage}
-            choice2ManPercentage={choice2ManPercentage}
-            option1={option1}
-            option2={option2}
-          />
-          <WomanChart
-            choice1WomanPercentage={choice1WomanPercentage}
-            choice2WomanPercentage={choice2WomanPercentage}
-            option1={option1}
-            option2={option2}
-          />
+          <ManChart man_choices={man_choices} choices={choices} />
+          <WomanChart woman_choices={woman_choices} choices={choices} />
         </Charts>
       )}
     </GenderContainer>

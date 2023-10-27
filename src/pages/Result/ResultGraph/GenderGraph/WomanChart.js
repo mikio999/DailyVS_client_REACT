@@ -2,16 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import ApexCharts from 'react-apexcharts';
 
-const WomanChart = ({
-  choice1WomanPercentage,
-  choice2WomanPercentage,
-  option1,
-  option2,
-}) => {
+const WomanChart = ({ woman_choices, choices }) => {
   const chartOptions = {
-    series: [choice1WomanPercentage, choice2WomanPercentage]?.filter(Boolean),
-    labels: [option1, option2]?.filter(Boolean),
-    colors: ['#a7dcdd', '#457c9e'],
+    series: woman_choices,
+    labels: [],
+    colors: ['#17355a', '#457c9e', '#a7dcdd', '#D9D9D9', '#4F4F4F'],
     chart: {
       type: 'pie',
       height: 350,
@@ -33,6 +28,7 @@ const WomanChart = ({
       },
     ],
   };
+  chartOptions.labels = choices?.map(choice => choice?.choice_text);
   return (
     <WomanContainer>
       <WomanTitle>여성</WomanTitle>

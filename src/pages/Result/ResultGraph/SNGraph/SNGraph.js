@@ -2,14 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import ApexCharts from 'react-apexcharts';
 
-const SNGraph = ({
-  option1,
-  option2,
-  sChoice1Percentage,
-  nChoice1Percentage,
-  sChoice2Percentage,
-  nChoice2Percentage,
-}) => {
+const SNGraph = ({ choices, s_choices, n_choices }) => {
   const [isGraphVisible, setIsGraphVisible] = useState(false);
   const [isRotated, setIsRotated] = useState(true);
 
@@ -19,17 +12,8 @@ const SNGraph = ({
   };
 
   const chartOptions = {
-    series: [
-      {
-        name: option1,
-        data: [sChoice1Percentage, nChoice1Percentage],
-      },
-      {
-        name: option2,
-        data: [sChoice2Percentage, nChoice2Percentage],
-      },
-    ],
-    colors: ['#17355a', '#ff495a'],
+    series: [],
+    colors: ['#17355a', '#457c9e', '#a7dcdd', '#D9D9D9', '#4F4F4F'],
     chart: {
       type: 'bar',
       stacked: true,
@@ -67,6 +51,13 @@ const SNGraph = ({
       offsetX: 40,
     },
   };
+
+  choices?.forEach((choice, index) => {
+    chartOptions.series.push({
+      name: choice.choice_text,
+      data: [s_choices[index], n_choices[index]],
+    });
+  });
 
   return (
     <SNContainer>

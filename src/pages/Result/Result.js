@@ -4,10 +4,10 @@ import html2canvas from 'html2canvas';
 import ResultTop from './ResultTop/ResultTop';
 import TotalGraph from './ResultTop/TotalGraph';
 import ResultGraph from './ResultGraph/ResultGraph';
-import ResultAnalysis from './ResultTop/ResultAnalysis';
-import AnalysisChart from './ResultGraph/AnalysisChart';
+// import ResultAnalysis from './ResultTop/ResultAnalysis';
+// import AnalysisChart from './ResultGraph/AnalysisChart';
 import ResultBtn from './ResultBtn/ResultBtn';
-import { Params, useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 const Result = () => {
   const [voteResult, setVoteResult] = useState([]);
@@ -15,13 +15,17 @@ const Result = () => {
   const resultRef = useRef(null);
   const params = useParams();
   const detailId = params.id;
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch(`http://localhost:8000/${detailId}/poll_result_page`)
       .then(response => response.json())
       .then(result => {
-        setVoteResult(result);
-        console.log(result);
+        if (result.detail === '찾을 수 없습니다.') {
+          navigate('/error');
+        } else {
+          setVoteResult(result);
+        }
       });
   }, []);
 
@@ -42,14 +46,14 @@ const Result = () => {
       <CaptureContainer ref={resultRef}>
         <ResultTop voteResult={voteResult} />
         <TotalGraph voteResult={voteResult} />
-        <ResultAnalysis
+        {/* <ResultAnalysis
           SpecialKey={voteResult.special_key}
           Analysis={voteResult.analysis}
-        />
-        <AnalysisChart
+        /> */}
+        {/* <AnalysisChart
           voteResult={voteResult}
           SpecialKey={voteResult.special_key}
-        />
+        /> */}
         <WaterMark />
       </CaptureContainer>
       <ResultBtn onCapture={handleCapture} />
