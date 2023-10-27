@@ -36,7 +36,6 @@ const Router = () => {
     'Selected List': selectedCategoryList,
   });
 
-  // console.log(isAuthenticated);
   return (
     <Provider store={store}>
       <AuthProvider>

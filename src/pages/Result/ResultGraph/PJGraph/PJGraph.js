@@ -2,14 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import ApexCharts from 'react-apexcharts';
 
-const PJGraph = ({
-  option1,
-  option2,
-  pChoice1Percentage,
-  jChoice1Percentage,
-  pChoice2Percentage,
-  jChoice2Percentage,
-}) => {
+const PJGraph = ({ choices, p_choices, j_choices }) => {
   const [isGraphVisible, setIsGraphVisible] = useState(false);
   const [isRotated, setIsRotated] = useState(true);
 
@@ -19,17 +12,8 @@ const PJGraph = ({
   };
 
   const chartOptions = {
-    series: [
-      {
-        name: option1,
-        data: [pChoice1Percentage, jChoice1Percentage],
-      },
-      {
-        name: option2,
-        data: [pChoice2Percentage, jChoice2Percentage],
-      },
-    ],
-    colors: ['#17355a', '#ff495a'],
+    series: [],
+    colors: ['#17355a', '#457c9e', '#a7dcdd', '#D9D9D9', '#4F4F4F'],
     chart: {
       type: 'bar',
       stacked: true,
@@ -68,6 +52,12 @@ const PJGraph = ({
     },
   };
 
+  choices?.forEach((choice, index) => {
+    chartOptions.series.push({
+      name: choice.choice_text,
+      data: [p_choices[index], j_choices[index]],
+    });
+  });
   return (
     <PJContainer>
       <Toggler onClick={toggleRotation}>

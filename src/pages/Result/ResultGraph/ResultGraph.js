@@ -8,48 +8,72 @@ import GenderGraph from './GenderGraph/GenderGraph.js';
 import AgeGraph from './AgeGraph/AgeGraph.js';
 
 const ResultGraph = ({ voteResult }) => {
+  console.log('voteResult', voteResult);
+  const man_choices = [];
+  const woman_choices = [];
+  const e_choices = [];
+  const i_choices = [];
+  const s_choices = [];
+  const n_choices = [];
+  const t_choices = [];
+  const f_choices = [];
+  const p_choices = [];
+  const j_choices = [];
+
+  for (let i = 1; i <= voteResult.statistics?.choice_count; i++) {
+    const manPercentageKey = `choice${i}_M_percentage`;
+    const womanPercentageKey = `choice${i}_W_percentage`;
+    const EPercentageKey = `choice${i}_E_percentage`;
+    const IPercentageKey = `choice${i}_I_percentage`;
+    const SPercentageKey = `choice${i}_S_percentage`;
+    const NPercentageKey = `choice${i}_N_percentage`;
+    const TPercentageKey = `choice${i}_T_percentage`;
+    const FPercentageKey = `choice${i}_F_percentage`;
+    const PPercentageKey = `choice${i}_P_percentage`;
+    const JPercentageKey = `choice${i}_J_percentage`;
+
+    man_choices.push(voteResult.statistics[manPercentageKey]);
+    woman_choices.push(voteResult.statistics[womanPercentageKey]);
+    e_choices.push(voteResult.statistics[EPercentageKey]);
+    i_choices.push(voteResult.statistics[IPercentageKey]);
+    s_choices.push(voteResult.statistics[SPercentageKey]);
+    n_choices.push(voteResult.statistics[NPercentageKey]);
+    t_choices.push(voteResult.statistics[TPercentageKey]);
+    f_choices.push(voteResult.statistics[FPercentageKey]);
+    p_choices.push(voteResult.statistics[PPercentageKey]);
+    j_choices.push(voteResult.statistics[JPercentageKey]);
+  }
+
+  console.log('choices: ', voteResult.poll?.choices);
+  console.log('t_choices:', t_choices);
+  console.log('f_choices:', f_choices);
   return (
     <GraphContainer>
       <GraphCategory>카테고리</GraphCategory>
       <GenderGraph
-        option1={voteResult.option_1}
-        option2={voteResult.option_2}
-        choice1ManPercentage={voteResult.choice1_man_percentage}
-        choice2ManPercentage={voteResult.choice2_man_percentage}
-        choice1WomanPercentage={voteResult.choice1_woman_percentage}
-        choice2WomanPercentage={voteResult.choice2_woman_percentage}
+        choices={voteResult.poll?.choices}
+        man_choices={man_choices}
+        woman_choices={woman_choices}
       />
       <EIGraph
-        option1={voteResult.option_1}
-        option2={voteResult.option_2}
-        eChoice1Percentage={voteResult.e_choice1_percentage}
-        iChoice1Percentage={voteResult.i_choice1_percentage}
-        eChoice2Percentage={voteResult.e_choice2_percentage}
-        iChoice2Percentage={voteResult.i_choice2_percentage}
+        choices={voteResult.poll?.choices}
+        e_choices={e_choices}
+        i_choices={i_choices}
       />
       <SNGraph
-        option1={voteResult.option_1}
-        option2={voteResult.option_2}
-        sChoice1Percentage={voteResult.s_choice1_percentage}
-        nChoice1Percentage={voteResult.n_choice1_percentage}
-        sChoice2Percentage={voteResult.n_choice2_percentage}
-        nChoice2Percentage={voteResult.n_choice2_percentage}
+        choices={voteResult.poll?.choices}
+        s_choices={s_choices}
+        n_choices={n_choices}
       />
       <TFGraph
-        option1={voteResult.option_1}
-        option2={voteResult.option_2}
-        tChoice1Percentage={voteResult.t_choice1_percentage}
-        fChoice1Percentage={voteResult.f_choice1_percentage}
-        tChoice2Percentage={voteResult.t_choice2_percentage}
-        fChoice2Percentage={voteResult.f_choice2_percentage}
+        choices={voteResult.poll?.choices}
+        t_choices={t_choices}
+        f_choices={f_choices}
       />
       <PJGraph
-        option1={voteResult.option_1}
-        option2={voteResult.option_2}
-        pChoice1Percentage={voteResult.p_choice1_percentage}
-        jChoice1Percentage={voteResult.j_choice1_percentage}
-        pChoice2Percentage={voteResult.p_choice2_percentage}
-        jChoice2Percentage={voteResult.j_choice2_percentage}
+        choices={voteResult.poll?.choices}
+        p_choices={p_choices}
+        j_choices={j_choices}
       />
       <AgeGraph
         option1={voteResult.option_1}

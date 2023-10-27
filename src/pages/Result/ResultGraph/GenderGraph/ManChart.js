@@ -2,16 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import ApexCharts from 'react-apexcharts';
 
-const ManChart = ({
-  choice1ManPercentage,
-  choice2ManPercentage,
-  option1,
-  option2,
-}) => {
+const ManChart = ({ man_choices, choices }) => {
+  console.log('mcmcmc', man_choices, 'cccc', choices);
   const chartOptions = {
-    series: [choice1ManPercentage, choice2ManPercentage]?.filter(Boolean),
-    labels: [option1, option2]?.filter(Boolean),
-    colors: ['#a7dcdd', '#457c9e'],
+    series: man_choices,
+    labels: [],
+    colors: ['#17355a', '#457c9e', '#a7dcdd', '#D9D9D9', '#4F4F4F'],
     chart: {
       type: 'pie',
       height: 350,
@@ -33,6 +29,8 @@ const ManChart = ({
       },
     ],
   };
+  chartOptions.labels = choices?.map(choice => choice?.choice_text);
+
   return (
     <ManContainer>
       <ManTitle>남성</ManTitle>

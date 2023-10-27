@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setGender } from '../../../actions/actions';
 import RegisterBtn from '../../../components/Molecules/RegisterBtn';

@@ -39,7 +39,7 @@ const Login = ({ login, isAuthenticated }) => {
     <Container>
       <LoginNav />
       <LoginPage onSubmit={e => onSubmit(e)}>
-        <LoginLogo src="images/Nav/main_logo.png" />
+        <LoginLogo src="/images/Nav/main_logo.png" />
         <LoginIdInput
           type="text"
           name="email"

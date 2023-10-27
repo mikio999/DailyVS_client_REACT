@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 const ResultBtn = ({ onCapture }) => {
   const [captureEnabled, setCaptureEnabled] = useState(false);
   const location = useLocation();
+  const params = useParams();
   const baseUrl = 'https://daily-vs.com';
-  const text = `${baseUrl}${location.pathname}`;
+  const text = `${baseUrl}/vote-detail/${params.id}`;
 
   const handleCopyClipBoard = async () => {
     try {
@@ -34,11 +35,11 @@ const ResultBtn = ({ onCapture }) => {
       <ShareBtn
         onClick={() => handleCopyClipBoard(`${baseUrl}${location.pathname}`)}
       >
-        <ShareWord>URL복사</ShareWord>
+        <ShareWord>투표 url 복사</ShareWord>
         <ShareImg alt="share" />
       </ShareBtn>
       <CaptureBtn onClick={onCapture} disabled={!captureEnabled}>
-        <CaptureWord>캡쳐하기</CaptureWord>
+        <CaptureWord>그래프 캡쳐</CaptureWord>
         <CaptureImg alt="capture" />
       </CaptureBtn>
     </Container>
@@ -63,6 +64,7 @@ const ShareBtn = styled.button`
   height: 50px;
   border-radius: 5px;
   border: solid black 1px;
+  font-size: 16px;
   margin: 10px;
   transition: box-shadow 0.3s;
   &:hover {
@@ -93,12 +95,14 @@ const CaptureBtn = styled.button`
   border: solid #17355a 1px;
   border-radius: 5px;
   color: white;
+  font-size: 16px;
   background-color: ${props =>
     props.disabled ? '#bdbdbd' : props.theme.colors.darkbluePrimaryColor};
   margin: 10px;
   transition: box-shadow 0.3s;
   &:hover {
     box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
   }
 `;
 

@@ -11,12 +11,24 @@ const TotalGraph = ({ voteResult }) => {
     if (voteResult) {
       const ctx = chartRef.current.getContext('2d');
       const graphData = {
-        labels: [voteResult.option_1, voteResult.option_2],
-        percentages: [
-          voteResult.option_1_percentage,
-          voteResult.option_2_percentage,
+        labels: [],
+        percentages: [],
+        backgroundColors: [
+          '#17355a',
+          '#457c9e',
+          '#a7dcdd',
+          '#D9D9D9',
+          '#4F4F4F',
         ],
       };
+      graphData.labels = voteResult.poll?.choices.map(
+        choice => choice.choice_text,
+      );
+
+      for (let i = 1; i <= voteResult.statistics?.choice_count; i++) {
+        const percentageKey = `choice${i}_percentage`;
+        graphData.percentages.push(voteResult.statistics[percentageKey]);
+      }
 
       // 이전 차트 파괴
       if (chartId) {
@@ -35,7 +47,7 @@ const TotalGraph = ({ voteResult }) => {
           datasets: [
             {
               data: graphData.percentages,
-              backgroundColor: ['#17355a', '#ff495a'],
+              backgroundColor: graphData.backgroundColors,
             },
           ],
         },
