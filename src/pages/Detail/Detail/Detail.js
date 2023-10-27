@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { useParams, useNavigate, useLocation } from 'react-router-dom';
-import { useAuth } from '../../../AuthContext';
+import { useParams } from 'react-router-dom';
 import DetailCard from './DetailCard';
 import OptionCard from './OptionCard';
 import {
@@ -20,12 +19,10 @@ const Detail = () => {
   const [selectedOption, setSelectedOption] = useState('');
   const params = useParams();
   const detailId = params.id;
-  const { user } = useAuth();
-  const location = useLocation();
 
-  // const user = 'mikio';
+  console.log(selectedOption);
   const handleDispatch = selectedOption => {
-    dispatch(setOption(voteDetail.poll?.choices[selectedOption]));
+    dispatch(setOption(selectedOption + 1));
   };
 
   handleDispatch(selectedOption);
@@ -52,23 +49,6 @@ const Detail = () => {
     }
   }, [detailId]);
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
-  const navigate = useNavigate();
-  const selectedCategoryP = useSelector(
-    state => state.category.selectedCategory,
-  );
-
-  // const handleVoteSubmit = e => {
-  //   e.preventDefault();
-
-  //   if (isAuthenticated) {
-  //     // 로그인된 경우
-  //     navigate(`/vote-result/${detailId}`);
-  //   } else {
-  //     // 로그인되지 않은 경우
-  //     const nextLocation = `/vote-detail/gender/${detailId}`;
-  //     navigate(nextLocation, { state: { prevLocation: location.pathname } });
-  //   }
-  // };
 
   const isFormValid = () => {
     return selectedOption !== '';
@@ -84,10 +64,9 @@ const Detail = () => {
             selectedOption={selectedOption}
             setSelectedOption={setSelectedOption}
           />
-          {isAuthenticated ? ( // 유저가 로그인한 경우
-            <SubmitBtn />
+          {isAuthenticated ? (
+            <SubmitBtn isFormValid={isFormValid} />
           ) : (
-            // 로그인하지 않은 경우
             <RegisterBtn isFormValid={isFormValid} />
           )}
         </>

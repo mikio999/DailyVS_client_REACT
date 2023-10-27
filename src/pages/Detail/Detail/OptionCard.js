@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 const OptionCard = ({ voteDetail, selectedOption, setSelectedOption }) => {
@@ -6,29 +6,31 @@ const OptionCard = ({ voteDetail, selectedOption, setSelectedOption }) => {
     setSelectedOption(index);
   };
 
+  console.log(voteDetail.poll?.choices);
+
   return (
     <DetailContainer>
-      {voteDetail && voteDetail.choice_text ? (
-        voteDetail.choice_text.map((choice, index) => (
-          <OptionCardContainer key={index}>
+      {voteDetail && voteDetail?.poll?.choices ? (
+        voteDetail?.poll?.choices.map((choice, index) => (
+          <OptionCardContainer key={choice.id}>
             <DetailOption
               className="radio-input"
               type="radio"
               name="option"
-              value={`option_${index}`}
-              checked={selectedOption === index}
+              value={choice.id}
+              checked={index === selectedOption}
               onChange={() => handleOptionChange(index)}
-              id={`option${index}-radio`}
+              id={choice.id}
             />
 
             <DetailOptionName
-              htmlFor={`option${index}-radio`}
-              className={selectedOption === index ? 'selected' : ''}
+              htmlFor={choice.id}
+              className={index === selectedOption ? 'selected' : ''}
               onClick={() => setSelectedOption(index)}
             >
-              <VoteName>{choice}</VoteName>
+              <VoteName>{choice.choice_text}</VoteName>
             </DetailOptionName>
-            {index < voteDetail.choice_text.length - 1 && (
+            {index < voteDetail.poll.choices.length - 1 && (
               <VSWord>
                 <VSRed>V</VSRed>
                 <VSBlue>S</VSBlue>

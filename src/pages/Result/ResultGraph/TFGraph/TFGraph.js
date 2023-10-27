@@ -2,14 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import ApexCharts from 'react-apexcharts';
 
-const TFGraph = ({
-  option1,
-  option2,
-  tChoice1Percentage,
-  fChoice1Percentage,
-  tChoice2Percentage,
-  fChoice2Percentage,
-}) => {
+const TFGraph = ({ choices, t_choices, f_choices }) => {
   const [isGraphVisible, setIsGraphVisible] = useState(false);
   const [isRotated, setIsRotated] = useState(true);
 
@@ -19,17 +12,8 @@ const TFGraph = ({
   };
 
   const chartOptions = {
-    series: [
-      {
-        name: option1,
-        data: [tChoice1Percentage, fChoice1Percentage],
-      },
-      {
-        name: option2,
-        data: [tChoice2Percentage, fChoice2Percentage],
-      },
-    ],
-    colors: ['#17355a', '#ff495a'],
+    series: [],
+    colors: ['#17355a', '#457c9e', '#a7dcdd', '#D9D9D9', '#4F4F4F'],
     chart: {
       type: 'bar',
       stacked: true,
@@ -68,6 +52,12 @@ const TFGraph = ({
     },
   };
 
+  choices?.forEach((choice, index) => {
+    chartOptions.series.push({
+      name: choice.choice_text,
+      data: [t_choices[index], f_choices[index]],
+    });
+  });
   return (
     <TFContainer>
       <Toggler onClick={toggleRotation}>
