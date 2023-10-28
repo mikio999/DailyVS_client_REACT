@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import ApexCharts from 'react-apexcharts';
 
 const ManChart = ({ man_choices, choices }) => {
-  console.log('mcmcmc', man_choices, 'cccc', choices);
   const chartOptions = {
     series: man_choices,
     labels: [],

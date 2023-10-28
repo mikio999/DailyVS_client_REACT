@@ -4,8 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
 import { setGender, setAge, setMBTI } from '../../actions/actions';
 
-const SubmitBtn = ({ isFormValid }) => {
-  const [isLoading, setIsLoading] = useState(false);
+const AuthSubmitBtn = ({ isFormValid }) => {
   const params = useParams();
   const navigate = useNavigate();
   const detailId = params.id;
@@ -51,7 +50,6 @@ const SubmitBtn = ({ isFormValid }) => {
   }
 
   const handleInformationClick = () => {
-    setIsLoading(true);
     fetch(`http://localhost:8000/${detailId}/poll_result_page`, {
       method: 'POST',
       headers: {
@@ -83,7 +81,6 @@ const SubmitBtn = ({ isFormValid }) => {
         }
       })
       .catch(error => {
-        setIsLoading(false);
         console.error('POST 요청 오류:', error);
       });
   };
@@ -95,7 +92,7 @@ const SubmitBtn = ({ isFormValid }) => {
   );
 };
 
-export default SubmitBtn;
+export default AuthSubmitBtn;
 
 const RegisterButton = styled.button`
   justify-content: center;

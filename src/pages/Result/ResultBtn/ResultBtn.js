@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 const ResultBtn = ({ onCapture }) => {
-  const [captureEnabled, setCaptureEnabled] = useState(false);
   const location = useLocation();
   const params = useParams();
   const baseUrl = 'https://daily-vs.com';
@@ -18,18 +17,6 @@ const ResultBtn = ({ onCapture }) => {
     }
   };
 
-  useEffect(() => {
-    // 화면이 렌더링된 후 5초 뒤에 캡쳐 버튼 활성화
-    const timeoutId = setTimeout(() => {
-      setCaptureEnabled(true);
-    }, 5000);
-
-    // 컴포넌트 언마운트 시 타이머 클리어
-    return () => {
-      clearTimeout(timeoutId);
-    };
-  }, []);
-
   return (
     <Container>
       <ShareBtn
@@ -38,7 +25,7 @@ const ResultBtn = ({ onCapture }) => {
         <ShareWord>투표 url 복사</ShareWord>
         <ShareImg alt="share" />
       </ShareBtn>
-      <CaptureBtn onClick={onCapture} disabled={!captureEnabled}>
+      <CaptureBtn onClick={onCapture}>
         <CaptureWord>그래프 캡쳐</CaptureWord>
         <CaptureImg alt="capture" />
       </CaptureBtn>

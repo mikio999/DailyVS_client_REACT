@@ -14,29 +14,31 @@ import SubmitBtn from '../../../components/Molecules/SubmitBtn';
 
 const Detail = () => {
   const dispatch = useDispatch();
-
   const [voteDetail, setVoteDetail] = useState([]);
   const [selectedOption, setSelectedOption] = useState('');
   const params = useParams();
   const detailId = params.id;
 
-  console.log(selectedOption);
   const handleDispatch = selectedOption => {
     dispatch(setOption(selectedOption + 1));
   };
 
-  handleDispatch(selectedOption);
   const handleCategoryDispatch = selectedCategory => {
     dispatch(setCategory(selectedCategory));
   };
 
-  const selectedCategory = voteDetail.category_list;
-  handleCategoryDispatch(selectedCategory);
-
   const handleCategoryListDispatch = selectedCategoryList => {
     dispatch(setCategoryList(selectedCategoryList));
   };
-  handleCategoryListDispatch(selectedCategory);
+
+  useEffect(() => {
+    handleCategoryDispatch(voteDetail.category_list);
+    handleCategoryListDispatch(voteDetail.category_list);
+  }, [voteDetail]);
+
+  useEffect(() => {
+    handleDispatch(selectedOption);
+  }, [selectedOption]);
 
   useEffect(() => {
     if (detailId) {
@@ -48,6 +50,7 @@ const Detail = () => {
         });
     }
   }, [detailId]);
+
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
 
   const isFormValid = () => {
@@ -86,21 +89,4 @@ const DetailContainer = styled.form`
   justify-content: center;
   margin: 0 auto;
   background-color: #f8f8ff;
-`;
-
-const DetailSubmitBtn = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 10px auto;
-  width: 300px;
-  height: 50px;
-  font-size: 24px;
-  background-color: ${props => (props.disabled ? '#BDBDBD' : '#17355a')};
-  color: white;
-  border: none;
-  border-radius: 10px;
-  &:hover {
-    cursor: pointer;
-  }
 `;

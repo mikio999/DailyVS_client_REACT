@@ -7,12 +7,23 @@ const TotalGraph = ({ voteResult }) => {
   const chartInstance = useRef(null);
   const [chartId, setChartId] = useState(null);
 
+  const total_choices = voteResult.statistics?.choice;
+  const total_choicesArray = [];
+
+  for (let i = 1; i <= 5; i++) {
+    const choiceKey = `choice${i}`;
+
+    if (total_choices?.hasOwnProperty(choiceKey)) {
+      total_choicesArray.push(total_choices[choiceKey]);
+    }
+  }
+
   useEffect(() => {
     if (voteResult) {
       const ctx = chartRef.current.getContext('2d');
       const graphData = {
         labels: [],
-        percentages: [],
+        percentages: total_choicesArray,
         backgroundColors: [
           '#17355a',
           '#457c9e',
@@ -30,7 +41,6 @@ const TotalGraph = ({ voteResult }) => {
         graphData.percentages.push(voteResult.statistics[percentageKey]);
       }
 
-      // 이전 차트 파괴
       if (chartId) {
         chartInstance.current.destroy();
       }

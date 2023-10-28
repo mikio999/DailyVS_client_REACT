@@ -1,68 +1,38 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ReactApexChart from 'react-apexcharts';
 import styled from 'styled-components';
 
 const AgeGraph = ({
-  option1,
-  option2,
-  choice1_10_Percentage,
-  choice2_10_Percentage,
-  choice1_20_1_Percentage,
-  choice2_20_1_Percentage,
-  choice1_20_2_Percentage,
-  choice2_20_2_Percentage,
-  choice1_30_1_Percentage,
-  choice2_30_1_Percentage,
-  choice1_30_2_Percentage,
-  choice2_30_2_Percentage,
-  choice1_40_Percentage,
-  choice2_40_Percentage,
+  choices,
+  choices_10,
+  choices_20_1,
+  choices_20_2,
+  choices_30_1,
+  choices_30_2,
+  choices_40,
 }) => {
-  const [chartData, setChartData] = useState({
-    series: [
-      {
-        name: option1,
-        data: [
-          choice1_10_Percentage,
-          choice1_20_1_Percentage,
-          choice1_20_2_Percentage,
-          choice1_30_1_Percentage,
-          choice1_30_2_Percentage,
-          choice1_40_Percentage,
-        ],
-      },
-      {
-        name: option2,
-        data: [
-          choice2_10_Percentage,
-          choice2_20_1_Percentage,
-          choice2_20_2_Percentage,
-          choice2_30_1_Percentage,
-          choice2_30_2_Percentage,
-          choice2_40_Percentage,
-        ],
-      },
-    ],
+  const chartData = {
+    series: [],
+    colors: ['#17355a', '#457c9e', '#a7dcdd', '#D9D9D9', '#4F4F4F'],
     options: {
       chart: {
         type: 'bar',
         height: 350,
+        stacked: true,
+        stackType: '100%',
       },
-      plotOptions: {
-        bar: {
-          horizontal: false,
-          columnWidth: '70%',
-          endingShape: 'rounded',
+      responsive: [
+        {
+          breakpoint: 480,
+          options: {
+            legend: {
+              position: 'bottom',
+              offsetX: -10,
+              offsetY: 0,
+            },
+          },
         },
-      },
-      dataLabels: {
-        enabled: false,
-      },
-      stroke: {
-        show: true,
-        width: 2,
-        colors: ['transparent'],
-      },
+      ],
       xaxis: {
         categories: [
           '10대',
@@ -70,26 +40,32 @@ const AgeGraph = ({
           '20대 후반',
           '30대 초반',
           '30대 후반',
-          '40대',
+          '40대 이상',
         ],
-      },
-      yaxis: {
-        title: {
-          text: '',
-        },
       },
       fill: {
         opacity: 1,
       },
-      tooltip: {
-        y: {
-          formatter: function (val) {
-            return val + ' %';
-          },
-        },
+      legend: {
+        position: 'right',
+        offsetX: 0,
+        offsetY: 50,
       },
-      colors: ['#17355a', '#ff495a'],
     },
+  };
+
+  choices?.forEach((choice, index) => {
+    chartData.series.push({
+      name: choice.choice_text,
+      data: [
+        choices_10[index],
+        choices_20_1[index],
+        choices_20_2[index],
+        choices_30_1[index],
+        choices_30_2[index],
+        choices_40[index],
+      ],
+    });
   });
 
   return (
@@ -99,7 +75,7 @@ const AgeGraph = ({
           options={chartData.options}
           series={chartData.series}
           type="bar"
-          height={350}
+          height={chartData.options.chart.height}
         />
       </div>
     </Container>
