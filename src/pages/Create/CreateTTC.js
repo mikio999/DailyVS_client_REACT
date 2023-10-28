@@ -62,7 +62,7 @@ function CreateTTC({ formData, setFormData }) {
       </ThumbnailContainer>
       <CreateBottom>
         <Wrapper>
-          <label for="createTitle">제목:</label>
+          <label htmlFor="createTitle">제목:</label>
           <Input
             id="createTitle"
             type="text"
@@ -79,7 +79,7 @@ function CreateTTC({ formData, setFormData }) {
           value={formData.content}
           onChange={handleChange}
           placeholder="당신의 선택은?"
-          max={100}
+          max={500}
           label={'투표 설명'}
         />
       </CreateBottom>
