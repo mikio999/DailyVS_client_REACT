@@ -82,11 +82,11 @@ function Create() {
       sendData.append('choice', JSON.stringify(formData.choice[j]));
     }
 
-    // sendData.forEach((value, key) => {
-    //   console.log(key, value);
-    // });
+    sendData.forEach((value, key) => {
+      console.log(key, value);
+    });
 
-    fetch('/create', {
+    fetch(`http://localhost:8000/create`, {
       method: 'POST',
       body: formData,
     })

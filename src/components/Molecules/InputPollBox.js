@@ -44,13 +44,3 @@ const Delete = styled.div`
 `;
 
 export default InputPollBox;
-{
-  /* <Input
-id="createTitle"
-type="text"
-name="title"
-value={formData.title}
-onChange={handleChange}
-placeholder="약먹고 물먹기 vs 물먹고 약먹기"
-/> */
-}

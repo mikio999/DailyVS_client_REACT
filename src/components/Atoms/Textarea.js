@@ -18,7 +18,7 @@ function TextareaWithLimit({
   };
   return (
     <Wrapper>
-      {label && <label for={id}>{label}: </label>}
+      {label && <label htmlFor={id}>{label}: </label>}
 
       <Textarea
         id={id}
