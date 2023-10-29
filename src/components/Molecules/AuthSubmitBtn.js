@@ -45,7 +45,8 @@ const AuthSubmitBtn = ({ isFormValid }) => {
   dispatch(setMBTI(userInformation?.mbti));
   dispatch(setGender(userInformation?.gender));
 
-  const handleInformationClick = () => {
+  const handleInformationClick = event => {
+    event.preventDefault();
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
 
@@ -56,7 +57,9 @@ const AuthSubmitBtn = ({ isFormValid }) => {
 
     const requestOptions = {
       method: 'POST',
-      headers: 'application/json',
+      headers: {
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify({
         choice_id: selectedOption,
         category_list: selectedCategoryList,
