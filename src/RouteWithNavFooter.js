@@ -48,8 +48,8 @@ const RouteWithNavFooter = () => {
           <Route path="/my-page/fix/password" element={<Main />} />
         )}
         <Route path="*" element={<ErrorPage />} />
-        <Route path="email-error" element={<EmailError />} />
-        <Route path="login-email" element={<LoginEmail />} />
+        <Route path="/email-error" element={<EmailError />} />
+        <Route path="/login-email" element={<LoginEmail />} />
       </Routes>
       <Footer />
     </>
