@@ -4,6 +4,16 @@ import styled from 'styled-components';
 const choiceColors = ['#17355a', '#457c9e', '#a7dcdd', '#D9D9D9', '#4F4F4F'];
 
 const ResultTop = ({ voteResult }) => {
+  const total_choices = voteResult.statistics?.choice;
+  const total_choicesArray = [];
+
+  for (let i = 1; i <= 5; i++) {
+    const choiceKey = `choice${i}`;
+
+    if (total_choices?.hasOwnProperty(choiceKey)) {
+      total_choicesArray.push(total_choices[choiceKey]);
+    }
+  }
   return (
     <ResultTopContainer>
       <ResultTitle>{voteResult.poll?.title}</ResultTitle>
@@ -13,9 +23,7 @@ const ResultTop = ({ voteResult }) => {
           <ChoiceCircle
             style={{ backgroundColor: choiceColors[index] || '#D9D9D9' }}
           />
-          <Percentage>
-            {voteResult?.statistics?.[`choice${index + 1}_percentage`]} %
-          </Percentage>
+          <Percentage>{total_choicesArray[index]} %</Percentage>
           <OptionName>{choice.choice_text}</OptionName>
         </Option>
       ))}

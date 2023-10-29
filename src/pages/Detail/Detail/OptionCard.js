@@ -6,8 +6,6 @@ const OptionCard = ({ voteDetail, selectedOption, setSelectedOption }) => {
     setSelectedOption(index);
   };
 
-  console.log(voteDetail.poll?.choices);
-
   return (
     <DetailContainer>
       {voteDetail && voteDetail?.poll?.choices ? (

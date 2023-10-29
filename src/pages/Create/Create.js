@@ -9,6 +9,7 @@ import axios from 'axios';
 import CreateChoice from './CreateChoice';
 import CreateCat from './CreateCat';
 import Comment from '../../components/Comment/Comment';
+import { checkAuthenticated, load_user } from '../../actions/auth';
 // 자기가 만든 detail로 redirect
 // {
 //   "owner": {
@@ -56,6 +57,36 @@ const responsive = {
 };
 
 function Create() {
+  const [userInfo, setUserInfo] = useState('');
+  useEffect(() => {
+    checkAuthenticated();
+    load_user();
+  }, []);
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem('access');
+    if (!accessToken) {
+      return;
+    }
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${accessToken}`,
+        Accept: 'application/json',
+      },
+    };
+
+    fetch(`http://127.0.0.1:8000/accounts/user_info/`, {
+      headers: config.headers,
+    })
+      .then(response => response.json())
+      .then(result => {
+        setUserInfo(result);
+      });
+  }, []);
+  console.log('uiuiuiui', userInfo);
+
   // 넘겨줄 데이터: title, content, thumbnail, category, choice, owner
   const [formData, setFormData] = useState({
     title: '',
