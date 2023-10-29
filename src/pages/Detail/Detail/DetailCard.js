@@ -1,13 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
-import LikeBtn from '../../../components/Atoms/LikeBtn';
+import PollLikeBtn from '../../../components/Atoms/PollLikeBtn';
 
 const DetailCard = ({ voteDetail }) => {
   return (
     <CardContainer>
       <ImageContainer>
         <LikeBtnContainer>
-          <LikeBtn />
+          <PollLikeBtn />
         </LikeBtnContainer>
         <DetailImage
           src={'http://127.0.0.1:8000' + voteDetail.poll?.thumbnail}

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-const LikeBtn = () => {
+const PollLikeBtn = () => {
   const [likeInfo, setLikeInfo] = useState('');
   const [isLiked, setIsLiked] = useState(likeInfo.user_likes_poll);
   const [userInformation, setUserInformation] = useState('');
@@ -82,7 +82,7 @@ const LikeBtn = () => {
     );
 };
 
-export default LikeBtn;
+export default PollLikeBtn;
 
 const Container = styled.div`
   &:hover {
