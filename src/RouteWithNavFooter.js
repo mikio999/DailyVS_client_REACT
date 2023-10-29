@@ -15,6 +15,7 @@ import ErrorPage from './pages/ErrorPage/ErrorPage';
 import Modify from './pages/Mypage/Modify/Modify';
 import FixPassWord from './pages/Mypage/Modify/FixPassWord';
 import { useSelector } from 'react-redux';
+import EmailError from './pages/ErrorPage/EmailError';
 
 const RouteWithNavFooter = () => {
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
@@ -46,6 +47,7 @@ const RouteWithNavFooter = () => {
           <Route path="/my-page/fix/password" element={<Main />} />
         )}
         <Route path="*" element={<ErrorPage />} />
+        <Route path="email-error" element={<EmailError />} />
       </Routes>
       <Footer />
     </>
