@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../../AuthContext';
-import DetailCard from '../Detail/Detail/DetailCard';
 import styled from 'styled-components';
 import CreateTTC from './CreateTTC';
 import Carousel from 'react-multi-carousel';
-import MintButtonSubmit, { MintButton } from '../../components/Atoms/Buttons';
-import axios from 'axios';
+import { MintButton } from '../../components/Atoms/Buttons';
 import CreateChoice from './CreateChoice';
 import CreateCat from './CreateCat';
-import Comment from '../../components/Comment/Comment';
 import { checkAuthenticated, load_user } from '../../actions/auth';
 // 자기가 만든 detail로 redirect
 // {
@@ -104,6 +101,9 @@ function Create() {
     e.preventDefault();
 
     const sendData = new FormData();
+    for (let i = 0; i < userInfo.length; i++) {
+      sendData.append('owner', JSON.stringify(userInfo[i]));
+    }
     sendData.append('title', formData.title);
     sendData.append('content', formData.content);
     sendData.append('thumbnail', formData.thumbnail);
@@ -174,7 +174,6 @@ function Create() {
         <CreateChoice {...dataProps} />
         <CreateCat {...dataProps} />
       </Carousel>
-      <Comment />
     </Container>
   );
 }

@@ -126,3 +126,26 @@ export const CommentLikeBtn = ({ onClick, dislike = false }) => {
     />
   );
 };
+
+export const ChevronDown = ({ onClick }) => {
+  const ref = useRef(null);
+
+  const { handleBtnMD, handleBtnMU, handleBtnME, handleBtnML } =
+    useClickEffect(ref);
+  return (
+    <img
+      src="/images/Buttons/chevron_down.svg"
+      style={{
+        width: 30,
+        height: 30,
+        transition: '0.3s',
+      }}
+      ref={ref}
+      onMouseDown={handleBtnMD}
+      onMouseUp={handleBtnMU}
+      onMouseEnter={handleBtnME}
+      onMouseLeave={handleBtnML}
+      onClick={onClick}
+    />
+  );
+};
