@@ -15,26 +15,6 @@ import PasswordInput from './pages/Signup/PasswordInput';
 
 const Router = () => {
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
-  // const selectedOption = useSelector(state => state.option.selectedOption);
-  // const selectedGender = useSelector(state => state.gender.selectedGender);
-  // const selectedMBTI = useSelector(state => state.mbti.selectedMBTI);
-  // const selectedAge = useSelector(state => state.age.selectedAge);
-  // const selectedCategory = useSelector(
-  //   state => state.category.selectedCategory,
-  // );
-
-  // const selectedCategoryList = useSelector(
-  //   state => state.categoryList.selectedCategoryList,
-  // );
-
-  // console.log({
-  //   'Selected Option': selectedOption,
-  //   'Selected Gender': selectedGender,
-  //   'Selected MBTI': selectedMBTI,
-  //   'Selected Age': selectedAge,
-  //   'Selected Category': selectedCategory,
-  //   'Selected List': selectedCategoryList,
-  // });
 
   return (
     <Provider store={store}>

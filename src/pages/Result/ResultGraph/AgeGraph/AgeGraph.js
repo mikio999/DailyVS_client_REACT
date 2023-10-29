@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactApexChart from 'react-apexcharts';
 import styled from 'styled-components';
 
@@ -11,6 +11,14 @@ const AgeGraph = ({
   choices_30_2,
   choices_40,
 }) => {
+  const [isRotated, setIsRotated] = useState(false);
+  const [isGraphVisible, setIsGraphVisible] = useState(true);
+
+  const toggleRotation = () => {
+    setIsRotated(!isRotated);
+    setIsGraphVisible(!isGraphVisible);
+  };
+
   const chartData = {
     series: [],
     colors: ['#17355a', '#457c9e', '#a7dcdd', '#D9D9D9', '#4F4F4F'],
@@ -70,14 +78,24 @@ const AgeGraph = ({
 
   return (
     <Container>
-      <div id="chart">
-        <ReactApexChart
-          options={chartData.options}
-          series={chartData.series}
-          type="bar"
-          height={chartData.options.chart.height}
+      <Toggler onClick={toggleRotation}>
+        <Chevron
+          src="/images/Buttons/chevron.png"
+          alt="chevron"
+          className={isRotated ? '' : 'rotated'}
         />
-      </div>
+        연령대
+      </Toggler>
+      {isGraphVisible && (
+        <div id="chart">
+          <ReactApexChart
+            options={chartData.options}
+            series={chartData.series}
+            type="bar"
+            height={chartData.options.chart.height}
+          />
+        </div>
+      )}
     </Container>
   );
 };
@@ -89,4 +107,22 @@ const Container = styled.div`
     font-family: 'NEXON Lv1 Gothic OTF';
     font-size: 20px;
   }
+`;
+
+const Toggler = styled.div`
+  display: flex;
+  align-items: center;
+  font-family: 'GongGothicMedium';
+  font-size: 18px;
+  color: ${props => props.theme.colors.darkbluePrimaryColor};
+  margin-top: 30px;
+`;
+
+const Chevron = styled.img`
+  margin-right: 20px;
+  width: 30px;
+  &.rotated {
+    transform: rotate(180deg);
+  }
+  transition: transform 0.3s ease;
 `;

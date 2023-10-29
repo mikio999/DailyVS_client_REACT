@@ -46,7 +46,6 @@ const Detail = () => {
         .then(response => response.json())
         .then(result => {
           setVoteDetail(result);
-          console.log(result);
         });
     }
   }, [detailId]);
