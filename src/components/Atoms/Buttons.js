@@ -99,3 +99,30 @@ export const ArrowRight = ({ onClick, style, opacity = 1 }) => {
     />
   );
 };
+export const CommentLikeBtn = ({ onClick, dislike = false }) => {
+  const ref = useRef(null);
+
+  const { handleBtnMD, handleBtnMU, handleBtnME, handleBtnML } =
+    useClickEffect(ref);
+
+  return (
+    <img
+      src={
+        !dislike
+          ? '/images/Buttons/commentLike.svg'
+          : '/images/Buttons/commentDislike.svg'
+      }
+      style={{
+        width: 30,
+        height: 30,
+        transition: '0.3s',
+      }}
+      ref={ref}
+      onMouseDown={handleBtnMD}
+      onMouseUp={handleBtnMU}
+      onMouseEnter={handleBtnME}
+      onMouseLeave={handleBtnML}
+      onClick={onClick}
+    />
+  );
+};

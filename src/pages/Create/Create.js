@@ -8,6 +8,7 @@ import MintButtonSubmit, { MintButton } from '../../components/Atoms/Buttons';
 import axios from 'axios';
 import CreateChoice from './CreateChoice';
 import CreateCat from './CreateCat';
+import Comment from '../../components/Comment/Comment';
 // 자기가 만든 detail로 redirect
 // {
 //   "owner": {
@@ -89,6 +90,9 @@ function Create() {
     fetch(`http://localhost:8000/create`, {
       method: 'POST',
       body: formData,
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
     })
       .then(response => response.json())
       .then(data => {
@@ -139,6 +143,7 @@ function Create() {
         <CreateChoice {...dataProps} />
         <CreateCat {...dataProps} />
       </Carousel>
+      <Comment />
     </Container>
   );
 }
