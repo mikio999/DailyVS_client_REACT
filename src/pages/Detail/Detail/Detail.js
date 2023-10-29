@@ -10,13 +10,8 @@ import {
 } from '../../../actions/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import RegisterBtn from '../../../components/Molecules/RegisterBtn';
-<<<<<<< HEAD
-import SubmitBtn from '../../../components/Molecules/SubmitBtn';
-import Comment from '../../../components/Comment/Comment';
-=======
 import AuthSubmitBtn from '../../../components/Molecules/AuthSubmitBtn';
 
->>>>>>> feature/47
 const Detail = () => {
   const dispatch = useDispatch();
   const [voteDetail, setVoteDetail] = useState([]);
@@ -80,7 +75,6 @@ const Detail = () => {
       ) : (
         <p>Vote not found</p>
       )}
-      <Comment />
     </DetailContainer>
   );
 };
