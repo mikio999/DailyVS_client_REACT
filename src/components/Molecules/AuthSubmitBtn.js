@@ -51,15 +51,14 @@ const AuthSubmitBtn = ({ isFormValid }) => {
     headers.append('Content-Type', 'application/json');
 
     const accessToken = localStorage.getItem('access');
+
     if (accessToken) {
       headers.append('Authorization', `Bearer ${accessToken}`);
     }
 
     const requestOptions = {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: headers,
       body: JSON.stringify({
         choice_id: selectedOption,
         category_list: selectedCategoryList,
