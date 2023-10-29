@@ -10,7 +10,7 @@ import {
 } from '../../../actions/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import RegisterBtn from '../../../components/Molecules/RegisterBtn';
-import SubmitBtn from '../../../components/Molecules/SubmitBtn';
+import AuthSubmitBtn from '../../../components/Molecules/AuthSubmitBtn';
 
 const Detail = () => {
   const dispatch = useDispatch();
@@ -49,7 +49,7 @@ const Detail = () => {
         });
     }
   }, [detailId]);
-
+  console.log('voteDetail', voteDetail);
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
 
   const isFormValid = () => {
@@ -67,7 +67,7 @@ const Detail = () => {
             setSelectedOption={setSelectedOption}
           />
           {isAuthenticated ? (
-            <SubmitBtn isFormValid={isFormValid} />
+            <AuthSubmitBtn isFormValid={isFormValid} />
           ) : (
             <RegisterBtn isFormValid={isFormValid} />
           )}

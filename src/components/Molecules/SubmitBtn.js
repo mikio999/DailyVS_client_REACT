@@ -1,18 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
-import { setGender, setAge, setMBTI } from '../../actions/actions';
 
 const SubmitBtn = ({ isFormValid }) => {
   const [isLoading, setIsLoading] = useState(false);
   const params = useParams();
   const navigate = useNavigate();
   const detailId = params.id;
-  const dispatch = useDispatch();
-  const [userInformation, setUserInformation] = useState('');
 
-  const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
   const selectedOption = useSelector(state => state.option.selectedOption);
   const selectedGender = useSelector(state => state.gender.selectedGender);
   const selectedMBTI = useSelector(state => state.mbti.selectedMBTI);
@@ -20,35 +16,6 @@ const SubmitBtn = ({ isFormValid }) => {
   const selectedCategoryList = useSelector(
     state => state.categoryList.selectedCategoryList,
   );
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      const headers = new Headers();
-      headers.append('Content-Type', 'application/json');
-
-      const accessToken = localStorage.getItem('access');
-      if (accessToken) {
-        headers.append('Authorization', `Bearer ${accessToken}`);
-      }
-
-      const requestOptions = {
-        method: 'GET',
-        headers: headers,
-      };
-
-      fetch(`http://127.0.0.1:8000/accounts/user_info/`, requestOptions)
-        .then(response => response.json())
-        .then(result => {
-          setUserInformation(result);
-        });
-    }
-  }, [isAuthenticated]);
-
-  if (isAuthenticated) {
-    dispatch(setAge(userInformation.age));
-    dispatch(setMBTI(userInformation.mbti));
-    dispatch(setGender(userInformation.gender));
-  }
 
   const handleInformationClick = () => {
     setIsLoading(true);

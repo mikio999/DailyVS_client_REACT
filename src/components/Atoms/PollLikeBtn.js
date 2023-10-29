@@ -63,11 +63,6 @@ const PollLikeBtn = () => {
         setUserInformation(result);
         console.log(result);
       });
-    if (likeInfo.message === 'like') {
-      setIsLiked(true);
-    } else {
-      setIsLiked(false);
-    }
   };
 
   const heartImgSrc = isLiked

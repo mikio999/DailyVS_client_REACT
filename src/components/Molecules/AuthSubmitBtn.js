@@ -11,7 +11,6 @@ const AuthSubmitBtn = ({ isFormValid }) => {
   const dispatch = useDispatch();
   const [userInformation, setUserInformation] = useState('');
 
-  const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
   const selectedOption = useSelector(state => state.option.selectedOption);
   const selectedGender = useSelector(state => state.gender.selectedGender);
   const selectedMBTI = useSelector(state => state.mbti.selectedMBTI);
@@ -21,33 +20,30 @@ const AuthSubmitBtn = ({ isFormValid }) => {
   );
 
   useEffect(() => {
-    if (isAuthenticated) {
-      const headers = new Headers();
-      headers.append('Content-Type', 'application/json');
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
 
-      const accessToken = localStorage.getItem('access');
-      if (accessToken) {
-        headers.append('Authorization', `Bearer ${accessToken}`);
-      }
-
-      const requestOptions = {
-        method: 'GET',
-        headers: headers,
-      };
-
-      fetch(`http://127.0.0.1:8000/accounts/mypage_info/`, requestOptions)
-        .then(response => response.json())
-        .then(result => {
-          setUserInformation(result);
-        });
+    const accessToken = localStorage.getItem('access');
+    if (accessToken) {
+      headers.append('Authorization', `Bearer ${accessToken}`);
     }
-  }, [isAuthenticated]);
 
-  if (isAuthenticated) {
-    dispatch(setAge(userInformation.age));
-    dispatch(setMBTI(userInformation.mbti));
-    dispatch(setGender(userInformation.gender));
-  }
+    const requestOptions = {
+      method: 'GET',
+      headers: headers,
+    };
+
+    fetch(`http://127.0.0.1:8000/accounts/user_info/`, requestOptions)
+      .then(response => response.json())
+      .then(response => console.log(response))
+      .then(result => {
+        setUserInformation(result);
+      });
+  }, []);
+
+  dispatch(setAge(userInformation?.age));
+  dispatch(setMBTI(userInformation?.mbti));
+  dispatch(setGender(userInformation?.gender));
 
   const handleInformationClick = () => {
     fetch(`http://localhost:8000/${detailId}/poll_result_page`, {
