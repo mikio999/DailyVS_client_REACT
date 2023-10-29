@@ -46,11 +46,17 @@ const AuthSubmitBtn = ({ isFormValid }) => {
   dispatch(setGender(userInformation?.gender));
 
   const handleInformationClick = () => {
-    fetch(`http://localhost:8000/${detailId}/poll_result_page`, {
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    const accessToken = localStorage.getItem('access');
+    if (accessToken) {
+      headers.append('Authorization', `Bearer ${accessToken}`);
+    }
+
+    const requestOptions = {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: 'application/json',
       body: JSON.stringify({
         choice_id: selectedOption,
         category_list: selectedCategoryList,
@@ -58,7 +64,9 @@ const AuthSubmitBtn = ({ isFormValid }) => {
         mbti: selectedMBTI,
         age: selectedAge,
       }),
-    })
+    };
+
+    fetch(`http://localhost:8000/${detailId}/poll_result_page`, requestOptions)
       .then(response => response.json())
       .then(result => {
         console.log('서버 응답:', result);
