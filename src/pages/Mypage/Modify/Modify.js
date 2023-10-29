@@ -30,7 +30,6 @@ const Modify = ({ isAuthenticated }) => {
       .then(response => response.json())
       .then(result => {
         setUserInformation(result);
-        console.log(result);
       });
   }, []);
   formData.nickname = userInformation.nickname;
@@ -43,7 +42,7 @@ const Modify = ({ isAuthenticated }) => {
       navigate('/');
     }
   }, [isAuthenticated, navigate]);
-
+  console.log(userInformation);
   const mbtiOptions = [
     'ISTJ',
     'ISFJ',
@@ -72,7 +71,6 @@ const Modify = ({ isAuthenticated }) => {
     { label: '40대', value: '40' },
   ];
 
-  console.log(formData);
   return (
     <SignupPage>
       <SignupContainer>
@@ -163,7 +161,6 @@ const Modify = ({ isAuthenticated }) => {
         <SignupBtn disabled={userInformation.nickname.length < 3}>
           수정하기
         </SignupBtn>
-        {/* <SignupBtn disabled={!isFormValid()}>수정하기</SignupBtn> */}
         <SignupToLogin>
           <SignupLoginBtn to="/my-page/fix/password">비밀번호</SignupLoginBtn>
           변경하러 가기
