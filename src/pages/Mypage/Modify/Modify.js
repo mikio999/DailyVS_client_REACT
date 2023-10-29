@@ -37,6 +37,8 @@ const Modify = ({ isAuthenticated }) => {
   formData.mbti = userInformation.mbti;
   formData.age = userInformation.age;
 
+  console.log(userInformation.email);
+
   useEffect(() => {
     if (isAuthenticated) {
       navigate('/');
@@ -71,6 +73,17 @@ const Modify = ({ isAuthenticated }) => {
     { label: '40대', value: '40' },
   ];
 
+  const handlePasswordModify = () => {
+    fetch(`http://localhost:8000/accounts/password/reset/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: userInformation.email,
+      }),
+    });
+  };
   return (
     <SignupPage>
       <SignupContainer>
@@ -162,7 +175,9 @@ const Modify = ({ isAuthenticated }) => {
           수정하기
         </SignupBtn>
         <SignupToLogin>
-          <SignupLoginBtn to="/my-page/fix/password">비밀번호</SignupLoginBtn>
+          <SignupLoginBtn onClick={handlePasswordModify}>
+            비밀번호
+          </SignupLoginBtn>
           변경하러 가기
         </SignupToLogin>
       </SignupContainer>
