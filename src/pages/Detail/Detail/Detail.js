@@ -41,14 +41,27 @@ const Detail = () => {
   }, [selectedOption]);
 
   useEffect(() => {
-    if (detailId) {
-      fetch(`http://localhost:8000/${detailId}`)
-        .then(response => response.json())
-        .then(result => {
-          setVoteDetail(result);
-        });
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    const accessToken = localStorage.getItem('access');
+    if (accessToken) {
+      headers.append('Authorization', `Bearer ${accessToken}`);
     }
-  }, [detailId]);
+
+    const requestOptions = {
+      method: 'GET',
+      headers: headers,
+    };
+
+    fetch(`http://localhost:8000/${detailId}`, requestOptions)
+      .then(response => response.json())
+      .then(result => {
+        setVoteDetail(result);
+        console.log(result);
+      });
+  }, []);
+
   console.log('voteDetail', voteDetail);
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
 
