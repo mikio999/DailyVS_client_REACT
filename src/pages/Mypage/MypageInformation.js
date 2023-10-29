@@ -142,6 +142,7 @@ const UserModify = styled.button`
 const UserCharacter = styled.div`
   display: flex;
   margin-top: 15px;
+  white-space: nowrap;
 `;
 
 const UserMBTI = styled.div`
