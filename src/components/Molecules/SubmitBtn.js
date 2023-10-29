@@ -36,7 +36,7 @@ const SubmitBtn = ({ isFormValid }) => {
         headers: headers,
       };
 
-      fetch(`http://127.0.0.1:8000/accounts/mypage_info/`, requestOptions)
+      fetch(`http://127.0.0.1:8000/accounts/user_info/`, requestOptions)
         .then(response => response.json())
         .then(result => {
           setUserInformation(result);
@@ -52,7 +52,7 @@ const SubmitBtn = ({ isFormValid }) => {
 
   const handleInformationClick = () => {
     setIsLoading(true);
-    fetch(`http://localhost:8000/${detailId}/poll_result_page`, {
+    fetch(`http://127.0.0.1:8000/${detailId}/poll_result_page`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

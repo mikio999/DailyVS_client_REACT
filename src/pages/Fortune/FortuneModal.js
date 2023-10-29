@@ -15,12 +15,12 @@ const FortuneModal = ({ isOpen, onClose }) => {
   };
 
   useEffect(() => {
-    fetch('/data/fortune_unlogged.json')
+    fetch(`http://127.0.0.1:8000/fortune/`)
       .then(response => response.json())
       .then(result => {
         setFortuneDetail(result);
-        const randomIndex = Math.floor(Math.random() * result.length);
-        setRandomFortune(result[randomIndex].content);
+        console.log(result);
+        setRandomFortune(result.random_fortune);
       });
   }, []);
 
@@ -35,8 +35,13 @@ const FortuneModal = ({ isOpen, onClose }) => {
   };
 
   const handleRedrawFortune = () => {
-    const randomIndex = Math.floor(Math.random() * fortuneDetail.length);
-    setRandomFortune(fortuneDetail[randomIndex].content);
+    fetch(`http://127.0.0.1:8000/fortune/`)
+      .then(response => response.json())
+      .then(result => {
+        setFortuneDetail(result);
+        console.log(result);
+        setRandomFortune(result.random_fortune);
+      });
   };
 
   const startTypingEffect = text => {

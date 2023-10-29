@@ -55,11 +55,19 @@ const Nav = ({ checkAuthenticated, load_user, logout, isAuthenticated }) => {
       >
         <InnerMarquee>
           <span>매일매일의 즐거움 Daily VS</span>
-          <span>INFP인 그녀는 무엇을 골랐을까?</span>
+          {userInfo && userInfo.mbti ? (
+            <span>{`${userInfo.mbti}인 당신은 무엇을 골랐을까?`}</span>
+          ) : (
+            <span>INFP인 그녀는 무엇을 골랐을까?</span>
+          )}
           <span>매일매일의 즐거움 Daily VS</span>
           <span>INFP인 그녀는 무엇을 골랐을까?</span>
           <span>매일매일의 즐거움 Daily VS</span>
-          <span>INFP인 그녀는 무엇을 골랐을까?</span>
+          {userInfo && userInfo.mbti ? (
+            <span>{`${userInfo.mbti}인 당신은 무엇을 골랐을까?`}</span>
+          ) : (
+            <span>INFP인 그녀는 무엇을 골랐을까?</span>
+          )}
           <span>매일매일의 즐거움 Daily VS</span>
         </InnerMarquee>
       </Marquee>

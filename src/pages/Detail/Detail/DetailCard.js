@@ -1,13 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
+import LikeBtn from '../../../components/Atoms/LikeBtn';
 
 const DetailCard = ({ voteDetail }) => {
   return (
     <CardContainer>
-      <DetailImage
-        src={'http://127.0.0.1:8000' + voteDetail.poll?.thumbnail}
-        alt={voteDetail.poll?.title}
-      />
+      <ImageContainer>
+        <LikeBtnContainer>
+          <LikeBtn />
+        </LikeBtnContainer>
+        <DetailImage
+          src={'http://127.0.0.1:8000' + voteDetail.poll?.thumbnail}
+          alt={voteDetail.poll?.title}
+        />
+      </ImageContainer>
       <DetailBottom>
         <DetailTitle>{voteDetail.poll?.title}</DetailTitle>
         <DetailExplain>{voteDetail.poll?.content}</DetailExplain>
@@ -23,6 +29,16 @@ const CardContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   margin: 20px auto;
+`;
+
+const ImageContainer = styled.div`
+  position: relative;
+`;
+
+const LikeBtnContainer = styled.div`
+  position: absolute;
+  top: 10px;
+  right: 10px;
 `;
 
 const DetailTitle = styled.h1`
