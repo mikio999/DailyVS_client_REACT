@@ -37,6 +37,7 @@ const Nav = ({ checkAuthenticated, load_user, logout, isAuthenticated }) => {
         setUserInfo(result);
       });
   }, []);
+  console.log(userInfo);
 
   const logout_user = () => {
     const shouldLogout = window.confirm('로그아웃 하시겠습니까?');
