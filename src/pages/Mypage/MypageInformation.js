@@ -133,6 +133,7 @@ const UserModify = styled.button`
   color: white;
   background-color: #ff495a;
   &:hover {
+    cursor: pointer;
     color: #ff495a;
     background-color: white;
     border: 1px solid #ff495a;

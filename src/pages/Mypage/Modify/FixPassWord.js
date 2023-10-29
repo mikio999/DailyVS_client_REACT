@@ -24,6 +24,7 @@ const FixPassWord = () => {
         placeholder="비밀번호"
         onChange={e => {
           const newPassword = e.target.value;
+          setPassword1(newPassword);
         }}
         required
       />
@@ -42,9 +43,10 @@ const FixPassWord = () => {
         value={password2}
         onChange={e => {
           const newPassword = e.target.value;
+          setPassword2(newPassword);
         }}
       />
-      <Register>등록하기</Register>
+      <Register disabled={!passwordMatch}>등록하기</Register>
     </Container>
   );
 };
@@ -90,6 +92,7 @@ const PasswordMatchText = styled.span`
   display: flex;
   align-items: center;
   margin-left: 10px;
+  padding-bottom: 7px;
   color: green;
   transition: opacity 0.3s ease;
 `;
