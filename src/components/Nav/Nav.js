@@ -45,6 +45,7 @@ const Nav = ({ checkAuthenticated, load_user, logout, isAuthenticated }) => {
       setRedirect(true);
     }
   };
+
   return (
     <>
       <Marquee
@@ -165,7 +166,7 @@ const NavLink1 = styled(Link)`
   align-items: center;
   justify-content: center;
   font-family: 'GongGothicLight';
-  font-size: 15px;
+  font-size: 14px;
   color: #ff495a !important;
   &:hover {
     opacity: 0.9;
@@ -243,7 +244,7 @@ const Logout = styled.div`
   align-items: center;
   justify-content: center;
   font-family: 'GongGothicLight';
-  font-size: 15px;
+  font-size: 14px;
   color: #17355a;
 
   &:hover {
