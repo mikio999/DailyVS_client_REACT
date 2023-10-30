@@ -9,11 +9,11 @@ const ResultTop = ({ voteResult }) => {
 
   for (let i = 1; i <= 5; i++) {
     const choiceKey = `choice${i}`;
-
     if (total_choices?.hasOwnProperty(choiceKey)) {
       total_choicesArray.push(total_choices[choiceKey]);
     }
   }
+
   return (
     <ResultTopContainer>
       <ResultTitle>{voteResult.poll?.title}</ResultTitle>
@@ -57,25 +57,28 @@ const ResultTitle = styled.h1`
 const ResultExplanation = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
   margin-top: 20px;
+  margin-bottom: 10px;
+  padding: 0 20px;
   font-size: 16px;
+  word-break: keep-all;
   color: ${props => props.theme.colors.grayColor};
 `;
 
 const Option = styled.div`
   display: grid;
-  grid-template-columns: 50px 100px 200px;
+  grid-template-columns: 30px 100px 200px;
   margin-top: 10px;
-  margin-left: 100px;
+  margin-left: 9rem;
 `;
 
 const OptionName = styled.div`
   display: flex;
   justify-content: start;
-  padding-left: 20px;
+  margin-left: 0;
   align-items: center;
-  font-size: 18px;
-  font-weight: bold;
+  font-size: 16px;
   color: ${props => props.theme.colors.grayColor};
 `;
 
@@ -92,6 +95,7 @@ const ChoiceCircle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: auto;
   width: 25px;
   height: 25px;
   border-radius: 50%;

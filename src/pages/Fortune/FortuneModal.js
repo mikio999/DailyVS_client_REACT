@@ -6,6 +6,8 @@ const FortuneModal = ({ isOpen, onClose }) => {
   const [fortuneDetail, setFortuneDetail] = useState([]);
   const [randomFortune, setRandomFortune] = useState('');
   const [typingText, setTypingText] = useState('');
+  const [isTypingComplete, setIsTypingComplete] = useState(false);
+
   const fortuneRef = useRef(null);
 
   const handleOverlayClick = e => {
@@ -15,12 +17,26 @@ const FortuneModal = ({ isOpen, onClose }) => {
   };
 
   useEffect(() => {
-    fetch(`http://127.0.0.1:8000/fortune/`)
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    const accessToken = localStorage.getItem('access');
+    if (accessToken) {
+      headers.append('Authorization', `Bearer ${accessToken}`);
+    }
+
+    const requestOptions = {
+      method: 'POST',
+      headers: headers,
+    };
+
+    fetch(`http://127.0.0.1:8000/fortune/`, requestOptions)
       .then(response => response.json())
       .then(result => {
         setFortuneDetail(result);
         console.log(result);
         setRandomFortune(result.random_fortune);
+        setIsTypingComplete(false);
       });
   }, []);
 
@@ -35,12 +51,26 @@ const FortuneModal = ({ isOpen, onClose }) => {
   };
 
   const handleRedrawFortune = () => {
-    fetch(`http://127.0.0.1:8000/fortune/`)
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    const accessToken = localStorage.getItem('access');
+    if (accessToken) {
+      headers.append('Authorization', `Bearer ${accessToken}`);
+    }
+
+    const requestOptions = {
+      method: 'POST',
+      headers: headers,
+    };
+
+    fetch(`http://127.0.0.1:8000/fortune/`, requestOptions)
       .then(response => response.json())
       .then(result => {
         setFortuneDetail(result);
         console.log(result);
         setRandomFortune(result.random_fortune);
+        setIsTypingComplete(false);
       });
   };
 
@@ -55,8 +85,9 @@ const FortuneModal = ({ isOpen, onClose }) => {
         index++;
       } else {
         clearInterval(typingInterval);
+        setIsTypingComplete(true);
       }
-    }, 90);
+    }, 60);
   };
 
   useEffect(() => {
@@ -75,8 +106,12 @@ const FortuneModal = ({ isOpen, onClose }) => {
           <FortuneWords>{typingText}</FortuneWords>
         </ModalContent>
         <ModalBtns>
-          <AgainBtn onClick={handleRedrawFortune}>다시뽑기</AgainBtn>
-          <CaptureBtn onClick={handleCapture}>캡처하기</CaptureBtn>
+          <AgainBtn onClick={handleRedrawFortune} disabled={!isTypingComplete}>
+            다시뽑기
+          </AgainBtn>
+          <CaptureBtn onClick={handleCapture} disabled={!isTypingComplete}>
+            캡처하기
+          </CaptureBtn>
         </ModalBtns>
       </FortuneModalContainer>
     </ModalOverlay>
@@ -141,6 +176,7 @@ const FortuneWords = styled.div`
   padding: 5px;
   border: 10px solid #17355a;
   word-break: keep-all;
+  background-color: #ffe6e5;
 `;
 
 const ModalBtns = styled.div`
@@ -153,12 +189,14 @@ const AgainBtn = styled.button`
   width: 120px;
   height: 30px;
   color: white;
-  background-color: #ff495a;
+  background-color: ${({ disabled }) => (disabled ? '#d4d4d4' : '#ff495a')};
   border: none;
   border-radius: 5px;
   margin-right: 5px;
   &:hover {
-    box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.25);
+    box-shadow: ${({ disabled }) =>
+      disabled ? 'none' : '0px 8px 12px rgba(0, 0, 0, 0.25)'};
+    cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'cursor')};
   }
 `;
 
@@ -166,10 +204,12 @@ const CaptureBtn = styled.button`
   width: 120px;
   height: 30px;
   color: white;
-  background-color: #17355a;
+  background-color: ${({ disabled }) => (disabled ? '#d4d4d4' : '#17355a')};
   border: none;
   border-radius: 5px;
   &:hover {
-    box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.25);
+    box-shadow: ${({ disabled }) =>
+      disabled ? 'none' : '0px 8px 12px rgba(0, 0, 0, 0.25)'};
+    cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'cursor')};
   }
 `;

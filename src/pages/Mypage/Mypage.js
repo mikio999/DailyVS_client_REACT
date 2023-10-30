@@ -25,10 +25,9 @@ const Mypage = () => {
       .then(response => response.json())
       .then(result => {
         setUserInformation(result);
-        console.log(result);
       });
   }, []);
-  console.log(userInformation);
+
   return (
     <Container>
       <MypageInformation userInformation={userInformation} />
