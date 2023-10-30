@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
@@ -21,7 +21,7 @@ const MypageInformation = ({ userInformation }) => {
     }
   }
 
-  const ageRange = getAgeRange(userInformation.age);
+  const ageRange = getAgeRange(userInformation.user.age);
 
   const moveToModify = () => {
     navigate('/my-page/fix');
@@ -35,7 +35,7 @@ const MypageInformation = ({ userInformation }) => {
         <UserFeature>
           <FeatureTop>
             <UserName>
-              {userInformation.nickname}
+              {userInformation.user.nickname}
               <UserSpan>님</UserSpan>
             </UserName>
             <UserModify onClick={moveToModify}>개인정보 수정</UserModify>
@@ -43,10 +43,10 @@ const MypageInformation = ({ userInformation }) => {
 
           <UserCharacter>
             <UserMBTI>
-              MBTI : <MBTISpan>{userInformation.mbti}</MBTISpan>
+              MBTI : <MBTISpan>{userInformation.user.mbti}</MBTISpan>
             </UserMBTI>
             <UserGender>
-              성별 : <GenderSpan>{userInformation.gender}</GenderSpan>
+              성별 : <GenderSpan>{userInformation.user.gender}</GenderSpan>
             </UserGender>
             <UserAge>
               나이 : <AgeSpan>{ageRange}</AgeSpan>
