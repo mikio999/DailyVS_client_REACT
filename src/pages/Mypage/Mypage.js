@@ -21,10 +21,11 @@ const Mypage = () => {
       headers: headers,
     };
 
-    fetch(`http://127.0.0.1:8000/accounts/mypage_info/`, requestOptions)
+    fetch(`http://127.0.0.1:8000/mypage`, requestOptions)
       .then(response => response.json())
       .then(result => {
         setUserInformation(result);
+        console.log(result);
       });
   }, []);
 
