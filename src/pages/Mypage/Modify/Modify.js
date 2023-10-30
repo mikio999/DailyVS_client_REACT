@@ -74,16 +74,35 @@ const Modify = ({ isAuthenticated }) => {
     { label: '40대', value: '40' },
   ];
 
-  const handlePasswordModify = () => {
-    fetch(`http://localhost:8000/accounts/password/reset/`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email: userInformation.email,
-      }),
-    });
+  const handleModifyClick = event => {
+    event.preventDefault();
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    const accessToken = localStorage.getItem('access');
+
+    if (accessToken) {
+      headers.append('Authorization', `Bearer ${accessToken}`);
+    }
+
+    const requestOptions = {
+      method: 'PUT',
+      headers: headers,
+      body: JSON.stringify(userInformation),
+    };
+
+    fetch(`http://localhost:8000/mypage`, requestOptions)
+      .then(response => response.json())
+      .then(result => {
+        console.log('서버 응답:', result);
+
+        if (result) {
+          navigate(`/my-page`);
+        }
+      })
+      .catch(error => {
+        console.error('POST 요청 오류:', error);
+      });
   };
   return (
     <SignupPage>
@@ -109,8 +128,12 @@ const Modify = ({ isAuthenticated }) => {
           placeholder="닉네임 (2자 이상 10자 이하)"
           onChange={e => {
             const newNickname = e.target.value;
-            setUserInformation({ ...userInformation, nickname: newNickname });
-            setFormData({ ...formData, nickname: newNickname });
+            if (newNickname.length <= 10) {
+              setUserInformation({ ...userInformation, nickname: newNickname });
+              setFormData({ ...formData, nickname: newNickname });
+            } else {
+              window.alert('닉네임은 10자를 넘을 수 없습니다.');
+            }
           }}
         />
         <GenderRadioGroup>
@@ -172,16 +195,17 @@ const Modify = ({ isAuthenticated }) => {
             </option>
           ))}
         </MBTIDropdown>
-        <SignupBtn disabled={userInformation.nickname.length < 3}>
+        <SignupBtn
+          onClick={handleModifyClick}
+          disabled={userInformation.nickname.length < 3}
+        >
           수정하기
         </SignupBtn>
-        <SignupToLogin>
-          <SignupLoginBtn onClick={handlePasswordModify}>
-            비밀번호
-          </SignupLoginBtn>
-          변경하러 가기
-        </SignupToLogin>
       </SignupContainer>
+      <SignupToLogin>
+        <SignupLoginBtn to="/find-password">비밀번호</SignupLoginBtn>
+        변경하러 가기
+      </SignupToLogin>
     </SignupPage>
   );
 };

@@ -42,11 +42,9 @@ const RouteWithNavFooter = () => {
         ) : (
           <Route path="/my-page/fix" element={<Main />} />
         )}
-        {isAuthenticated ? (
-          <Route path="/my-page/fix/password" element={<FixPassWord />} />
-        ) : (
-          <Route path="/my-page/fix/password" element={<Main />} />
-        )}
+
+        <Route path="/my-page/fix/password" element={<FixPassWord />} />
+
         <Route path="*" element={<ErrorPage />} />
         <Route path="/email-error" element={<EmailError />} />
         <Route path="/login-email" element={<LoginEmail />} />

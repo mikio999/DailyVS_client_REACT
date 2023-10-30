@@ -6,6 +6,7 @@ import MypageLikeList from './MypageLikeList/MypageLikeList';
 
 const Mypage = () => {
   const [userInformation, setUserInformation] = useState('');
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const headers = new Headers();
@@ -26,14 +27,16 @@ const Mypage = () => {
       .then(result => {
         setUserInformation(result);
         console.log(result);
+        setLoading(false);
       });
   }, []);
 
+  if (loading) return;
   return (
     <Container>
       <MypageInformation userInformation={userInformation} />
       <MypageVoteList />
-      <MypageLikeList />
+      <MypageLikeList pollLike={userInformation.poll_like} />
     </Container>
   );
 };

@@ -25,7 +25,6 @@ const Router = () => {
               <>
                 <Route path="/signup" element={<Navigate to="/" />} />
                 <Route path="/signup/email" element={<Navigate to="/" />} />
-                <Route path="/find-password" element={<Navigate to="/" />} />
                 <Route path="/new-password" element={<Navigate to="/" />} />
                 <Route path="/login" element={<Navigate to="/" />} />
               </>
@@ -33,7 +32,7 @@ const Router = () => {
               <>
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/signup/email" element={<Email />} />
-                <Route path="/find-password" element={<Password />} />
+
                 <Route
                   path="/new-password/:uid/:token"
                   element={<PasswordInput />}
@@ -41,6 +40,7 @@ const Router = () => {
                 <Route path="/login" element={<Login />} />
               </>
             )}
+            <Route path="/find-password" element={<Password />} />
             <Route path="/*" element={<RouteWithNavFooter />} />
             <Route path="/activate/:uid/:token" element={<Activate />} />
             <Route path="*" element={<ErrorPage />} />

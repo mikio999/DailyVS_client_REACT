@@ -171,9 +171,14 @@ const Signup = ({ signup, isAuthenticated }) => {
           <TextInput
             value={nickname}
             placeholder="닉네임 (2자 이상 10자 이하)"
-            onChange={e =>
-              setFormData({ ...formData, nickname: e.target.value })
-            }
+            onChange={e => {
+              const newNickname = e.target.value;
+              if (newNickname.length <= 10) {
+                setFormData({ ...formData, nickname: newNickname });
+              } else {
+                window.alert('닉네임은 10자를 넘을 수 없습니다.');
+              }
+            }}
           />
           <GenderRadioGroup>
             <input
