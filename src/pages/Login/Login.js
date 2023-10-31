@@ -4,8 +4,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { login } from '../../actions/auth';
 import LoginNav from '../../components/LoginNav/LoginNav';
-import { AuthContext } from '../../AuthContext';
-import { useSelector } from 'react-redux';
 
 const Login = ({ login, isAuthenticated }) => {
   const [formData, setFormData] = useState({
@@ -59,6 +57,10 @@ const Login = ({ login, isAuthenticated }) => {
         <LoginSubmitBtn disabled={isValid ? false : true}>
           로그인
         </LoginSubmitBtn>
+        <KakaoLogin>
+          <KakaoImg src="/images/LoginNav/kakaoLogo.png" />
+          카카오 로그인
+        </KakaoLogin>
         <LoginAsk>
           아직 로그인 계정이 없으신가요?
           <LoginToSignup to="/signup">회원가입</LoginToSignup>
@@ -81,6 +83,7 @@ const Container = styled.div`
   height: 100vh;
   overflow-x: hidden;
 `;
+
 const LoginPage = styled.form`
   display: flex;
   flex-direction: column;
@@ -125,6 +128,27 @@ const LoginSubmitBtn = styled.button`
   border: none;
   border-radius: 5px;
   cursor: pointer;
+`;
+
+const KakaoImg = styled.img`
+  width: 30px;
+  margin-right: 10px;
+`;
+
+const KakaoLogin = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5px;
+  width: min(100%, 300px);
+  height: 50px;
+  font-size: 20px;
+  border-radius: 5px;
+  background-color: #f7e600;
+  color: #3a1d1d;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const LoginAsk = styled.div`

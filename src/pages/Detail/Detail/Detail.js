@@ -58,7 +58,6 @@ const Detail = () => {
       .then(response => response.json())
       .then(result => {
         setVoteDetail(result);
-        console.log(result);
       });
   }, []);
 
@@ -69,7 +68,6 @@ const Detail = () => {
     return selectedOption !== '';
   };
 
-  // console.log('previous result', voteDetail.previous choice)
   return (
     <DetailContainer>
       {voteDetail ? (

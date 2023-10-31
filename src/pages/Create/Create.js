@@ -102,7 +102,7 @@ function Create() {
 
     const sendData = new FormData();
     for (let i = 0; i < userInfo.length; i++) {
-      sendData.append('owner', (userInfo[i]));
+      sendData.append('owner', userInfo[i]);
     }
     sendData.append('title', formData.title);
     sendData.append('content', formData.content);
@@ -117,6 +117,10 @@ function Create() {
     sendData.forEach((value, key) => {
       console.log(key, value);
     });
+
+    const accessToken = localStorage.getItem('access');
+    const headers = new Headers();
+    headers.append('Authorization', `Bearer ${accessToken}`);
 
     fetch(`http://localhost:8000/create`, {
       method: 'POST',
