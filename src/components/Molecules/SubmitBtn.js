@@ -2,12 +2,22 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
+import LoginModal from './Modal/LoginModal';
 
 const SubmitBtn = ({ isFormValid }) => {
   const [isLoading, setIsLoading] = useState(false);
   const params = useParams();
   const navigate = useNavigate();
   const detailId = params.id;
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   const selectedOption = useSelector(state => state.option.selectedOption);
   const selectedGender = useSelector(state => state.gender.selectedGender);
@@ -56,9 +66,18 @@ const SubmitBtn = ({ isFormValid }) => {
   };
 
   return (
-    <RegisterButton onClick={handleInformationClick} disabled={!isFormValid()}>
-      투표하기
-    </RegisterButton>
+    <>
+      <RegisterButton
+        onClick={() => {
+          handleInformationClick();
+          openModal();
+        }}
+        disabled={!isFormValid()}
+      >
+        투표하기
+      </RegisterButton>
+      <LoginModal isOpen={isModalOpen} onClose={closeModal} />
+    </>
   );
 };
 

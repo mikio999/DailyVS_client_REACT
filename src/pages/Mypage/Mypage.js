@@ -35,7 +35,7 @@ const Mypage = () => {
   return (
     <Container>
       <MypageInformation userInformation={userInformation} />
-      <MypageVoteList />
+      <MypageVoteList voteList={userInformation?.uservote} />
       <MypageLikeList pollLike={userInformation.poll_like} />
     </Container>
   );
