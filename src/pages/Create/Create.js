@@ -108,7 +108,6 @@ function Create() {
     const sendData = new FormData();
 
     sendData.append('owner', JSON.stringify(userInfo));
-
     sendData.append('title', formData.title);
     sendData.append('content', formData.content);
     sendData.append('thumbnail', formData.thumbnail);

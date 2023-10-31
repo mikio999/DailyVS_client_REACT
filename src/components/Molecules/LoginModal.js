@@ -20,14 +20,6 @@ const LoginModal = ({ isOpen, onClose }) => {
     state => state.categoryList.selectedCategoryList,
   );
 
-  console.log(
-    'selectedOption: ',
-    selectedOption,
-    selectedGender,
-    selectedMBTI,
-    selectedAge,
-  );
-
   const handleInformationClick = () => {
     setIsLoading(true);
     fetch(`http://127.0.0.1:8000/${detailId}/poll_result_page`, {
