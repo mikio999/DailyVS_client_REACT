@@ -9,7 +9,7 @@ import {
   setCategoryList,
 } from '../../../actions/actions';
 import { useDispatch, useSelector } from 'react-redux';
-import RegisterBtn from '../../../components/Molecules/RegisterBtn';
+import RegisterBtn from '../../../components/Molecules/DetailBtns/RegisterBtn';
 import AuthSubmitBtn from '../../../components/Molecules/AuthSubmitBtn';
 
 const Detail = () => {
@@ -69,6 +69,7 @@ const Detail = () => {
     return selectedOption !== '';
   };
 
+  // console.log('previous result', voteDetail.previous choice)
   return (
     <DetailContainer>
       {voteDetail ? (

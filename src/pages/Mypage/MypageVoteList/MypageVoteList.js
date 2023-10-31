@@ -16,7 +16,7 @@ const MypageVoteList = ({ voteList }) => {
           <TruncateText>
             <LikeName>{poll.poll?.title}</LikeName>
           </TruncateText>
-          <LikeCreator>{poll.poll.nickname}</LikeCreator>
+          <LikeCreator>{poll.choice.choice_text}</LikeCreator>
           <LikeDate>{poll.poll.created_at?.slice(0, 10)}</LikeDate>
         </LikeLine>
       ))}
@@ -74,6 +74,7 @@ const LikeCreator = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  color: #457c9e;
 `;
 
 const LikeDate = styled.div`
