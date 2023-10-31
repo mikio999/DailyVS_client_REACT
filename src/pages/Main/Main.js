@@ -8,41 +8,28 @@ import theme from '../../styles/theme';
 import MainHero from './MainHero/MainHero';
 import { MainSliderSideLeft, MainSliderSideRight } from './MainSlider/MainSide';
 import MainSlider from './MainSlider/MainSlider';
-import useClickEffect from '../../utils/hooks/useClickEffect';
 
 const Main = () => {
   const [loading, setLoading] = useState(true);
-  const [gridList, setGridList] = useState('');
+  const [newPolls, setNewPolls] = useState([]);
+  const [hotPolls, setHotPolls] = useState([]);
 
-  // useEffect(() => {
-  //   fetch(`http://127.0.0.1:8000/api/`)
-  //     .then(response => response.json())
-  //     .then(result => {
-  //       setLoading(false);
-  //     });
-  // }, []);
-
-  // useEffect(() => {
-  //   fetch(`http://127.0.0.1:8000/api/`)
-  //     .then(response => response.json())
-  //     .then(result => {
-  //       setApiList(result);
-  //       console.log(result);
-  //     });
-  // }, []);
+  const [todayPoll, setTodayPoll] = useState({});
 
   useEffect(() => {
-    getVoteList();
-  }, []);
-
-  const getVoteList = () => {
-    fetch('/data/vote_list.json')
+    fetch(`http://127.0.0.1:8000/`)
       .then(response => response.json())
       .then(result => {
-        setGridList(result);
+        setNewPolls(result.polls);
+        setHotPolls(result.hot_polls);
+        setTodayPoll(result.today_poll);
         setLoading(false);
+        console.log('받은 값', result);
+      })
+      .catch(error => {
+        console.log('client: 값 받기 실패', error);
       });
-  };
+  }, []);
 
   const [width, setWidth] = useState(0);
   const ref = useRef(null);
@@ -58,14 +45,22 @@ const Main = () => {
           <MintButtonSubmit content="투표 만들러 가기" link={'/create'} />
         </div>
       </MakeVoteBanner>
-      <MainHero />
+      <MainHero data={todayPoll} />
       <MainSliderContainer>
         {width < 1200 ? null : <MainSliderSideLeft />}
         <div className="mainSlider-wrapper" ref={ref}>
-          <MainSlider title="새로 올라온 VS" list={gridList} />
-          <MainSlider title="ISTP가 주목하는 VS" list={gridList} />
-          <MainSlider title="막상막하! 요즘 핫한 VS" list={gridList} />
-          <MainSlider title="MZ가 주목하는 VS" list={gridList} />
+          {newPolls.length > 0 && (
+            <MainSlider title="NEW! 새로 올라온 VS" list={newPolls} />
+          )}
+          {hotPolls.length > 0 && (
+            <MainSlider title="요즘 핫🔥한 VS" list={hotPolls} />
+          )}
+          {newPolls.length > 0 && (
+            <MainSlider title="MBTI가 있는" list={newPolls} />
+          )}
+          {newPolls.length > 0 && (
+            <MainSlider title="에디터 픽" list={newPolls} />
+          )}
         </div>
         {width < 1200 ? null : <MainSliderSideRight />}
       </MainSliderContainer>
