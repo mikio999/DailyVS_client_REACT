@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { setAge } from '../../../actions/actions';
-import RegisterBtn from '../../../components/Molecules/RegisterBtn';
+import RegisterBtn from '../../../components/Molecules/DetailBtns/RegisterBtn';
 
 const AGE_LIST = [
   { label: '10대', value: '10' },

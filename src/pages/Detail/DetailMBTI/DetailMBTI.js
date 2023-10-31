@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setMBTI } from '../../../actions/actions';
-import RegisterBtn from '../../../components/Molecules/RegisterBtn';
+import RegisterBtn from '../../../components/Molecules/DetailBtns/RegisterBtn';
 
 const DetailMBTI = () => {
   const dispatch = useDispatch();

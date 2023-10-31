@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { setGender } from '../../../actions/actions';
-import RegisterBtn from '../../../components/Molecules/RegisterBtn';
+import RegisterBtn from '../../../components/Molecules/DetailBtns/RegisterBtn';
 
 const DetailGender = () => {
   const dispatch = useDispatch();
