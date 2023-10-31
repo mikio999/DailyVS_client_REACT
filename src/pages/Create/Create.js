@@ -79,6 +79,11 @@ function Create() {
     })
       .then(response => response.json())
       .then(result => {
+        // const transformedArray = Object.keys(result).map(key => {
+        //   const newObj = {};
+        //   newObj[key] = result[key];
+        //   return newObj;
+        // });
         setUserInfo(result);
       });
   }, []);
@@ -101,9 +106,9 @@ function Create() {
     e.preventDefault();
 
     const sendData = new FormData();
-    for (let i = 0; i < userInfo.length; i++) {
-      sendData.append('owner', JSON.stringify(userInfo[i]));
-    }
+
+    sendData.append('owner', JSON.stringify(userInfo));
+
     sendData.append('title', formData.title);
     sendData.append('content', formData.content);
     sendData.append('thumbnail', formData.thumbnail);
@@ -121,9 +126,6 @@ function Create() {
     fetch(`http://localhost:8000/create`, {
       method: 'POST',
       body: sendData,
-      // headers: {
-      //   'Content-Type': 'multipart/form-data',
-      // },
     })
       .then(response => response.json())
       .then(data => {
