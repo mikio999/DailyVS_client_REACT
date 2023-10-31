@@ -4,7 +4,7 @@ import theme from '../../styles/theme';
 import useClickEffect from '../../utils/hooks/useClickEffect';
 import { CommentLikeBtn } from '../Atoms/Buttons';
 
-function ParentComment({ user, data, reply, setShowReply }) {
+function CommentElement({ user, data, reply, setShowReply }) {
   const [liked, setLiked] = useState(false);
 
   const Time = () => {
@@ -23,7 +23,12 @@ function ParentComment({ user, data, reply, setShowReply }) {
 
   const Likes = () => {
     return (
-      <span style={{ fontSize: 14, color: theme.colors.grayColor }}>
+      <span
+        style={{
+          fontSize: 14,
+          color: theme.colors.grayColor,
+        }}
+      >
         {data.likes_count} likes
       </span>
     );
@@ -45,7 +50,9 @@ function ParentComment({ user, data, reply, setShowReply }) {
         onMouseEnter={handleBtnME}
         onMouseLeave={handleBtnML}
         onClick={() => {
-          setShowReply(curr => !curr);
+          if (reply.length > 0) {
+            setShowReply(curr => !curr);
+          }
         }}
       >
         답글 {reply.length}
@@ -123,4 +130,4 @@ const ReplyBtn = styled.div`
   cursor: pointer;
   transition: 0.1s;
 `;
-export default ParentComment;
+export default CommentElement;

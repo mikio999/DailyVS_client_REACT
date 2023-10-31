@@ -116,6 +116,7 @@ export const CommentLikeBtn = ({ onClick, liked = false }) => {
         width: 25,
         height: 25,
         transition: '0.3s',
+        cursor: 'pointer',
       }}
       ref={ref}
       onMouseDown={handleBtnMD}

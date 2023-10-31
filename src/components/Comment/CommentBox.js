@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import ParentComment from './ParentComment';
+import CommentElement from './CommentElement';
 
 function CommentBox({ data }) {
   const [reply, setReply] = useState({});
   const [user, setUser] = useState({});
-
   const [showReply, setShowReply] = useState(false);
 
   useEffect(() => {
@@ -14,7 +13,7 @@ function CommentBox({ data }) {
 
   return (
     <>
-      <ParentComment
+      <CommentElement
         user={user}
         data={data}
         reply={reply}
@@ -22,7 +21,7 @@ function CommentBox({ data }) {
       />
       {!!showReply &&
         reply.map(re => (
-          <ParentComment key={re.id} user={re.user_info} data={re} />
+          <CommentElement key={re.id} user={re.user_info} data={re} />
         ))}
     </>
   );
