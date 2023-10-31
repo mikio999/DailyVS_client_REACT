@@ -99,7 +99,7 @@ export const ArrowRight = ({ onClick, style, opacity = 1 }) => {
     />
   );
 };
-export const CommentLikeBtn = ({ onClick, dislike = false }) => {
+export const CommentLikeBtn = ({ onClick, liked = false }) => {
   const ref = useRef(null);
 
   const { handleBtnMD, handleBtnMU, handleBtnME, handleBtnML } =
@@ -108,14 +108,15 @@ export const CommentLikeBtn = ({ onClick, dislike = false }) => {
   return (
     <img
       src={
-        !dislike
-          ? '/images/Buttons/commentLike.svg'
-          : '/images/Buttons/commentDislike.svg'
+        !liked
+          ? '/images/Buttons/likeBtn.png'
+          : '/images/Buttons/likeBtnRed.png'
       }
       style={{
-        width: 30,
-        height: 30,
+        width: 25,
+        height: 25,
         transition: '0.3s',
+        cursor: 'pointer',
       }}
       ref={ref}
       onMouseDown={handleBtnMD}
