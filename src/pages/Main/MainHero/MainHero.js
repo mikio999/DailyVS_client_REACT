@@ -65,9 +65,9 @@ function MainHero({ data }) {
   }, [width]);
 
   return (
-    <Wrapper onClick={onClickDetailButton}>
+    <Wrapper>
       <Container>
-        <DailyVS>
+        <DailyVS onClick={onClickDetailButton}>
           <div className="tag">오늘의 VS</div>
           <Title>{!!todayPoll && todayPoll.poll?.title}</Title>
           <VS>
