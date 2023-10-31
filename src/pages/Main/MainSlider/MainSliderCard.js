@@ -29,6 +29,7 @@ const Container = styled.div`
   overflow: hidden;
   position: relative;
   background-color: ${theme.colors.lightGrayColor};
+  cursor: pointer;
   &:hover {
     scale: 1.05;
   }

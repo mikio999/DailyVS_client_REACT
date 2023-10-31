@@ -13,6 +13,7 @@ function DeleteBtn({ onClick, index }) {
         width: 35,
         height: 35,
         transition: '0.3s',
+        cursor: 'pointer',
       }}
       ref={ref}
       onMouseDown={handleBtnMD}

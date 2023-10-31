@@ -88,8 +88,8 @@ function CreateTTC({ formData, setFormData }) {
 }
 const DeleteBtnWrap = styled.div`
   position: absolute;
-  right: -15px;
-  top: -15px;
+  right: 0;
+  top: 0;
 `;
 const Container = styled.div`
   display: flex;
@@ -102,6 +102,7 @@ const Container = styled.div`
 const ThumbnailContainer = styled.div`
   width: 100%;
   height: 360px;
+  overflow: hidden;
   margin: 10px auto 0 auto;
   background-color: ${theme.colors.mintSecondaryColor};
   border-top-left-radius: 10px;
@@ -111,7 +112,6 @@ const ThumbnailContainer = styled.div`
     rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
   padding: 20px;
   position: relative;
-  /* overflow: hidden; */
 
   & .custom-file-input {
     position: relative;
@@ -144,7 +144,7 @@ const ThumbnailContainer = styled.div`
   }
 `;
 const Thumbnail = styled.img`
-  height: 100%;
+  width: 100%;
   position: absolute;
   object-fit: cover;
   top: 0;

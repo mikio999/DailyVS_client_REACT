@@ -1,10 +1,18 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import theme from '../../../styles/theme';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import useClickEffect from '../../../utils/hooks/useClickEffect';
 
-function MainHero() {
+function MainHero({ data }) {
+  const [todayPoll, setTodayPoll] = useState();
+  useEffect(() => {
+    setTodayPoll(data);
+  }, [data]);
+  const navigate = useNavigate();
+  const onClickDetailButton = () => {
+    navigate(`/vote-detail/${data.poll.id}`);
+  };
   const [btnLeftIdx, setBtnLeftIdx] = useState(0);
   const [btnRightIdx, setBtnRightIdx] = useState(0);
   const buttonLeft = [
@@ -55,12 +63,13 @@ function MainHero() {
       TVImgRightRef.current.style.height = `${width}px`;
     }
   }, [width]);
+
   return (
     <Wrapper>
       <Container>
-        <DailyVS>
+        <DailyVS onClick={onClickDetailButton}>
           <div className="tag">오늘의 VS</div>
-          <Title>다시 돌아온 계절 대전!</Title>
+          <Title>{!!todayPoll && todayPoll.poll?.title}</Title>
           <VS>
             <div>
               <img src="/images/Letters/v.svg" alt="V of VS" />
@@ -93,10 +102,30 @@ function MainHero() {
           </ButtonPress>
           <TV>
             <div>
-              <TVImgLeft ref={TVImgLeftRef}></TVImgLeft>
+              <TVImgLeft ref={TVImgLeftRef}>
+                <img
+                  src={`http://127.0.0.1:8000${data?.choice1}`}
+                  alt="choice1"
+                />
+                <div>
+                  <span>
+                    {!!todayPoll && todayPoll.poll?.choices[0].choice_text}
+                  </span>
+                </div>
+              </TVImgLeft>
             </div>
             <div>
-              <TVImgRight ref={TVImgRightRef}></TVImgRight>
+              <TVImgRight ref={TVImgRightRef}>
+                <img
+                  src={`http://127.0.0.1:8000${data?.choice2}`}
+                  alt="choice2"
+                />
+                <div>
+                  <span>
+                    {!!todayPoll && todayPoll.poll?.choices[1].choice_text}
+                  </span>
+                </div>
+              </TVImgRight>
             </div>
           </TV>
         </DailyVS>
@@ -136,8 +165,6 @@ const TV = styled.div`
     background-repeat: no-repeat;
     background-size: contain;
     position: relative;
-
-    /* border: 2px solid red; */
   }
   & > div:first-child {
     background-image: url('images/TodayVS/tv_left.png');
@@ -163,6 +190,25 @@ const TVImgLeft = styled.div`
   background-color: white;
   overflow: hidden;
   z-index: -1;
+  & > img {
+    width: 100%;
+    object-fit: cover;
+  }
+  & > div {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  & > div > span {
+    color: white;
+    font-size: 24px;
+  }
   @media screen and (max-width: 700px) {
     width: 60%;
     height: 56%;
@@ -186,6 +232,25 @@ const TVImgRight = styled.div`
   background-color: white;
   overflow: hidden;
   z-index: -1;
+  & > img {
+    width: 100%;
+    object-fit: cover;
+  }
+  & > div {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  & > div > span {
+    color: white;
+    font-size: 24px;
+  }
   @media screen and (max-width: 700px) {
     width: 60%;
     left: 13%;
@@ -203,6 +268,7 @@ const Wrapper = styled.div`
   justify-content: center;
   width: 100%;
   background-color: #bbdcf1;
+  cursor: pointer;
 `;
 const Container = styled.div`
   width: min(100%, 1200px);
@@ -272,6 +338,7 @@ const ButtonPress = styled.div`
   display: flex;
   cursor: pointer;
   z-index: 10;
+
   & div {
     transition: 0.1s;
   }
