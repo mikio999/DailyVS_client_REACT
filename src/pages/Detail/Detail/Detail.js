@@ -11,6 +11,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import RegisterBtn from '../../../components/Molecules/DetailBtns/RegisterBtn';
 import AuthSubmitBtn from '../../../components/Molecules/AuthSubmitBtn';
+import Comment from '../../../components/Comment/Comment';
 
 const Detail = () => {
   const dispatch = useDispatch();
@@ -85,6 +86,7 @@ const Detail = () => {
           ) : (
             <RegisterBtn isFormValid={isFormValid} />
           )}
+          <Comment />
         </>
       ) : (
         <p>Vote not found</p>
