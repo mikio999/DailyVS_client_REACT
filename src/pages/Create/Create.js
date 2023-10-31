@@ -123,9 +123,13 @@ function Create() {
       console.log(key, value);
     });
 
+    const accessToken = localStorage.getItem('access');
+    const headers = new Headers();
+    headers.append('Authorization', `Bearer ${accessToken}`);
     fetch(`http://localhost:8000/create`, {
       method: 'POST',
       body: sendData,
+      headers: headers,
     })
       .then(response => response.json())
       .then(data => {
