@@ -102,16 +102,16 @@ function Create() {
 
     const sendData = new FormData();
     for (let i = 0; i < userInfo.length; i++) {
-      sendData.append('owner', JSON.stringify(userInfo[i]));
+      sendData.append('owner', (userInfo[i]));
     }
     sendData.append('title', formData.title);
     sendData.append('content', formData.content);
     sendData.append('thumbnail', formData.thumbnail);
     for (let i = 0; i < formData.category.length; i++) {
-      sendData.append('category', JSON.stringify(formData.category[i]));
+      sendData.append('category', formData.category[i]);
     }
     for (let j = 0; j < formData.choice.length; j++) {
-      sendData.append('choice', JSON.stringify(formData.choice[j]));
+      sendData.append('choice', formData.choice[j]);
     }
 
     sendData.forEach((value, key) => {
@@ -120,10 +120,10 @@ function Create() {
 
     fetch(`http://localhost:8000/create`, {
       method: 'POST',
-      body: formData,
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
+      body: sendData,
+      // headers: {
+      //   'Content-Type': 'multipart/form-data',
+      // },
     })
       .then(response => response.json())
       .then(data => {
