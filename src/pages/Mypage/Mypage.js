@@ -4,6 +4,8 @@ import MypageInformation from './MypageInformation';
 import MypageVoteList from './MypageVoteList/MypageVoteList';
 import MypageLikeList from './MypageLikeList/MypageLikeList';
 import theme from '../../styles/theme';
+import MypageCreateList from './MypageCreateList/MypageCreateList';
+
 
 const Mypage = ({ logout }) => {
   const [userInformation, setUserInformation] = useState('');
@@ -45,6 +47,7 @@ const Mypage = ({ logout }) => {
     <Container>
       <MypageInformation userInformation={userInformation} />
       <MypageVoteList voteList={userInformation?.uservote} />
+      <MypageCreateList createList={userInformation?.my_poll} />
       <MypageLikeList pollLike={userInformation.poll_like} />
       <LogoutContainer>
         <LogOut href="/login" onClick={logout_user}>

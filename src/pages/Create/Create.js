@@ -7,37 +7,8 @@ import { MintButton } from '../../components/Atoms/Buttons';
 import CreateChoice from './CreateChoice';
 import CreateCat from './CreateCat';
 import { checkAuthenticated, load_user } from '../../actions/auth';
-// 자기가 만든 detail로 redirect
-// {
-//   "owner": {
-//       "nickname": "한소리임당",
-//       "age": "20_1",
-//       "gender": "W",
-//       "mbti": "INFP"
-//   },
-//   "choice": [
-//       {
-//           "choice_text": "부먹"
-//       },
-//       {
-//           "choice_text": "찍먹"
-//       }
-//   ],
-//   "category": [
-//       {
-//           "id": 1,
-//       },
-//       {
-//           "id": 2,
-//       },
-//       {
-//           "id": 3,
-//       }
-//   ],
-//   "title": "test제목",
-//   "content": "test내용",
-//   "thumbnail": "",
-// }
+import { useNavigate } from 'react-router-dom';
+
 const responsive = {
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
@@ -54,6 +25,7 @@ const responsive = {
 };
 
 function Create() {
+  const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState('');
   useEffect(() => {
     checkAuthenticated();
@@ -79,17 +51,10 @@ function Create() {
     })
       .then(response => response.json())
       .then(result => {
-        // const transformedArray = Object.keys(result).map(key => {
-        //   const newObj = {};
-        //   newObj[key] = result[key];
-        //   return newObj;
-        // });
         setUserInfo(result);
       });
   }, []);
-  console.log('uiuiuiui', userInfo);
 
-  // 넘겨줄 데이터: title, content, thumbnail, category, choice, owner
   const [formData, setFormData] = useState({
     title: '',
     content: '',
@@ -108,7 +73,6 @@ function Create() {
     const sendData = new FormData();
 
     sendData.append('owner', JSON.stringify(userInfo));
-
     sendData.append('title', formData.title);
     sendData.append('content', formData.content);
     sendData.append('thumbnail', formData.thumbnail);
@@ -123,18 +87,24 @@ function Create() {
       console.log(key, value);
     });
 
+    const accessToken = localStorage.getItem('access');
+    const headers = new Headers();
+    headers.append('Authorization', `Bearer ${accessToken}`);
     fetch(`http://localhost:8000/create`, {
       method: 'POST',
       body: sendData,
+      headers: headers,
     })
       .then(response => response.json())
       .then(data => {
         console.log('데이터 받기 성공:', data);
+        navigate(`/vote-detail/${data.id}`);
       })
       .catch(error => {
         console.error(error);
       });
   };
+
   const CustomButtonGroup = ({ next, previous, ...rest }) => {
     const {
       carouselState: { currentSlide },

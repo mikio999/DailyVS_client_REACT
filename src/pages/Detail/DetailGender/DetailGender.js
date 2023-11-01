@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { setGender } from '../../../actions/actions';
+import { useSelector } from 'react-redux';
 import RegisterBtn from '../../../components/Molecules/DetailBtns/RegisterBtn';
 
 const DetailGender = () => {
@@ -23,7 +24,8 @@ const DetailGender = () => {
     return selectedGender !== '';
   };
   console.log(selectedGender);
-
+  const selectedChoice = useSelector(state => state.choice.selectedChoice);
+  console.log('SC', selectedChoice);
   return (
     <DetailGenderContainer>
       <GenderQuestion>당신의 성별은?</GenderQuestion>

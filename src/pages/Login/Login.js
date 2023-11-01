@@ -4,8 +4,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { login } from '../../actions/auth';
 import LoginNav from '../../components/LoginNav/LoginNav';
-import { AuthContext } from '../../AuthContext';
-import { useSelector } from 'react-redux';
 
 const Login = ({ login, isAuthenticated }) => {
   const [formData, setFormData] = useState({
@@ -36,36 +34,42 @@ const Login = ({ login, isAuthenticated }) => {
     password.length >= 8;
 
   return (
-    <Container>
+    <>
       <LoginNav />
-      <LoginPage onSubmit={e => onSubmit(e)}>
-        <LoginLogo src="/images/Nav/main_logo.png" />
-        <LoginIdInput
-          type="text"
-          name="email"
-          value={email}
-          onChange={e => onChange(e)}
-          required
-          placeholder="이메일"
-        />
-        <LoginPwInput
-          type="password"
-          name="password"
-          value={password}
-          onChange={e => onChange(e)}
-          placeholder="비밀번호"
-          autoComplete="current-password"
-        />
-        <LoginSubmitBtn disabled={isValid ? false : true}>
-          로그인
-        </LoginSubmitBtn>
+      <Container>
+        <LoginPage onSubmit={e => onSubmit(e)}>
+          <LoginLogo src="/images/Nav/main_logo.png" />
+          <LoginIdInput
+            type="text"
+            name="email"
+            value={email}
+            onChange={e => onChange(e)}
+            required
+            placeholder="이메일"
+          />
+          <LoginPwInput
+            type="password"
+            name="password"
+            value={password}
+            onChange={e => onChange(e)}
+            placeholder="비밀번호"
+            autoComplete="current-password"
+          />
+          <LoginSubmitBtn disabled={isValid ? false : true}>
+            로그인
+          </LoginSubmitBtn>
+        </LoginPage>
+        <KakaoLogin from="/" to="http://localhost:8000/accounts/kakao/login/">
+          <KakaoImg src="/images/LoginNav/kakaoLogo.png" />
+          카카오 로그인
+        </KakaoLogin>
         <LoginAsk>
           아직 로그인 계정이 없으신가요?
           <LoginToSignup to="/signup">회원가입</LoginToSignup>
           <LoginFindPw to="/find-password">비밀번호 찾기</LoginFindPw>
         </LoginAsk>
-      </LoginPage>
-    </Container>
+      </Container>
+    </>
   );
 };
 
@@ -78,9 +82,12 @@ export default connect(mapStateToProps, { login })(Login);
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  justify-content: center;
+  align-items: center;
   overflow-x: hidden;
+  margin-bottom: 10rem;
 `;
+
 const LoginPage = styled.form`
   display: flex;
   flex-direction: column;
@@ -125,6 +132,27 @@ const LoginSubmitBtn = styled.button`
   border: none;
   border-radius: 5px;
   cursor: pointer;
+`;
+
+const KakaoImg = styled.img`
+  width: 30px;
+  margin-right: 10px;
+`;
+
+const KakaoLogin = styled(Link)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5px;
+  width: min(100%, 300px);
+  height: 50px;
+  font-size: 20px;
+  border-radius: 5px;
+  background-color: #f7e600;
+  color: #3a1d1d;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const LoginAsk = styled.div`

@@ -47,7 +47,6 @@ function MainSlider({ title, list }) {
   };
 
   const MovingContainer = () => {
-    console.log('card', gridList);
     return (
       <Carousel
         responsive={responsive}

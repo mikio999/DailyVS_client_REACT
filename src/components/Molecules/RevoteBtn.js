@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
 import { setGender, setAge, setMBTI } from '../../actions/actions';
 
-const AuthSubmitBtn = ({ isFormValid }) => {
+const RevoteBtn = () => {
   const params = useParams();
   const navigate = useNavigate();
   const detailId = params.id;
@@ -93,26 +93,19 @@ const AuthSubmitBtn = ({ isFormValid }) => {
       });
   };
 
-  return (
-    <RegisterButton onClick={handleInformationClick} disabled={!isFormValid()}>
-      투표하기
-    </RegisterButton>
-  );
+  return <Container onClick={handleInformationClick}>다시투표</Container>;
 };
 
-export default AuthSubmitBtn;
+export default RevoteBtn;
 
-const RegisterButton = styled.button`
-  justify-content: center;
-  align-items: center;
-  margin: 40px auto;
-  width: 300px;
+const Container = styled.button`
+  width: 160px;
   height: 50px;
   font-size: 24px;
-  background-color: ${props => (props.disabled ? '#BDBDBD' : '#17355a')};
   color: white;
+  background-color: #17355a;
   border: none;
-  border-radius: 10px;
+  border-radius: 5px;
   &:hover {
     cursor: pointer;
   }

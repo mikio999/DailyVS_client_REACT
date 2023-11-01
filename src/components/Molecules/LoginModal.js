@@ -12,20 +12,13 @@ const LoginModal = ({ isOpen, onClose }) => {
     onClose();
   };
 
+  const selectedChoice = useSelector(state => state.choice.selectedChoice);
   const selectedOption = useSelector(state => state.option.selectedOption);
   const selectedGender = useSelector(state => state.gender.selectedGender);
   const selectedMBTI = useSelector(state => state.mbti.selectedMBTI);
   const selectedAge = useSelector(state => state.age.selectedAge);
   const selectedCategoryList = useSelector(
     state => state.categoryList.selectedCategoryList,
-  );
-
-  console.log(
-    'selectedOption: ',
-    selectedOption,
-    selectedGender,
-    selectedMBTI,
-    selectedAge,
   );
 
   const handleInformationClick = () => {
@@ -36,7 +29,8 @@ const LoginModal = ({ isOpen, onClose }) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        choice_id: selectedOption,
+        choice_number: selectedOption,
+        choice_id: selectedChoice,
         category_list: selectedCategoryList,
         gender: selectedGender,
         mbti: selectedMBTI,

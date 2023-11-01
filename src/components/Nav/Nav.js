@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import Marquee from 'react-fast-marquee';
-import SearchIcon from '../Atoms/SearchIcon';
+import SearchBox from './SearchBox';
 import { connect } from 'react-redux';
 import { checkAuthenticated, load_user, logout } from '../../actions/auth';
 
@@ -74,11 +74,8 @@ const Nav = ({ checkAuthenticated, load_user, logout, isAuthenticated }) => {
       </Marquee>
       <NavContainer>
         <NavList>
-          <NavFortune to="/fortune">
-            <img src="/images/Fortune/Cookie.png" alt="포춘쿠키" />
-          </NavFortune>
           <NavSearch>
-            <SearchIcon />
+            <SearchBox />
           </NavSearch>
 
           <NavLogo to="/">
@@ -86,6 +83,9 @@ const Nav = ({ checkAuthenticated, load_user, logout, isAuthenticated }) => {
           </NavLogo>
 
           <SearchMyPage>
+            <NavFortune to="/fortune">
+              <img src="/images/Fortune/Cookie.png" alt="포춘쿠키" />
+            </NavFortune>
             {isAuthenticated ? (
               <>
                 <NavLink2 to="/my-page">
@@ -181,8 +181,9 @@ const NavLink2 = styled(Link)`
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
   font-family: 'GongGothicLight';
-  font-size: 15px;
+  font-size: 16px;
   color: #ff495a;
   &:hover {
     opacity: 0.9;
@@ -197,6 +198,8 @@ const UserNickNameContainer = styled.div`
 `;
 const UserNickName = styled.span`
   color: #457c9e;
+  margin-top: 2px;
+  font-size: 14px;
 `;
 
 const NavLogo = styled(Link)`
@@ -239,10 +242,6 @@ const NavSearch = styled(Link)`
     opacity: 0.8;
     cursor: pointer;
   }
-
-  @media screen and (max-width: 768px) {
-    display: none;
-  }
 `;
 
 const Logout = styled.div`
@@ -257,6 +256,7 @@ const Logout = styled.div`
     opacity: 0.8;
     cursor: pointer;
   }
+
   @media screen and (max-width: 600px) {
     display: none;
   }

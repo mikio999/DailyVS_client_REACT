@@ -62,6 +62,7 @@ export default function (state = initialState, action) {
         user: null,
       };
     case LOGIN_FAIL:
+      alert('로그인 실패! 로그인 이메일과 비밀번호를 다시 한번 확인해주세요!');
     case SIGNUP_FAIL:
     case LOGOUT:
       localStorage.removeItem('access');
