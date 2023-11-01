@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useReducer, useRef } from 'react';
 import styled from 'styled-components';
 import { ArrowLeft, ArrowRight } from '../../../components/Atoms/Buttons';
 import MainSliderCard from './MainSliderCard';
@@ -7,6 +7,7 @@ import 'react-multi-carousel/lib/styles.css';
 import ReactModal from 'react-modal';
 import DeleteBtn from '../../../components/Atoms/DeleteBtn';
 import SeeAll from './SeeAll';
+import theme from '../../../styles/theme';
 
 function MainSlider({ title, list }) {
   const [gridList, setGridList] = useState([]);
@@ -92,14 +93,16 @@ function MainSlider({ title, list }) {
   const closeModal = () => {
     setModalOpened(false);
   };
+  const appElement = useRef();
   return (
-    <>
+    <div ref={appElement}>
       <ReactModal
         isOpen={modalOpened}
         shouldCloseOnOverlayClick={true}
         shouldCloseOnEsc={true}
         onRequestClose={closeModal}
         preventScroll={true}
+        appElement={appElement.current}
         style={{
           overlay: {
             zIndex: 2000,
@@ -129,7 +132,7 @@ function MainSlider({ title, list }) {
       >
         <MovingContainer />
       </div>
-    </>
+    </div>
   );
 }
 
@@ -152,6 +155,17 @@ const Header = styled.div`
   }
   & > div:hover span {
     font-size: 18px;
+  }
+  @media screen and (max-width: 500px) {
+    & > div {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    & > div span {
+      padding-left: 0;
+      color: ${theme.colors.turquoisSecondaryColor};
+      font-weight: 900;
+    }
   }
 `;
 

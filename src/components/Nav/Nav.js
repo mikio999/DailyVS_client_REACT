@@ -90,7 +90,9 @@ const Nav = ({ checkAuthenticated, load_user, logout, isAuthenticated }) => {
               <>
                 <NavLink2 to="/my-page">
                   <img src="/images/Nav/Logged.png" alt="마이페이지" />
-                  <UserNickName>{userInfo.nickname}</UserNickName>
+                  <UserNickNameContainer>
+                    <UserNickName>{userInfo.nickname}</UserNickName>님
+                  </UserNickNameContainer>
                 </NavLink2>
                 <Logout href="/login" onClick={logout_user}>
                   로그아웃
@@ -189,7 +191,11 @@ const NavLink2 = styled(Link)`
     text-decoration: none;
   }
 `;
-
+const UserNickNameContainer = styled.div`
+  @media screen and (max-width: 500px) {
+    display: none;
+  }
+`;
 const UserNickName = styled.span`
   color: #457c9e;
   margin-top: 2px;
@@ -251,7 +257,7 @@ const Logout = styled.div`
     cursor: pointer;
   }
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 600px) {
     display: none;
   }
 `;

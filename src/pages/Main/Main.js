@@ -13,7 +13,9 @@ const Main = () => {
   const [loading, setLoading] = useState(true);
   const [newPolls, setNewPolls] = useState([]);
   const [hotPolls, setHotPolls] = useState([]);
-
+  const [agePolls, setAgePolls] = useState([]);
+  const [genderPolls, setGenderPolls] = useState([]);
+  const [mbtiPolls, setMbtiPolls] = useState([]);
   const [todayPoll, setTodayPoll] = useState({});
 
   useEffect(() => {
@@ -22,6 +24,9 @@ const Main = () => {
       .then(result => {
         setNewPolls(result.polls);
         setHotPolls(result.hot_polls);
+        setAgePolls(result.age_polls);
+        setGenderPolls(result.gender_polls);
+        setMbtiPolls(result.mbti_polls);
         setTodayPoll(result.today_poll);
         setLoading(false);
         console.log('받은 값', result);
@@ -41,7 +46,7 @@ const Main = () => {
     <Container>
       <MakeVoteBanner>
         <div>
-          <span>겨루고 싶은 VS가 있다면? 👉 👉</span>
+          <span>겨루고 싶은 VS가 있다면? 👉👉</span>
           <MintButtonSubmit content="투표 만들러 가기" link={'/create'} />
         </div>
       </MakeVoteBanner>
@@ -55,11 +60,12 @@ const Main = () => {
           {hotPolls.length > 0 && (
             <MainSlider title="요즘 핫🔥한 VS" list={hotPolls} />
           )}
-          {newPolls.length > 0 && (
-            <MainSlider title="MBTI가 있는" list={newPolls} />
+          {mbtiPolls.length > 0 && (
+            <MainSlider title="MBTI가 있는" list={mbtiPolls} />
           )}
-          {newPolls.length > 0 && (
-            <MainSlider title="에디터 픽" list={newPolls} />
+          {agePolls.length > 0 && <MainSlider title="나이" list={agePolls} />}
+          {genderPolls.length > 0 && (
+            <MainSlider title="성별" list={genderPolls} />
           )}
         </div>
         {width < 1200 ? null : <MainSliderSideRight />}

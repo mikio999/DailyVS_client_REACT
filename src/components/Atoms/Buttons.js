@@ -38,6 +38,8 @@ const MintButtonCSS = styled.div`
   font-size: 16px;
   text-align: center;
   transition: 0.3s;
+  word-break: keep-all;
+  line-height: 1.2rem;
   &:hover {
     background-color: ${theme.colors.turquoisSecondaryColorHover};
   }

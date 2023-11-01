@@ -22,7 +22,16 @@ const Container = styled.div`
 
   display: grid;
   grid-template-columns: repeat(5, auto);
-  grid-gap: 20px;
+  grid-gap: 16px;
   padding-top: 20px;
+  @media screen and (max-width: 950px) {
+    grid-template-columns: repeat(4, auto);
+  }
+  @media screen and (max-width: 830px) {
+    grid-template-columns: repeat(3, auto);
+  }
+  @media screen and (max-width: 550px) {
+    grid-template-columns: repeat(2, auto);
+  }
 `;
 export default SeeAll;
