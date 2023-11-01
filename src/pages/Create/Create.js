@@ -7,6 +7,7 @@ import { MintButton } from '../../components/Atoms/Buttons';
 import CreateChoice from './CreateChoice';
 import CreateCat from './CreateCat';
 import { checkAuthenticated, load_user } from '../../actions/auth';
+import { useNavigate } from 'react-router-dom';
 
 const responsive = {
   desktop: {
@@ -24,6 +25,7 @@ const responsive = {
 };
 
 function Create() {
+  const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState('');
   useEffect(() => {
     checkAuthenticated();
@@ -52,7 +54,6 @@ function Create() {
         setUserInfo(result);
       });
   }, []);
-  console.log('uiuiuiui', userInfo);
 
   const [formData, setFormData] = useState({
     title: '',
@@ -97,11 +98,13 @@ function Create() {
       .then(response => response.json())
       .then(data => {
         console.log('데이터 받기 성공:', data);
+        navigate(`/vote-detail/${data.id}`);
       })
       .catch(error => {
         console.error(error);
       });
   };
+
   const CustomButtonGroup = ({ next, previous, ...rest }) => {
     const {
       carouselState: { currentSlide },
