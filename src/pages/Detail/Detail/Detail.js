@@ -13,6 +13,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import RegisterBtn from '../../../components/Molecules/DetailBtns/RegisterBtn';
 import AuthSubmitBtn from '../../../components/Molecules/AuthSubmitBtn';
 import Comment from '../../../components/Comment/Comment';
+import RevoteBtn from '../../../components/Molecules/RevoteBtn';
+import ResultBtn from '../../../components/Molecules/ResultBtn';
 
 const Detail = () => {
   const dispatch = useDispatch();
@@ -93,7 +95,12 @@ const Detail = () => {
             selectedChoice={selectedChoice}
             setSelectedChoice={setSelectedChoice}
           />
-          {isAuthenticated ? (
+          {voteDetail.previous_choice ? (
+            <ReButtons>
+              <RevoteBtn /> {/* Show RevoteBtn when previous_vote exists */}
+              <ResultBtn /> {/* Show ResultBtn when previous_vote exists */}
+            </ReButtons>
+          ) : isAuthenticated ? (
             <AuthSubmitBtn isFormValid={isFormValid} />
           ) : (
             <RegisterBtn isFormValid={isFormValid} />
@@ -116,4 +123,15 @@ const DetailContainer = styled.form`
   justify-content: center;
   margin: 0 auto;
   background-color: #f8f8ff;
+`;
+
+const ReButtons = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 3rem;
+  margin-top: 2rem;
+  width: 350px;
+  align-items: center;
 `;
