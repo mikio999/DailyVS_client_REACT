@@ -7,4 +7,16 @@ const ResultBtn = () => {
 
 export default ResultBtn;
 
-const Container = styled.button``;
+const Container = styled.button`
+  width: 160px;
+  height: 50px;
+  font-size: 24px;
+  color: white;
+  background-color: #ff495a;
+  border: none;
+  border-radius: 5px;
+
+  &:hover {
+    cursor: pointer;
+  }
+`;
