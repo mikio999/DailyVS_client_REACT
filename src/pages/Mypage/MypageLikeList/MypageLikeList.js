@@ -7,7 +7,7 @@ const MypageLikeList = pollLike => {
     // Handle the case when pollLike is empty or not defined
     return (
       <Container>
-        <LikeTitle>나의 VOTE 좋아요 LIST</LikeTitle>
+        <LikeTitle>나의 좋아요 VOTE</LikeTitle>
         <p>'좋아요'한 투표가 존재하지 않습니다. </p>
       </Container>
     );
@@ -15,7 +15,7 @@ const MypageLikeList = pollLike => {
 
   return (
     <Container>
-      <LikeTitle>나의 VOTE 좋아요 LIST</LikeTitle>
+      <LikeTitle>나의 좋아요 VOTE</LikeTitle>
       {pollLike?.pollLike.map((poll, index) => (
         <LikeLine key={index} to={`/vote-detail/${poll.id}`}>
           <LikeImage

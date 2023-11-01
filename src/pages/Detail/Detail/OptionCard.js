@@ -1,9 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const OptionCard = ({ voteDetail, selectedOption, setSelectedOption }) => {
+const OptionCard = ({
+  voteDetail,
+  selectedOption,
+  setSelectedOption,
+  selectedChoice,
+  setSelectedChoice,
+}) => {
   const handleOptionChange = index => {
     setSelectedOption(index);
+    setSelectedChoice(index);
   };
 
   return (
@@ -24,7 +31,10 @@ const OptionCard = ({ voteDetail, selectedOption, setSelectedOption }) => {
             <DetailOptionName
               htmlFor={choice.id}
               className={index === selectedOption ? 'selected' : ''}
-              onClick={() => setSelectedOption(index)}
+              onClick={() => {
+                setSelectedOption(index);
+                setSelectedChoice(choice.id);
+              }}
             >
               <VoteName>{choice.choice_text}</VoteName>
             </DetailOptionName>

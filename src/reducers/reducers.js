@@ -42,6 +42,19 @@ const optionReducer = (state = initialOptionState, action) => {
   }
 };
 
+const initialChoiceState = {
+  selectedChoice: '',
+};
+
+const choiceReducer = (state = initialChoiceState, action) => {
+  switch (action.type) {
+    case 'SET_CHOICE':
+      return { ...state, selectedChoice: action.payload };
+    default:
+      return state;
+  }
+};
+
 const initialGenderState = {
   selectedGender: '',
 };
@@ -136,6 +149,7 @@ const rootReducer = combineReducers({
   email: emailReducer,
   user: userReducer,
   option: optionReducer,
+  choice: choiceReducer,
   gender: genderReducer,
   mbti: mbtiReducer,
   age: ageReducer,

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import MypageInformation from './MypageInformation';
 import MypageVoteList from './MypageVoteList/MypageVoteList';
 import MypageLikeList from './MypageLikeList/MypageLikeList';
+import MypageCreateList from './MypageCreateList/MypageCreateList';
 
 const Mypage = () => {
   const [userInformation, setUserInformation] = useState('');
@@ -36,6 +37,7 @@ const Mypage = () => {
     <Container>
       <MypageInformation userInformation={userInformation} />
       <MypageVoteList voteList={userInformation?.uservote} />
+      <MypageCreateList createList={userInformation?.my_poll} />
       <MypageLikeList pollLike={userInformation.poll_like} />
     </Container>
   );
