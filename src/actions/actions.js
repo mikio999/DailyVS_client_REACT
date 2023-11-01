@@ -5,6 +5,13 @@ export const setOption = option => {
   };
 };
 
+export const setChoice = choice => {
+  return {
+    type: 'SET_CHOICE',
+    payload: choice,
+  };
+};
+
 export const setGender = gender => {
   return {
     type: 'SET_GENDER',

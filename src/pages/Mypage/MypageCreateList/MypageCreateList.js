@@ -2,29 +2,29 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-const MypageVoteList = ({ voteList }) => {
-  console.log(voteList);
+const MypageCreateList = ({ createList }) => {
+  console.log(createList);
   return (
     <Container>
-      <VoteListTitle>내가 투표한 VOTE</VoteListTitle>
-      {voteList.map((poll, index) => (
-        <LikeLine key={index} to={`/vote-detail/${poll.poll.id}`}>
+      <VoteListTitle>내가 만든 VOTE</VoteListTitle>
+      {createList.map((poll, index) => (
+        <LikeLine key={index} to={`/vote-detail/${poll?.id}`}>
           <LikeImage
-            src={'http://127.0.0.1:8000' + poll.poll.thumbnail}
+            src={'http://127.0.0.1:8000' + poll?.thumbnail}
             alt={poll.poll?.title}
           />
           <TruncateText>
-            <LikeName>{poll.poll?.title}</LikeName>
+            <LikeName>{poll?.title}</LikeName>
           </TruncateText>
-          <LikeCreator>{poll.choice.choice_text}</LikeCreator>
-          <LikeDate>{poll.poll.created_at?.slice(0, 10)}</LikeDate>
+          <LikeCreator>{poll.owner?.nickname}</LikeCreator>
+          <LikeDate>{poll.created_at?.slice(0, 10)}</LikeDate>
         </LikeLine>
       ))}
     </Container>
   );
 };
 
-export default MypageVoteList;
+export default MypageCreateList;
 
 const Container = styled.div`
   display: flex;

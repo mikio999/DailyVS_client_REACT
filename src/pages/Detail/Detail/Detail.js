@@ -5,6 +5,7 @@ import DetailCard from './DetailCard';
 import OptionCard from './OptionCard';
 import {
   setOption,
+  setChoice,
   setCategory,
   setCategoryList,
 } from '../../../actions/actions';
@@ -17,11 +18,16 @@ const Detail = () => {
   const dispatch = useDispatch();
   const [voteDetail, setVoteDetail] = useState([]);
   const [selectedOption, setSelectedOption] = useState('');
+  const [selectedChoice, setSelectedChoice] = useState('');
   const params = useParams();
   const detailId = params.id;
 
   const handleDispatch = selectedOption => {
     dispatch(setOption(selectedOption + 1));
+  };
+
+  const handleChoiceDispatch = selectedChoice => {
+    dispatch(setChoice(selectedChoice));
   };
 
   const handleCategoryDispatch = selectedCategory => {
@@ -40,6 +46,10 @@ const Detail = () => {
   useEffect(() => {
     handleDispatch(selectedOption);
   }, [selectedOption]);
+
+  useEffect(() => {
+    handleChoiceDispatch(selectedChoice);
+  }, [selectedChoice]);
 
   useEffect(() => {
     const headers = new Headers();
@@ -69,6 +79,8 @@ const Detail = () => {
     return selectedOption !== '';
   };
 
+  console.log('selectedChoice', selectedChoice);
+
   return (
     <DetailContainer>
       {voteDetail ? (
@@ -78,6 +90,8 @@ const Detail = () => {
             voteDetail={voteDetail}
             selectedOption={selectedOption}
             setSelectedOption={setSelectedOption}
+            selectedChoice={selectedChoice}
+            setSelectedChoice={setSelectedChoice}
           />
           {isAuthenticated ? (
             <AuthSubmitBtn isFormValid={isFormValid} />

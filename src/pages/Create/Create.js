@@ -7,37 +7,7 @@ import { MintButton } from '../../components/Atoms/Buttons';
 import CreateChoice from './CreateChoice';
 import CreateCat from './CreateCat';
 import { checkAuthenticated, load_user } from '../../actions/auth';
-// 자기가 만든 detail로 redirect
-// {
-//   "owner": {
-//       "nickname": "한소리임당",
-//       "age": "20_1",
-//       "gender": "W",
-//       "mbti": "INFP"
-//   },
-//   "choice": [
-//       {
-//           "choice_text": "부먹"
-//       },
-//       {
-//           "choice_text": "찍먹"
-//       }
-//   ],
-//   "category": [
-//       {
-//           "id": 1,
-//       },
-//       {
-//           "id": 2,
-//       },
-//       {
-//           "id": 3,
-//       }
-//   ],
-//   "title": "test제목",
-//   "content": "test내용",
-//   "thumbnail": "",
-// }
+
 const responsive = {
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
@@ -79,17 +49,11 @@ function Create() {
     })
       .then(response => response.json())
       .then(result => {
-        // const transformedArray = Object.keys(result).map(key => {
-        //   const newObj = {};
-        //   newObj[key] = result[key];
-        //   return newObj;
-        // });
         setUserInfo(result);
       });
   }, []);
   console.log('uiuiuiui', userInfo);
 
-  // 넘겨줄 데이터: title, content, thumbnail, category, choice, owner
   const [formData, setFormData] = useState({
     title: '',
     content: '',
