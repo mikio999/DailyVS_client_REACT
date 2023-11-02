@@ -113,10 +113,12 @@ const Info = styled.div`
     color: ${theme.colors.turquoisSecondaryColor};
   }
 `;
+
 const Content = styled.div`
   display: flex;
   padding: 10px 0;
 `;
+
 const Bottom = styled.div`
   display: flex;
   align-items: center;

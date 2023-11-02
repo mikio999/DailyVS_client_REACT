@@ -23,14 +23,20 @@ const MintButtonSubmit = ({ content, link }) => {
   );
 };
 
-export const MintButton = ({ content, onClick }) => (
+export const MintButton = ({ content, onClick, disabled }) => (
   <div>
-    <MintButtonCSS onClick={onClick}>{content}</MintButtonCSS>
+    <MintButtonCSS onClick={onClick} disabled={disabled}>
+      {content}
+    </MintButtonCSS>
   </div>
 );
 
 const MintButtonCSS = styled.div`
-  background-color: ${theme.colors.turquoisSecondaryColor};
+  background-color: ${props =>
+    props.disabled
+      ? props.theme.colors.lightGrayColor
+      : props.theme.colors.turquoisSecondaryColor};
+  cursor: ${props => (props.disabled ? 'not-allowed' : 'pointer')};
   padding: 10px 20px;
   cursor: pointer;
   color: white;
