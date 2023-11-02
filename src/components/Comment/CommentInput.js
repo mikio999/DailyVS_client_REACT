@@ -4,7 +4,7 @@ import theme from '../../styles/theme';
 import { MintButton } from '../Atoms/Buttons';
 import { useSelector } from 'react-redux';
 
-function CommentInput({ voteId, voteChoice }) {
+function CommentInput({ voteId, voteChoice, onCommentSubmit }) {
   const [comment, setComment] = useState('');
   const [userInfo, setUserInfo] = useState('');
 
@@ -37,6 +37,7 @@ function CommentInput({ voteId, voteChoice }) {
   }, []);
 
   const handleSubmit = () => {
+    onCommentSubmit(comment);
     const accessToken = localStorage.getItem('access');
     if (!accessToken) {
       return;
@@ -86,7 +87,7 @@ function CommentInput({ voteId, voteChoice }) {
             <div className="name">{userInfo.nickname}</div>
             <div className="mbti">{userInfo.mbti}</div>
             <div className="gender">{userInfo.gender}</div>
-            <div className="result">{voteChoice.choice_text}</div>
+            <div className="result">{voteChoice?.choice_text}</div>
           </Info>
           <CommentText
             value={comment}
@@ -94,7 +95,11 @@ function CommentInput({ voteId, voteChoice }) {
             placeholder="댓글을 입력하세요"
           />
           <div style={{ width: '30%', marginLeft: 'auto' }}>
-            <MintButton content={'댓글 달기'} onClick={handleSubmit} />
+            <MintButton
+              content={'댓글 달기'}
+              onClick={handleSubmit}
+              disabled={comment.length === 0}
+            />
           </div>
         </>
       ) : (
