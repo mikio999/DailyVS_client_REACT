@@ -74,18 +74,23 @@ const Nav = ({ checkAuthenticated, load_user, logout, isAuthenticated }) => {
       </Marquee>
       <NavContainer>
         <NavList>
-          <NavSearch>
+          {/* <NavSearch>
             <SearchBox />
-          </NavSearch>
-
+          </NavSearch> */}
+          {/* <img
+            src="/images/Buttons/search_b.png"
+            alt="검색"
+            width={25}
+            height={25}
+          /> */}
           <NavLogo to="/">
             <LogoImg src="/images/Nav/Row.png" alt="로고" />
           </NavLogo>
 
           <SearchMyPage>
-            <NavFortune to="/fortune">
+            {/* <NavFortune to="/fortune">
               <img src="/images/Fortune/Cookie.png" alt="포춘쿠키" />
-            </NavFortune>
+            </NavFortune> */}
             {isAuthenticated ? (
               <>
                 <NavLink2 to="/my-page">
@@ -107,6 +112,9 @@ const Nav = ({ checkAuthenticated, load_user, logout, isAuthenticated }) => {
           </SearchMyPage>
         </NavList>
       </NavContainer>
+      <NavSearch>
+        <SearchBox />
+      </NavSearch>
     </>
   );
 };
@@ -143,6 +151,7 @@ const NavContainer = styled.div`
 const NavList = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   width: 100%;
   font-size: 15px;
   position: relative;
@@ -181,7 +190,7 @@ const NavLink2 = styled(Link)`
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
+  /* flex-direction: column; */
   font-family: 'GongGothicLight';
   font-size: 16px;
   color: #ff495a;
@@ -238,6 +247,7 @@ const NavSearch = styled(Link)`
   display: flex;
   align-items: center;
   justify-content: center;
+
   &:hover {
     opacity: 0.8;
     cursor: pointer;
