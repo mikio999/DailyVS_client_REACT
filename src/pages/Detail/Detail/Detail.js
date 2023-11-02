@@ -81,6 +81,9 @@ const Detail = () => {
     return selectedOption !== '';
   };
 
+  console.log('selectedChoice', selectedChoice);
+  console.log(voteDetail);
+
   return (
     <DetailContainer>
       {voteDetail ? (
