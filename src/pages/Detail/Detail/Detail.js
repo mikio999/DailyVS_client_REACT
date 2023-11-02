@@ -81,8 +81,6 @@ const Detail = () => {
     return selectedOption !== '';
   };
 
-  console.log('selectedChoice', selectedChoice);
-
   return (
     <DetailContainer>
       {voteDetail ? (
@@ -105,7 +103,7 @@ const Detail = () => {
           ) : (
             <RegisterBtn isFormValid={isFormValid} />
           )}
-          <Comment />
+          <Comment voteId={detailId} />
         </>
       ) : (
         <p>Vote not found</p>

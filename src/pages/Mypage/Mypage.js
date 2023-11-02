@@ -5,6 +5,7 @@ import MypageVoteList from './MypageVoteList/MypageVoteList';
 import MypageLikeList from './MypageLikeList/MypageLikeList';
 import theme from '../../styles/theme';
 import MypageCreateList from './MypageCreateList/MypageCreateList';
+import { logout } from '../../actions/auth';
 
 const Mypage = ({ logout }) => {
   const [userInformation, setUserInformation] = useState('');

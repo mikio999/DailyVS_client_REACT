@@ -50,9 +50,10 @@ function CommentElement({ user, data, reply, setShowReply }) {
         onMouseEnter={handleBtnME}
         onMouseLeave={handleBtnML}
         onClick={() => {
-          if (reply.length > 0) {
-            setShowReply(curr => !curr);
-          }
+          // if (reply.length > 0) {
+          //   setShowReply(curr => !curr);
+          // }
+          setShowReply(curr => !curr);
         }}
       >
         답글 {reply.length}

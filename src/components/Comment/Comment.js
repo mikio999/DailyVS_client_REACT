@@ -3,9 +3,11 @@ import styled from 'styled-components';
 import theme from '../../styles/theme';
 import HeaderText from '../Atoms/HeaderText';
 import CommentBox from './CommentBox';
+import CommentInput from './CommentInput';
 
-function Comment() {
+function Comment({ voteId }) {
   const [datas, setDatas] = useState([]);
+  const [id, setId] = useState(voteId);
   useEffect(() => {
     fetch('/data/comment.json')
       .then(response => response.json())
@@ -17,13 +19,17 @@ function Comment() {
         console.error('데이터 받기 실패:', error);
       });
   }, []);
+  useEffect(() => {
+    setId(voteId);
+  }, [voteId]);
 
   return (
     <Container>
+      <div style={{ width: 50, marginRight: 'auto', paddingLeft: 20 }}>
+        <HeaderText content="댓글" />
+      </div>
+      <CommentInput voteId={voteId} />
       <Wrapper>
-        <div style={{ width: 50 }}>
-          <HeaderText content="댓글" />
-        </div>
         {datas && datas.map(data => <CommentBox key={data.id} data={data} />)}
       </Wrapper>
     </Container>
@@ -33,7 +39,8 @@ function Comment() {
 const Container = styled.div`
   width: min(100%, 1200px);
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   background-color: ${theme.colors.pinkBgColor};
   padding: 20px;
 `;
