@@ -5,7 +5,7 @@ import HeaderText from '../Atoms/HeaderText';
 import CommentBox from './CommentBox';
 import CommentInput from './CommentInput';
 
-function Comment({ voteId }) {
+function Comment({ voteId, voteChoice }) {
   const [datas, setDatas] = useState([]);
   const [id, setId] = useState(voteId);
   useEffect(() => {
@@ -28,7 +28,7 @@ function Comment({ voteId }) {
       <div style={{ width: 50, marginRight: 'auto', paddingLeft: 20 }}>
         <HeaderText content="댓글" />
       </div>
-      <CommentInput voteId={voteId} />
+      <CommentInput voteId={voteId} voteChoice={voteChoice} />
       <Wrapper>
         {datas && datas.map(data => <CommentBox key={data.id} data={data} />)}
       </Wrapper>

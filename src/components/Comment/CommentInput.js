@@ -4,33 +4,13 @@ import theme from '../../styles/theme';
 import { MintButton } from '../Atoms/Buttons';
 import { useSelector } from 'react-redux';
 
-function CommentInput({ voteId }) {
+function CommentInput({ voteId, voteChoice }) {
   const [comment, setComment] = useState('');
   const [userInfo, setUserInfo] = useState('');
 
   const handleChange = e => {
     const newComment = e.target.value;
     setComment(newComment);
-  };
-
-  const handleSubmit = () => {
-    const sendData = { content: comment, poll: voteId };
-    console.log(sendData);
-    if (comment.length > 0) {
-      fetch(`http://127.0.0.1:8000/${voteId}/comment`, {
-        method: 'POST',
-        body: sendData,
-      })
-        .then(response => response.json())
-        .then(data => {
-          console.log('성공:', data);
-        })
-        .catch(error => {
-          console.error('데이터 받기 실패:', error);
-        });
-    }
-
-    setComment('');
   };
 
   useEffect(() => {
@@ -55,10 +35,48 @@ function CommentInput({ voteId }) {
         setUserInfo(result);
       });
   }, []);
-  console.log(userInfo);
+
+  const handleSubmit = () => {
+    const accessToken = localStorage.getItem('access');
+    if (!accessToken) {
+      return;
+    }
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${accessToken}`,
+        Accept: 'application/json',
+      },
+    };
+
+    const sendData = {
+      content: comment,
+      id: voteId,
+      user_info: userInfo,
+      choice: voteChoice?.id,
+    };
+    console.log('곰돌이', config.headers);
+    console.log('전송데이터', sendData);
+    if (comment.length > 0) {
+      fetch(`http://127.0.0.1:8000/${voteId}/comment`, {
+        method: 'POST',
+        body: sendData,
+        headers: config.headers,
+      })
+        .then(response => response.json())
+        .then(data => {
+          console.log('성공:', data);
+        })
+        .catch(error => {
+          console.error('데이터 받기 실패:', error);
+        });
+    }
+
+    setComment('');
+  };
 
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
-  console.log(isAuthenticated);
 
   return (
     <Container>
@@ -68,7 +86,7 @@ function CommentInput({ voteId }) {
             <div className="name">{userInfo.nickname}</div>
             <div className="mbti">{userInfo.mbti}</div>
             <div className="gender">{userInfo.gender}</div>
-            <div className="result">Choice</div>
+            <div className="result">{voteChoice.choice_text}</div>
           </Info>
           <CommentText
             value={comment}

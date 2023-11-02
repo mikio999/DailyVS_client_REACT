@@ -60,19 +60,11 @@ const Result = () => {
       <CaptureContainer ref={resultRef}>
         <ResultTop voteResult={voteResult} />
         <TotalGraph voteResult={voteResult} />
-        {/* <ResultAnalysis
-          SpecialKey={voteResult.special_key}
-          Analysis={voteResult.analysis}
-        /> */}
-        {/* <AnalysisChart
-          voteResult={voteResult}
-          SpecialKey={voteResult.special_key}
-        /> */}
         <WaterMark />
       </CaptureContainer>
       <ResultBtn onCapture={handleCapture} />
       <ResultGraph voteResult={voteResult} />
-      <Comment voteId={detailId} />
+      <Comment voteId={detailId} voteChoice={voteResult?.choice} />
     </ResultContainer>
   );
 };
