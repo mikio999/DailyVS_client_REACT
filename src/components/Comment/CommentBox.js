@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import CommentElement from './CommentElement';
+import CommentInput from './CommentInput';
 
 function CommentBox({ data }) {
   const [reply, setReply] = useState({});
@@ -23,6 +24,7 @@ function CommentBox({ data }) {
         reply.map(re => (
           <CommentElement key={re.id} user={re.user_info} data={re} />
         ))}
+      {!!showReply && <CommentInput />}
     </>
   );
 }
