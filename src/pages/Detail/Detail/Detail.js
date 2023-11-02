@@ -97,8 +97,8 @@ const Detail = () => {
           />
           {voteDetail.previous_choice ? (
             <ReButtons>
-              <RevoteBtn /> {/* Show RevoteBtn when previous_vote exists */}
-              <ResultBtn /> {/* Show ResultBtn when previous_vote exists */}
+              <RevoteBtn />
+              <ResultBtn />
             </ReButtons>
           ) : isAuthenticated ? (
             <AuthSubmitBtn isFormValid={isFormValid} />

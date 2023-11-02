@@ -1,8 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useParams, useNavigate } from 'react-router-dom';
 
 const ResultBtn = () => {
-  return <Container>결과보기</Container>;
+  const params = useParams();
+  const navigate = useNavigate();
+  const detailId = params.id;
+
+  const handleResult = () => {
+    navigate(`/vote-result/${detailId}`);
+  };
+  return <Container onClick={handleResult}>결과보기</Container>;
 };
 
 export default ResultBtn;
