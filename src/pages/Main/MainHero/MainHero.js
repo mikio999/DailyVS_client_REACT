@@ -408,7 +408,7 @@ const HeroMenuContainer = styled.div`
     height: 270px;
   }
   @media screen and (max-width: 800px) {
-    display: none;
+    height: 200px;
   }
 `;
 const FortuneContainer = styled(Link)`
@@ -431,6 +431,10 @@ const FortuneContainer = styled(Link)`
     align-items: center;
     background-color: #ffeef0;
     height: 30%;
+    padding: 10px;
+    text-align: center;
+    line-height: 1.5rem;
+    word-break: keep-all;
     & h2 {
       font-size: 20px;
     }
@@ -449,7 +453,18 @@ const FortuneContainer = styled(Link)`
       animation: AnimatedFortune 3s ease-in-out infinite;
     }
   }
-
+  @media screen and (max-width: 800px) {
+    & .fortuneIcon {
+      & img {
+        width: 100px;
+      }
+    }
+    & .fortuneHeader {
+      & h2 {
+        font-size: 16px;
+      }
+    }
+  }
   @keyframes AnimatedFortune {
     0%,
     100% {
@@ -482,6 +497,11 @@ const MakeVoteContainer = styled(Link)`
   }
   &:hover h2 {
     color: black;
+  }
+  @media screen and (max-width: 800px) {
+    & .makeVoteHeader {
+      font-size: 16px;
+    }
   }
 `;
 export default MainHero;

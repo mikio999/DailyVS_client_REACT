@@ -52,13 +52,15 @@ export default SearchBox;
 const Container = styled.div`
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding-left: 0.5rem;
   border-radius: 30px;
   box-shadow:
     0 3px 6px rgba(0, 0, 0, 0.16),
     0 3px 6px rgba(0, 0, 0, 0.23);
-  width: 15rem;
+  width: 30rem;
   height: 2.5rem;
+  margin: 0 1rem 1.5rem;
 `;
 
 const SearchImg = styled.img`
@@ -67,10 +69,11 @@ const SearchImg = styled.img`
 `;
 
 const SearchInput = styled.input`
-  margin-left: 0.2rem;
+  margin-left: 0.5rem;
   height: 2rem;
   width: 12rem;
   border: none;
+  flex: 1;
 `;
 
 const SearchButton = styled.button`
