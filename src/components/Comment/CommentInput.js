@@ -2,15 +2,17 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import theme from '../../styles/theme';
 import { MintButton } from '../Atoms/Buttons';
+import { useSelector } from 'react-redux';
 
 function CommentInput({ voteId }) {
   const [comment, setComment] = useState('');
+  const [userInfo, setUserInfo] = useState('');
 
   const handleChange = e => {
     const newComment = e.target.value;
     setComment(newComment);
-    console.log(comment);
   };
+
   const handleSubmit = () => {
     const sendData = { content: comment, poll: voteId };
     console.log(sendData);
@@ -30,22 +32,56 @@ function CommentInput({ voteId }) {
 
     setComment('');
   };
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem('access');
+    if (!accessToken) {
+      return;
+    }
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${accessToken}`,
+        Accept: 'application/json',
+      },
+    };
+
+    fetch(`http://127.0.0.1:8000/accounts/user_info/`, {
+      headers: config.headers,
+    })
+      .then(response => response.json())
+      .then(result => {
+        setUserInfo(result);
+      });
+  }, []);
+  console.log(userInfo);
+
+  const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
+  console.log(isAuthenticated);
+
   return (
     <Container>
-      <Info>
-        <div className="name">Nickname</div>
-        <div className="mbti">MBTI</div>
-        <div className="gender">W</div>
-        <div className="result">Choice</div>
-      </Info>
-      <CommentText
-        value={comment}
-        onChange={handleChange}
-        placeholder="댓글을 입력하세요"
-      />
-      <div style={{ width: '30%', marginLeft: 'auto' }}>
-        <MintButton content={'댓글 달기'} onClick={handleSubmit} />
-      </div>
+      {isAuthenticated ? (
+        <>
+          <Info>
+            <div className="name">{userInfo.nickname}</div>
+            <div className="mbti">{userInfo.mbti}</div>
+            <div className="gender">{userInfo.gender}</div>
+            <div className="result">Choice</div>
+          </Info>
+          <CommentText
+            value={comment}
+            onChange={handleChange}
+            placeholder="댓글을 입력하세요"
+          />
+          <div style={{ width: '30%', marginLeft: 'auto' }}>
+            <MintButton content={'댓글 달기'} onClick={handleSubmit} />
+          </div>
+        </>
+      ) : (
+        <div>로그인 후 이용해주세요</div>
+      )}
     </Container>
   );
 }
@@ -59,6 +95,7 @@ const Container = styled.div`
   border: 2px solid ${theme.colors.turquoisSecondaryColor};
   background-color: white;
 `;
+
 const Info = styled.div`
   display: flex;
   align-items: flex-end;
@@ -87,6 +124,11 @@ const CommentText = styled.textarea`
   }
   &::placeholder {
     color: ${theme.colors.placeholder};
+    transition: color 0.3s;
+  }
+
+  &:focus::placeholder {
+    color: ${theme.colors.turquoisSecondaryColor};
   }
 `;
 

@@ -4,10 +4,9 @@ import html2canvas from 'html2canvas';
 import ResultTop from './ResultTop/ResultTop';
 import TotalGraph from './ResultTop/TotalGraph';
 import ResultGraph from './ResultGraph/ResultGraph';
-// import ResultAnalysis from './ResultTop/ResultAnalysis';
-// import AnalysisChart from './ResultGraph/AnalysisChart';
 import ResultBtn from './ResultBtn/ResultBtn';
 import { useParams, useNavigate } from 'react-router-dom';
+import Comment from '../../components/Comment/Comment';
 
 const Result = () => {
   const [voteResult, setVoteResult] = useState([]);
@@ -18,7 +17,22 @@ const Result = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`http://localhost:8000/${detailId}/poll_result_page`)
+    const accessToken = localStorage.getItem('access');
+    if (!accessToken) {
+      return;
+    }
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${accessToken}`,
+        Accept: 'application/json',
+      },
+    };
+
+    fetch(`http://localhost:8000/${detailId}/poll_result_page`, {
+      headers: config.headers,
+    })
       .then(response => response.json())
       .then(result => {
         if (result.detail === '찾을 수 없습니다.') {
@@ -58,6 +72,7 @@ const Result = () => {
       </CaptureContainer>
       <ResultBtn onCapture={handleCapture} />
       <ResultGraph voteResult={voteResult} />
+      <Comment voteId={detailId} />
     </ResultContainer>
   );
 };
