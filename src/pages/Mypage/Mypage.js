@@ -6,7 +6,6 @@ import MypageLikeList from './MypageLikeList/MypageLikeList';
 import theme from '../../styles/theme';
 import MypageCreateList from './MypageCreateList/MypageCreateList';
 
-
 const Mypage = ({ logout }) => {
   const [userInformation, setUserInformation] = useState('');
   const [loading, setLoading] = useState(true);
