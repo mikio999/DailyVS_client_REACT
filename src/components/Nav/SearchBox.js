@@ -1,12 +1,49 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import SearchIcon from '../Atoms/SearchIcon';
 
 const SearchBox = () => {
+  const [userInput, setUserInput] = useState('');
+  const navigate = useNavigate();
+
+  const handleSearch = e => {
+    setUserInput(e.target.value);
+  };
+
+  const handleKeyPress = e => {
+    if (e.key === 'Enter') {
+      performSearch(e);
+    }
+  };
+
+  const performSearch = () => {
+    navigate(`/search?keyword=${userInput}`, {
+      state: { value: userInput },
+    });
+  };
+
+  const handleClear = () => {
+    setUserInput('');
+  };
   return (
     <Container>
-      <SearchIcon />
-      <SearchInput />
+      <SearchButton onClick={performSearch}>
+        <SearchImg src="/images/Buttons/search_b.png" alt="검색" />
+      </SearchButton>
+
+      <SearchInput
+        placeholder="제목으로 검색하세요"
+        id="search"
+        value={userInput}
+        type="text"
+        onChange={handleSearch}
+        onKeyPress={handleKeyPress}
+      />
+      <DeleteImg
+        src="/images/Buttons/deleteBtn.png"
+        alt="삭제"
+        onClick={handleClear}
+      />
     </Container>
   );
 };
@@ -24,9 +61,26 @@ const Container = styled.div`
   height: 2.5rem;
 `;
 
+const SearchImg = styled.img`
+  width: 25px;
+  height: 25px;
+`;
+
 const SearchInput = styled.input`
   margin-left: 0.2rem;
   height: 2rem;
   width: 12rem;
   border: none;
+`;
+
+const SearchButton = styled.button`
+  background: none;
+  border: none;
+  cursor: pointer;
+`;
+
+const DeleteImg = styled.img`
+  width: 20px;
+  margin-right: 10px;
+  cursor: pointer;
 `;

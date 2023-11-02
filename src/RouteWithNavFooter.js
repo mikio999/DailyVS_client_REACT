@@ -17,6 +17,7 @@ import FixPassWord from './pages/Mypage/Modify/FixPassWord';
 import { useSelector } from 'react-redux';
 import EmailError from './pages/ErrorPage/EmailError';
 import LoginEmail from './pages/ErrorPage/LoginEmail';
+import Search from './pages/Search/Search';
 
 const RouteWithNavFooter = () => {
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
@@ -31,7 +32,12 @@ const RouteWithNavFooter = () => {
         <Route path="/vote-detail/age/:id" element={<DetailAge />} />
         <Route path="/vote-result/:id" element={<VoteResult />} />
         <Route path="/fortune" element={<Fortune />} />
-        <Route path="/create" element={<Create />} />
+        <Route path="/search" element={<Search />} />
+        {isAuthenticated ? (
+          <Route path="/create" element={<Create />} />
+        ) : (
+          <Route path="/my-page/fix" element={<Create />} />
+        )}
         {isAuthenticated ? (
           <Route path="/my-page" element={<Mypage />} />
         ) : (
