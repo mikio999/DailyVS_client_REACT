@@ -9,7 +9,7 @@ const Search = () => {
   const value = new URLSearchParams(location.search).get('keyword');
   console.log(value);
   useEffect(() => {
-    fetch(`http://localhost:8000/search?keyword=${value}`, {
+    fetch(`http://127.0.0.1:8000/search/?search=${value}`, {
       method: 'GET',
       credentials: 'include',
     })
