@@ -82,6 +82,7 @@ const Detail = () => {
   };
 
   console.log('selectedChoice', selectedChoice);
+  console.log(voteDetail);
 
   return (
     <DetailContainer>
