@@ -12,7 +12,6 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import RegisterBtn from '../../../components/Molecules/DetailBtns/RegisterBtn';
 import AuthSubmitBtn from '../../../components/Molecules/AuthSubmitBtn';
-import Comment from '../../../components/Comment/Comment';
 import RevoteBtn from '../../../components/Molecules/RevoteBtn';
 import ResultBtn from '../../../components/Molecules/ResultBtn';
 
@@ -106,7 +105,6 @@ const Detail = () => {
           ) : (
             <RegisterBtn isFormValid={isFormValid} />
           )}
-          <Comment voteId={detailId} />
         </>
       ) : (
         <p>Vote not found</p>
