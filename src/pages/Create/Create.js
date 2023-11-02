@@ -90,6 +90,7 @@ function Create() {
     const accessToken = localStorage.getItem('access');
     const headers = new Headers();
     headers.append('Authorization', `Bearer ${accessToken}`);
+
     fetch(`http://localhost:8000/create`, {
       method: 'POST',
       body: sendData,
