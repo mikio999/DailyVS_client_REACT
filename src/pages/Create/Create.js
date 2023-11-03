@@ -90,6 +90,7 @@ function Create() {
     const headers = new Headers();
     headers.append('Authorization', `Bearer ${accessToken}`);
 
+    console.log('sD', sendData);
     fetch(`http://localhost:8000/create`, {
       method: 'POST',
       body: sendData,
