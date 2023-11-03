@@ -52,7 +52,7 @@ function CommentInput({ voteId, voteChoice, onCommentSubmit }) {
       headers: headers,
       body: JSON.stringify({
         content: comment,
-        User: userInfo,
+        user_info: userInfo,
         poll: voteId,
       }),
     };
