@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { saveTokensToLocalStorage } from './localStorageUtils';
 import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
@@ -12,9 +13,12 @@ import {
   PASSWORD_RESET_CONFIRM_FAIL,
   SIGNUP_SUCCESS,
   SIGNUP_FAIL,
+  KAKAO_AUTH_SUCCESS,
+  KAKAO_AUTH_FAIL,
   ACTIVATION_SUCCESS,
   ACTIVATION_FAIL,
   LOGOUT,
+  LOAD_USER,
 } from './types';
 
 export const load_user = () => async dispatch => {
@@ -154,6 +158,55 @@ export const signup =
       });
     }
   };
+
+export const kakaoAuthSuccess = (access, refresh, nickname) => ({
+  type: KAKAO_AUTH_SUCCESS,
+  payload: { access, refresh, nickname },
+});
+
+export const kakaoAuthFail = () => ({
+  type: KAKAO_AUTH_FAIL,
+});
+
+export const loadUser = () => ({
+  type: LOAD_USER,
+});
+
+export const kakaoAuthenticate = (state, code) => async dispatch => {
+  if (state && code && !localStorage.getItem('access')) {
+    const config = {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+    };
+
+    const details = {
+      state: state,
+      code: code,
+    };
+
+    const formBody = Object.keys(details)
+      .map(
+        key => encodeURIComponent(key) + '=' + encodeURIComponent(details[key]),
+      )
+      .join('&');
+
+    try {
+      const res = await axios.post(
+        `http://127.0.0.1:8000/accounts/kakao/login/callback/?${formBody}`,
+        config,
+      );
+
+      const { access, refresh, nickname } = res.data;
+
+      dispatch(kakaoAuthSuccess(access, refresh, nickname));
+
+      dispatch(loadUser());
+    } catch (err) {
+      dispatch(kakaoAuthFail());
+    }
+  }
+};
 
 export const verify = (uid, token) => async dispatch => {
   const config = {
