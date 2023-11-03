@@ -1,7 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import MainCarousel from './MainCarousel/MainCarousel';
-import MainGrid from './MainGrid/MainGrid';
 import 'swiper/swiper-bundle.min.css';
 import MintButtonSubmit from '../../components/Atoms/Buttons';
 import theme from '../../styles/theme';
