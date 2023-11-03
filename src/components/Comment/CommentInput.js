@@ -38,32 +38,34 @@ function CommentInput({ voteId, voteChoice, onCommentSubmit }) {
 
   const handleSubmit = () => {
     onCommentSubmit(comment);
-    const accessToken = localStorage.getItem('access');
-    const headers = new Headers();
-    headers.append('Authorization', `Bearer ${accessToken}`);
-    headers.append('Content-Type', 'application/json');
 
-    const sendData = {
-      content: comment,
-      User: userInfo,
-      poll: voteId,
-    };
-    console.log('곰돌이', headers);
-    console.log('전송데이터', sendData);
-    if (comment.length > 0) {
-      fetch(`http://localhost:8000/${voteId}/comment`, {
-        method: 'POST',
-        body: sendData,
-        headers: headers,
-      })
-        .then(response => response.json())
-        .then(data => {
-          console.log('성공:', data);
-        })
-        .catch(error => {
-          console.error('데이터 받기 실패:', error);
-        });
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    const accessToken = localStorage.getItem('access');
+
+    if (accessToken) {
+      headers.append('Authorization', `Bearer ${accessToken}`);
     }
+
+    const requestOptions = {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify({
+        content: comment,
+        User: userInfo,
+        poll: voteId,
+      }),
+    };
+
+    console.log('곰돌이', headers);
+    fetch(`http://localhost:8000/${voteId}/comment`, requestOptions)
+      .then(response => response.json())
+      .then(data => {
+        console.log('성공:', data);
+      })
+      .catch(error => {
+        console.error('데이터 받기 실패:', error);
+      });
 
     setComment('');
   };
