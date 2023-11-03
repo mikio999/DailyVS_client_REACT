@@ -83,7 +83,7 @@ function Create() {
     }
 
     sendData.forEach((value, key) => {
-      console.log(key, value);
+      console.log('백엔드에 보낸 데이터', key, value);
     });
 
     const accessToken = localStorage.getItem('access');
