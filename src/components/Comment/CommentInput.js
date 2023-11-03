@@ -41,10 +41,11 @@ function CommentInput({ voteId, voteChoice, onCommentSubmit }) {
     const accessToken = localStorage.getItem('access');
     const headers = new Headers();
     headers.append('Authorization', `Bearer ${accessToken}`);
+    headers.append('Content-Type', 'application/json');
 
     const sendData = {
       content: comment,
-      User: JSON.stringify(userInfo),
+      User: userInfo,
       poll: voteId,
     };
     console.log('곰돌이', headers);
