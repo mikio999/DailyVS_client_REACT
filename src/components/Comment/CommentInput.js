@@ -53,9 +53,9 @@ function CommentInput({ voteId, voteChoice, onCommentSubmit }) {
 
     const sendData = {
       content: comment,
-      id: voteId,
       user_info: userInfo,
-      choice: voteChoice?.id,
+      poll: voteId,
+      choice_text: voteChoice?.choice_text,
     };
     console.log('곰돌이', config.headers);
     console.log('전송데이터', sendData);
