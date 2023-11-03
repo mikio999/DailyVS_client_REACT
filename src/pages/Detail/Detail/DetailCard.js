@@ -39,6 +39,7 @@ const LikeBtnContainer = styled.div`
   position: absolute;
   top: 10px;
   right: 10px;
+  margin-top: 1rem;
 `;
 
 const DetailTitle = styled.h1`
@@ -50,6 +51,7 @@ const DetailTitle = styled.h1`
   font-size: 30px;
   margin: 0 auto 20px auto;
   color: #17355a;
+  word-break: keep-all;
 `;
 
 const DetailExplain = styled.div`

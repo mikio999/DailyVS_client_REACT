@@ -8,10 +8,13 @@ import ResultBtn from './ResultBtn/ResultBtn';
 import { useParams, useNavigate } from 'react-router-dom';
 import Comment from '../../components/Comment/Comment';
 import { useSelector } from 'react-redux';
+import ResultInfo from './ResultInfo/ResultInfo';
 
 const Result = () => {
   const [voteResult, setVoteResult] = useState([]);
   const [showWatermark, setShowWatermark] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+
   const resultRef = useRef(null);
   const params = useParams();
   const detailId = params.id;
@@ -20,6 +23,11 @@ const Result = () => {
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
   console.log(isAuthenticated);
 
+  const changePage = pageNumber => {
+    setCurrentPage(pageNumber);
+  };
+
+  console.log('cP', currentPage);
   useEffect(() => {
     if (isAuthenticated) {
       const accessToken = localStorage.getItem('access');
@@ -75,6 +83,7 @@ const Result = () => {
 
   return (
     <ResultContainer>
+      <ResultInfo information={voteResult?.poll} />
       <CaptureContainer ref={resultRef}>
         <ResultTop voteResult={voteResult} />
         <TotalGraph voteResult={voteResult} />
@@ -82,7 +91,11 @@ const Result = () => {
       </CaptureContainer>
       <ResultBtn onCapture={handleCapture} />
       <ResultGraph voteResult={voteResult} />
-      <Comment voteId={detailId} voteChoice={voteResult?.choice} />
+      <Comment
+        voteId={detailId}
+        voteChoice={voteResult?.choice}
+        comments={voteResult?.comments}
+      />
     </ResultContainer>
   );
 };

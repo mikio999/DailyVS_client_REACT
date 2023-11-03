@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import 'swiper/swiper-bundle.min.css';
-import MintButtonSubmit from '../../components/Atoms/Buttons';
 import theme from '../../styles/theme';
 import MainHero from './MainHero/MainHero';
 import { MainSliderSideLeft, MainSliderSideRight } from './MainSlider/MainSide';
