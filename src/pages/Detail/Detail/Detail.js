@@ -74,14 +74,13 @@ const Detail = () => {
   }, []);
 
   console.log('voteDetail', voteDetail);
+  console.log('categoryList', voteDetail.category_list);
+  console.log('length', voteDetail.category_list?.length);
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
 
   const isFormValid = () => {
     return selectedOption !== '';
   };
-
-  console.log('selectedChoice', selectedChoice);
-  console.log(voteDetail);
 
   return (
     <DetailContainer>
@@ -100,7 +99,7 @@ const Detail = () => {
               <RevoteBtn />
               <ResultBtn />
             </ReButtons>
-          ) : isAuthenticated ? (
+          ) : voteDetail.category_list?.length === 0 ? (
             <AuthSubmitBtn isFormValid={isFormValid} />
           ) : (
             <RegisterBtn isFormValid={isFormValid} />
