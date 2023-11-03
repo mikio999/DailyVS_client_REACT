@@ -11,9 +11,12 @@ import {
   PASSWORD_RESET_CONFIRM_FAIL,
   SIGNUP_SUCCESS,
   SIGNUP_FAIL,
+  KAKAO_AUTH_SUCCESS,
+  KAKAO_AUTH_FAIL,
   ACTIVATION_SUCCESS,
   ACTIVATION_FAIL,
   LOGOUT,
+  LOAD_USER,
 } from '../actions/types';
 
 const initialState = {
@@ -26,6 +29,19 @@ const initialState = {
 export default function (state = initialState, action) {
   const { type, payload } = action;
   switch (type) {
+    case KAKAO_AUTH_SUCCESS:
+      localStorage.setItem('access', payload.access);
+      localStorage.setItem('refresh', payload.refresh);
+      return {
+        ...state,
+        isAuthenticated: true,
+        access: payload.access,
+        refresh: payload.refresh,
+        user: {
+          nickname: payload.nickname, // Kakao에서 받은 닉네임을 사용자 정보로 저장
+        },
+      };
+
     case AUTHENTICATED_SUCCESS:
       return {
         ...state,
@@ -64,6 +80,7 @@ export default function (state = initialState, action) {
     case LOGIN_FAIL:
       alert('로그인 실패! 로그인 이메일과 비밀번호를 다시 한번 확인해주세요!');
     case SIGNUP_FAIL:
+    case KAKAO_AUTH_FAIL:
     case LOGOUT:
       localStorage.removeItem('access');
       localStorage.removeItem('refresh');
@@ -79,6 +96,7 @@ export default function (state = initialState, action) {
     case PASSWORD_RESET_CONFIRM_SUCCESS:
     case PASSWORD_RESET_CONFIRM_FAIL:
     case ACTIVATION_SUCCESS:
+    case LOAD_USER:
     case ACTIVATION_FAIL:
       return {
         ...state,
