@@ -5,6 +5,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 
 const KakaoAuth = () => {
   const REST_API_KEY = process.env.REACT_APP_REST_API_KEY;
+  console.log('RK', REST_API_KEY);
   const CLIENT_SECRET = process.env.REACT_APP_REST_CLIENT_SECRET;
 
   const REDIRECT_URI = 'http://localhost:3000/oauth/kakao/callback';

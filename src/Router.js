@@ -12,6 +12,7 @@ import ErrorPage from './pages/ErrorPage/ErrorPage';
 import Email from './pages/Signup/Email';
 import Password from './pages/Signup/Password';
 import PasswordInput from './pages/Signup/PasswordInput';
+import KakaoAuth from './pages/Login/KakaoAuth';
 
 const Router = () => {
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
@@ -41,6 +42,7 @@ const Router = () => {
               </>
             )}
             <Route path="/find-password" element={<Password />} />
+            <Route path="/oauth/kakao/callback" element={<KakaoAuth />} />
             <Route path="/*" element={<RouteWithNavFooter />} />
             <Route path="/activate/:uid/:token" element={<Activate />} />
             <Route path="*" element={<ErrorPage />} />

@@ -4,14 +4,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { login } from '../../actions/auth';
 import LoginNav from '../../components/LoginNav/LoginNav';
+import { KAKAO_AUTH_URL } from './Oauth.js';
 
 const Login = ({ login, isAuthenticated }) => {
-  const urlParams = new URLSearchParams(window.location.search);
-  const accessToken = urlParams.get('access'); // 카카오 콜백에서 전달한 액세스 토큰
-  const refreshToken = urlParams.get('refresh'); // 카카오 콜백에서 전달한 리프레시 토큰
-  const nickname = urlParams.get('nickname'); // 사용자 닉네임 또는 다른 정보
-
-  console.log(urlParams, accessToken, refreshToken, nickname);
+  console.log('KAU', KAKAO_AUTH_URL);
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -65,7 +61,7 @@ const Login = ({ login, isAuthenticated }) => {
             로그인
           </LoginSubmitBtn>
         </LoginPage>
-        <KakaoLogin from="/" to="http://localhost:8000/accounts/kakao/login/">
+        <KakaoLogin to={KAKAO_AUTH_URL}>
           <KakaoImg src="/images/LoginNav/kakaoLogo.png" />
           카카오 로그인
         </KakaoLogin>
