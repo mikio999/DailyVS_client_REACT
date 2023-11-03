@@ -2,13 +2,14 @@ import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import theme from '../../../styles/theme';
 import { Link, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import useClickEffect from '../../../utils/hooks/useClickEffect';
 
 function MainHero({ data }) {
   const [todayPoll, setTodayPoll] = useState();
   useEffect(() => {
     setTodayPoll(data);
-  }, [data]);
+  }, []);
   const navigate = useNavigate();
   const onClickDetailButton = () => {
     navigate(`/vote-detail/${data.poll.id}`);
@@ -62,7 +63,17 @@ function MainHero({ data }) {
       TVImgLeftRef.current.style.height = `${width}px`;
       TVImgRightRef.current.style.height = `${width}px`;
     }
-  }, [width]);
+  }, []);
+
+  const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
+
+  const handleMakeVoteClick = () => {
+    if (!isAuthenticated) {
+      alert('로그인 후 이용해주세요');
+    } else {
+      navigate('/create');
+    }
+  };
 
   return (
     <Wrapper>
@@ -138,9 +149,9 @@ function MainHero({ data }) {
               <img src="/images/Fortune/Cookie.png" alt="포춘쿠키" />
             </div>
           </FortuneContainer>
-          <MakeVoteContainer to="/create" className="heroMenu">
+          <MakeVoteContainer onClick={handleMakeVoteClick} className="heroMenu">
             <div className="makeVoteHeader">
-              <h2>투표 만들러 가기</h2>
+              <h2>투표 만들기</h2>
             </div>
           </MakeVoteContainer>
         </HeroMenuContainer>
@@ -437,6 +448,7 @@ const FortuneContainer = styled(Link)`
     word-break: keep-all;
     & h2 {
       font-size: 20px;
+      font-family: 'GongGothicLight';
     }
   }
   & .fortuneIcon {
@@ -476,7 +488,7 @@ const FortuneContainer = styled(Link)`
   }
 `;
 
-const MakeVoteContainer = styled(Link)`
+const MakeVoteContainer = styled.div`
   background: url(/images/kakao-thumbnail.png);
   background-size: cover;
   background-position: center;

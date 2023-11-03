@@ -1,20 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import useClickEffect from '../../utils/hooks/useClickEffect';
 
-const PollLikeBtn = () => {
+const CommentLikeBtn = ({ commentId }) => {
   const ref = useRef(null);
+
+  const [likeInfo, setLikeInfo] = useState('');
+  const [isLiked, setIsLiked] = useState(likeInfo.user_likes_comment);
+  const [likeCount, setLikeCount] = useState(likeInfo?.like_count);
+
   const { handleBtnMD, handleBtnMU, handleBtnME, handleBtnML } =
     useClickEffect(ref);
-  const [likeInfo, setLikeInfo] = useState('');
-  const [isLiked, setIsLiked] = useState(likeInfo.user_likes_poll);
-  const [likeCount, setLikeCount] = useState(likeInfo?.like_count);
-  const params = useParams();
-  const detailId = params.id;
-
-  const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
 
   useEffect(() => {
     const headers = new Headers();
@@ -30,14 +26,15 @@ const PollLikeBtn = () => {
       headers: headers,
     };
 
-    fetch(`http://127.0.0.1:8000/${detailId}/like`, requestOptions)
+    fetch(`http://127.0.0.1:8000/${commentId}/comment_like`, requestOptions)
       .then(response => response.json())
       .then(result => {
         setLikeInfo(result);
-        setIsLiked(result?.user_likes_poll);
+        setIsLiked(result?.user_likes_comment);
         setLikeCount(result?.like_count);
       });
   }, []);
+
   console.log('likeinfo', likeInfo);
 
   const handleLikeClick = () => {
@@ -57,13 +54,8 @@ const PollLikeBtn = () => {
       headers: headers,
     };
 
-    const requestBody = JSON.stringify({
-      poll_id: detailId,
-    });
-
-    fetch(`http://127.0.0.1:8000/${detailId}/like`, {
+    fetch(`http://127.0.0.1:8000/${commentId}/comment_like`, {
       ...requestOptions,
-      body: requestBody,
     })
       .then(response => response.json())
       .then(result => {
@@ -75,36 +67,27 @@ const PollLikeBtn = () => {
     ? '/images/Buttons/likeBtnRed.png'
     : '/images/Buttons/likeBtn.png';
 
-  if (isAuthenticated)
-    return (
-      <Container onClick={handleLikeClick} data-liked={isLiked}>
-        <LikeCount>{likeCount}</LikeCount>
-        <Likes>Likes</Likes>
-        <HeartImg
-          src={heartImgSrc}
-          alt="좋아요"
-          ref={ref}
-          onMouseDown={handleBtnMD}
-          onMouseUp={handleBtnMU}
-          onMouseEnter={handleBtnME}
-          onMouseLeave={handleBtnML}
-        />
-      </Container>
-    );
+  return (
+    <Container onClick={handleLikeClick}>
+      <HeartImg
+        src={heartImgSrc}
+        alt="좋아요"
+        ref={ref}
+        onMouseDown={handleBtnMD}
+        onMouseUp={handleBtnMU}
+        onMouseEnter={handleBtnME}
+        onMouseLeave={handleBtnML}
+      />
+      <LikeCount>{likeCount}</LikeCount>
+      <Likes>Likes</Likes>
+    </Container>
+  );
 };
 
-export default PollLikeBtn;
+export default CommentLikeBtn;
 
 const Container = styled.div`
   display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-right: 1rem;
-
-  &:hover {
-    opacity: 0.9;
-    cursor: pointer;
-  }
 `;
 
 const HeartImg = styled.img`
@@ -112,7 +95,7 @@ const HeartImg = styled.img`
   justify-content: center;
   align-items: center;
   margin-left: 0.5rem;
-  width: 25px;
+  width: 20px;
 `;
 
 const LikeCount = styled.div`
@@ -121,9 +104,15 @@ const LikeCount = styled.div`
   align-items: center;
   margin-right: 0.5rem;
   color: gray;
+  font-size: 14px;
+  margin-left: 0.6rem;
 `;
 
 const Likes = styled.div`
   margin-right: 0.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   color: gray;
+  font-size: 14px;
 `;

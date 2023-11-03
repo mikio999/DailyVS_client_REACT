@@ -46,8 +46,10 @@ const ResultTopContainer = styled.div`
 `;
 
 const ResultTitle = styled.h1`
+  word-break: keep-all;
   display: flex;
   justify-content: center;
+  text-align: center;
   margin-top: 20px;
   font-size: 28px;
   font-family: 'GongGothicMedium';

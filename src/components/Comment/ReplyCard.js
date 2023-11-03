@@ -2,10 +2,11 @@ import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import theme from '../../styles/theme';
 import useClickEffect from '../../utils/hooks/useClickEffect';
-// import { CommentLikeBtn } from '../Atoms/CommentLikeBtn';
-import CommentLikeBtn from '../Atoms/CommentLikeBtn';
+import { CommentLikeBtn } from '../Atoms/Buttons';
 
-function CommentElement({ parentId, user, data, reply, setShowReply }) {
+function ReplyCard({ voteChoice, user, data, reply, setShowReply }) {
+  const [liked, setLiked] = useState(false);
+
   const Time = () => {
     return (
       <span
@@ -15,11 +16,27 @@ function CommentElement({ parentId, user, data, reply, setShowReply }) {
           marginLeft: 'auto',
         }}
       >
-        {data.time_difference}
+        방금 전
       </span>
     );
   };
-  console.log('parentId', parentId);
+
+  const Likes = () => {
+    return (
+      <span
+        style={{
+          fontSize: 14,
+          color: theme.colors.grayColor,
+        }}
+      >
+        {data.likes_count} likes
+      </span>
+    );
+  };
+  function handleLike() {
+    setLiked(curr => !curr);
+  }
+
   const Reply = () => {
     const refReply = useRef(null);
 
@@ -34,9 +51,6 @@ function CommentElement({ parentId, user, data, reply, setShowReply }) {
         onMouseEnter={handleBtnME}
         onMouseLeave={handleBtnML}
         onClick={() => {
-          // if (reply.length > 0) {
-          //   setShowReply(curr => !curr);
-          // }
           setShowReply(curr => !curr);
         }}
       >
@@ -52,14 +66,14 @@ function CommentElement({ parentId, user, data, reply, setShowReply }) {
         <div className="name">{user.nickname}</div>
         <div className="mbti">{user.mbti}</div>
         <div className="gender">{user.gender}</div>
-        <div className="result">{data.choice_text}</div>
+        <div className="result">{voteChoice}</div>
         <Time />
       </Info>
-      <Content>{data.content}</Content>
+      <Content>{data}</Content>
 
       <Bottom>
-        <CommentLikeBtn commentId={data?.id} />
-
+        <CommentLikeBtn liked={liked} onClick={handleLike} />
+        <Likes />
         {!!reply && <Reply />}
       </Bottom>
     </Container>
@@ -117,4 +131,4 @@ const ReplyBtn = styled.div`
   cursor: pointer;
   transition: 0.1s;
 `;
-export default CommentElement;
+export default ReplyCard;
