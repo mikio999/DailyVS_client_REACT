@@ -6,6 +6,12 @@ import { login } from '../../actions/auth';
 import LoginNav from '../../components/LoginNav/LoginNav';
 
 const Login = ({ login, isAuthenticated }) => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const accessToken = urlParams.get('access'); // 카카오 콜백에서 전달한 액세스 토큰
+  const refreshToken = urlParams.get('refresh'); // 카카오 콜백에서 전달한 리프레시 토큰
+  const nickname = urlParams.get('nickname'); // 사용자 닉네임 또는 다른 정보
+
+  console.log(urlParams, accessToken, refreshToken, nickname);
   const [formData, setFormData] = useState({
     email: '',
     password: '',

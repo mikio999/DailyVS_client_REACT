@@ -7,6 +7,7 @@ import ResultGraph from './ResultGraph/ResultGraph';
 import ResultBtn from './ResultBtn/ResultBtn';
 import { useParams, useNavigate } from 'react-router-dom';
 import Comment from '../../components/Comment/Comment';
+import { useSelector } from 'react-redux';
 
 const Result = () => {
   const [voteResult, setVoteResult] = useState([]);
@@ -16,32 +17,49 @@ const Result = () => {
   const detailId = params.id;
   const navigate = useNavigate();
 
+  const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
+  console.log(isAuthenticated);
+
   useEffect(() => {
-    const accessToken = localStorage.getItem('access');
-    if (!accessToken) {
-      return;
+    if (isAuthenticated) {
+      const accessToken = localStorage.getItem('access');
+      if (!accessToken) {
+        return;
+      }
+
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${accessToken}`,
+          Accept: 'application/json',
+        },
+      };
+
+      fetch(`http://localhost:8000/${detailId}/poll_result_page`, {
+        headers: config.headers,
+      })
+        .then(response => response.json())
+        .then(result => {
+          if (result.detail === '찾을 수 없습니다.') {
+            navigate('/error');
+          } else {
+            setVoteResult(result);
+          }
+        });
+    } else {
+      fetch(`http://localhost:8000/${detailId}/poll_result_page`)
+        .then(response => response.json())
+        .then(result => {
+          if (result.detail === '찾을 수 없습니다.') {
+            navigate('/error');
+          } else {
+            setVoteResult(result);
+          }
+        });
     }
-
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${accessToken}`,
-        Accept: 'application/json',
-      },
-    };
-
-    fetch(`http://localhost:8000/${detailId}/poll_result_page`, {
-      headers: config.headers,
-    })
-      .then(response => response.json())
-      .then(result => {
-        if (result.detail === '찾을 수 없습니다.') {
-          navigate('/error');
-        } else {
-          setVoteResult(result);
-        }
-      });
   }, []);
+
+  console.log('voteResult', voteResult);
 
   const handleCapture = () => {
     setShowWatermark(true);

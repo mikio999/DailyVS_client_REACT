@@ -34,8 +34,7 @@ function CommentCard({ data, voteChoice }) {
     time_difference: '방금 전',
     content: data,
   };
-  console.log(FakeData);
-  console.log(userInfo);
+
   return (
     <>
       <CommentElement

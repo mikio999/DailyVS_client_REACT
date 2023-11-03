@@ -39,17 +39,8 @@ function CommentInput({ voteId, voteChoice, onCommentSubmit }) {
   const handleSubmit = () => {
     onCommentSubmit(comment);
     const accessToken = localStorage.getItem('access');
-    if (!accessToken) {
-      return;
-    }
-
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${accessToken}`,
-        Accept: 'application/json',
-      },
-    };
+    const headers = new Headers();
+    headers.append('Authorization', `Bearer ${accessToken}`);
 
     const sendData = {
       content: comment,
@@ -57,13 +48,13 @@ function CommentInput({ voteId, voteChoice, onCommentSubmit }) {
       poll: voteId,
       choice_text: voteChoice?.choice_text,
     };
-    console.log('곰돌이', config.headers);
+    console.log('곰돌이', headers);
     console.log('전송데이터', sendData);
     if (comment.length > 0) {
-      fetch(`http://127.0.0.1:8000/${voteId}/comment`, {
+      fetch(`http://localhost:8000/${voteId}/comment`, {
         method: 'POST',
         body: sendData,
-        headers: config.headers,
+        headers: headers,
       })
         .then(response => response.json())
         .then(data => {
