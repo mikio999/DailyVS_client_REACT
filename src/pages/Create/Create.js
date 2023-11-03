@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useAuth } from '../../AuthContext';
 import styled from 'styled-components';
 import CreateTTC from './CreateTTC';
 import Carousel from 'react-multi-carousel';
