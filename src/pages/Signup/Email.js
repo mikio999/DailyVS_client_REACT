@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import LoginNav from '../../components/LoginNav/LoginNav';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const Email = () => {
@@ -10,6 +11,8 @@ const Email = () => {
     state => state.nickname.selectedNickname,
   );
 
+  const navigate = useNavigate();
+  console.log(selectedEmail);
   const handleResendEmail = async () => {
     console.log('click');
     try {
@@ -18,6 +21,12 @@ const Email = () => {
       console.error('Error resending email:', error);
     }
   };
+
+  if (!selectedEmail) {
+    alert('유효하지 않은 이메일 입니다. 다른 계정으로 회원가입을 진행해주세요');
+    navigate('/signup');
+    return null;
+  }
 
   return (
     <>
@@ -30,10 +39,8 @@ const Email = () => {
           <Nickname>{selectedEmail}</Nickname>에서
           <br /> 이메일 인증을 완료해주세요!
         </EmailContent>
-        <EmailQuestion>
-          아직 이메일을 받지 않으셨다면?
-          <EmailBtn onClick={handleResendEmail}>인증 이메일 다시받기</EmailBtn>
-        </EmailQuestion>
+        <EmailQuestion>아직 이메일을 받지 않으셨다면? </EmailQuestion>
+        <EmailBtn onClick={handleResendEmail}>인증 이메일 다시받기</EmailBtn>
       </Container>
     </>
   );
@@ -86,6 +93,7 @@ const EmailBtn = styled.button`
 `;
 
 const EmailQuestion = styled.div`
+  margin-top: 20px;
   font-size: 18px;
   text-align: center;
 `;
