@@ -9,7 +9,7 @@ const Login = ({ login, isAuthenticated }) => {
   const REST_API_KEY = process.env.REACT_APP_REST_API_KEY;
   const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI;
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
-  console.log('KAU', KAKAO_AUTH_URL);
+
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -163,6 +163,7 @@ const LoginAsk = styled.div`
   display: flex;
   flex-direction: row;
   margin-top: 20px;
+  margin-bottom: 2rem;
   font-size: 14px;
   /* height: 200px; */
 `;
