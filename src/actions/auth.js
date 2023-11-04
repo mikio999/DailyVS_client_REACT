@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { saveTokensToLocalStorage } from './localStorageUtils';
+
 import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
