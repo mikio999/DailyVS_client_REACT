@@ -6,7 +6,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 const KakaoAuth = () => {
   const REST_API_KEY = process.env.REACT_APP_REST_API_KEY;
   const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI;
-  console.log(REST_API_KEY);
+
   const [searchParams, setSearchParams] = useSearchParams();
 
   const code = searchParams.get('code');
@@ -30,14 +30,17 @@ const KakaoAuth = () => {
       console.log('ttttt', token);
       const accessTokenPost = await axios.post(
         `http://localhost:8000/accounts/kakao/login/callback/`,
-        {},
+        { code: code, access: token },
         {
-          headers: { Authorization: token },
+          headers: { Authorization: code },
         },
       );
-      const ourToken = accessTokenPost.data.accessToken;
-
+      console.log(accessTokenPost);
+      const ourToken = accessTokenPost.data.access;
+      console.log(ourToken);
       localStorage.setItem('token', ourToken);
+      localStorage.setItem('refresh', ourToken);
+      localStorage.setItem('access', ourToken);
       navigate('/');
     } catch (err) {
       console.log(err);

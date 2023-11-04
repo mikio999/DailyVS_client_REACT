@@ -83,7 +83,6 @@ const Result = () => {
 
   return (
     <ResultContainer>
-      <ResultInfo information={voteResult?.poll} />
       <CaptureContainer ref={resultRef}>
         <ResultTop voteResult={voteResult} />
         <TotalGraph voteResult={voteResult} />
@@ -91,6 +90,7 @@ const Result = () => {
       </CaptureContainer>
       <ResultBtn onCapture={handleCapture} />
       <ResultGraph voteResult={voteResult} />
+      <ResultInfo information={voteResult?.poll} />
       <Comment
         voteId={detailId}
         voteChoice={voteResult?.choice}

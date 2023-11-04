@@ -1,9 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { useParams, useNavigate } from 'react-router-dom';
+
 const FixPassWord = () => {
+  const navigate = useNavigate();
   const [password1, setPassword1] = useState('');
   const [password2, setPassword2] = useState('');
   const [passwordMatch, setPasswordMatch] = useState(false);
+  console.log(password1, password2);
+  const url = window.location.href;
+  const uid = url.split('/').slice(-3, -2)[0];
+  const token = url.split('/').slice(-2)[0];
 
   useEffect(() => {
     if (password1 === password2 && password1.length >= 8) {
@@ -12,6 +19,45 @@ const FixPassWord = () => {
       setPasswordMatch(false);
     }
   }, [password1, password2]);
+
+  const handleInformationClick = event => {
+    event.preventDefault();
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    const accessToken = localStorage.getItem('access');
+
+    if (accessToken) {
+      headers.append('Authorization', `Bearer ${accessToken}`);
+    }
+
+    const requestOptions = {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify({
+        new_password1: password1,
+        new_password2: password2,
+        uid: uid,
+        token: token,
+      }),
+    };
+
+    fetch(
+      `http://localhost:8000/accounts/password/reset/confirm/${uid}/${token}/`,
+      requestOptions,
+    )
+      .then(response => response.json())
+      .then(result => {
+        console.log('서버 응답:', result);
+        console.log('Request Body:', JSON.stringify({}));
+        if (result) {
+          navigate(`/`);
+        }
+      })
+      .catch(error => {
+        console.error('POST 요청 오류:', error);
+      });
+  };
 
   return (
     <Container>
@@ -46,7 +92,9 @@ const FixPassWord = () => {
           setPassword2(newPassword);
         }}
       />
-      <Register disabled={!passwordMatch}>등록하기</Register>
+      <Register disabled={!passwordMatch} onClick={handleInformationClick}>
+        등록하기
+      </Register>
     </Container>
   );
 };
@@ -76,12 +124,13 @@ const SignupLabel = styled.label`
   display: flex;
   margin-top: 10px;
   height: 20px;
+  width: 300px;
 `;
 
 const TextInput = styled.input`
   width: 300px;
   height: 50px;
-  margin-bottom: 10px;
+  margin-bottom: 2rem;
   font-size: 16px;
   border: 1px rgba(128, 128, 128, 0.2) solid;
   background-color: #f4faff;
@@ -105,6 +154,7 @@ const PassWordCheck = styled.img`
 
 const Register = styled.button`
   margin-top: 10px;
+  margin-bottom: 3rem;
   width: 300px;
   height: 50px;
   font-size: 20px;
