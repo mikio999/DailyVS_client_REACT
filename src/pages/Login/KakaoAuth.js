@@ -5,15 +5,12 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 
 const KakaoAuth = () => {
   const REST_API_KEY = process.env.REACT_APP_REST_API_KEY;
-  console.log('RK', REST_API_KEY);
-  const CLIENT_SECRET = process.env.REACT_APP_REST_CLIENT_SECRET;
-
-  const REDIRECT_URI = 'http://localhost:3000/oauth/kakao/callback';
-
+  const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI;
+  console.log(REST_API_KEY);
   const [searchParams, setSearchParams] = useSearchParams();
 
   const code = searchParams.get('code');
-
+  console.log(code);
   const navigate = useNavigate();
 
   const getToken = async () => {
@@ -22,7 +19,6 @@ const KakaoAuth = () => {
       client_id: REST_API_KEY,
       redirect_uri: REDIRECT_URI,
       code: code,
-      client_secret: CLIENT_SECRET,
     });
     try {
       const res = await axios.post(
@@ -31,9 +27,9 @@ const KakaoAuth = () => {
       );
 
       const token = res.data.access_token;
-
+      console.log('ttttt', token);
       const accessTokenPost = await axios.post(
-        'http://localhost:3000/auth/kakao/signin',
+        `http://localhost:8000/accounts/kakao/login/callback/`,
         {},
         {
           headers: { Authorization: token },
