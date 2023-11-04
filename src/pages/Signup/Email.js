@@ -22,12 +22,6 @@ const Email = () => {
     }
   };
 
-  if (!selectedEmail) {
-    alert('유효하지 않은 이메일 입니다. 다른 계정으로 회원가입을 진행해주세요');
-    navigate('/signup');
-    return null;
-  }
-
   return (
     <>
       <LoginNav />
@@ -35,12 +29,33 @@ const Email = () => {
         <EmailTitle>이메일 인증</EmailTitle>
         <LogoImg src="/images/Nav/main_logo.png" />
         <EmailContent>
-          안녕하세요 <Nickname>{selectedNickname}</Nickname>님! <br />
-          <Nickname>{selectedEmail}</Nickname>에서
-          <br /> 이메일 인증을 완료해주세요!
+          {!selectedEmail ? (
+            <div>
+              <p>
+                이미 가입했거나 유효하지 않은 이메일 입니다.
+                <br />
+                다른 계정으로 회원가입을 진행해주세요
+              </p>
+              <EmailBtn onClick={() => navigate('/signup')}>
+                회원가입 페이지로
+              </EmailBtn>
+            </div>
+          ) : (
+            <div>
+              <p>
+                안녕하세요 <Nickname>{selectedNickname}</Nickname>님!
+              </p>
+              <p>
+                <Nickname>{selectedEmail}</Nickname>에서 <br />
+                이메일 인증을 완료해주세요!
+              </p>
+              <EmailQuestion>아직 이메일을 받지 않으셨다면? </EmailQuestion>
+              <EmailBtn onClick={handleResendEmail}>
+                인증 이메일 다시받기
+              </EmailBtn>
+            </div>
+          )}
         </EmailContent>
-        <EmailQuestion>아직 이메일을 받지 않으셨다면? </EmailQuestion>
-        <EmailBtn onClick={handleResendEmail}>인증 이메일 다시받기</EmailBtn>
       </Container>
     </>
   );
