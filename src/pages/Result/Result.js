@@ -9,6 +9,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import Comment from '../../components/Comment/Comment';
 import { useSelector } from 'react-redux';
 import ResultInfo from './ResultInfo/ResultInfo';
+import LatestPolls from './LatestPolls/LatestPolls';
 
 const Result = () => {
   const [voteResult, setVoteResult] = useState([]);
@@ -21,13 +22,11 @@ const Result = () => {
   const navigate = useNavigate();
 
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
-  console.log(isAuthenticated);
 
   const changePage = pageNumber => {
     setCurrentPage(pageNumber);
   };
 
-  console.log('cP', currentPage);
   useEffect(() => {
     if (isAuthenticated) {
       const accessToken = localStorage.getItem('access');
@@ -62,12 +61,11 @@ const Result = () => {
             navigate('/error');
           } else {
             setVoteResult(result);
+            console.log(result);
           }
         });
     }
   }, []);
-
-  console.log('voteResult', voteResult);
 
   const handleCapture = () => {
     setShowWatermark(true);
@@ -96,6 +94,7 @@ const Result = () => {
         voteChoice={voteResult?.choice}
         comments={voteResult?.comments}
       />
+      <LatestPolls voteList={voteResult?.latest_polls} />
     </ResultContainer>
   );
 };
@@ -106,11 +105,13 @@ const ResultContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin: 0 auto;
-  width: 500px;
+
   background-color: ${props => props.theme.colors.pinkBgColor};
 `;
 
-const CaptureContainer = styled.div``;
+const CaptureContainer = styled.div`
+display
+`;
 
 const WaterMark = styled.img`
   content: url('/images/Nav/main_logo.png');

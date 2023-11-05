@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import PollLikeBtn from '../../../components/Atoms/PollLikeBtn';
 
 const ResultInfo = ({ information }) => {
-  console.log('information', information);
   const parsedDate = information?.created_at?.split('T')[0];
   return (
     <Container>

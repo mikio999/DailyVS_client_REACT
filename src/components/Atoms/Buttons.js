@@ -38,7 +38,6 @@ const MintButtonCSS = styled.div`
       : props.theme.colors.turquoisSecondaryColor};
   cursor: ${props => (props.disabled ? 'not-allowed' : 'pointer')};
   padding: 10px 20px;
-  cursor: pointer;
   color: white;
   border-radius: 6px;
   font-size: 16px;
@@ -46,10 +45,8 @@ const MintButtonCSS = styled.div`
   transition: 0.3s;
   word-break: keep-all;
   line-height: 1.2rem;
-  &:hover {
-    background-color: ${theme.colors.turquoisSecondaryColorHover};
-  }
 `;
+
 export default MintButtonSubmit;
 
 export const ArrowLeft = ({ onClick, style, opacity = 1 }) => {

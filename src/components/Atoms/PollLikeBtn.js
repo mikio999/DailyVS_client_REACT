@@ -38,7 +38,6 @@ const PollLikeBtn = () => {
         setLikeCount(result?.like_count);
       });
   }, []);
-  console.log('likeinfo', likeInfo);
 
   const handleLikeClick = () => {
     setIsLiked(!isLiked);

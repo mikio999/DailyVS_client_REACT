@@ -8,7 +8,6 @@ function ReplyInput({ voteId, voteChoice, onCommentSubmit, parentId }) {
   const [comment, setComment] = useState('');
   const [userInfo, setUserInfo] = useState('');
 
-  console.log('parentId', parentId);
   const handleChange = e => {
     const newComment = e.target.value;
     setComment(newComment);

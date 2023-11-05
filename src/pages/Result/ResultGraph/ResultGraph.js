@@ -8,8 +8,6 @@ import GenderGraph from './GenderGraph/GenderGraph.js';
 import AgeGraph from './AgeGraph/AgeGraph.js';
 
 const ResultGraph = ({ voteResult }) => {
-  console.log('voteResult', voteResult);
-
   const man_choices = voteResult.statistics?.gender.M;
   const woman_choices = voteResult.statistics?.gender.W;
 
