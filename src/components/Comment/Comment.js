@@ -67,10 +67,6 @@ function Comment({ voteId, voteChoice }) {
       });
   }, [currentPage]);
 
-  console.log('comments', comments);
-  console.log('comments_count', commentsCount);
-  console.log('currentPage', currentPage);
-  console.log('userInfo', userInfo);
   return (
     <Container>
       <div style={{ width: 50, marginRight: 'auto', paddingLeft: 20 }}>

@@ -8,7 +8,6 @@ function CommentBox({ setCurrentPage, data, voteId, voteChoice, userInfo }) {
   const [user, setUser] = useState({});
   const [showReply, setShowReply] = useState(false);
   const [newreplies, setNewreplies] = useState([]);
-  console.log('sct', setCurrentPage);
   const addReply = newReply => {
     setNewreplies([...newreplies, newReply]);
   };

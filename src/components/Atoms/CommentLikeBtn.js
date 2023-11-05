@@ -35,8 +35,6 @@ const CommentLikeBtn = ({ commentId }) => {
       });
   }, []);
 
-  console.log('likeinfo', likeInfo);
-
   const handleLikeClick = () => {
     setIsLiked(!isLiked);
     setLikeCount(isLiked ? likeCount - 1 : likeCount + 1);

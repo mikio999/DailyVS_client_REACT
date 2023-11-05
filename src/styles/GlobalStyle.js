@@ -35,10 +35,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    box-shadow:
-    -5px 0px 5px rgba(0, 0, 0, 0.1),
-    5px 0px 5px rgba(0, 0, 0, 0.1);
-    width: 100vw;
+
     background-color: white;
     transition: background-color 1s ease;
     font-family: "NEXON Lv1 Gothic OTF";

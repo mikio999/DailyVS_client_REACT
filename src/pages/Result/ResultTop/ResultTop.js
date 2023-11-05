@@ -18,15 +18,17 @@ const ResultTop = ({ voteResult }) => {
     <ResultTopContainer>
       <ResultTitle>{voteResult.poll?.title}</ResultTitle>
       <ResultExplanation>{voteResult.poll?.content}</ResultExplanation>
-      {voteResult.poll?.choices.map((choice, index) => (
-        <Option key={index}>
-          <ChoiceCircle
-            style={{ backgroundColor: choiceColors[index] || '#D9D9D9' }}
-          />
-          <Percentage>{total_choicesArray[index]} %</Percentage>
-          <OptionName>{choice.choice_text}</OptionName>
-        </Option>
-      ))}
+      <Information>
+        {voteResult.poll?.choices.map((choice, index) => (
+          <Option key={index}>
+            <ChoiceCircle
+              style={{ backgroundColor: choiceColors[index] || '#D9D9D9' }}
+            />
+            <Percentage>{total_choicesArray[index]} %</Percentage>
+            <OptionName>{choice.choice_text}</OptionName>
+          </Option>
+        ))}
+      </Information>
       <ResultTotalPeople>
         <ResultTotal>총 투표수:</ResultTotal>
         <TotalPeople>{voteResult.statistics?.total_count}</TotalPeople>
@@ -70,9 +72,14 @@ const ResultExplanation = styled.div`
 
 const Option = styled.div`
   display: grid;
-  grid-template-columns: 30px 100px 200px;
-  margin-top: 10px;
-  margin-left: 9rem;
+  grid-template-columns: 150px 100px 200px;
+  margin: 5px auto;
+`;
+
+const Information = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `;
 
 const OptionName = styled.div`
@@ -97,7 +104,7 @@ const ChoiceCircle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: auto;
+  margin-left: auto;
   width: 25px;
   height: 25px;
   border-radius: 50%;

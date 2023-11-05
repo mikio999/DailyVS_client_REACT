@@ -97,6 +97,7 @@ const MakeVoteBanner = styled.div`
     display: none;
   }
 `;
+
 const MainSliderContainer = styled.div`
   display: flex;
   width: 100%;

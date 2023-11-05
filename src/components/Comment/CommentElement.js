@@ -19,7 +19,7 @@ function CommentElement({ parentId, user, data, reply, setShowReply }) {
       </span>
     );
   };
-  console.log('parentId', parentId);
+
   const Reply = () => {
     const refReply = useRef(null);
 
