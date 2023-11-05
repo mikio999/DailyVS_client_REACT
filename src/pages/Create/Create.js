@@ -18,7 +18,7 @@ const responsive = {
     items: 1,
   },
   mobile: {
-    breakpoint: { max: 767, min: 464 },
+    breakpoint: { max: 767, min: 200 },
     items: 1,
   },
 };
@@ -167,6 +167,7 @@ const Container = styled.form`
   width: min(100%, 1200px);
   margin: 0 auto 100px;
   position: relative;
+  padding: 0 20px;
 `;
 
 const ButtonGroup = styled.div`
