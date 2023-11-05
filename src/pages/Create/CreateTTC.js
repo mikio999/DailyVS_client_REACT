@@ -98,6 +98,7 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   margin: 20px auto;
+  padding: 0 10px;
   width: min(100%, 400px);
 `;
 const ThumbnailContainer = styled.div`
