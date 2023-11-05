@@ -72,4 +72,5 @@ const GoToMain = styled(Link)`
     cursor: pointer;
     text-decoration: none;
   }
+  margin-bottom: 3rem;
 `;

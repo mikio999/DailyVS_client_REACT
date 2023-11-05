@@ -113,7 +113,6 @@ const Detail = () => {
 export default Detail;
 
 const DetailContainer = styled.form`
-  width: 500px;
   display: flex;
   flex-direction: column;
   justify-content: center;

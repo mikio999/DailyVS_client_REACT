@@ -6,6 +6,13 @@ import useClickEffect from '../../utils/hooks/useClickEffect';
 import CommentLikeBtn from '../Atoms/CommentLikeBtn';
 
 function CommentElement({ parentId, user, data, reply, setShowReply }) {
+  function truncateString(str, maxLength) {
+    if (str?.length > maxLength) {
+      return str?.slice(0, maxLength) + '...';
+    }
+    return str;
+  }
+
   const Time = () => {
     return (
       <span
@@ -52,7 +59,7 @@ function CommentElement({ parentId, user, data, reply, setShowReply }) {
         <div className="name">{user.nickname}</div>
         <div className="mbti">{user.mbti}</div>
         <div className="gender">{user.gender}</div>
-        <div className="result">{data.choice_text}</div>
+        <div className="result"> {truncateString(data?.choice_text, 8)}</div>
         <Time />
       </Info>
       <Content>{data.content}</Content>
@@ -69,7 +76,9 @@ const Container = styled.div`
   width: 100%;
   border-radius: 10px;
   padding: 15px 0;
+  margin: 0 10px;
   display: flex;
+  justify-content: center;
   flex-direction: column;
   gap: 10px;
   border-bottom: 1px solid ${theme.colors.lightGrayColor};
@@ -84,6 +93,7 @@ const Container = styled.div`
 const Info = styled.div`
   display: flex;
   align-items: flex-end;
+  white-space: nowrap;
 
   & .name {
     font-weight: 900;
@@ -107,6 +117,8 @@ const Bottom = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
+  white-space: nowrap;
+  min-width: 75px;
 `;
 const ReplyBtn = styled.div`
   margin-left: auto;

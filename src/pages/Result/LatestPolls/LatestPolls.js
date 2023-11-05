@@ -4,8 +4,8 @@ import styled from 'styled-components';
 
 const LatestPolls = ({ voteList }) => {
   function truncateString(str, maxLength) {
-    if (str.length > maxLength) {
-      return str.slice(0, maxLength) + '...';
+    if (str?.length > maxLength) {
+      return str?.slice(0, maxLength) + '...';
     }
     return str;
   }
@@ -14,6 +14,7 @@ const LatestPolls = ({ voteList }) => {
   return (
     <Container>
       <LatestTitle>이런 투표도 있어요!</LatestTitle>
+
       {voteList?.map((poll, index) => (
         <LikeLine key={index} to={`/vote-detail/${poll?.id}`}>
           <LikeImage
@@ -41,13 +42,13 @@ const LatestTitle = styled.h1`
   font-family: 'GongGothicLight';
   font-size: 24px;
   margin: 20px;
-  width: 540px;
   color: #457c9e;
 `;
 
 const LikeLine = styled(Link)`
   display: grid;
-  grid-template-columns: 40px 300px 100px 100px;
+  grid-template-columns: 10% 50% 20% 20%;
+  min-width: 350px;
   margin-top: 10px;
   font-family: 'GongGothicLight';
   &:hover {

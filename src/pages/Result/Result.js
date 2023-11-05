@@ -109,9 +109,7 @@ const ResultContainer = styled.div`
   background-color: ${props => props.theme.colors.pinkBgColor};
 `;
 
-const CaptureContainer = styled.div`
-display
-`;
+const CaptureContainer = styled.div``;
 
 const WaterMark = styled.img`
   content: url('/images/Nav/main_logo.png');
