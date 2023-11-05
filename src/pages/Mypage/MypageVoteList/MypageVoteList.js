@@ -1,8 +1,34 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import Paginator from '../../../components/Molecules/Paginator';
 
-const MypageVoteList = ({ voteList }) => {
+const MypageVoteList = () => {
+  const [voteList, setVoteList] = useState([]);
+  const [listCount, setListCount] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+
+  useEffect(() => {
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    const accessToken = localStorage.getItem('access');
+    if (accessToken) {
+      headers.append('Authorization', `Bearer ${accessToken}`);
+    }
+
+    fetch(`http://127.0.0.1:8000/mypage_uservote?page=${currentPage}`, {
+      method: 'GET',
+      headers: headers,
+    })
+      .then(response => response.json())
+      .then(result => {
+        setVoteList(result.uservote);
+        console.log(result);
+        setListCount(result.uservote.length);
+      });
+  }, []);
+
   console.log(voteList);
   return (
     <Container>
@@ -20,6 +46,11 @@ const MypageVoteList = ({ voteList }) => {
           <LikeDate>{poll.poll.created_at?.slice(0, 10)}</LikeDate>
         </LikeLine>
       ))}
+      <Paginator
+        count={listCount}
+        onPageChange={setCurrentPage}
+        currentPage={currentPage}
+      />
     </Container>
   );
 };
@@ -33,9 +64,11 @@ const Container = styled.div`
 `;
 
 const VoteListTitle = styled.h1`
+  display: flex;
   font-family: 'GongGothicMedium';
   font-size: 24px;
   margin: 20px;
+  width: 540px;
 `;
 
 const LikeLine = styled(Link)`
