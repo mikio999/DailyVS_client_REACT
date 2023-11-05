@@ -29,6 +29,8 @@ export default Paginator;
 const Container = styled.div`
   margin: 1rem;
   display: flex;
+  justify-content: center;
+  width: 350px;
 `;
 
 const PageNumber = styled.div`

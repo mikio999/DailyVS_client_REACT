@@ -61,12 +61,10 @@ const Detail = () => {
       headers.append('Authorization', `Bearer ${accessToken}`);
     }
 
-    const requestOptions = {
+    fetch(`http://localhost:8000/${detailId}`, {
       method: 'GET',
       headers: headers,
-    };
-
-    fetch(`http://localhost:8000/${detailId}`, requestOptions)
+    })
       .then(response => response.json())
       .then(result => {
         setVoteDetail(result);

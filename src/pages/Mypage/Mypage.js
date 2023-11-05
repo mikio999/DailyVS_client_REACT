@@ -30,7 +30,6 @@ const Mypage = ({ logout }) => {
       .then(response => response.json())
       .then(result => {
         setUserInformation(result);
-        console.log(result);
         setLoading(false);
       });
   }, []);
@@ -46,9 +45,9 @@ const Mypage = ({ logout }) => {
   return (
     <Container>
       <MypageInformation userInformation={userInformation} />
-      <MypageVoteList voteList={userInformation?.uservote} />
-      <MypageCreateList createList={userInformation?.my_poll} />
-      <MypageLikeList pollLike={userInformation.poll_like} />
+      <MypageVoteList />
+      <MypageCreateList />
+      <MypageLikeList />
       <LogoutContainer>
         <LogOut href="/login" onClick={logout_user}>
           로그아웃
