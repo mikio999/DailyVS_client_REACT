@@ -55,6 +55,13 @@ function CommentInput({
 
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
 
+  function truncateString(str, maxLength) {
+    if (str?.length > maxLength) {
+      return str.slice(0, maxLength) + '...';
+    }
+    return str;
+  }
+
   return (
     <Container>
       {isAuthenticated ? (
@@ -63,7 +70,9 @@ function CommentInput({
             <div className="name">{userInfo?.nickname}</div>
             <div className="mbti">{userInfo?.mbti}</div>
             <div className="gender">{userInfo?.gender}</div>
-            <div className="result">{voteChoice?.choice_text}</div>
+            <div className="result">
+              {truncateString(voteChoice?.choice_text, 8)}
+            </div>
           </Info>
           <CommentText
             value={comment}
@@ -74,7 +83,7 @@ function CommentInput({
             <MintButton
               content={'댓글 달기'}
               onClick={handleSubmit}
-              disabled={comment.length === 0}
+              disabled={comment?.length === 0}
             />
           </div>
         </>
@@ -85,6 +94,7 @@ function CommentInput({
   );
 }
 const Container = styled.div`
+  min-width: 350px;
   width: 100%;
   padding: 20px;
   display: flex;
