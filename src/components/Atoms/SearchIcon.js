@@ -6,7 +6,10 @@ const SearchIcon = () => {
   return (
     <Link>
       <SearchBtn>
-        <SearchImg src="/images/Buttons/search_b.png" alt="검색" />
+        <SearchImg
+          src={require('../../assets/Buttons/search_b.png')}
+          alt="검색"
+        />
       </SearchBtn>
     </Link>
   );

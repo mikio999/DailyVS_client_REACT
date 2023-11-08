@@ -26,7 +26,7 @@ const Mypage = ({ logout }) => {
       headers: headers,
     };
 
-    fetch(`http://127.0.0.1:8000/mypage`, requestOptions)
+    fetch(`${process.env.REACT_APP_HOST}/mypage`, requestOptions)
       .then(response => response.json())
       .then(result => {
         setUserInformation(result);

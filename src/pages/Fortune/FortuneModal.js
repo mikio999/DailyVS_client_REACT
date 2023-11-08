@@ -30,7 +30,7 @@ const FortuneModal = ({ isOpen, onClose }) => {
       headers: headers,
     };
 
-    fetch(`http://127.0.0.1:8000/fortune/`, requestOptions)
+    fetch(`${process.env.REACT_APP_HOST}/fortune/`, requestOptions)
       .then(response => response.json())
       .then(result => {
         setFortuneDetail(result);
@@ -64,11 +64,10 @@ const FortuneModal = ({ isOpen, onClose }) => {
       headers: headers,
     };
 
-    fetch(`http://127.0.0.1:8000/fortune/`, requestOptions)
+    fetch(`${process.env.REACT_APP_HOST}/fortune/`, requestOptions)
       .then(response => response.json())
       .then(result => {
         setFortuneDetail(result);
-        console.log(result);
         setRandomFortune(result.random_fortune);
         setIsTypingComplete(false);
       });
@@ -102,7 +101,10 @@ const FortuneModal = ({ isOpen, onClose }) => {
         <ModalCloseButton onClick={onClose}>&times;</ModalCloseButton>
         <ModalContent ref={fortuneRef}>
           <DailyVSLogo>Daily VS</DailyVSLogo>
-          <img src="/images/Fortune/Fortune_open.png" alt="포춘쿠키 열기" />
+          <img
+            src={require('../../assets/Fortune/Fortune_open.png')}
+            alt="포춘쿠키 열기"
+          />
           <FortuneWords>{typingText}</FortuneWords>
         </ModalContent>
         <ModalBtns>
@@ -139,7 +141,7 @@ const FortuneModalContainer = styled.div`
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   position: relative;
   width: 400px;
-  height: 400px;
+  height: 430px;
 `;
 
 const ModalCloseButton = styled.button`
@@ -172,10 +174,11 @@ const DailyVSLogo = styled.h2`
 
 const FortuneWords = styled.div`
   width: 320px;
-  height: 80px;
+  height: 100px;
   padding: 5px;
   border: 10px solid #17355a;
   word-break: keep-all;
+  line-height: 1.2;
   background-color: #ffe6e5;
 `;
 

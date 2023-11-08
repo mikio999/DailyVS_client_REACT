@@ -17,26 +17,25 @@ const MypageVoteList = () => {
       headers.append('Authorization', `Bearer ${accessToken}`);
     }
 
-    fetch(`http://127.0.0.1:8000/mypage_uservote?page=${currentPage}`, {
+    fetch(`${process.env.REACT_APP_HOST}/mypage_uservote?page=${currentPage}`, {
       method: 'GET',
       headers: headers,
     })
       .then(response => response.json())
       .then(result => {
         setVoteList(result.uservote);
-        console.log(result);
-        setListCount(result.uservote.length);
-      });
-  }, []);
 
-  console.log(voteList);
+        setListCount(result.uservote_count);
+      });
+  }, [currentPage]);
+
   return (
     <Container>
       <VoteListTitle>내가 투표한 VOTE</VoteListTitle>
       {voteList.map((poll, index) => (
         <LikeLine key={index} to={`/vote-detail/${poll.poll.id}`}>
           <LikeImage
-            src={'http://127.0.0.1:8000' + poll.poll.thumbnail}
+            src={`${process.env.REACT_APP_HOST}` + poll.poll.thumbnail}
             alt={poll.poll?.title}
           />
           <TruncateText>

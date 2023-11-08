@@ -17,17 +17,19 @@ const MypageLikeList = () => {
       headers.append('Authorization', `Bearer ${accessToken}`);
     }
 
-    fetch(`http://127.0.0.1:8000/mypage_poll_like?page=${currentPage}`, {
-      method: 'GET',
-      headers: headers,
-    })
+    fetch(
+      `${process.env.REACT_APP_HOST}/mypage_poll_like?page=${currentPage}`,
+      {
+        method: 'GET',
+        headers: headers,
+      },
+    )
       .then(response => response.json())
       .then(result => {
         setPollLike(result.poll_like);
-        console.log(result);
-        setListCount(result.poll_like.length);
+        setListCount(result.poll_like_count);
       });
-  }, []);
+  }, [currentPage]);
 
   if (!pollLike || !pollLike.length) {
     return (

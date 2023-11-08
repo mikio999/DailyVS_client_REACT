@@ -1,12 +1,31 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import shareImg from '../../../assets/Buttons/share.png';
+import captureImg from '../../../assets/Buttons/capture.png';
+import useClickEffect from '../../../utils/hooks/useClickEffect';
 
 const ResultBtn = ({ onCapture }) => {
   const location = useLocation();
   const params = useParams();
   const baseUrl = 'https://daily-vs.com';
   const text = `${baseUrl}/vote-detail/${params.id}`;
+
+  const refShare = useRef(null);
+  const refCapture = useRef(null);
+
+  const {
+    handleBtnMD: handleShareBtnMD,
+    handleBtnMU: handleShareBtnMU,
+    handleBtnME: handleShareBtnME,
+    handleBtnML: handleShareBtnML,
+  } = useClickEffect(refShare);
+  const {
+    handleBtnMD: handleCaptureBtnMD,
+    handleBtnMU: handleCaptureBtnMU,
+    handleBtnME: handleCaptureBtnME,
+    handleBtnML: handleCaptureBtnML,
+  } = useClickEffect(refCapture);
 
   const handleCopyClipBoard = async () => {
     try {
@@ -20,12 +39,24 @@ const ResultBtn = ({ onCapture }) => {
   return (
     <Container>
       <ShareBtn
+        ref={refShare}
+        onMouseDown={handleShareBtnMD}
+        onMouseUp={handleShareBtnMU}
+        onMouseEnter={handleShareBtnME}
+        onMouseLeave={handleShareBtnML}
         onClick={() => handleCopyClipBoard(`${baseUrl}${location.pathname}`)}
       >
         <ShareWord>투표 url 복사</ShareWord>
         <ShareImg alt="share" />
       </ShareBtn>
-      <CaptureBtn onClick={onCapture}>
+      <CaptureBtn
+        onClick={onCapture}
+        ref={refCapture}
+        onMouseDown={handleCaptureBtnMD}
+        onMouseUp={handleCaptureBtnMU}
+        onMouseEnter={handleCaptureBtnME}
+        onMouseLeave={handleCaptureBtnML}
+      >
         <CaptureWord>그래프 캡쳐</CaptureWord>
         <CaptureImg alt="capture" />
       </CaptureBtn>
@@ -54,21 +85,12 @@ const ShareBtn = styled.button`
   font-size: 16px;
   margin: 10px;
   transition: box-shadow 0.3s;
-  &:hover {
-    box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.25);
-    border: solid #457c9e 1px;
-    color: #457c9e;
-    cursor: pointer;
-  }
 `;
 
 const ShareImg = styled.img`
   margin-left: 5px;
   width: 20px;
-  content: url('/images/Buttons/share.png');
-  &:hover {
-    content: url('/images/Buttons/share_blue.png');
-  }
+  content: url(${shareImg});
 `;
 
 const ShareWord = styled.div``;
@@ -87,15 +109,11 @@ const CaptureBtn = styled.button`
     props.disabled ? '#bdbdbd' : props.theme.colors.darkbluePrimaryColor};
   margin: 10px;
   transition: box-shadow 0.3s;
-  &:hover {
-    box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.25);
-    cursor: pointer;
-  }
 `;
 
 const CaptureWord = styled.div``;
 const CaptureImg = styled.img`
   margin-left: 5px;
   width: 20px;
-  content: url('/images/Buttons/capture.png');
+  content: url(${captureImg});
 `;
