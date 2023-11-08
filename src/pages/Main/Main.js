@@ -16,7 +16,7 @@ const Main = () => {
   const [todayPoll, setTodayPoll] = useState({});
 
   useEffect(() => {
-    fetch(`http://127.0.0.1:8000/`)
+    fetch(`${process.env.REACT_APP_HOST}/`)
       .then(response => response.json())
       .then(result => {
         setNewPolls(result.polls);
