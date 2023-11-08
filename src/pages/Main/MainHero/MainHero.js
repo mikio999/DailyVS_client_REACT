@@ -4,6 +4,8 @@ import theme from '../../../styles/theme';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import useClickEffect from '../../../utils/hooks/useClickEffect';
+import tvLeft from '../../../assets/TodayVS/tv_left.png';
+import tvRight from '../../../assets/TodayVS/tv_right.png';
 
 function MainHero({ data }) {
   const [todayPoll, setTodayPoll] = useState();
@@ -17,12 +19,12 @@ function MainHero({ data }) {
   const [btnLeftIdx, setBtnLeftIdx] = useState(0);
   const [btnRightIdx, setBtnRightIdx] = useState(0);
   const buttonLeft = [
-    '/images/TodayVS/buttonBlue.png',
-    '/images/TodayVS/buttonBlue_pressed.png',
+    require('../../../assets/TodayVS/buttonBlue.png'),
+    require('../../../assets/TodayVS/buttonBlue_pressed.png'),
   ];
   const buttonRight = [
-    '/images/TodayVS/buttonRed_pressed.png',
-    '/images/TodayVS/buttonRed.png',
+    require('../../../assets/TodayVS/buttonRed_pressed.png'),
+    require('../../../assets/TodayVS/buttonRed.png'),
   ];
   const handleBtnLeftChange = () => {
     setBtnLeftIdx(prev => (prev === 0 ? 1 : 0));
@@ -83,10 +85,16 @@ function MainHero({ data }) {
           <Title>{!!todayPoll && todayPoll.poll?.title}</Title>
           <VS>
             <div>
-              <img src="/images/Letters/v.svg" alt="V of VS" />
+              <img
+                src={require('../../../assets/Letters/v.svg').default}
+                alt="V of VS"
+              />
             </div>
             <div>
-              <img src="/images/Letters/s.svg" alt="S of VS" />
+              <img
+                src={require('../../../assets/Letters/s.svg').default}
+                alt="S of VS"
+              />
             </div>
           </VS>
           <ButtonPress>
@@ -115,7 +123,7 @@ function MainHero({ data }) {
             <div>
               <TVImgLeft ref={TVImgLeftRef}>
                 <img
-                  src={`http://127.0.0.1:8000${data?.choice1}`}
+                  src={`${process.env.REACT_APP_HOST}${data?.choice1}`}
                   alt="choice1"
                 />
                 <div>
@@ -128,7 +136,7 @@ function MainHero({ data }) {
             <div>
               <TVImgRight ref={TVImgRightRef}>
                 <img
-                  src={`http://127.0.0.1:8000${data?.choice2}`}
+                  src={`${process.env.REACT_APP_HOST}${data?.choice2}`}
                   alt="choice2"
                 />
                 <div>
@@ -146,7 +154,10 @@ function MainHero({ data }) {
               <h2>오늘의 포춘쿠키 뽑으러 가기</h2>
             </div>
             <div className="fortuneIcon">
-              <img src="/images/Fortune/Cookie.png" alt="포춘쿠키" />
+              <img
+                src={require('../../../assets/Fortune/Cookie.png')}
+                alt="포춘쿠키"
+              />
             </div>
           </FortuneContainer>
           <MakeVoteContainer onClick={handleMakeVoteClick} className="heroMenu">
@@ -178,11 +189,11 @@ const TV = styled.div`
     position: relative;
   }
   & > div:first-child {
-    background-image: url('images/TodayVS/tv_left.png');
+    background-image: url(${tvLeft});
     background-position: right center;
   }
   & > div:last-child {
-    background-image: url('images/TodayVS/tv_right.png');
+    background-image: url(${tvRight});
     background-position: left center;
   }
 
@@ -489,7 +500,7 @@ const FortuneContainer = styled(Link)`
 `;
 
 const MakeVoteContainer = styled.div`
-  background: url(/images/kakao-thumbnail.png);
+  background: url(${require('../../../assets/kakao-thumbnail.png')});
   background-size: cover;
   background-position: center;
   display: flex;

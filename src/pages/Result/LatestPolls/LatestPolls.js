@@ -18,7 +18,7 @@ const LatestPolls = ({ voteList }) => {
       {voteList?.map((poll, index) => (
         <LikeLine key={index} to={`/vote-detail/${poll?.id}`}>
           <LikeImage
-            src={'http://127.0.0.1:8000' + poll?.thumbnail}
+            src={`${process.env.REACT_APP_HOST}` + poll?.thumbnail}
             alt={poll.poll?.title}
           />
           <TruncateText>
@@ -48,7 +48,7 @@ const LatestTitle = styled.h1`
 const LikeLine = styled(Link)`
   display: grid;
   grid-template-columns: 10% 50% 20% 20%;
-  min-width: 350px;
+  width: 100%;
   margin-top: 10px;
   font-family: 'GongGothicLight';
   &:hover {

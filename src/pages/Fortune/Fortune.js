@@ -16,7 +16,7 @@ const Fortune = () => {
   return (
     <FortunePage>
       <FortuneTitle>🥠 오늘의 포춘 쿠키 🥠</FortuneTitle>
-      <FortuneCookieImg />
+      <FortuneCookieImg src={require('../../assets/Fortune/Cookie.png')} />
       <FortuneOpen onClick={openModal}>포춘 쿠키 열어보기</FortuneOpen>
       <FortuneModal isOpen={isModalOpen} onClose={closeModal} />
     </FortunePage>
@@ -28,22 +28,20 @@ export default Fortune;
 const FortunePage = styled.div`
   display: flex;
   flex-direction: column;
-  width: 500px;
   justify-content: center;
   align-items: center;
   margin-left: auto;
   margin-right: auto;
-  min-height: 600px;
+  min-height: 500px;
 `;
 
 const FortuneTitle = styled.h1`
-  margin-top: 30px;
+  margin-top: 10px;
   font-family: 'GongGothicLight';
   font-size: 24px;
 `;
 
 const FortuneCookieImg = styled.img`
-  content: url('/images/Fortune/Cookie.png');
   width: 300px;
 `;
 

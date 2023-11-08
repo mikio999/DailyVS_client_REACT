@@ -41,12 +41,6 @@ const Main = () => {
 
   return (
     <Container>
-      {/* <MakeVoteBanner>
-        <div>
-          <span>겨루고 싶은 VS가 있다면? 👉👉</span>
-          <MintButtonSubmit content="투표 만들러 가기" link={'/create'} />
-        </div>
-      </MakeVoteBanner> */}
       <MainHero data={todayPoll} />
       <MainSliderContainer>
         {width < 1200 ? null : <MainSliderSideLeft />}

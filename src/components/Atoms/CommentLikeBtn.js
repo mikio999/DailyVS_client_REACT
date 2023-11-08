@@ -26,7 +26,10 @@ const CommentLikeBtn = ({ commentId }) => {
       headers: headers,
     };
 
-    fetch(`http://127.0.0.1:8000/${commentId}/comment_like`, requestOptions)
+    fetch(
+      `${process.env.REACT_APP_HOST}/${commentId}/comment_like`,
+      requestOptions,
+    )
       .then(response => response.json())
       .then(result => {
         setLikeInfo(result);
@@ -52,7 +55,7 @@ const CommentLikeBtn = ({ commentId }) => {
       headers: headers,
     };
 
-    fetch(`http://127.0.0.1:8000/${commentId}/comment_like`, {
+    fetch(`${process.env.REACT_APP_HOST}/${commentId}/comment_like`, {
       ...requestOptions,
     })
       .then(response => response.json())
@@ -62,8 +65,8 @@ const CommentLikeBtn = ({ commentId }) => {
   };
 
   const heartImgSrc = isLiked
-    ? '/images/Buttons/likeBtnRed.png'
-    : '/images/Buttons/likeBtn.png';
+    ? require('../../assets/Buttons/likeBtnRed.png')
+    : require('../../assets/Buttons/likeBtn.png');
 
   return (
     <Container onClick={handleLikeClick}>

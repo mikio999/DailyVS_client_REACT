@@ -29,7 +29,7 @@ function CommentInput({
       headers.append('Authorization', `Bearer ${accessToken}`);
     }
 
-    const requestOptions = {
+    fetch(`${process.env.REACT_APP_HOST}/${voteId}/comment`, {
       method: 'POST',
       headers: headers,
       body: JSON.stringify({
@@ -37,9 +37,7 @@ function CommentInput({
         user_info: userInfo,
         poll: voteId,
       }),
-    };
-
-    fetch(`${process.env.REACT_APP_HOST}/${voteId}/comment`, requestOptions)
+    })
       .then(response => response.json())
       .then(data => {
         console.log('성공:', data);

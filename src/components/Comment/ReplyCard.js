@@ -60,7 +60,13 @@ function ReplyCard({ voteChoice, user, data, reply, setShowReply }) {
   };
   return (
     <Container re={reply ? false : true}>
-      {!reply && <img src="/images/Buttons/reply.png" width={25} alt="reply" />}
+      {!reply && (
+        <img
+          src={require('../../assets/Buttons/reply.png')}
+          width={25}
+          alt="reply"
+        />
+      )}
 
       <Info>
         <div className="name">{user.nickname}</div>

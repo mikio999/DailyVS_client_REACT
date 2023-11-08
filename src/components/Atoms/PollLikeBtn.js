@@ -71,8 +71,8 @@ const PollLikeBtn = () => {
   };
 
   const heartImgSrc = isLiked
-    ? '/images/Buttons/likeBtnRed.png'
-    : '/images/Buttons/likeBtn.png';
+    ? require('../../assets/Buttons/likeBtnRed.png')
+    : require('../../assets/Buttons/likeBtn.png');
 
   if (isAuthenticated)
     return (

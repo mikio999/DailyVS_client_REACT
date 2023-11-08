@@ -17,17 +17,16 @@ const MypageCreateList = () => {
       headers.append('Authorization', `Bearer ${accessToken}`);
     }
 
-    fetch(`http://127.0.0.1:8000/mypage_my_poll?page=${currentPage}`, {
+    fetch(`${process.env.REACT_APP_HOST}/mypage_my_poll?page=${currentPage}`, {
       method: 'GET',
       headers: headers,
     })
       .then(response => response.json())
       .then(result => {
         setCreateList(result.my_poll);
-        console.log(result.my_poll);
-        setListCount(result.my_poll.length);
+        setListCount(result.my_poll_count);
       });
-  }, []);
+  }, [currentPage]);
 
   return (
     <Container>
@@ -35,7 +34,7 @@ const MypageCreateList = () => {
       {createList.map((poll, index) => (
         <LikeLine key={index} to={`/vote-detail/${poll?.id}`}>
           <LikeImage
-            src={'http://127.0.0.1:8000' + poll?.thumbnail}
+            src={`${process.env.REACT_APP_HOST}` + poll?.thumbnail}
             alt={poll.poll?.title}
           />
           <TruncateText>
