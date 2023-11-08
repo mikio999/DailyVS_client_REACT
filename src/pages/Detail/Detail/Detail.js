@@ -61,7 +61,7 @@ const Detail = () => {
       headers.append('Authorization', `Bearer ${accessToken}`);
     }
 
-    fetch(`http://localhost:8000/${detailId}`, {
+    fetch(`${process.env.REACT_APP_HOST}/${detailId}`, {
       method: 'GET',
       headers: headers,
     })

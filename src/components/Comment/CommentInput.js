@@ -39,7 +39,7 @@ function CommentInput({
       }),
     };
 
-    fetch(`http://localhost:8000/${voteId}/comment`, requestOptions)
+    fetch(`${process.env.REACT_APP_HOST}/${voteId}/comment`, requestOptions)
       .then(response => response.json())
       .then(data => {
         console.log('성공:', data);

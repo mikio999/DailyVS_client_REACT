@@ -15,11 +15,6 @@ const RegisterBtn = ({ isFormValid }) => {
     state => state.category.selectedCategory,
   );
 
-  const selectedOption = useSelector(state => state.option.selectedOption);
-  const selectedGender = useSelector(state => state.gender.selectedGender);
-  const selectedMBTI = useSelector(state => state.mbti.selectedMBTI);
-  const selectedAge = useSelector(state => state.age.selectedAge);
-
   const handleRegisterClick = () => {
     if (selectedCategory.length > 0) {
       const currentCategory = selectedCategory[0];

@@ -29,7 +29,7 @@ const Nav = ({ checkAuthenticated, load_user, logout, isAuthenticated }) => {
       },
     };
 
-    fetch(`http://127.0.0.1:8000/accounts/user_info/`, {
+    fetch(`${process.env.REACT_APP_HOST}/accounts/user_info/`, {
       headers: config.headers,
     })
       .then(response => response.json())

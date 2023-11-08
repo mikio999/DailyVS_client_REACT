@@ -35,7 +35,7 @@ const SubmitBtn = ({ isFormValid }) => {
       headers.append('Authorization', `Bearer ${accessToken}`);
     }
 
-    const requestOptions = {
+    fetch(`${process.env.REACT_APP_HOST}/${detailId}/poll_result_page`, {
       method: 'POST',
       headers: headers,
       body: JSON.stringify({
@@ -46,9 +46,7 @@ const SubmitBtn = ({ isFormValid }) => {
         mbti: selectedMBTI,
         age: selectedAge,
       }),
-    };
-
-    fetch(`http://localhost:8000/${detailId}/poll_result_page`, requestOptions)
+    })
       .then(response => response.json())
       .then(result => {
         console.log('서버 응답:', result);
