@@ -6,8 +6,11 @@ import CommentBox from './CommentBox';
 import CommentCard from './CommentCard';
 import CommentInput from './CommentInput';
 import Paginator from '../Molecules/Paginator';
+import { useSelector } from 'react-redux';
 
 function Comment({ voteId, voteChoice }) {
+  const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
+
   const [comments, setComments] = useState('');
   const [commentsCount, setCommentsCount] = useState('');
   const [userInfo, setUserInfo] = useState('');
@@ -41,30 +44,41 @@ function Comment({ voteId, voteChoice }) {
   }, []);
 
   useEffect(() => {
-    const accessToken = localStorage.getItem('access');
-    if (!accessToken) {
-      return;
+    if (isAuthenticated) {
+      const accessToken = localStorage.getItem('access');
+      if (!accessToken) {
+        return;
+      }
+
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${accessToken}`,
+          Accept: 'application/json',
+        },
+      };
+
+      fetch(
+        `${process.env.REACT_APP_HOST}/${voteId}/comment/newest?page=${currentPage}`,
+        {
+          headers: config.headers,
+        },
+      )
+        .then(response => response.json())
+        .then(result => {
+          setComments(result.comments);
+          setCommentsCount(result.comments_count);
+        });
+    } else {
+      fetch(
+        `${process.env.REACT_APP_HOST}/${voteId}/comment/newest?page=${currentPage}`,
+      )
+        .then(response => response.json())
+        .then(result => {
+          setComments(result.comments);
+          setCommentsCount(result.comments_count);
+        });
     }
-
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${accessToken}`,
-        Accept: 'application/json',
-      },
-    };
-
-    fetch(
-      `${process.env.REACT_APP_HOST}/${voteId}/comment/newest?page=${currentPage}`,
-      {
-        headers: config.headers,
-      },
-    )
-      .then(response => response.json())
-      .then(result => {
-        setComments(result.comments);
-        setCommentsCount(result.comments_count);
-      });
   }, [currentPage]);
 
   return (

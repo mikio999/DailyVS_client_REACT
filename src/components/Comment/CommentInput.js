@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import theme from '../../styles/theme';
 import { MintButton } from '../Atoms/Buttons';
@@ -92,8 +92,8 @@ function CommentInput({
   );
 }
 const Container = styled.div`
-  min-width: 350px;
-  width: 100%;
+  width: min(100%, 1000px);
+  margin: 0rem auto;
   padding: 20px;
   display: flex;
   flex-direction: column;

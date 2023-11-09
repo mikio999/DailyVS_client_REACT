@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
 import useClickEffect from '../../utils/hooks/useClickEffect';
 
 const CommentLikeBtn = ({ commentId }) => {
@@ -11,6 +12,8 @@ const CommentLikeBtn = ({ commentId }) => {
 
   const { handleBtnMD, handleBtnMU, handleBtnME, handleBtnML } =
     useClickEffect(ref);
+
+  const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
 
   useEffect(() => {
     const headers = new Headers();
@@ -39,29 +42,33 @@ const CommentLikeBtn = ({ commentId }) => {
   }, []);
 
   const handleLikeClick = () => {
-    setIsLiked(!isLiked);
-    setLikeCount(isLiked ? likeCount - 1 : likeCount + 1);
+    if (isAuthenticated) {
+      setIsLiked(!isLiked);
+      setLikeCount(isLiked ? likeCount - 1 : likeCount + 1);
 
-    const headers = new Headers();
-    headers.append('Content-Type', 'application/json');
+      const headers = new Headers();
+      headers.append('Content-Type', 'application/json');
 
-    const accessToken = localStorage.getItem('access');
-    if (accessToken) {
-      headers.append('Authorization', `Bearer ${accessToken}`);
+      const accessToken = localStorage.getItem('access');
+      if (accessToken) {
+        headers.append('Authorization', `Bearer ${accessToken}`);
+      }
+
+      const requestOptions = {
+        method: 'POST',
+        headers: headers,
+      };
+
+      fetch(`${process.env.REACT_APP_HOST}/${commentId}/comment_like`, {
+        ...requestOptions,
+      })
+        .then(response => response.json())
+        .then(result => {
+          console.log(result);
+        });
+    } else {
+      alert('로그인 후 이용바랍니다.');
     }
-
-    const requestOptions = {
-      method: 'POST',
-      headers: headers,
-    };
-
-    fetch(`${process.env.REACT_APP_HOST}/${commentId}/comment_like`, {
-      ...requestOptions,
-    })
-      .then(response => response.json())
-      .then(result => {
-        console.log(result);
-      });
   };
 
   const heartImgSrc = isLiked

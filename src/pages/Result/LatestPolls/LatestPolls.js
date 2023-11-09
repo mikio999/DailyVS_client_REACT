@@ -24,7 +24,7 @@ const LatestPolls = ({ voteList }) => {
             <LikeName>{truncateString(poll?.title, 18)}</LikeName>
           </TruncateText>
           <LikeCreator>{poll.owner?.nickname}</LikeCreator>
-          <LikeDate>{poll.created_at?.slice(0, 10)}</LikeDate>
+          {/* <LikeDate>{poll.created_at?.slice(0, 10)}</LikeDate> */}
         </LikeLine>
       ))}
     </Container>
@@ -48,11 +48,10 @@ const LatestTitle = styled.h1`
 
 const LikeLine = styled(Link)`
   display: grid;
-  grid-template-columns: 10% 50% 20% 20%;
-  width: min(100%, 1000px);
-  margin-top: 10px;
-  margin-left: 5rem;
-  min-width: 400px;
+  grid-template-columns: 10% 60% 30%;
+
+  /* width: min(100%, 1000px); */
+  margin: 1rem 2rem;
   font-family: 'GongGothicLight';
   &:hover {
     cursor: pointer;

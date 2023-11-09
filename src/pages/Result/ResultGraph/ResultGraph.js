@@ -156,8 +156,8 @@ export default ResultGraph;
 const GraphContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  margin-left: 30px;
+  /* justify-content: flex-start; */
+  margin: 0 auto;
 `;
 
 const GraphCategory = styled.h1`

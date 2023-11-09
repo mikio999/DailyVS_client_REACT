@@ -3,6 +3,7 @@ import CommentElement from './CommentElement';
 import CommentInput from './CommentInput';
 import ReplyCard from './ReplyCard';
 import ReplyInput from './ReplyInput';
+import ReplyElement from './ReplyElement';
 
 function CommentCard({ voteId, data, voteChoice }) {
   const [reply, setReply] = useState([]);
@@ -55,7 +56,7 @@ function CommentCard({ voteId, data, voteChoice }) {
       />
       {!!showReply &&
         reply?.map(re => (
-          <CommentElement
+          <ReplyElement
             parentId={parentId}
             key={re.id}
             user={re.user_info}

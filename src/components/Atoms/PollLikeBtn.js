@@ -25,12 +25,10 @@ const PollLikeBtn = () => {
       headers.append('Authorization', `Bearer ${accessToken}`);
     }
 
-    const requestOptions = {
+    fetch(`${process.env.REACT_APP_HOST}/${detailId}/like`, {
       method: 'GET',
       headers: headers,
-    };
-
-    fetch(`${process.env.REACT_APP_HOST}/${detailId}/like`, requestOptions)
+    })
       .then(response => response.json())
       .then(result => {
         setLikeInfo(result);
@@ -40,56 +38,59 @@ const PollLikeBtn = () => {
   }, []);
 
   const handleLikeClick = () => {
-    setIsLiked(!isLiked);
-    setLikeCount(isLiked ? likeCount - 1 : likeCount + 1);
+    if (!isAuthenticated) {
+      alert('로그인 후 이용해주시길 바랍니다.');
+    } else {
+      setIsLiked(!isLiked);
+      setLikeCount(isLiked ? likeCount - 1 : likeCount + 1);
 
-    const headers = new Headers();
-    headers.append('Content-Type', 'application/json');
+      const headers = new Headers();
+      headers.append('Content-Type', 'application/json');
 
-    const accessToken = localStorage.getItem('access');
-    if (accessToken) {
-      headers.append('Authorization', `Bearer ${accessToken}`);
-    }
+      const accessToken = localStorage.getItem('access');
+      if (accessToken) {
+        headers.append('Authorization', `Bearer ${accessToken}`);
+      }
 
-    const requestOptions = {
-      method: 'POST',
-      headers: headers,
-    };
+      const requestOptions = {
+        method: 'POST',
+        headers: headers,
+      };
 
-    const requestBody = JSON.stringify({
-      poll_id: detailId,
-    });
-
-    fetch(`${process.env.REACT_APP_HOST}/${detailId}/like`, {
-      ...requestOptions,
-      body: requestBody,
-    })
-      .then(response => response.json())
-      .then(result => {
-        console.log(result);
+      const requestBody = JSON.stringify({
+        poll_id: detailId,
       });
+
+      fetch(`${process.env.REACT_APP_HOST}/${detailId}/like`, {
+        ...requestOptions,
+        body: requestBody,
+      })
+        .then(response => response.json())
+        .then(result => {
+          console.log(result);
+        });
+    }
   };
 
   const heartImgSrc = isLiked
     ? require('../../assets/Buttons/likeBtnRed.png')
     : require('../../assets/Buttons/likeBtn.png');
 
-  if (isAuthenticated)
-    return (
-      <Container onClick={handleLikeClick} data-liked={isLiked}>
-        <LikeCount>{likeCount}</LikeCount>
-        <Likes>Likes</Likes>
-        <HeartImg
-          src={heartImgSrc}
-          alt="좋아요"
-          ref={ref}
-          onMouseDown={handleBtnMD}
-          onMouseUp={handleBtnMU}
-          onMouseEnter={handleBtnME}
-          onMouseLeave={handleBtnML}
-        />
-      </Container>
-    );
+  return (
+    <Container onClick={handleLikeClick} data-liked={isLiked}>
+      <LikeCount>{likeCount}</LikeCount>
+      <Likes>Likes</Likes>
+      <HeartImg
+        src={heartImgSrc}
+        alt="좋아요"
+        ref={ref}
+        onMouseDown={handleBtnMD}
+        onMouseUp={handleBtnMU}
+        onMouseEnter={handleBtnME}
+        onMouseLeave={handleBtnML}
+      />
+    </Container>
+  );
 };
 
 export default PollLikeBtn;

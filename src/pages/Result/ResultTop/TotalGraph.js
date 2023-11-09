@@ -3,6 +3,14 @@ import styled from 'styled-components';
 import Chart from 'chart.js/auto';
 
 const TotalGraph = ({ voteResult }) => {
+  const getChartColors = length => {
+    if (length === 2) {
+      return ['#17355a', '#ff495a'];
+    } else {
+      return ['#17355a', '#457c9e', '#a7dcdd', '#D9D9D9', '#4F4F4F'];
+    }
+  };
+
   const chartRef = useRef(null);
   const chartInstance = useRef(null);
   const [chartId, setChartId] = useState(null);
@@ -24,13 +32,7 @@ const TotalGraph = ({ voteResult }) => {
       const graphData = {
         labels: [],
         percentages: total_choicesArray,
-        backgroundColors: [
-          '#17355a',
-          '#457c9e',
-          '#a7dcdd',
-          '#D9D9D9',
-          '#4F4F4F',
-        ],
+        backgroundColors: getChartColors(voteResult?.poll?.choices?.length),
       };
       graphData.labels = voteResult.poll?.choices.map(
         choice => choice.choice_text,
