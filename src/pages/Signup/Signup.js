@@ -20,7 +20,6 @@ const Signup = ({ signup, isAuthenticated }) => {
   });
   const { email, nickname, gender, mbti, password1, password2, age } = formData;
 
-  console.log(formData);
   const [passwordMatch, setPasswordMatch] = useState(false);
 
   useEffect(() => {
@@ -67,6 +66,7 @@ const Signup = ({ signup, isAuthenticated }) => {
     if (password1 === password2) {
       signup(email, nickname, gender, mbti, password1, password2, age);
       setAccountCreated(true);
+      navigate('/signup/email');
     }
   };
 

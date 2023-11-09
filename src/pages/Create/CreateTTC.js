@@ -55,7 +55,10 @@ function CreateTTC({ formData, setFormData }) {
         ) : (
           <label className="custom-file-input">
             <span>이미지 넣기</span>
-            <img src="images/Buttons/image.png" alt="image icon" />
+            <img
+              src={require('../../assets/Buttons/image.png')}
+              alt="image icon"
+            />
             <input type="file" accept="image/*" onChange={handleFileChange} />
           </label>
         )}
@@ -91,12 +94,14 @@ const DeleteBtnWrap = styled.div`
   right: 0;
   top: 0;
 `;
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   margin: 20px auto;
+  padding: 0 10px;
   width: min(100%, 400px);
 `;
 const ThumbnailContainer = styled.div`
@@ -161,10 +166,12 @@ const CreateBottom = styled.div`
     rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
     rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
 `;
+
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
 `;
+
 const Input = styled.input`
   display: flex;
   justify-content: center;

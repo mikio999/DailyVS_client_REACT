@@ -4,10 +4,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { login } from '../../actions/auth';
 import LoginNav from '../../components/LoginNav/LoginNav';
-import { KAKAO_AUTH_URL } from './Oauth.js';
 
 const Login = ({ login, isAuthenticated }) => {
-  console.log('KAU', KAKAO_AUTH_URL);
+  const REST_API_KEY = process.env.REACT_APP_REST_API_KEY;
+  const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI;
+  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -40,7 +42,7 @@ const Login = ({ login, isAuthenticated }) => {
       <LoginNav />
       <Container>
         <LoginPage onSubmit={e => onSubmit(e)}>
-          <LoginLogo src="/images/Nav/main_logo.png" />
+          <LoginLogo src={require('../../assets/Nav/main_logo.png')} />
           <LoginIdInput
             type="text"
             name="email"
@@ -62,7 +64,7 @@ const Login = ({ login, isAuthenticated }) => {
           </LoginSubmitBtn>
         </LoginPage>
         <KakaoLogin to={KAKAO_AUTH_URL}>
-          <KakaoImg src="/images/LoginNav/kakaoLogo.png" />
+          <KakaoImg src={require('../../assets/Letters/kakaoLogo.png')} />
           카카오 로그인
         </KakaoLogin>
         <LoginAsk>
@@ -161,6 +163,7 @@ const LoginAsk = styled.div`
   display: flex;
   flex-direction: row;
   margin-top: 20px;
+  margin-bottom: 2rem;
   font-size: 14px;
   /* height: 200px; */
 `;

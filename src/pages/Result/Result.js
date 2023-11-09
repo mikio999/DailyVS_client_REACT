@@ -8,17 +8,24 @@ import ResultBtn from './ResultBtn/ResultBtn';
 import { useParams, useNavigate } from 'react-router-dom';
 import Comment from '../../components/Comment/Comment';
 import { useSelector } from 'react-redux';
+import ResultInfo from './ResultInfo/ResultInfo';
+import LatestPolls from './LatestPolls/LatestPolls';
 
 const Result = () => {
   const [voteResult, setVoteResult] = useState([]);
   const [showWatermark, setShowWatermark] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+
   const resultRef = useRef(null);
   const params = useParams();
   const detailId = params.id;
   const navigate = useNavigate();
 
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
-  console.log(isAuthenticated);
+
+  const changePage = pageNumber => {
+    setCurrentPage(pageNumber);
+  };
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -35,7 +42,7 @@ const Result = () => {
         },
       };
 
-      fetch(`http://localhost:8000/${detailId}/poll_result_page`, {
+      fetch(`${process.env.REACT_APP_HOST}/${detailId}/poll_result_page`, {
         headers: config.headers,
       })
         .then(response => response.json())
@@ -47,19 +54,18 @@ const Result = () => {
           }
         });
     } else {
-      fetch(`http://localhost:8000/${detailId}/poll_result_page`)
+      fetch(`${process.env.REACT_APP_HOST}/${detailId}/poll_result_page`)
         .then(response => response.json())
         .then(result => {
           if (result.detail === '찾을 수 없습니다.') {
             navigate('/error');
           } else {
             setVoteResult(result);
+            console.log(result);
           }
         });
     }
   }, []);
-
-  console.log('voteResult', voteResult);
 
   const handleCapture = () => {
     setShowWatermark(true);
@@ -82,7 +88,13 @@ const Result = () => {
       </CaptureContainer>
       <ResultBtn onCapture={handleCapture} />
       <ResultGraph voteResult={voteResult} />
-      <Comment voteId={detailId} voteChoice={voteResult?.choice} />
+      <ResultInfo information={voteResult?.poll} />
+      <Comment
+        voteId={detailId}
+        voteChoice={voteResult?.choice}
+        comments={voteResult?.comments}
+      />
+      <LatestPolls voteList={voteResult?.latest_polls} />
     </ResultContainer>
   );
 };
@@ -93,7 +105,7 @@ const ResultContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin: 0 auto;
-  width: 500px;
+
   background-color: ${props => props.theme.colors.pinkBgColor};
 `;
 

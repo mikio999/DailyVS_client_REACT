@@ -5,31 +5,68 @@ import HeaderText from '../Atoms/HeaderText';
 import CommentBox from './CommentBox';
 import CommentCard from './CommentCard';
 import CommentInput from './CommentInput';
+import Paginator from '../Molecules/Paginator';
 
 function Comment({ voteId, voteChoice }) {
-  const [datas, setDatas] = useState([]);
-  const [id, setId] = useState(voteId);
+  const [comments, setComments] = useState('');
+  const [commentsCount, setCommentsCount] = useState('');
+  const [userInfo, setUserInfo] = useState('');
   const [newcomments, setNewcomments] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
   const addComment = newComment => {
     setNewcomments([...newcomments, newComment]);
   };
 
   useEffect(() => {
-    fetch('/data/comment.json')
+    const accessToken = localStorage.getItem('access');
+    if (!accessToken) {
+      return;
+    }
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${accessToken}`,
+        Accept: 'application/json',
+      },
+    };
+
+    fetch(`${process.env.REACT_APP_HOST}/accounts/user_info/`, {
+      headers: config.headers,
+    })
       .then(response => response.json())
-      .then(data => {
-        console.log('데이터 받기 성공:', data);
-        setDatas(data);
-      })
-      .catch(error => {
-        console.error('데이터 받기 실패:', error);
+      .then(result => {
+        setUserInfo(result);
       });
   }, []);
-  useEffect(() => {
-    setId(voteId);
-  }, [voteId]);
 
-  console.log(newcomments);
+  useEffect(() => {
+    const accessToken = localStorage.getItem('access');
+    if (!accessToken) {
+      return;
+    }
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${accessToken}`,
+        Accept: 'application/json',
+      },
+    };
+
+    fetch(
+      `${process.env.REACT_APP_HOST}/${voteId}/comment/newest?page=${currentPage}`,
+      {
+        headers: config.headers,
+      },
+    )
+      .then(response => response.json())
+      .then(result => {
+        setComments(result.comments);
+        setCommentsCount(result.comments_count);
+      });
+  }, [currentPage]);
+
   return (
     <Container>
       <div style={{ width: 50, marginRight: 'auto', paddingLeft: 20 }}>
@@ -39,6 +76,8 @@ function Comment({ voteId, voteChoice }) {
         voteId={voteId}
         voteChoice={voteChoice}
         onCommentSubmit={addComment}
+        userInfo={userInfo}
+        setCurrentPage={setCurrentPage}
       />
       <Wrapper>
         {newcomments &&
@@ -46,10 +85,31 @@ function Comment({ voteId, voteChoice }) {
             ?.slice()
             .reverse()
             .map((comment, index) => (
-              <CommentCard key={index} data={comment} voteChoice={voteChoice} />
+              <CommentCard
+                key={index}
+                data={comment}
+                voteChoice={voteChoice}
+                userInfo={userInfo}
+                voteId={voteId}
+              />
             ))}
-        {datas && datas.map(data => <CommentBox key={data.id} data={data} />)}
+        {comments &&
+          comments.map(data => (
+            <CommentBox
+              key={data.id}
+              data={data}
+              voteId={voteId}
+              voteChoice={voteChoice}
+              userInfo={userInfo}
+              setCurrentPage={setCurrentPage}
+            />
+          ))}
       </Wrapper>
+      <Paginator
+        count={commentsCount}
+        onPageChange={setCurrentPage}
+        currentPage={currentPage}
+      />
     </Container>
   );
 }
@@ -64,6 +124,6 @@ const Container = styled.div`
 `;
 
 const Wrapper = styled.div`
-  width: 400px;
+  width: 100%;
 `;
 export default Comment;

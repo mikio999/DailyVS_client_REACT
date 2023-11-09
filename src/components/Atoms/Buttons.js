@@ -38,7 +38,6 @@ const MintButtonCSS = styled.div`
       : props.theme.colors.turquoisSecondaryColor};
   cursor: ${props => (props.disabled ? 'not-allowed' : 'pointer')};
   padding: 10px 20px;
-  cursor: pointer;
   color: white;
   border-radius: 6px;
   font-size: 16px;
@@ -46,10 +45,8 @@ const MintButtonCSS = styled.div`
   transition: 0.3s;
   word-break: keep-all;
   line-height: 1.2rem;
-  &:hover {
-    background-color: ${theme.colors.turquoisSecondaryColorHover};
-  }
 `;
+
 export default MintButtonSubmit;
 
 export const ArrowLeft = ({ onClick, style, opacity = 1 }) => {
@@ -62,7 +59,7 @@ export const ArrowLeft = ({ onClick, style, opacity = 1 }) => {
 
   return (
     <img
-      src="/images/Buttons/arrowLeft.png"
+      src={require('../../assets/Buttons/arrowLeft.png')}
       alt="arrowLeft"
       style={{
         ...style,
@@ -90,7 +87,7 @@ export const ArrowRight = ({ onClick, style, opacity = 1 }) => {
   );
   return (
     <img
-      src="/images/Buttons/arrowRight.png"
+      src={require('../../assets/Buttons/arrowRight.png')}
       style={{
         ...style,
         width: 40,
@@ -117,8 +114,8 @@ export const CommentLikeBtn = ({ onClick, liked = false }) => {
     <img
       src={
         !liked
-          ? '/images/Buttons/likeBtn.png'
-          : '/images/Buttons/likeBtnRed.png'
+          ? require('../../assets/Buttons/likeBtn.png')
+          : require('../../assets/Buttons/likeBtnRed.png')
       }
       style={{
         width: 25,
@@ -143,7 +140,7 @@ export const ChevronDown = ({ onClick }) => {
     useClickEffect(ref);
   return (
     <img
-      src="/images/Buttons/chevron_down.svg"
+      src={require('../../assets/Buttons/chevron_down.svg').default}
       style={{
         width: 30,
         height: 30,

@@ -61,12 +61,10 @@ const Detail = () => {
       headers.append('Authorization', `Bearer ${accessToken}`);
     }
 
-    const requestOptions = {
+    fetch(`${process.env.REACT_APP_HOST}/${detailId}`, {
       method: 'GET',
       headers: headers,
-    };
-
-    fetch(`http://localhost:8000/${detailId}`, requestOptions)
+    })
       .then(response => response.json())
       .then(result => {
         setVoteDetail(result);
@@ -115,7 +113,6 @@ const Detail = () => {
 export default Detail;
 
 const DetailContainer = styled.form`
-  width: 500px;
   display: flex;
   flex-direction: column;
   justify-content: center;

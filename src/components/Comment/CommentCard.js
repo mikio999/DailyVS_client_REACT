@@ -1,11 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import CommentElement from './CommentElement';
 import CommentInput from './CommentInput';
+import ReplyCard from './ReplyCard';
+import ReplyInput from './ReplyInput';
 
-function CommentCard({ data, voteChoice }) {
-  const [reply, setReply] = useState({});
+function CommentCard({ voteId, data, voteChoice }) {
+  const [reply, setReply] = useState([]);
   const [userInfo, setUserInfo] = useState({});
   const [showReply, setShowReply] = useState(false);
+  const [newreplies, setNewreplies] = useState([]);
+
+  const addReply = newReply => {
+    setNewreplies([...newreplies, newReply]);
+  };
+
+  const parentId = data.id;
 
   useEffect(() => {
     const accessToken = localStorage.getItem('access');
@@ -21,7 +30,7 @@ function CommentCard({ data, voteChoice }) {
       },
     };
 
-    fetch(`http://127.0.0.1:8000/accounts/user_info/`, {
+    fetch(`${process.env.REACT_APP_HOST}/accounts/user_info/`, {
       headers: config.headers,
     })
       .then(response => response.json())
@@ -29,6 +38,7 @@ function CommentCard({ data, voteChoice }) {
         setUserInfo(result);
       });
   }, []);
+
   const FakeData = {
     choice: voteChoice?.choice_text,
     time_difference: '방금 전',
@@ -44,10 +54,30 @@ function CommentCard({ data, voteChoice }) {
         setShowReply={setShowReply}
       />
       {!!showReply &&
-        reply.map(re => (
-          <CommentElement key={re.id} user={re.user_info} data={re} />
+        reply?.map(re => (
+          <CommentElement
+            parentId={parentId}
+            key={re.id}
+            user={re.user_info}
+            data={re}
+          />
         ))}
-      {!!showReply && <CommentInput />}
+      {newreplies &&
+        newreplies?.map((comment, index) => (
+          <ReplyCard
+            key={index}
+            data={comment}
+            voteChoice={voteChoice.choice_text}
+            user={userInfo}
+          />
+        ))}
+      {!!showReply && (
+        <ReplyInput
+          parentId={parentId}
+          onCommentSubmit={addReply}
+          voteId={voteId}
+        />
+      )}
     </>
   );
 }

@@ -1,16 +1,40 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import Paginator from '../../../components/Molecules/Paginator';
 
-const MypageCreateList = ({ createList }) => {
-  console.log(createList);
+const MypageCreateList = () => {
+  const [listCount, setListCount] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [createList, setCreateList] = useState([]);
+
+  useEffect(() => {
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    const accessToken = localStorage.getItem('access');
+    if (accessToken) {
+      headers.append('Authorization', `Bearer ${accessToken}`);
+    }
+
+    fetch(`${process.env.REACT_APP_HOST}/mypage_my_poll?page=${currentPage}`, {
+      method: 'GET',
+      headers: headers,
+    })
+      .then(response => response.json())
+      .then(result => {
+        setCreateList(result.my_poll);
+        setListCount(result.my_poll_count);
+      });
+  }, [currentPage]);
+
   return (
     <Container>
       <VoteListTitle>내가 만든 VOTE</VoteListTitle>
       {createList.map((poll, index) => (
         <LikeLine key={index} to={`/vote-detail/${poll?.id}`}>
           <LikeImage
-            src={'http://127.0.0.1:8000' + poll?.thumbnail}
+            src={`${process.env.REACT_APP_HOST}` + poll?.thumbnail}
             alt={poll.poll?.title}
           />
           <TruncateText>
@@ -20,6 +44,11 @@ const MypageCreateList = ({ createList }) => {
           <LikeDate>{poll.created_at?.slice(0, 10)}</LikeDate>
         </LikeLine>
       ))}
+      <Paginator
+        count={listCount}
+        onPageChange={setCurrentPage}
+        currentPage={currentPage}
+      />
     </Container>
   );
 };
@@ -33,9 +62,11 @@ const Container = styled.div`
 `;
 
 const VoteListTitle = styled.h1`
+  display: flex;
   font-family: 'GongGothicMedium';
   font-size: 24px;
   margin: 20px;
+  width: 540px;
 `;
 
 const LikeLine = styled(Link)`

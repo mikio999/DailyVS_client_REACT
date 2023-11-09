@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import 'swiper/swiper-bundle.min.css';
-import MintButtonSubmit from '../../components/Atoms/Buttons';
 import theme from '../../styles/theme';
 import MainHero from './MainHero/MainHero';
 import { MainSliderSideLeft, MainSliderSideRight } from './MainSlider/MainSide';
@@ -17,7 +16,7 @@ const Main = () => {
   const [todayPoll, setTodayPoll] = useState({});
 
   useEffect(() => {
-    fetch(`http://127.0.0.1:8000/`)
+    fetch(`${process.env.REACT_APP_HOST}/`)
       .then(response => response.json())
       .then(result => {
         setNewPolls(result.polls);
@@ -42,12 +41,6 @@ const Main = () => {
 
   return (
     <Container>
-      {/* <MakeVoteBanner>
-        <div>
-          <span>겨루고 싶은 VS가 있다면? 👉👉</span>
-          <MintButtonSubmit content="투표 만들러 가기" link={'/create'} />
-        </div>
-      </MakeVoteBanner> */}
       <MainHero data={todayPoll} />
       <MainSliderContainer>
         {width < 1200 ? null : <MainSliderSideLeft />}
@@ -98,6 +91,7 @@ const MakeVoteBanner = styled.div`
     display: none;
   }
 `;
+
 const MainSliderContainer = styled.div`
   display: flex;
   width: 100%;

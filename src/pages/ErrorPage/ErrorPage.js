@@ -6,8 +6,8 @@ const ErrorPage = () => {
   return (
     <Container>
       <ImgSection>
-        <BlueFace src="/images/ErrorPage/404.png" />
-        <RedFace src="/images/ErrorPage/404r.png" />
+        <BlueFace src={require('../../assets/ErrorPage/404.png')} />
+        <RedFace src={require('../../assets/ErrorPage/404r.png')} />
       </ImgSection>
       <Number>404</Number>
       <Errormessage>Page not found</Errormessage>
@@ -72,4 +72,5 @@ const GoToMain = styled(Link)`
     cursor: pointer;
     text-decoration: none;
   }
+  margin-bottom: 3rem;
 `;

@@ -4,19 +4,37 @@ import theme from '../../styles/theme';
 import { MintButton } from '../Atoms/Buttons';
 import { useSelector } from 'react-redux';
 
-function CommentInput({
-  setCurrentPage,
-  voteId,
-  voteChoice,
-  onCommentSubmit,
-  userInfo,
-}) {
+function ReplyInput({ voteId, voteChoice, onCommentSubmit, parentId }) {
   const [comment, setComment] = useState('');
+  const [userInfo, setUserInfo] = useState('');
 
   const handleChange = e => {
     const newComment = e.target.value;
     setComment(newComment);
   };
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem('access');
+    if (!accessToken) {
+      return;
+    }
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${accessToken}`,
+        Accept: 'application/json',
+      },
+    };
+
+    fetch(`${process.env.REACT_APP_HOST}/accounts/user_info/`, {
+      headers: config.headers,
+    })
+      .then(response => response.json())
+      .then(result => {
+        setUserInfo(result);
+      });
+  }, []);
 
   const handleSubmit = () => {
     onCommentSubmit(comment);
@@ -29,20 +47,21 @@ function CommentInput({
       headers.append('Authorization', `Bearer ${accessToken}`);
     }
 
-    fetch(`${process.env.REACT_APP_HOST}/${voteId}/comment`, {
+    const requestOptions = {
       method: 'POST',
       headers: headers,
       body: JSON.stringify({
         content: comment,
         user_info: userInfo,
         poll: voteId,
+        parent_comment: parentId,
       }),
-    })
+    };
+
+    fetch(`${process.env.REACT_APP_HOST}/${voteId}/comment`, requestOptions)
       .then(response => response.json())
       .then(data => {
         console.log('성공:', data);
-        window.location.reload();
-        window.scrollTo(2000, document.body.scrollHeight);
       })
       .catch(error => {
         console.error('데이터 받기 실패:', error);
@@ -53,24 +72,15 @@ function CommentInput({
 
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
 
-  function truncateString(str, maxLength) {
-    if (str?.length > maxLength) {
-      return str.slice(0, maxLength) + '...';
-    }
-    return str;
-  }
-
   return (
     <Container>
       {isAuthenticated ? (
         <>
           <Info>
-            <div className="name">{userInfo?.nickname}</div>
-            <div className="mbti">{userInfo?.mbti}</div>
-            <div className="gender">{userInfo?.gender}</div>
-            <div className="result">
-              {truncateString(voteChoice?.choice_text, 8)}
-            </div>
+            <div className="name">{userInfo.nickname}</div>
+            <div className="mbti">{userInfo.mbti}</div>
+            <div className="gender">{userInfo.gender}</div>
+            <div className="result">{voteChoice?.choice_text}</div>
           </Info>
           <CommentText
             value={comment}
@@ -81,7 +91,7 @@ function CommentInput({
             <MintButton
               content={'댓글 달기'}
               onClick={handleSubmit}
-              disabled={comment?.length === 0}
+              disabled={comment.length === 0}
             />
           </div>
         </>
@@ -92,7 +102,6 @@ function CommentInput({
   );
 }
 const Container = styled.div`
-  min-width: 350px;
   width: 100%;
   padding: 20px;
   display: flex;
@@ -139,4 +148,4 @@ const CommentText = styled.textarea`
   }
 `;
 
-export default CommentInput;
+export default ReplyInput;

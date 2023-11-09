@@ -56,11 +56,11 @@ const OptionCard = ({
 export default OptionCard;
 
 const DetailContainer = styled.div`
-  width: 500px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: 0 auto;
+  align-items: center;
+  margin: 2rem;
   background-color: #f8f8ff;
 `;
 
@@ -72,8 +72,10 @@ const OptionCardContainer = styled.div`
 const DetailOptionName = styled.div`
   display: flex;
   margin: 15px auto;
-  height: 60px;
-  width: 350px;
+  min-height: 60px;
+  max-width: 350px;
+  min-width: 350px;
+  padding: 10px;
   position: relative;
   color: black;
   background-color: white;

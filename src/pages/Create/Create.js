@@ -18,7 +18,7 @@ const responsive = {
     items: 1,
   },
   mobile: {
-    breakpoint: { max: 767, min: 464 },
+    breakpoint: { max: 767, min: 200 },
     items: 1,
   },
 };
@@ -26,6 +26,14 @@ const responsive = {
 function Create() {
   const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState('');
+
+  const isFormValid = () => {
+    const { title, content, thumbnail, category, choice } = formData;
+    return (
+      title && content && thumbnail && category.length > 0 && choice.length > 0
+    );
+  };
+
   useEffect(() => {
     checkAuthenticated();
     load_user();
@@ -98,7 +106,11 @@ function Create() {
       .then(response => response.json())
       .then(data => {
         console.log('데이터 받기 성공:', data);
-        navigate(`/vote-detail/${data.id}`);
+        if (data.error) {
+          alert(data.error, '필수 정보를 전부 입력하였는지 확인해주세요!');
+        } else {
+          navigate(`/vote-detail/${data.id}`);
+        }
       })
       .catch(error => {
         console.error(error);
@@ -120,6 +132,7 @@ function Create() {
             content={'제출하기'}
             type="submit"
             onClick={handleSubmit}
+            disabled={!isFormValid()}
           />
         ) : (
           <MintButton content={'다음으로'} onClick={() => next()} />
@@ -154,7 +167,9 @@ const Container = styled.form`
   width: min(100%, 1200px);
   margin: 0 auto 100px;
   position: relative;
+  padding: 0 20px;
 `;
+
 const ButtonGroup = styled.div`
   position: absolute;
   left: 50%;

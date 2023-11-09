@@ -1,16 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import CommentElement from './CommentElement';
-import CommentInput from './CommentInput';
+import ReplyInput from './ReplyInput';
+import ReplyCard from './ReplyCard';
 
-function CommentBox({ data }) {
+function CommentBox({ setCurrentPage, data, voteId, voteChoice, userInfo }) {
   const [reply, setReply] = useState({});
   const [user, setUser] = useState({});
   const [showReply, setShowReply] = useState(false);
+  const [newreplies, setNewreplies] = useState([]);
+  const addReply = newReply => {
+    setNewreplies([...newreplies, newReply]);
+  };
 
   useEffect(() => {
     setUser(data.user_info);
     setReply(data.reply);
   }, [data.user_info, data.reply]);
+
+  const parentId = data.id;
 
   return (
     <>
@@ -20,11 +27,33 @@ function CommentBox({ data }) {
         reply={reply}
         setShowReply={setShowReply}
       />
+
       {!!showReply &&
-        reply.map(re => (
-          <CommentElement key={re.id} user={re.user_info} data={re} />
+        data?.reply.map(repl => (
+          <CommentElement
+            parentId={parentId}
+            key={repl?.id}
+            user={repl?.user_info}
+            data={repl}
+          />
         ))}
-      {!!showReply && <CommentInput />}
+      {newreplies &&
+        newreplies.map((comment, index) => (
+          <ReplyCard
+            key={index}
+            data={comment}
+            voteChoice={voteChoice.choice_text}
+            user={userInfo}
+          />
+        ))}
+      {!!showReply && (
+        <ReplyInput
+          parentId={parentId}
+          onCommentSubmit={addReply}
+          voteId={voteId}
+          setCurrentPage={setCurrentPage}
+        />
+      )}
     </>
   );
 }

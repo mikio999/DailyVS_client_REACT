@@ -12,5 +12,6 @@ const Header = styled.h2`
   text-align: center;
   word-break: keep-all;
   line-height: 1.5rem;
+  color: #457c9e;
 `;
 export default HeaderText;

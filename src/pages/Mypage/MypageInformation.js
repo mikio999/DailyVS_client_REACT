@@ -31,7 +31,7 @@ const MypageInformation = ({ userInformation }) => {
     <Container>
       <InformationTitle>나의 정보</InformationTitle>
       <UserBox>
-        <UserImg src="images/Nav/Logged.png" />
+        <UserImg src={require('../../assets/Nav/Logged.png')} />
         <UserFeature>
           <FeatureTop>
             <UserName>

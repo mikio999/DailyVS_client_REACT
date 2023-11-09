@@ -45,12 +45,8 @@ const PasswordInput = () => {
       new_password2: password2,
     };
 
-    console.log(requestBody);
-    console.log(
-      `http://127.0.0.1:8000/accounts/password/reset/confirm/${uid}/${token}`,
-    );
     fetch(
-      `http://127.0.0.1:8000/accounts/password/reset/confirm/${uid}/${token}/`,
+      `${process.env.REACT_APP_HOST}/accounts/password/reset/confirm/${uid}/${token}/`,
       {
         method: 'POST',
         headers: {

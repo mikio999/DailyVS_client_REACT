@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import LoginNav from '../../components/LoginNav/LoginNav';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const Email = () => {
@@ -10,10 +11,12 @@ const Email = () => {
     state => state.nickname.selectedNickname,
   );
 
+  const navigate = useNavigate();
+
   const handleResendEmail = async () => {
     console.log('click');
     try {
-      await axios.post(`http://localhost:8000/accounts/resend-email/`);
+      await axios.post(`${process.env.REACT_APP_HOST}/accounts/resend-email/`);
     } catch (error) {
       console.error('Error resending email:', error);
     }
@@ -26,14 +29,33 @@ const Email = () => {
         <EmailTitle>이메일 인증</EmailTitle>
         <LogoImg src="/images/Nav/main_logo.png" />
         <EmailContent>
-          안녕하세요 <Nickname>{selectedNickname}</Nickname>님! <br />
-          <Nickname>{selectedEmail}</Nickname>에서
-          <br /> 이메일 인증을 완료해주세요!
+          {!selectedEmail ? (
+            <div>
+              <p>
+                이미 가입했거나 유효하지 않은 이메일 입니다.
+                <br />
+                다른 계정으로 회원가입을 진행해주세요
+              </p>
+              <EmailBtn onClick={() => navigate('/signup')}>
+                회원가입 페이지로
+              </EmailBtn>
+            </div>
+          ) : (
+            <div>
+              <p>
+                안녕하세요 <Nickname>{selectedNickname}</Nickname>님!
+              </p>
+              <p>
+                <Nickname>{selectedEmail}</Nickname>에서 <br />
+                이메일 인증을 완료해주세요!
+              </p>
+              <EmailQuestion>아직 이메일을 받지 않으셨다면? </EmailQuestion>
+              <EmailBtn onClick={handleResendEmail}>
+                인증 이메일 다시받기
+              </EmailBtn>
+            </div>
+          )}
         </EmailContent>
-        <EmailQuestion>
-          아직 이메일을 받지 않으셨다면?
-          <EmailBtn onClick={handleResendEmail}>인증 이메일 다시받기</EmailBtn>
-        </EmailQuestion>
       </Container>
     </>
   );
@@ -86,6 +108,7 @@ const EmailBtn = styled.button`
 `;
 
 const EmailQuestion = styled.div`
+  margin-top: 20px;
   font-size: 18px;
   text-align: center;
 `;
