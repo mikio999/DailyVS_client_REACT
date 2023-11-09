@@ -115,7 +115,7 @@ const Signup = ({ signup, isAuthenticated }) => {
       <LoginNav />
       <SignupPage>
         <SignupContainer onSubmit={onSubmit}>
-          <SignupLogo src="/images/LoginNav/Only_Tex.png" />
+          <SignupLogo src={require('../../assets/LoginNav/Only_Tex.png')} />
           <SignupLabel>이메일</SignupLabel>
           <TextInput
             value={email}
@@ -196,7 +196,6 @@ const Signup = ({ signup, isAuthenticated }) => {
             >
               남성
             </GenderOption>
-
             <input
               className="radio-input"
               type="radio"
@@ -247,6 +246,7 @@ const SignupPage = styled.div`
   justify-content: center;
   align-items: center;
   font-size: 18px;
+  margin: 0 auto;
 `;
 
 const SignupContainer = styled.form`
@@ -309,7 +309,7 @@ const GenderOption = styled.label`
   transition: border 0.3s ease;
 
   .radio-input {
-    display: none;
+    display: none !important;
   }
 
   &:hover {
@@ -341,7 +341,7 @@ const SignupToLogin = styled.div`
 `;
 
 const SignupLoginBtn = styled(Link)`
-  color: #ff495a;
+  color: #ff495a !important;
   margin: 0px 5px;
 `;
 

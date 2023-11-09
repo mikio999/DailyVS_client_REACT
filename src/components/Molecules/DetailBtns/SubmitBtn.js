@@ -1,10 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 import LoginModal from '../LoginModal';
 import { useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
+import useClickEffect from '../../../utils/hooks/useClickEffect';
 
 const SubmitBtn = ({ isFormValid }) => {
+  const ref = useRef(null);
+  const { handleBtnMD, handleBtnMU, handleBtnME, handleBtnML } =
+    useClickEffect(ref);
+
   const [isLoading, setIsLoading] = useState(false);
   const params = useParams();
   const detailId = params.id;
@@ -83,6 +88,11 @@ const SubmitBtn = ({ isFormValid }) => {
     return (
       <>
         <RegisterButton
+          ref={ref}
+          onMouseDown={handleBtnMD}
+          onMouseUp={handleBtnMU}
+          onMouseEnter={handleBtnME}
+          onMouseLeave={handleBtnML}
           onClick={() => {
             openModal();
           }}
@@ -96,6 +106,11 @@ const SubmitBtn = ({ isFormValid }) => {
   } else {
     return (
       <RegisterButton
+        ref={ref}
+        onMouseDown={handleBtnMD}
+        onMouseUp={handleBtnMU}
+        onMouseEnter={handleBtnME}
+        onMouseLeave={handleBtnML}
         onClick={handleInformationClick}
         disabled={!isFormValid()}
       >

@@ -115,10 +115,11 @@ function Comment({ voteId, voteChoice }) {
 }
 
 const Container = styled.div`
-  width: min(100%, 1200px);
+  width: min(100%, 1100px);
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: 0 auto;
   background-color: ${theme.colors.pinkBgColor};
   padding: 20px;
 `;

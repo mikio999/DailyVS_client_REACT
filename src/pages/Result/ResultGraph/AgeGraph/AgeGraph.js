@@ -80,7 +80,7 @@ const AgeGraph = ({
     <Container>
       <Toggler onClick={toggleRotation}>
         <Chevron
-          src="/images/Buttons/chevron.png"
+          src={require('../../../../assets/Buttons/chevron.png')}
           alt="chevron"
           className={isRotated ? '' : 'rotated'}
         />

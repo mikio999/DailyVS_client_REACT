@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
 import { setCategory } from '../../../actions/actions';
 import SubmitBtn from './SubmitBtn';
+import useClickEffect from '../../../utils/hooks/useClickEffect';
 
 const RegisterBtn = ({ isFormValid }) => {
+  const ref = useRef(null);
+  const { handleBtnMD, handleBtnMU, handleBtnME, handleBtnML } =
+    useClickEffect(ref);
   const params = useParams();
   const navigate = useNavigate();
   const detailId = params.id;
@@ -34,7 +38,15 @@ const RegisterBtn = ({ isFormValid }) => {
   return selectedCategory?.length === 0 ? (
     <SubmitBtn isFormValid={isFormValid} />
   ) : (
-    <RegisterButton onClick={handleRegisterClick} disabled={!isFormValid()}>
+    <RegisterButton
+      ref={ref}
+      onMouseDown={handleBtnMD}
+      onMouseUp={handleBtnMU}
+      onMouseEnter={handleBtnME}
+      onMouseLeave={handleBtnML}
+      onClick={handleRegisterClick}
+      disabled={!isFormValid()}
+    >
       등록하기
     </RegisterButton>
   );

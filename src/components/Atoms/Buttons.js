@@ -1,6 +1,5 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
-import theme from '../../styles/theme';
 import { Link } from 'react-router-dom';
 import useClickEffect from '../../utils/hooks/useClickEffect';
 

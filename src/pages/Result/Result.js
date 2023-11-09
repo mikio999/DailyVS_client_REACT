@@ -103,9 +103,8 @@ export default Result;
 
 const ResultContainer = styled.div`
   display: flex;
+  width: 100%;
   flex-direction: column;
-  margin: 0 auto;
-
   background-color: ${props => props.theme.colors.pinkBgColor};
 `;
 

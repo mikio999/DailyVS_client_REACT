@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { setAge } from '../../../actions/actions';
@@ -24,7 +24,6 @@ const DetailAge = () => {
   const handleAgeChange = e => {
     const selectedAge = e.target.value;
     setSelectedAge(selectedAge);
-    console.log(selectedAge);
   };
 
   const handleDispatch = selectedAge => {
@@ -70,7 +69,6 @@ export default DetailAge;
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  width: 500px;
   margin: 0 auto;
   background-color: #f8f8ff;
 `;

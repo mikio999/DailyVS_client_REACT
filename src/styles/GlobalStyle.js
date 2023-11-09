@@ -35,7 +35,6 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
-
     background-color: white;
     transition: background-color 1s ease;
     font-family: "NEXON Lv1 Gothic OTF";

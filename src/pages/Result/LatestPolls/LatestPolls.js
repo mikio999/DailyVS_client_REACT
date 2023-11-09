@@ -10,7 +10,6 @@ const LatestPolls = ({ voteList }) => {
     return str;
   }
 
-  console.log(voteList);
   return (
     <Container>
       <LatestTitle>이런 투표도 있어요!</LatestTitle>
@@ -35,21 +34,25 @@ export default LatestPolls;
 
 const Container = styled.div`
   margin: 1rem auto;
+  width: min(100%, 1100px);
 `;
 
 const LatestTitle = styled.h1`
   display: flex;
+  justify-content: center;
   font-family: 'GongGothicLight';
   font-size: 24px;
-  margin: 20px;
+
   color: #457c9e;
 `;
 
 const LikeLine = styled(Link)`
   display: grid;
   grid-template-columns: 10% 50% 20% 20%;
-  width: 100%;
+  width: min(100%, 1000px);
   margin-top: 10px;
+  margin-left: 5rem;
+  min-width: 400px;
   font-family: 'GongGothicLight';
   &:hover {
     cursor: pointer;
