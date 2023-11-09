@@ -3,10 +3,18 @@ import styled from 'styled-components';
 import ApexCharts from 'react-apexcharts';
 
 const WomanChart = ({ woman_choices, choices }) => {
+  const getChartColors = length => {
+    if (length === 2) {
+      return ['#17355a', '#ff495a'];
+    } else {
+      return ['#17355a', '#457c9e', '#a7dcdd', '#D9D9D9', '#4F4F4F'];
+    }
+  };
+
   const chartOptions = {
     series: woman_choices,
     labels: [],
-    colors: ['#17355a', '#457c9e', '#a7dcdd', '#D9D9D9', '#4F4F4F'],
+    colors: getChartColors(choices.length),
     chart: {
       type: 'pie',
       height: 350,
@@ -19,7 +27,7 @@ const WomanChart = ({ woman_choices, choices }) => {
         breakpoint: 480,
         options: {
           chart: {
-            width: 300,
+            width: 200,
           },
           legend: {
             position: 'bottom',
@@ -48,7 +56,7 @@ export default WomanChart;
 const WomanContainer = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 10px auto;
+  margin: 0px auto;
 `;
 
 const WomanTitle = styled.h2`

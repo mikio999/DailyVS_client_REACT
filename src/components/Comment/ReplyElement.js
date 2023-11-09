@@ -2,10 +2,15 @@ import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import theme from '../../styles/theme';
 import useClickEffect from '../../utils/hooks/useClickEffect';
-import { CommentLikeBtn } from '../Atoms/Buttons';
+import CommentLikeBtn from '../Atoms/CommentLikeBtn';
 
-function ReplyCard({ voteChoice, user, data, reply, setShowReply }) {
-  const [liked, setLiked] = useState(false);
+function ReplyElement({ parentId, user, data, reply, setShowReply }) {
+  function truncateString(str, maxLength) {
+    if (str?.length > maxLength) {
+      return str?.slice(0, maxLength) + '...';
+    }
+    return str;
+  }
 
   const Time = () => {
     return (
@@ -16,14 +21,10 @@ function ReplyCard({ voteChoice, user, data, reply, setShowReply }) {
           marginLeft: 'auto',
         }}
       >
-        방금 전
+        {data.time_difference}
       </span>
     );
   };
-
-  function handleLike() {
-    setLiked(curr => !curr);
-  }
 
   const Reply = () => {
     const refReply = useRef(null);
@@ -39,6 +40,9 @@ function ReplyCard({ voteChoice, user, data, reply, setShowReply }) {
         onMouseEnter={handleBtnME}
         onMouseLeave={handleBtnML}
         onClick={() => {
+          // if (reply.length > 0) {
+          //   setShowReply(curr => !curr);
+          // }
           setShowReply(curr => !curr);
         }}
       >
@@ -55,24 +59,26 @@ function ReplyCard({ voteChoice, user, data, reply, setShowReply }) {
           alt="reply"
         />
       )}
-
       <Info>
         <div className="name">{user.nickname}</div>
         <div className="mbti">{user.mbti}</div>
         <div className="gender">{user.gender}</div>
-        <div className="result">{voteChoice}</div>
+        <div className="result"> {truncateString(data?.choice_text, 8)}</div>
         <Time />
       </Info>
-      <Content>{data}</Content>
+      <Content>{data.content}</Content>
       <Bottom>{!!reply && <Reply />}</Bottom>
     </Container>
   );
 }
+
 const Container = styled.div`
   width: 100%;
   border-radius: 10px;
   padding: 15px 0;
+  margin: 0 10px;
   display: flex;
+  justify-content: center;
   flex-direction: column;
   gap: 10px;
   border-bottom: 1px solid ${theme.colors.lightGrayColor};
@@ -87,6 +93,7 @@ const Container = styled.div`
 const Info = styled.div`
   display: flex;
   align-items: flex-end;
+  white-space: nowrap;
 
   & .name {
     font-weight: 900;
@@ -104,13 +111,17 @@ const Info = styled.div`
 const Content = styled.div`
   display: flex;
   padding: 10px 0;
+  width: min(100%, 1000px);
 `;
 
 const Bottom = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
+  white-space: nowrap;
+  min-width: 75px;
 `;
+
 const ReplyBtn = styled.div`
   margin-left: auto;
   padding: 8px 12px;
@@ -120,4 +131,5 @@ const ReplyBtn = styled.div`
   cursor: pointer;
   transition: 0.1s;
 `;
-export default ReplyCard;
+
+export default ReplyElement;

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import CommentElement from './CommentElement';
 import ReplyInput from './ReplyInput';
 import ReplyCard from './ReplyCard';
+import ReplyElement from './ReplyElement';
 
 function CommentBox({ setCurrentPage, data, voteId, voteChoice, userInfo }) {
   const [reply, setReply] = useState({});
@@ -30,7 +31,7 @@ function CommentBox({ setCurrentPage, data, voteId, voteChoice, userInfo }) {
 
       {!!showReply &&
         data?.reply.map(repl => (
-          <CommentElement
+          <ReplyElement
             parentId={parentId}
             key={repl?.id}
             user={repl?.user_info}

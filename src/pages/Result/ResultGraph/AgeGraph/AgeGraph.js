@@ -19,14 +19,26 @@ const AgeGraph = ({
     setIsGraphVisible(!isGraphVisible);
   };
 
+  console.log(choices);
+  const getChartColors = length => {
+    if (length === 2) {
+      return ['#17355a', '#ff495a'];
+    } else {
+      return ['#17355a', '#457c9e', '#a7dcdd', '#D9D9D9', '#4F4F4F'];
+    }
+  };
+
+  const choiceColors = getChartColors(choices?.length);
+
   const chartData = {
     series: [],
-    colors: ['#17355a', '#457c9e', '#a7dcdd', '#D9D9D9', '#4F4F4F'],
+
     options: {
       chart: {
         type: 'bar',
         height: 350,
         stacked: true,
+
         stackType: '100%',
       },
       responsive: [
@@ -53,11 +65,28 @@ const AgeGraph = ({
       },
       fill: {
         opacity: 1,
+        colors: getChartColors(choices?.length),
       },
       legend: {
         position: 'right',
         offsetX: 0,
         offsetY: 50,
+        colors: getChartColors(choices?.length),
+      },
+    },
+    plotOptions: {
+      bar: {
+        horizontal: false,
+        borderRadius: 10,
+        dataLabels: {
+          total: {
+            enabled: true,
+            style: {
+              fontSize: '13px',
+              fontWeight: 900,
+            },
+          },
+        },
       },
     },
   };
@@ -96,6 +125,16 @@ const AgeGraph = ({
           />
         </div>
       )}
+      <Information>
+        {choices.map((choice, index) => (
+          <Option key={index}>
+            <ChoiceCircle
+              style={{ backgroundColor: choiceColors[index] || '#D9D9D9' }}
+            />
+            <OptionName>{choice.choice_text}</OptionName>
+          </Option>
+        ))}
+      </Information>
     </Container>
   );
 };
@@ -103,9 +142,14 @@ const AgeGraph = ({
 export default AgeGraph;
 
 const Container = styled.div`
+  width: 400px;
   & span {
     font-family: 'NEXON Lv1 Gothic OTF';
-    font-size: 20px;
+    font-size: 10px;
+  }
+
+  & .apexcharts-legend {
+    display: none;
   }
 `;
 
@@ -125,4 +169,36 @@ const Chevron = styled.img`
     transform: rotate(180deg);
   }
   transition: transform 0.3s ease;
+`;
+
+const Information = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+const OptionName = styled.div`
+  display: flex;
+  justify-content: start;
+  margin-left: 0;
+  align-items: center;
+  font-size: 12px;
+  color: ${props => props.theme.colors.grayColor};
+`;
+
+const ChoiceCircle = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
+  margin-right: 10px;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+`;
+
+const Option = styled.div`
+  display: grid;
+  grid-template-columns: 30% 70%;
+  width: 100vw;
+  margin: 0 auto;
 `;

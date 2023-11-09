@@ -1,10 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const choiceColors = ['#17355a', '#457c9e', '#a7dcdd', '#D9D9D9', '#4F4F4F'];
-
 const ResultTop = ({ voteResult }) => {
-  const total_choices = voteResult.statistics?.choice;
+  const getChartColors = length => {
+    if (length === 2) {
+      return ['#17355a', '#ff495a'];
+    } else {
+      return ['#17355a', '#457c9e', '#a7dcdd', '#D9D9D9', '#4F4F4F'];
+    }
+  };
+
+  const choiceColors = getChartColors(voteResult?.poll?.choices?.length);
+
+  const total_choices = voteResult?.statistics?.choice;
   const total_choicesArray = [];
 
   for (let i = 1; i <= 5; i++) {
@@ -44,7 +52,6 @@ const ResultTopContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin: 0 auto;
-  width: 500px;
 `;
 
 const ResultTitle = styled.h1`
@@ -72,7 +79,8 @@ const ResultExplanation = styled.div`
 
 const Option = styled.div`
   display: grid;
-  grid-template-columns: 150px 100px 200px;
+  grid-template-columns: 35% 20% 45%;
+  width: 100vw;
   margin: 5px auto;
 `;
 
