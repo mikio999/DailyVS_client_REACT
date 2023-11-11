@@ -40,9 +40,6 @@ function CommentElement({ parentId, user, data, reply, setShowReply }) {
         onMouseEnter={handleBtnME}
         onMouseLeave={handleBtnML}
         onClick={() => {
-          // if (reply.length > 0) {
-          //   setShowReply(curr => !curr);
-          // }
           setShowReply(curr => !curr);
         }}
       >
@@ -77,10 +74,9 @@ function CommentElement({ parentId, user, data, reply, setShowReply }) {
   );
 }
 const Container = styled.div`
-  width: 100%;
   border-radius: 10px;
   padding: 15px 0;
-  margin: 0 10px;
+  margin: 0 2rem;
   display: flex;
   justify-content: center;
   flex-direction: column;
