@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import theme from '../../styles/theme';
-import HeaderText from '../Atoms/HeaderText';
 import CommentBox from './CommentBox';
-import CommentCard from './CommentCard';
 import CommentInput from './CommentInput';
 import Paginator from '../Molecules/Paginator';
 import { useSelector } from 'react-redux';
+import CommentHeader from './CommentHeader';
 
 function Comment({ voteId, voteChoice }) {
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
@@ -16,6 +14,8 @@ function Comment({ voteId, voteChoice }) {
   const [userInfo, setUserInfo] = useState('');
   const [newcomments, setNewcomments] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [filter, setFilter] = useState('newest');
+
   const addComment = newComment => {
     setNewcomments([...newcomments, newComment]);
   };
@@ -59,7 +59,7 @@ function Comment({ voteId, voteChoice }) {
       };
 
       fetch(
-        `${process.env.REACT_APP_HOST}/${voteId}/comment/newest?page=${currentPage}`,
+        `${process.env.REACT_APP_HOST}/${voteId}/comment/${filter}?page=${currentPage}`,
         {
           headers: config.headers,
         },
@@ -71,7 +71,7 @@ function Comment({ voteId, voteChoice }) {
         });
     } else {
       fetch(
-        `${process.env.REACT_APP_HOST}/${voteId}/comment/newest?page=${currentPage}`,
+        `${process.env.REACT_APP_HOST}/${voteId}/comment/${filter}?page=${currentPage}`,
       )
         .then(response => response.json())
         .then(result => {
@@ -79,34 +79,26 @@ function Comment({ voteId, voteChoice }) {
           setCommentsCount(result.comments_count);
         });
     }
-  }, [currentPage]);
+  }, [currentPage, commentsCount, filter]);
 
   return (
     <Container>
-      <div style={{ width: 50, marginRight: 'auto', paddingLeft: 20 }}>
-        <HeaderText content="댓글" />
-      </div>
+      <CommentHeader
+        setCommentsCount={setCommentsCount}
+        commentsCount={commentsCount}
+        filter={filter}
+        setFilter={setFilter}
+      />
       <CommentInput
         voteId={voteId}
         voteChoice={voteChoice}
         onCommentSubmit={addComment}
         userInfo={userInfo}
         setCurrentPage={setCurrentPage}
+        setCommentsCount={setCommentsCount}
+        commentsCount={commentsCount}
       />
       <Wrapper>
-        {newcomments &&
-          newcomments
-            ?.slice()
-            .reverse()
-            .map((comment, index) => (
-              <CommentCard
-                key={index}
-                data={comment}
-                voteChoice={voteChoice}
-                userInfo={userInfo}
-                voteId={voteId}
-              />
-            ))}
         {comments &&
           comments.map(data => (
             <CommentBox
@@ -134,11 +126,11 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   margin: 0 auto;
-  background-color: ${theme.colors.pinkBgColor};
   padding: 20px;
 `;
 
 const Wrapper = styled.div`
   width: 100%;
 `;
+
 export default Comment;

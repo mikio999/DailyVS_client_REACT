@@ -19,7 +19,6 @@ const AgeGraph = ({
     setIsGraphVisible(!isGraphVisible);
   };
 
-  console.log(choices);
   const getChartColors = length => {
     if (length === 2) {
       return ['#17355a', '#ff495a'];

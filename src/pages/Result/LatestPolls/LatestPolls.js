@@ -42,21 +42,20 @@ const LatestTitle = styled.h1`
   justify-content: center;
   font-family: 'GongGothicLight';
   font-size: 24px;
-
   color: #457c9e;
 `;
 
 const LikeLine = styled(Link)`
   display: grid;
   grid-template-columns: 10% 60% 30%;
-
-  /* width: min(100%, 1000px); */
   margin: 1rem 2rem;
   font-family: 'GongGothicLight';
   &:hover {
     cursor: pointer;
     opacity: 0.8;
   }
+  border-bottom: 1px solid #d9d9d9;
+  padding-bottom: 5px;
 `;
 
 const TruncateText = styled.span`

@@ -44,11 +44,13 @@ const MypageCreateList = () => {
           <LikeDate>{poll.created_at?.slice(0, 10)}</LikeDate>
         </LikeLine>
       ))}
-      <Paginator
-        count={listCount}
-        onPageChange={setCurrentPage}
-        currentPage={currentPage}
-      />
+      <PageContainer>
+        <Paginator
+          count={listCount}
+          onPageChange={setCurrentPage}
+          currentPage={currentPage}
+        />
+      </PageContainer>
     </Container>
   );
 };
@@ -66,17 +68,27 @@ const VoteListTitle = styled.h1`
   font-family: 'GongGothicMedium';
   font-size: 24px;
   margin: 20px;
-  width: 540px;
 `;
 
 const LikeLine = styled(Link)`
   display: grid;
-  grid-template-columns: 40px 300px 100px 100px;
+  grid-template-columns: 7% 34% 30% 30%;
   margin-top: 10px;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  width: 100%;
+  max-width: 1200px;
   font-family: 'GongGothicLight';
+  font-size: 15px;
   &:hover {
     cursor: pointer;
     opacity: 0.8;
+  }
+  @media (min-width: 768px) {
+    grid-template-columns: 10% 50% 20% 20%;
+    width: 100%;
+    grid-gap: 5px;
+    font-size: 16px;
   }
 `;
 
@@ -90,8 +102,12 @@ const TruncateText = styled.span`
 const LikeName = styled.h1`
   font-family: 'GongGothicLight';
   color: #17355a;
-  font-size: 18px;
+  font-size: 15px;
   margin: 5px;
+  @media (min-width: 768px) {
+    width: 100%;
+    font-size: 18px;
+  }
 `;
 
 const LikeImage = styled.img`
@@ -112,4 +128,10 @@ const LikeDate = styled.div`
   display: flex;
   align-items: center;
   color: gray;
+  font-size: 12px;
+`;
+
+const PageContainer = styled.div`
+  display: flex;
+  justify-content: center;
 `;

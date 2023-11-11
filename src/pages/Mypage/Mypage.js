@@ -5,7 +5,6 @@ import MypageVoteList from './MypageVoteList/MypageVoteList';
 import MypageLikeList from './MypageLikeList/MypageLikeList';
 import theme from '../../styles/theme';
 import MypageCreateList from './MypageCreateList/MypageCreateList';
-import { logout } from '../../actions/auth';
 
 const Mypage = ({ logout }) => {
   const [userInformation, setUserInformation] = useState('');
@@ -44,10 +43,13 @@ const Mypage = ({ logout }) => {
   if (loading) return;
   return (
     <Container>
-      <MypageInformation userInformation={userInformation} />
-      <MypageVoteList />
-      <MypageCreateList />
-      <MypageLikeList />
+      <InformationTitle>나의 정보</InformationTitle>
+      <ResponseContainer>
+        <MypageInformation userInformation={userInformation} />
+        <MypageVoteList />
+        <MypageCreateList />
+        <MypageLikeList />
+      </ResponseContainer>
       <LogoutContainer>
         <LogOut href="/login" onClick={logout_user}>
           로그아웃
@@ -66,6 +68,13 @@ const Container = styled.div`
   min-height: calc(100vh - 136px - 200px);
   background-color: ${props => props.theme.colors.blueBgColor};
 `;
+
+const InformationTitle = styled.h1`
+  font-family: 'GongGothicMedium';
+  font-size: 28px;
+  margin: 20px auto;
+`;
+
 const LogoutContainer = styled.div`
   width: min(100%, 460px);
   height: 50px;
@@ -88,5 +97,13 @@ const LogOut = styled.div`
     background-color: white;
     border: 1px solid ${theme.colors.redpinkPrimaryColor};
     color: ${theme.colors.redpinkPrimaryColor};
+  }
+`;
+
+const ResponseContainer = styled.div`
+  @media (min-width: 768px) {
+    display: grid;
+    column-gap: 3rem;
+    grid-template-columns: 1fr 1fr;
   }
 `;
