@@ -102,51 +102,53 @@ const ResultGraph = ({ voteResult }) => {
   return (
     <GraphContainer>
       <GraphCategory>카테고리</GraphCategory>
-      {voteResult.poll?.category.some(item => item.name === 'gender') && (
-        <GenderGraph
-          choices={voteResult.poll?.choices}
-          man_choices={man_choicesArray}
-          woman_choices={woman_choicesArray}
-        />
-      )}
-      {voteResult.poll?.category.some(item => item.name === 'mbti') && (
-        <>
-          <EIGraph
+      <ResponsiveContainer>
+        {voteResult.poll?.category.some(item => item.name === 'gender') && (
+          <GenderGraph
             choices={voteResult.poll?.choices}
-            e_choices={e_choicesArray}
-            i_choices={i_choicesArray}
+            man_choices={man_choicesArray}
+            woman_choices={woman_choicesArray}
           />
+        )}
+        {voteResult.poll?.category.some(item => item.name === 'mbti') && (
+          <>
+            <EIGraph
+              choices={voteResult.poll?.choices}
+              e_choices={e_choicesArray}
+              i_choices={i_choicesArray}
+            />
 
-          <SNGraph
-            choices={voteResult.poll?.choices}
-            s_choices={s_choicesArray}
-            n_choices={n_choicesArray}
-          />
+            <SNGraph
+              choices={voteResult.poll?.choices}
+              s_choices={s_choicesArray}
+              n_choices={n_choicesArray}
+            />
 
-          <TFGraph
-            choices={voteResult.poll?.choices}
-            t_choices={t_choicesArray}
-            f_choices={f_choicesArray}
-          />
+            <TFGraph
+              choices={voteResult.poll?.choices}
+              t_choices={t_choicesArray}
+              f_choices={f_choicesArray}
+            />
 
-          <PJGraph
+            <PJGraph
+              choices={voteResult.poll?.choices}
+              p_choices={p_choicesArray}
+              j_choices={j_choicesArray}
+            />
+          </>
+        )}
+        {voteResult.poll?.category.some(item => item.name === 'age') && (
+          <AgeGraph
             choices={voteResult.poll?.choices}
-            p_choices={p_choicesArray}
-            j_choices={j_choicesArray}
+            choices_10={choicesArray_10}
+            choices_20_1={choicesArray_20_1}
+            choices_20_2={choicesArray_20_2}
+            choices_30_1={choicesArray_30_1}
+            choices_30_2={choicesArray_30_2}
+            choices_40={choicesArray_40}
           />
-        </>
-      )}
-      {voteResult.poll?.category.some(item => item.name === 'age') && (
-        <AgeGraph
-          choices={voteResult.poll?.choices}
-          choices_10={choicesArray_10}
-          choices_20_1={choicesArray_20_1}
-          choices_20_2={choicesArray_20_2}
-          choices_30_1={choicesArray_30_1}
-          choices_30_2={choicesArray_30_2}
-          choices_40={choicesArray_40}
-        />
-      )}
+        )}
+      </ResponsiveContainer>
     </GraphContainer>
   );
 };
@@ -156,7 +158,6 @@ export default ResultGraph;
 const GraphContainer = styled.div`
   display: flex;
   flex-direction: column;
-  /* justify-content: flex-start; */
   margin: 0 auto;
 `;
 
@@ -165,4 +166,11 @@ const GraphCategory = styled.h1`
   font-size: 24px;
   font-family: 'GongGothicLight';
   color: ${props => props.theme.colors.turquoisSecondaryColor};
+`;
+
+const ResponsiveContainer = styled.div`
+  @media (min-width: 768px) {
+    display: grid;
+    grid-template-columns: 50% 50%;
+  }
 `;

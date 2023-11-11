@@ -6,28 +6,30 @@ const ResultInfo = ({ information }) => {
   const parsedDate = information?.created_at?.split('T')[0];
   return (
     <Container>
-      <SecondWriter>
-        <FirstWriter>
-          <Title>글쓴이</Title>
-          <Content>{information?.owner?.nickname}</Content>
-          <Content>{parsedDate}</Content>
-        </FirstWriter>
-      </SecondWriter>
-      <PollLikeBtn />
+      <FirstWriter>
+        <Title>글쓴이</Title>
+        <Content>{information?.owner?.nickname}</Content>
+        <Content>{parsedDate}</Content>
+      </FirstWriter>
+      <SecondContainer>
+        <PollLikeBtn />
+      </SecondContainer>
     </Container>
   );
 };
 export default ResultInfo;
 
 const Container = styled.div`
+  width: min(100%, 1100px);
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  margin-top: 2rem;
 `;
 
 const FirstWriter = styled.div`
-  display: flex;
   font-size: 14px;
-  margin: 1rem;
+  margin-left: auto;
+  margin-right: auto;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -43,12 +45,12 @@ const Content = styled.div`
   justify-content: center;
   align-items: center;
   margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  line-height: 1.2;
   color: #17355a;
 `;
 
-const SecondWriter = styled.div`
+const SecondContainer = styled.div`
   display: flex;
-  flex-direction: column;
-  margin: 1rem;
-  font-size: 14px;
+  margin-left: auto;
 `;

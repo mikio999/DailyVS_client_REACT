@@ -151,7 +151,7 @@ function MainHero({ data }) {
         <HeroMenuContainer>
           <FortuneContainer to="/fortune" className="heroMenu">
             <div className="fortuneHeader">
-              <h2>오늘의 포춘쿠키 뽑으러 가기</h2>
+              <h2>오늘의 포춘쿠키</h2>
             </div>
             <div className="fortuneIcon">
               <img
@@ -413,7 +413,6 @@ const VS = styled.div`
 `;
 const HeroMenuContainer = styled.div`
   width: 350px;
-
   background-color: ${theme.colors.darkbluePrimaryColor};
   padding: 16px;
   grid-gap: 16px;
@@ -422,6 +421,10 @@ const HeroMenuContainer = styled.div`
   & > .heroMenu {
     width: 100%;
     cursor: pointer;
+    background-color: ${theme.colors.darkbluePrimaryColor};
+  }
+  & > .heroMenu h1 {
+    background-color: #17355a;
   }
   @media screen and (max-width: 1000px) {
     grid-template-rows: 1fr;
@@ -500,7 +503,7 @@ const FortuneContainer = styled(Link)`
 `;
 
 const MakeVoteContainer = styled.div`
-  background: url(${require('../../../assets/kakao-thumbnail.png')});
+  background: url(${require('../../../assets/MainSide/DVGif.gif')});
   background-size: cover;
   background-position: center;
   display: flex;
@@ -517,6 +520,7 @@ const MakeVoteContainer = styled.div`
     justify-content: center;
     align-items: center;
     font-size: 20px;
+    font-family: 'GongGothicLight';
   }
   &:hover h2 {
     color: black;

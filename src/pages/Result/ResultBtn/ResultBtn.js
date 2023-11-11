@@ -72,6 +72,12 @@ const Container = styled.div`
   align-items: center;
   margin-top: 5px;
   font-size: 20px;
+  @media (min-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    margin-left: 50px;
+    margin-right: auto;
+  }
 `;
 
 const ShareBtn = styled.button`
@@ -81,10 +87,12 @@ const ShareBtn = styled.button`
   width: 150px;
   height: 50px;
   border-radius: 5px;
-  border: solid black 1px;
   font-size: 16px;
   margin: 10px;
+  border: none;
   transition: box-shadow 0.3s;
+  background-color: #457c9e;
+  cursor: pointer;
 `;
 
 const ShareImg = styled.img`
@@ -93,7 +101,10 @@ const ShareImg = styled.img`
   content: url(${shareImg});
 `;
 
-const ShareWord = styled.div``;
+const ShareWord = styled.div`
+  color: white;
+  font-family: 'GongGothicLight';
+`;
 
 const CaptureBtn = styled.button`
   display: flex;
@@ -109,9 +120,12 @@ const CaptureBtn = styled.button`
     props.disabled ? '#bdbdbd' : props.theme.colors.darkbluePrimaryColor};
   margin: 10px;
   transition: box-shadow 0.3s;
+  cursor: pointer;
 `;
 
-const CaptureWord = styled.div``;
+const CaptureWord = styled.div`
+  font-family: 'GongGothicLight';
+`;
 const CaptureImg = styled.img`
   margin-left: 5px;
   width: 20px;

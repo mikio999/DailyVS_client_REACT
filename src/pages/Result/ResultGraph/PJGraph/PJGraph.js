@@ -11,8 +11,8 @@ const PJGraph = ({ choices, p_choices, j_choices }) => {
     }
   };
 
-  const [isGraphVisible, setIsGraphVisible] = useState(false);
-  const [isRotated, setIsRotated] = useState(true);
+  const [isGraphVisible, setIsGraphVisible] = useState(true);
+  const [isRotated, setIsRotated] = useState(false);
 
   const toggleRotation = () => {
     setIsRotated(!isRotated);

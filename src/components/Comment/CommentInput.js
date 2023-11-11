@@ -10,9 +10,12 @@ function CommentInput({
   voteChoice,
   onCommentSubmit,
   userInfo,
+  setCommentsCount,
+  commentsCount,
 }) {
   const [comment, setComment] = useState('');
 
+  console.log(commentsCount);
   const handleChange = e => {
     const newComment = e.target.value;
     setComment(newComment);
@@ -41,8 +44,7 @@ function CommentInput({
       .then(response => response.json())
       .then(data => {
         console.log('성공:', data);
-        window.location.reload();
-        window.scrollTo(2000, document.body.scrollHeight);
+        setCommentsCount(commentsCount + 1);
       })
       .catch(error => {
         console.error('데이터 받기 실패:', error);

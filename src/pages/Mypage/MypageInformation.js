@@ -29,7 +29,6 @@ const MypageInformation = ({ userInformation }) => {
 
   return (
     <Container>
-      <InformationTitle>나의 정보</InformationTitle>
       <UserBox>
         <UserImg src={require('../../assets/Nav/Logged.png')} />
         <UserFeature>
@@ -63,33 +62,37 @@ export default MypageInformation;
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-`;
-
-const InformationTitle = styled.h1`
-  font-family: 'GongGothicMedium';
-  font-size: 24px;
-  margin: 20px;
+  margin-bottom: 2rem;
+  margin-left: auto;
+  margin-right: auto;
+  min-width: 350px;
+  @media (min-width: 768px) {
+    margin-top: 5rem;
+  }
 `;
 
 const UserBox = styled.div`
   display: grid;
-  grid-template-columns: 100px 380px;
-  margin: 10px;
+  grid-template-columns: 25% 70%;
+  width: 100%;
+  /* margin: 10px; */
 `;
 
 const UserImg = styled.img`
   width: 90px;
+  margin-left: auto;
 `;
 
 const UserFeature = styled.div`
   margin-left: 20px;
+  width: 100%;
 `;
 
 const UserName = styled.h2`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 24px;
+  font-size: 18px;
   font-family: 'GongGothicLight';
   color: #457c9e;
 `;
@@ -103,7 +106,7 @@ const UserAge = styled.h2`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 20px;
+  font-size: 17px;
   font-family: 'GongGothicLight';
   margin-left: 1rem;
 `;
@@ -115,7 +118,7 @@ const AgeSpan = styled.span`
 
 const FeatureTop = styled.div`
   display: flex;
-  width: 350px;
+
   padding-bottom: 15px;
   border-bottom: #bdbdbd 2px solid;
 `;
@@ -126,8 +129,8 @@ const UserModify = styled.button`
   align-items: center;
   border: none;
   border-radius: 5px;
-  margin-left: auto;
-  font-size: 18px;
+  margin-left: 10px;
+  font-size: 17px;
   width: 150px;
   height: 40px;
   color: white;
@@ -147,7 +150,7 @@ const UserCharacter = styled.div`
 `;
 
 const UserMBTI = styled.div`
-  font-size: 20px;
+  font-size: 17px;
   font-family: 'GongGothicLight';
 `;
 
@@ -157,7 +160,7 @@ const MBTISpan = styled.span`
 
 const UserGender = styled.div`
   margin-left: 20px;
-  font-size: 20px;
+  font-size: 17px;
   font-family: 'GongGothicLight';
 `;
 

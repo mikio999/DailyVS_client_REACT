@@ -15,6 +15,7 @@ const Result = () => {
   const [voteResult, setVoteResult] = useState([]);
   const [showWatermark, setShowWatermark] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+  const [scrollColor, setScrollColor] = useState('#fff9f9');
 
   const resultRef = useRef(null);
   const params = useParams();
@@ -26,6 +27,25 @@ const Result = () => {
   const changePage = pageNumber => {
     setCurrentPage(pageNumber);
   };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      const scrollPercentage = (scrollPosition / window.innerHeight) * 100;
+
+      if (scrollPercentage <= 40) {
+        setScrollColor('#fff9f9');
+      } else if (scrollPercentage <= 75) {
+        setScrollColor('#f8f8ff');
+      } else {
+        setScrollColor('#f9fcff');
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -61,7 +81,6 @@ const Result = () => {
             navigate('/error');
           } else {
             setVoteResult(result);
-            console.log(result);
           }
         });
     }
@@ -80,13 +99,21 @@ const Result = () => {
   };
 
   return (
-    <ResultContainer>
+    <ResultContainer style={{ backgroundColor: scrollColor }}>
       <CaptureContainer ref={resultRef}>
-        <ResultTop voteResult={voteResult} />
-        <TotalGraph voteResult={voteResult} />
-        <WaterMark />
+        <ResultTitle>{voteResult.poll?.title}</ResultTitle>
+        <ResultTotalPeople>
+          <ResultTotal>총 투표수:</ResultTotal>
+          <TotalPeople>{voteResult.statistics?.total_count}</TotalPeople>
+          <ResultTotal>건</ResultTotal>
+        </ResultTotalPeople>
+        <ResultExplanation>{voteResult.poll?.content}</ResultExplanation>
+        <ResponsiveContainer>
+          <ResultTop voteResult={voteResult} />
+          <TotalGraph voteResult={voteResult} />
+          <ResultBtn onCapture={handleCapture} />
+        </ResponsiveContainer>
       </CaptureContainer>
-      <ResultBtn onCapture={handleCapture} />
       <ResultGraph voteResult={voteResult} />
       <ResultInfo information={voteResult?.poll} />
       <Comment
@@ -108,11 +135,60 @@ const ResultContainer = styled.div`
   background-color: ${props => props.theme.colors.pinkBgColor};
 `;
 
+const ResultTitle = styled.h1`
+  word-break: keep-all;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  margin-top: 20px;
+  font-size: 28px;
+  font-family: 'GongGothicMedium';
+  color: ${props => props.theme.colors.darkbluePrimaryColor};
+`;
+
+const ResultExplanation = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  padding: 0 20px;
+  font-size: 16px;
+  word-break: keep-all;
+  color: ${props => props.theme.colors.grayColor};
+  @media (min-width: 768px) {
+    margin-right: 10rem;
+    margin-left: 10rem;
+  }
+`;
+
 const CaptureContainer = styled.div``;
 
-const WaterMark = styled.img`
-  content: url('/images/Nav/main_logo.png');
-  width: 200px;
-  display: ${props => (props.showWatermark ? 'flex' : 'none')};
-  margin: 0px auto;
+const ResponsiveContainer = styled.div`
+  @media (min-width: 768px) {
+    display: grid;
+    grid-template-columns: 35% 30% 35%;
+  }
+`;
+
+const ResultTotalPeople = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 16px;
+  @media (min-width: 768px) {
+    margin-left: auto;
+  }
+`;
+
+const ResultTotal = styled.div`
+  font-family: 'GongGothicMedium';
+  color: ${props => props.theme.colors.darkbluePrimaryColor};
+`;
+
+const TotalPeople = styled.div`
+  margin-left: 10px;
+  margin-right: 5px;
+  color: ${props => props.theme.colors.redpinkPrimaryColor};
 `;
