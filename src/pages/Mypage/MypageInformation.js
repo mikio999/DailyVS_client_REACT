@@ -95,6 +95,7 @@ const UserName = styled.h2`
   font-size: 18px;
   font-family: 'GongGothicLight';
   color: #457c9e;
+  white-space: nowrap;
 `;
 
 const UserSpan = styled.span`

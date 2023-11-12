@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
 import LoginNav from '../../components/LoginNav/LoginNav';
 import { connect, useDispatch } from 'react-redux';
@@ -141,7 +141,10 @@ const Signup = ({ signup, isAuthenticated }) => {
             확인 비밀번호
             {passwordMatch && (
               <PasswordMatchText>
-                비밀번호 일치 <PassWordCheck src="images/LoginNav/check.png" />
+                비밀번호 일치{' '}
+                <PassWordCheck
+                  src={require('../../assets/LoginNav/check.png')}
+                />
               </PasswordMatchText>
             )}
           </SignupLabel>
@@ -247,6 +250,7 @@ const SignupPage = styled.div`
   align-items: center;
   font-size: 18px;
   margin: 0 auto;
+  width: 100vw;
 `;
 
 const SignupContainer = styled.form`
@@ -261,8 +265,17 @@ const SignupLogo = styled.img`
 
 const PassWordCheck = styled.img`
   opacity: 0.9;
-  width: 20px;
+  width: 15px;
   margin-left: 5px;
+`;
+
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 `;
 
 const PasswordMatchText = styled.span`
@@ -270,7 +283,9 @@ const PasswordMatchText = styled.span`
   align-items: center;
   margin-left: 10px;
   color: green;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.8s ease;
+  animation: ${fadeIn} 0.8s ease-in;
+  font-size: 12px;
 `;
 
 const SignupLabel = styled.label`
@@ -282,7 +297,7 @@ const SignupLabel = styled.label`
 `;
 
 const TextInput = styled.input`
-  width: 300px;
+  width: min(100%, 300px);
   height: 50px;
   margin-bottom: 10px;
   font-size: 18px;

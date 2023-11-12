@@ -14,6 +14,8 @@ import RegisterBtn from '../../../components/Molecules/DetailBtns/RegisterBtn';
 import AuthSubmitBtn from '../../../components/Molecules/AuthSubmitBtn';
 import RevoteBtn from '../../../components/Molecules/RevoteBtn';
 import ResultBtn from '../../../components/Molecules/ResultBtn';
+import Writer from '../../../components/Molecules/Writer';
+import VoteDeleteBtn from '../../../components/Atoms/VoteDeleteBtn';
 
 const Detail = () => {
   const dispatch = useDispatch();
@@ -80,11 +82,23 @@ const Detail = () => {
     return selectedOption !== '';
   };
 
+  const isUser = true;
   return (
     <DetailContainer>
       {voteDetail ? (
         <>
           <DetailCard voteDetail={voteDetail} />
+          {isUser ? (
+            <SubInfo>
+              <VoteDeleteBtn voteId={voteDetail.poll.id} />
+              <Writer information={voteDetail.poll} />
+            </SubInfo>
+          ) : (
+            <WriterInfo>
+              <Writer information={voteDetail.poll} />
+            </WriterInfo>
+          )}
+
           <OptionCard
             voteDetail={voteDetail}
             selectedOption={selectedOption}
@@ -112,6 +126,11 @@ const Detail = () => {
 
 export default Detail;
 
+const WriterInfo = styled.div`
+  margin-left: 10rem;
+  white-space: nowrap;
+`;
+
 const DetailContainer = styled.form`
   display: flex;
   flex-direction: column;
@@ -129,4 +148,12 @@ const ReButtons = styled.div`
   margin-top: 2rem;
   width: 350px;
   align-items: center;
+`;
+
+const SubInfo = styled.div`
+  display: grid;
+  grid-template-columns: 50% 50%;
+  width: 400px;
+  margin: 0 auto;
+  justify-content: center;
 `;

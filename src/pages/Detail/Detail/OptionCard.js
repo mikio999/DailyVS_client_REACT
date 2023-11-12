@@ -60,7 +60,6 @@ const DetailContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 2rem;
   background-color: #f8f8ff;
 `;
 

@@ -104,6 +104,7 @@ const ResponseContainer = styled.div`
   @media (min-width: 768px) {
     display: grid;
     column-gap: 3rem;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, minmax(300px, auto));
+    grid-template-rows: repeat(2, minmax(300px, auto));
   }
 `;
