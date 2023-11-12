@@ -24,11 +24,19 @@ const MypageVoteList = () => {
       .then(response => response.json())
       .then(result => {
         setVoteList(result.uservote);
-
+        console.log(result.uservote);
         setListCount(result.uservote_count);
       });
   }, [currentPage]);
 
+  if (!voteList || !voteList.length) {
+    return (
+      <Container>
+        <VoteListTitle>내가 투표한 VOTE</VoteListTitle>
+        <p>내가 투표한 투표가 존재하지 않습니다. </p>
+      </Container>
+    );
+  }
   return (
     <Container>
       <VoteListTitle>내가 투표한 VOTE</VoteListTitle>

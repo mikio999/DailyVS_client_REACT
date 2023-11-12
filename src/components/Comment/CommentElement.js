@@ -1,10 +1,21 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 import theme from '../../styles/theme';
 import useClickEffect from '../../utils/hooks/useClickEffect';
 import CommentLikeBtn from '../Atoms/CommentLikeBtn';
+import DeleteComment from '../Atoms/DeleteComment';
+import ReportComment from '../Atoms/ReportComment';
 
-function CommentElement({ parentId, user, data, reply, setShowReply }) {
+function CommentElement({
+  parentId,
+  user,
+  data,
+  reply,
+  setShowReply,
+  voteId,
+  commentsCount,
+  setCommentsCount,
+}) {
   function truncateString(str, maxLength) {
     if (str?.length > maxLength) {
       return str?.slice(0, maxLength) + '...';
@@ -12,6 +23,7 @@ function CommentElement({ parentId, user, data, reply, setShowReply }) {
     return str;
   }
 
+  console.log('dataId', data.id);
   const Time = () => {
     return (
       <span
@@ -47,6 +59,9 @@ function CommentElement({ parentId, user, data, reply, setShowReply }) {
       </ReplyBtn>
     );
   };
+
+  const isUser = data?.is_owner;
+
   return (
     <Container re={reply ? false : true}>
       {!reply && (
@@ -64,8 +79,23 @@ function CommentElement({ parentId, user, data, reply, setShowReply }) {
         <div className="result"> {truncateString(data?.choice_text, 8)}</div>
         <Time />
       </Info>
-      <Content>{data.content}</Content>
-
+      <CommentMain>
+        <Content>{data.content}</Content>
+        {isUser ? (
+          <BtnBox>
+            <DeleteComment
+              commentId={data?.id}
+              voteId={voteId}
+              commentsCount={commentsCount}
+              setCommentsCount={setCommentsCount}
+            />
+          </BtnBox>
+        ) : (
+          <BtnBox>
+            <ReportComment />
+          </BtnBox>
+        )}
+      </CommentMain>
       <Bottom>
         <CommentLikeBtn commentId={data?.id} />
         {!!reply && <Reply />}
@@ -73,10 +103,12 @@ function CommentElement({ parentId, user, data, reply, setShowReply }) {
     </Container>
   );
 }
+export default CommentElement;
+
 const Container = styled.div`
   border-radius: 10px;
   padding: 15px 0;
-  margin: 0 2rem;
+  margin: 0 1rem;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -111,6 +143,7 @@ const Info = styled.div`
 const Content = styled.div`
   display: flex;
   padding: 10px 0;
+  margin-right: 10px;
   width: min(100%, 1000px);
 `;
 
@@ -132,4 +165,11 @@ const ReplyBtn = styled.div`
   transition: 0.1s;
 `;
 
-export default CommentElement;
+const CommentMain = styled.div`
+  display: flex;
+`;
+
+const BtnBox = styled.div`
+  display: flex;
+  margin: auto;
+`;
