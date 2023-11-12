@@ -53,7 +53,7 @@ function Create() {
       },
     };
 
-    fetch(`http://127.0.0.1:8000/accounts/user_info/`, {
+    fetch(`${process.env.REACT_APP_HOST}/accounts/user_info/`, {
       headers: config.headers,
     })
       .then(response => response.json())
@@ -97,8 +97,7 @@ function Create() {
     const accessToken = localStorage.getItem('access');
     const headers = new Headers();
     headers.append('Authorization', `Bearer ${accessToken}`);
-
-    fetch(`http://localhost:8000/create`, {
+    fetch(`${process.env.REACT_APP_HOST}/create`, {
       method: 'POST',
       body: sendData,
       headers: headers,
