@@ -27,17 +27,14 @@ const KakaoAuth = () => {
       );
 
       const token = res.data.access_token;
-      console.log('ttttt', token);
       const accessTokenPost = await axios.post(
-        `http://localhost:8000/accounts/kakao/login/callback/`,
+        `${process.env.REACT_APP_HOST}/accounts/kakao/login/callback/`,
         { code: code, access: token },
         {
           headers: { Authorization: code },
         },
       );
-      console.log(accessTokenPost);
       const ourToken = accessTokenPost.data.access;
-      console.log(ourToken);
       localStorage.setItem('token', ourToken);
       localStorage.setItem('refresh', ourToken);
       localStorage.setItem('access', ourToken);
