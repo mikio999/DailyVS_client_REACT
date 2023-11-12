@@ -91,7 +91,7 @@ const Modify = ({ isAuthenticated }) => {
       body: JSON.stringify(userInformation),
     };
 
-    fetch(`http://localhost:8000/mypage`, requestOptions)
+    fetch(`${process.env.REACT_APP_HOST}/mypage`, requestOptions)
       .then(response => response.json())
       .then(result => {
         console.log('서버 응답:', result);
