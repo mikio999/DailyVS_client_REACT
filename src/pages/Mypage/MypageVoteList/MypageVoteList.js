@@ -62,6 +62,9 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 1rem;
+  @media (min-width: 768px) {
+    min-width: 100%;
+  }
 `;
 
 const VoteListTitle = styled.h1`
@@ -79,14 +82,15 @@ const LikeLine = styled(Link)`
   max-width: 1200px;
   font-family: 'GongGothicLight';
   font-size: 15px;
+  border-bottom: 1px solid #d9d9d9;
+  padding-bottom: 5px;
   &:hover {
     cursor: pointer;
     opacity: 0.8;
   }
-  @media (min-width: 768px) {
-    grid-template-columns: 10% 50% 20% 20%;
+  @media (min-width: 890px) {
+    grid-template-columns: 10% 230px 20% 20%;
     width: 100%;
-    grid-gap: 5px;
     font-size: 16px;
   }
 `;

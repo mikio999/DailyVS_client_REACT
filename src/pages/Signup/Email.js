@@ -68,6 +68,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   min-height: 40rem;
+  width: 100vw;
 `;
 
 const EmailTitle = styled.h1`

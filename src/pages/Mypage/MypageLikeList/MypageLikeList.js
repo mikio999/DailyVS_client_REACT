@@ -93,14 +93,15 @@ const LikeLine = styled(Link)`
   max-width: 1200px;
   font-family: 'GongGothicLight';
   font-size: 15px;
+  border-bottom: 1px solid #d9d9d9;
+  padding-bottom: 5px;
   &:hover {
     cursor: pointer;
     opacity: 0.8;
   }
-  @media (min-width: 768px) {
-    grid-template-columns: 10% 50% 20% 20%;
+  @media (min-width: 890px) {
+    grid-template-columns: 10% 230px 20% 20%;
     width: 100%;
-    grid-gap: 5px;
     font-size: 16px;
   }
 `;
@@ -117,6 +118,7 @@ const LikeName = styled.h1`
   color: #17355a;
   font-size: 15px;
   margin: 5px;
+  width: 150px;
   @media (min-width: 768px) {
     width: 100%;
     font-size: 18px;

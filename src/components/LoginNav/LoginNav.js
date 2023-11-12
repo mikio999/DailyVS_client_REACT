@@ -18,6 +18,7 @@ export default LoginNav;
 const Container = styled.div`
   background-color: ${props => props.theme.colors.pinkBgColor};
 `;
+
 const LoginNavContainer = styled.div`
   display: flex;
   justify-content: center;
