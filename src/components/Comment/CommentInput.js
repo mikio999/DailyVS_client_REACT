@@ -15,7 +15,6 @@ function CommentInput({
 }) {
   const [comment, setComment] = useState('');
 
-  console.log(commentsCount);
   const handleChange = e => {
     const newComment = e.target.value;
     setComment(newComment);
@@ -43,7 +42,6 @@ function CommentInput({
     })
       .then(response => response.json())
       .then(data => {
-        console.log('성공:', data);
         setCommentsCount(commentsCount + 1);
       })
       .catch(error => {

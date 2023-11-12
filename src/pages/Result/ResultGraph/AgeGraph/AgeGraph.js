@@ -115,25 +115,27 @@ const AgeGraph = ({
         연령대
       </Toggler>
       {isGraphVisible && (
-        <div id="chart">
-          <ReactApexChart
-            options={chartData.options}
-            series={chartData.series}
-            type="bar"
-            height={chartData.options.chart.height}
-          />
-        </div>
-      )}
-      <Information>
-        {choices.map((choice, index) => (
-          <Option key={index}>
-            <ChoiceCircle
-              style={{ backgroundColor: choiceColors[index] || '#D9D9D9' }}
+        <>
+          <div id="chart">
+            <ReactApexChart
+              options={chartData.options}
+              series={chartData.series}
+              type="bar"
+              height={chartData.options.chart.height}
             />
-            <OptionName>{choice.choice_text}</OptionName>
-          </Option>
-        ))}
-      </Information>
+          </div>
+          <Information>
+            {choices.map((choice, index) => (
+              <Option key={index}>
+                <ChoiceCircle
+                  style={{ backgroundColor: choiceColors[index] || '#D9D9D9' }}
+                />
+                <OptionName>{choice.choice_text}</OptionName>
+              </Option>
+            ))}
+          </Information>
+        </>
+      )}
     </Container>
   );
 };

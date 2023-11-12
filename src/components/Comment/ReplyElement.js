@@ -2,7 +2,6 @@ import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import theme from '../../styles/theme';
 import useClickEffect from '../../utils/hooks/useClickEffect';
-import CommentLikeBtn from '../Atoms/CommentLikeBtn';
 
 function ReplyElement({ parentId, user, data, reply, setShowReply }) {
   function truncateString(str, maxLength) {
@@ -73,10 +72,10 @@ function ReplyElement({ parentId, user, data, reply, setShowReply }) {
 }
 
 const Container = styled.div`
-  width: 100%;
+  width: 90%;
   border-radius: 10px;
   padding: 15px 0;
-  margin: 0 10px;
+  margin: 0 2rem;
   display: flex;
   justify-content: center;
   flex-direction: column;

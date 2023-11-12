@@ -36,7 +36,6 @@ const AuthSubmitBtn = ({ isFormValid }) => {
 
     fetch(`${process.env.REACT_APP_HOST}/accounts/user_info/`, requestOptions)
       .then(response => response.json())
-      .then(response => console.log(response))
       .then(result => {
         setUserInformation(result);
       });

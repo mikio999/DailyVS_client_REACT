@@ -73,14 +73,13 @@ const Container = styled.div`
 
 const UserBox = styled.div`
   display: grid;
-  grid-template-columns: 25% 70%;
+  grid-template-columns: 20% 80%;
   width: 100%;
-  /* margin: 10px; */
 `;
 
 const UserImg = styled.img`
-  width: 90px;
-  margin-left: auto;
+  width: 70px;
+  margin: auto;
 `;
 
 const UserFeature = styled.div`
@@ -109,7 +108,7 @@ const UserAge = styled.h2`
   align-items: center;
   font-size: 17px;
   font-family: 'GongGothicLight';
-  margin-left: 1rem;
+  margin-left: 10px;
 `;
 
 const AgeSpan = styled.span`
@@ -160,7 +159,7 @@ const MBTISpan = styled.span`
 `;
 
 const UserGender = styled.div`
-  margin-left: 20px;
+  margin-left: 10px;
   font-size: 17px;
   font-family: 'GongGothicLight';
 `;

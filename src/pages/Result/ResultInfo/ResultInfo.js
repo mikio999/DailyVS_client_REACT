@@ -28,7 +28,7 @@ const Container = styled.div`
 
 const FirstWriter = styled.div`
   font-size: 14px;
-  margin-left: auto;
+  margin-left: 2vw;
   margin-right: auto;
   display: flex;
   justify-content: center;

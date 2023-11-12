@@ -28,6 +28,15 @@ const MypageCreateList = () => {
       });
   }, [currentPage]);
 
+  if (!createList || !createList.length) {
+    return (
+      <Container>
+        <VoteListTitle>내가 투표한 VOTE</VoteListTitle>
+        <p>내가 만든 투표가 존재하지 않습니다. </p>
+      </Container>
+    );
+  }
+
   return (
     <Container>
       <VoteListTitle>내가 만든 VOTE</VoteListTitle>

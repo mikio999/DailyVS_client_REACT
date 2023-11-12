@@ -69,10 +69,12 @@ function ReplyCard({ voteChoice, user, data, reply, setShowReply }) {
   );
 }
 const Container = styled.div`
-  width: 100%;
+  width: 90%;
   border-radius: 10px;
   padding: 15px 0;
+  margin: 0 2rem;
   display: flex;
+  justify-content: center;
   flex-direction: column;
   gap: 10px;
   border-bottom: 1px solid ${theme.colors.lightGrayColor};
@@ -84,6 +86,7 @@ const Container = styled.div`
     top: 10px;
   }
 `;
+
 const Info = styled.div`
   display: flex;
   align-items: flex-end;

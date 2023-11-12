@@ -15,6 +15,7 @@ function Comment({ voteId, voteChoice }) {
   const [newcomments, setNewcomments] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [filter, setFilter] = useState('newest');
+  const [replyCount, setReplyCount] = useState('');
 
   const addComment = newComment => {
     setNewcomments([...newcomments, newComment]);
@@ -68,6 +69,7 @@ function Comment({ voteId, voteChoice }) {
         .then(result => {
           setComments(result.comments);
           setCommentsCount(result.comments_count);
+          console.log(result.comments);
         });
     } else {
       fetch(
@@ -79,8 +81,9 @@ function Comment({ voteId, voteChoice }) {
           setCommentsCount(result.comments_count);
         });
     }
-  }, [currentPage, commentsCount, filter]);
+  }, [currentPage, commentsCount, filter, replyCount]);
 
+  console.log(comments);
   return (
     <Container>
       <CommentHeader
@@ -108,6 +111,10 @@ function Comment({ voteId, voteChoice }) {
               voteChoice={voteChoice}
               userInfo={userInfo}
               setCurrentPage={setCurrentPage}
+              ReplyCount={replyCount}
+              setReplyCount={setReplyCount}
+              commentsCount={commentsCount}
+              setCommentsCount={setCommentsCount}
             />
           ))}
       </Wrapper>

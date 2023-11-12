@@ -4,7 +4,17 @@ import ReplyInput from './ReplyInput';
 import ReplyCard from './ReplyCard';
 import ReplyElement from './ReplyElement';
 
-function CommentBox({ setCurrentPage, data, voteId, voteChoice, userInfo }) {
+function CommentBox({
+  setCurrentPage,
+  data,
+  voteId,
+  voteChoice,
+  userInfo,
+  commentsCount,
+  setCommentsCount,
+  replyCount,
+  setReplyCount,
+}) {
   const [reply, setReply] = useState({});
   const [user, setUser] = useState({});
   const [showReply, setShowReply] = useState(false);
@@ -27,6 +37,9 @@ function CommentBox({ setCurrentPage, data, voteId, voteChoice, userInfo }) {
         data={data}
         reply={reply}
         setShowReply={setShowReply}
+        voteId={voteId}
+        commentsCount={commentsCount}
+        setCommentsCount={setCommentsCount}
       />
 
       {!!showReply &&
