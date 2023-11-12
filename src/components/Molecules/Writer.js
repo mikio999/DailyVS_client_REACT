@@ -27,6 +27,7 @@ const FirstWriter = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  white-space: nowrap;
 `;
 
 const Title = styled.div`

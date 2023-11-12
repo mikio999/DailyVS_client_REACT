@@ -24,7 +24,6 @@ const LatestPolls = ({ voteList }) => {
             <LikeName>{truncateString(poll?.title, 18)}</LikeName>
           </TruncateText>
           <LikeCreator>{poll.owner?.nickname}</LikeCreator>
-          {/* <LikeDate>{poll.created_at?.slice(0, 10)}</LikeDate> */}
         </LikeLine>
       ))}
     </Container>
