@@ -73,29 +73,24 @@ const Detail = () => {
       });
   }, []);
 
-  console.log('voteDetail', voteDetail);
-  console.log('categoryList', voteDetail.category_list);
-  console.log('length', voteDetail.category_list?.length);
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
-
   const isFormValid = () => {
     return selectedOption !== '';
   };
 
-  const isUser = true;
   return (
     <DetailContainer>
       {voteDetail ? (
         <>
           <DetailCard voteDetail={voteDetail} />
-          {isUser ? (
+          {voteDetail.is_owner ? (
             <SubInfo>
-              <VoteDeleteBtn voteId={voteDetail.poll.id} />
-              <Writer information={voteDetail.poll} />
+              <VoteDeleteBtn voteId={voteDetail.poll?.id} />
+              <Writer information={voteDetail?.poll} />
             </SubInfo>
           ) : (
             <WriterInfo>
-              <Writer information={voteDetail.poll} />
+              <Writer information={voteDetail?.poll} />
             </WriterInfo>
           )}
 
