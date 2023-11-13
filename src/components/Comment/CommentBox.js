@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import CommentElement from './CommentElement';
 import ReplyInput from './ReplyInput';
-import ReplyCard from './ReplyCard';
 import ReplyElement from './ReplyElement';
 
 function CommentBox({
@@ -40,6 +39,8 @@ function CommentBox({
         voteId={voteId}
         commentsCount={commentsCount}
         setCommentsCount={setCommentsCount}
+        replyCount={replyCount}
+        setReplyCount={setReplyCount}
       />
 
       {!!showReply &&
@@ -49,17 +50,12 @@ function CommentBox({
             key={repl?.id}
             user={repl?.user_info}
             data={repl}
+            voteId={voteId}
+            replyCount={replyCount}
+            setReplyCount={setReplyCount}
           />
         ))}
-      {newreplies &&
-        newreplies.map((comment, index) => (
-          <ReplyCard
-            key={index}
-            data={comment}
-            voteChoice={voteChoice.choice_text}
-            user={userInfo}
-          />
-        ))}
+
       {!!showReply && (
         <ReplyInput
           parentId={parentId}

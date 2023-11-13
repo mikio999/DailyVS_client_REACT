@@ -15,6 +15,8 @@ function CommentElement({
   voteId,
   commentsCount,
   setCommentsCount,
+  replyCount,
+  setReplyCount,
 }) {
   function truncateString(str, maxLength) {
     if (str?.length > maxLength) {
@@ -22,8 +24,8 @@ function CommentElement({
     }
     return str;
   }
+  setReplyCount(reply?.length);
 
-  console.log('dataId', data.id);
   const Time = () => {
     return (
       <span

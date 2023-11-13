@@ -15,7 +15,7 @@ function Comment({ voteId, voteChoice }) {
   const [newcomments, setNewcomments] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [filter, setFilter] = useState('newest');
-  const [replyCount, setReplyCount] = useState('');
+  const [replyCount, setReplyCount] = useState(0);
 
   const addComment = newComment => {
     setNewcomments([...newcomments, newComment]);
@@ -83,7 +83,6 @@ function Comment({ voteId, voteChoice }) {
     }
   }, [currentPage, commentsCount, filter, replyCount]);
 
-  console.log(comments);
   return (
     <Container>
       <CommentHeader

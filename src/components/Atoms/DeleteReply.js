@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const DeleteComment = ({ commentId, commentsCount, setCommentsCount }) => {
+const DeleteReply = ({ commentId, replyCount, setReplyCount }) => {
   const handleDelete = e => {
     e.preventDefault();
     const shouldDelete = window.confirm('댓글을 삭제하시겠습니까?');
@@ -23,11 +23,11 @@ const DeleteComment = ({ commentId, commentsCount, setCommentsCount }) => {
     })
       .then(response => response.json())
       .then(data => {
-        setCommentsCount(commentsCount - 1);
+        setReplyCount(replyCount - 1);
         console.log('성공:', data);
       })
       .catch(error => {
-        setCommentsCount(commentsCount - 1);
+        setReplyCount(replyCount - 1);
       });
   };
 
@@ -37,7 +37,7 @@ const DeleteComment = ({ commentId, commentsCount, setCommentsCount }) => {
     </Container>
   );
 };
-export default DeleteComment;
+export default DeleteReply;
 
 const Container = styled.div`
   margin: auto;
