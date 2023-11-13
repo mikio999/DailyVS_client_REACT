@@ -18,10 +18,11 @@ export default Writer;
 const Container = styled.div`
   font-size: 16px;
   height: 20px;
+  margin-left: auto;
 `;
 
 const FirstWriter = styled.div`
-  font-size: 14px;
+  font-size: 12px;
   margin: auto;
   padding-top: 3px;
   display: flex;
@@ -40,7 +41,7 @@ const Content = styled.div`
   justify-content: center;
   align-items: center;
   margin-left: 0.5rem;
-  margin-right: 0.5rem;
   line-height: 1.2;
+  font-size: 12px;
   color: #17355a;
 `;
