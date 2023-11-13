@@ -7,7 +7,6 @@ const ReportCommentModal = ({ isOpen, onClose, commentId }) => {
   const [reportType, setReportType] = useState('');
 
   useEffect(() => {
-    // 모달이 열릴 때 초기화 로직을 작성
     if (isOpen) {
       setReportType('');
     }
@@ -16,7 +15,6 @@ const ReportCommentModal = ({ isOpen, onClose, commentId }) => {
   const handleOverlayClick = e => {
     e.stopPropagation();
     e.preventDefault();
-    console.log('오버레이 클릭');
     if (e.target === e.currentTarget) {
       onClose();
     }

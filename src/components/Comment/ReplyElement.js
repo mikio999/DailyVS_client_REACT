@@ -90,7 +90,7 @@ function ReplyElement({
           </BtnBox>
         ) : (
           <BtnBox>
-            <ReportComment />
+            <ReportComment commentId={data?.id} />
           </BtnBox>
         )}
       </CommentMain>

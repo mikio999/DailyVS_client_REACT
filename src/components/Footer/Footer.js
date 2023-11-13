@@ -17,7 +17,7 @@ const FooterContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  width: 100vw;
   height: 20vh;
   margin: 0 auto;
   padding: 100px 0;

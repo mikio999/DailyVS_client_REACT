@@ -38,14 +38,12 @@ const Modify = ({ isAuthenticated }) => {
   formData.mbti = userInformation.mbti;
   formData.age = userInformation.age;
 
-  console.log(userInformation.email);
-
   useEffect(() => {
     if (isAuthenticated) {
       navigate('/');
     }
   }, [isAuthenticated, navigate]);
-  console.log(userInformation);
+
   const mbtiOptions = [
     'ISTJ',
     'ISFJ',
@@ -223,7 +221,7 @@ const SignupPage = styled.div`
 const SignupContainer = styled.form`
   display: flex;
   flex-direction: column;
-  padding: 0 20px 100px;
+  padding: 0 20px 50px;
 `;
 
 const SignupLogo = styled.img`
@@ -243,7 +241,6 @@ const SignupLabel = styled.label`
   display: flex;
   align-items: center;
   margin-top: 10px;
-
   height: 20px;
 `;
 
@@ -302,12 +299,13 @@ const SignupBtn = styled.button`
 const SignupToLogin = styled.div`
   font-size: 16px;
   margin-top: 10px;
+  margin-bottom: 2rem;
   display: flex;
   justify-content: center;
 `;
 
 const SignupLoginBtn = styled(Link)`
-  color: #ff495a;
+  color: #ff495a !important;
   margin: 0px 5px;
 `;
 
