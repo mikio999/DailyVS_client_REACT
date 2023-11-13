@@ -36,7 +36,7 @@ function ReplyElement({
   };
 
   const isUser = data?.is_owner;
-  console.log(data);
+
   const Reply = () => {
     const refReply = useRef(null);
 

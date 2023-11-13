@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 
@@ -6,11 +6,22 @@ const ReportCommentModal = ({ isOpen, onClose, commentId }) => {
   const reportRef = useRef(null);
   const [reportType, setReportType] = useState('');
 
+  useEffect(() => {
+    // 모달이 열릴 때 초기화 로직을 작성
+    if (isOpen) {
+      setReportType('');
+    }
+  }, [isOpen]);
+
   const handleOverlayClick = e => {
+    e.stopPropagation();
+    e.preventDefault();
+    console.log('오버레이 클릭');
     if (e.target === e.currentTarget) {
       onClose();
     }
   };
+
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
 
   const reportOptions = [
@@ -35,6 +46,7 @@ const ReportCommentModal = ({ isOpen, onClose, commentId }) => {
   ];
 
   const handleReportTypeChange = e => {
+    e.stopPropagation();
     setReportType(e.target.value);
   };
 
@@ -135,6 +147,7 @@ const FortuneModalContainer = styled.div`
   position: relative;
   width: 400px;
   height: 430px;
+  z-index: 100;
 `;
 
 const ModalCloseButton = styled.button`

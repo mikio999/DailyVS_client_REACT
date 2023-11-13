@@ -7,8 +7,10 @@ const ReportComment = ({ commentId }) => {
 
   const openModal = e => {
     e.stopPropagation();
+    e.preventDefault();
     setIsModalOpen(true);
   };
+
   const closeModal = () => {
     setIsModalOpen(false);
   };
@@ -16,7 +18,7 @@ const ReportComment = ({ commentId }) => {
   return (
     <Container onMouseDown={openModal}>
       <ReportImg src={require('../../assets/Buttons/report2.png')} />
-      신고
+      <ReportWord>신고</ReportWord>
       <ReportCommentModal
         isOpen={isModalOpen}
         onClose={closeModal}
@@ -35,15 +37,18 @@ const Container = styled.div`
   margin-right: auto;
   font-size: 13px;
   width: 50px;
-  color: gray;
-  &:hover {
-    opacity: 0.8;
-    cursor: pointer;
-  }
 `;
 
 const ReportImg = styled.img`
   width: 13px;
   margin-right: 5px;
   padding-bottom: 3px;
+`;
+
+const ReportWord = styled.div`
+  color: gray;
+  &:hover {
+    cursor: pointer;
+    opacity: 0.8;
+  }
 `;
