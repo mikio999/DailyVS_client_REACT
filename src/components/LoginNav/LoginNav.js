@@ -23,7 +23,7 @@ const LoginNavContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: min(100%, 1200px);
+  width: 100vw;
   height: 10vh;
   margin: 0 auto;
 `;
