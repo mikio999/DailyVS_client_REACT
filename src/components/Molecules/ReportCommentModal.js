@@ -1,29 +1,39 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 
-const ReportModal = ({ isOpen, onClose, information }) => {
+const ReportCommentModal = ({ isOpen, onClose, commentId }) => {
   const reportRef = useRef(null);
   const [reportType, setReportType] = useState('');
 
+  useEffect(() => {
+    // 모달이 열릴 때 초기화 로직을 작성
+    if (isOpen) {
+      setReportType('');
+    }
+  }, [isOpen]);
+
   const handleOverlayClick = e => {
+    e.stopPropagation();
     e.preventDefault();
+    console.log('오버레이 클릭');
     if (e.target === e.currentTarget) {
       onClose();
     }
   };
+
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
 
   const reportOptions = [
-    { value: '도배성 게시물 ', label: '도배성 게시물 ' },
-    { value: '불법 홍보 게시물 ', label: '불법 홍보 게시물 ' },
+    { value: '도배성 댓글 ', label: '도배성 댓글 ' },
+    { value: '불법 홍보 댓글 ', label: '불법 홍보 댓글 ' },
     {
-      value: '청소년에게 부적절한 게시물',
-      label: '청소년에게 부적절한 게시물',
+      value: '청소년에게 부적절한 댓글',
+      label: '청소년에게 부적절한 댓글',
     },
     {
-      value: '타인 비방 목적의 게시물',
-      label: '타인 비방 목적의 게시물',
+      value: '타인 비방 목적의 댓글',
+      label: '타인 비방 목적의 댓글',
     },
     {
       value: '개인 정보 유출',
@@ -36,11 +46,9 @@ const ReportModal = ({ isOpen, onClose, information }) => {
   ];
 
   const handleReportTypeChange = e => {
-    console.log('Selected value:', e.target.value);
+    e.stopPropagation();
     setReportType(e.target.value);
   };
-
-  const detailId = information?.id;
 
   const isFormValid = () => {
     return reportType !== '';
@@ -67,10 +75,13 @@ const ReportModal = ({ isOpen, onClose, information }) => {
         content: reportType,
       });
 
-      fetch(`${process.env.REACT_APP_HOST}/${detailId}/report`, {
-        ...requestOptions,
-        body: requestBody,
-      })
+      fetch(
+        `${process.env.REACT_APP_HOST}/comment/${commentId}/comment_report`,
+        {
+          ...requestOptions,
+          body: requestBody,
+        },
+      )
         .then(response => response.json())
         .then(result => {
           console.log(result);
@@ -83,11 +94,11 @@ const ReportModal = ({ isOpen, onClose, information }) => {
   return isOpen ? (
     <ModalOverlay onClick={handleOverlayClick}>
       <FortuneModalContainer>
-        <ModalCloseButton onClick={onClose}>&times;</ModalCloseButton>
+        <ModalCloseButton onClick={() => onClose()}>&times;</ModalCloseButton>
         <ModalContent ref={reportRef}>
-          <ModalTitle>투표 신고하기</ModalTitle>
+          <ModalTitle>댓글 신고하기</ModalTitle>
           <ReportImg src={require('../../assets/Buttons/report2.png')} />
-          <ReportContent>투표 신고 사유를 선택해주세요</ReportContent>
+          <ReportContent>댓글 신고 사유를 선택해주세요</ReportContent>
           <ReportOptions>
             {reportOptions.map(option => (
               <React.Fragment key={option.value}>
@@ -113,7 +124,7 @@ const ReportModal = ({ isOpen, onClose, information }) => {
   ) : null;
 };
 
-export default ReportModal;
+export default ReportCommentModal;
 
 const ModalOverlay = styled.div`
   position: fixed;
@@ -121,10 +132,10 @@ const ModalOverlay = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.5);
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   z-index: 99;
 `;
 
@@ -136,6 +147,7 @@ const FortuneModalContainer = styled.div`
   position: relative;
   width: 400px;
   height: 430px;
+  z-index: 100;
 `;
 
 const ModalCloseButton = styled.button`
@@ -204,7 +216,7 @@ const ReportSquare = styled.div`
   width: 200px;
   margin-top: 10px;
   background-color: white;
-  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);
   transition: background-color 0.3s ease;
   &:hover {
     cursor: pointer;

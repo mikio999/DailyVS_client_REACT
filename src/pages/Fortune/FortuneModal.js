@@ -34,7 +34,6 @@ const FortuneModal = ({ isOpen, onClose }) => {
       .then(response => response.json())
       .then(result => {
         setFortuneDetail(result);
-        console.log(result);
         setRandomFortune(result.random_fortune);
         setIsTypingComplete(false);
       });
