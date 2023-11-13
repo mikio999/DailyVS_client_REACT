@@ -60,6 +60,8 @@ function CommentBox({
           onCommentSubmit={addReply}
           voteId={voteId}
           setCurrentPage={setCurrentPage}
+          setReplyCount={setReplyCount}
+          replyCount={replyCount}
         />
       )}
     </>
