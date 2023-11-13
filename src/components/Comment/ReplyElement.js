@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 import theme from '../../styles/theme';
 import useClickEffect from '../../utils/hooks/useClickEffect';
@@ -6,7 +6,6 @@ import ReportComment from '../Atoms/ReportComment';
 import DeleteReply from '../Atoms/DeleteReply';
 
 function ReplyElement({
-  parentId,
   user,
   data,
   reply,
@@ -36,7 +35,8 @@ function ReplyElement({
     );
   };
 
-  const isUser = data[0]?.is_owner;
+  const isUser = data?.is_owner;
+  console.log(data);
   const Reply = () => {
     const refReply = useRef(null);
 

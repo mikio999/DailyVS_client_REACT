@@ -69,7 +69,6 @@ function Comment({ voteId, voteChoice }) {
         .then(result => {
           setComments(result.comments);
           setCommentsCount(result.comments_count);
-          console.log(result.comments);
         });
     } else {
       fetch(

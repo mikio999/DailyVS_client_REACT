@@ -7,8 +7,6 @@ function CommentBox({
   setCurrentPage,
   data,
   voteId,
-  voteChoice,
-  userInfo,
   commentsCount,
   setCommentsCount,
   replyCount,
