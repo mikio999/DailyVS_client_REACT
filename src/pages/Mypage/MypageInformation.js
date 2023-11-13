@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import UserOut from '../../components/Atoms/UserOut';
 
 const MypageInformation = ({ userInformation }) => {
   const navigate = useNavigate();
@@ -38,6 +39,7 @@ const MypageInformation = ({ userInformation }) => {
               <UserSpan>님</UserSpan>
             </UserName>
             <UserModify onClick={moveToModify}>개인정보 수정</UserModify>
+            <UserOut />
           </FeatureTop>
 
           <UserCharacter>
@@ -130,8 +132,8 @@ const UserModify = styled.button`
   border: none;
   border-radius: 5px;
   margin-left: 10px;
-  font-size: 17px;
-  width: 150px;
+  font-size: 15px;
+  width: 120px;
   height: 40px;
   color: white;
   background-color: #ff495a;
