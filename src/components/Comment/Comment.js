@@ -15,7 +15,7 @@ function Comment({ voteId, voteChoice }) {
   const [newcomments, setNewcomments] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [filter, setFilter] = useState('newest');
-  const [replyCount, setReplyCount] = useState(0);
+  const [replyCount, setReplyCount] = useState('');
 
   const addComment = newComment => {
     setNewcomments([...newcomments, newComment]);

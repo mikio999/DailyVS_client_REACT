@@ -4,7 +4,14 @@ import theme from '../../styles/theme';
 import { MintButton } from '../Atoms/Buttons';
 import { useSelector } from 'react-redux';
 
-function ReplyInput({ voteId, voteChoice, onCommentSubmit, parentId }) {
+function ReplyInput({
+  voteId,
+  voteChoice,
+  onCommentSubmit,
+  parentId,
+  replyCount,
+  setReplyCount,
+}) {
   const [comment, setComment] = useState('');
   const [userInfo, setUserInfo] = useState('');
 
@@ -62,6 +69,7 @@ function ReplyInput({ voteId, voteChoice, onCommentSubmit, parentId }) {
       .then(response => response.json())
       .then(data => {
         console.log('성공:', data);
+        setReplyCount(replyCount + 1);
       })
       .catch(error => {
         console.error('데이터 받기 실패:', error);
