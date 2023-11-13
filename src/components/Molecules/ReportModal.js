@@ -104,7 +104,9 @@ const ReportModal = ({ isOpen, onClose, information }) => {
               </React.Fragment>
             ))}
           </ReportOptions>
-          <SubmitButton onClick={handleReportSubmit}>신고하기</SubmitButton>
+          <SubmitButton onClick={handleReportSubmit} disabled={!isFormValid()}>
+            신고하기
+          </SubmitButton>
         </ModalContent>
       </FortuneModalContainer>
     </ModalOverlay>
@@ -177,12 +179,13 @@ const ReportOptions = styled.div`
 
 const ReportContent = styled.div`
   margin-top: 1rem;
+  font-size: 16px;
 `;
 
 const SubmitButton = styled.button`
   margin-top: 20px;
   padding: 10px;
-  background-color: #ff495a;
+  background-color: ${props => (props.disabled ? '#BDBDBD' : '#17355a')};
   color: white;
   border: none;
   border-radius: 5px;
@@ -196,12 +199,12 @@ const ReportSquare = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 16px;
+  font-size: 14px;
   height: 25px;
   width: 200px;
   margin-top: 10px;
   background-color: white;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);
   transition: background-color 0.3s ease;
   &:hover {
     cursor: pointer;

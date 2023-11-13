@@ -2,8 +2,19 @@ import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import theme from '../../styles/theme';
 import useClickEffect from '../../utils/hooks/useClickEffect';
+import ReportComment from '../Atoms/ReportComment';
+import DeleteReply from '../Atoms/DeleteReply';
 
-function ReplyElement({ parentId, user, data, reply, setShowReply }) {
+function ReplyElement({
+  parentId,
+  user,
+  data,
+  reply,
+  setShowReply,
+  replyCount,
+  setReplyCount,
+  voteId,
+}) {
   function truncateString(str, maxLength) {
     if (str?.length > maxLength) {
       return str?.slice(0, maxLength) + '...';
@@ -25,6 +36,7 @@ function ReplyElement({ parentId, user, data, reply, setShowReply }) {
     );
   };
 
+  const isUser = data[0]?.is_owner;
   const Reply = () => {
     const refReply = useRef(null);
 
@@ -45,7 +57,7 @@ function ReplyElement({ parentId, user, data, reply, setShowReply }) {
           setShowReply(curr => !curr);
         }}
       >
-        답글 {reply.length}
+        답글 {replyCount}
       </ReplyBtn>
     );
   };
@@ -65,14 +77,30 @@ function ReplyElement({ parentId, user, data, reply, setShowReply }) {
         <div className="result"> {truncateString(data?.choice_text, 8)}</div>
         <Time />
       </Info>
-      <Content>{data.content}</Content>
+      <CommentMain>
+        <Content>{data.content}</Content>
+        {isUser ? (
+          <BtnBox>
+            <DeleteReply
+              commentId={data?.id}
+              voteId={voteId}
+              replyCount={replyCount}
+              setReplyCount={setReplyCount}
+            />
+          </BtnBox>
+        ) : (
+          <BtnBox>
+            <ReportComment />
+          </BtnBox>
+        )}
+      </CommentMain>
       <Bottom>{!!reply && <Reply />}</Bottom>
     </Container>
   );
 }
 
 const Container = styled.div`
-  width: 90%;
+  width: 95%;
   border-radius: 10px;
   padding: 15px 0;
   margin: 0 2rem;
@@ -132,3 +160,12 @@ const ReplyBtn = styled.div`
 `;
 
 export default ReplyElement;
+
+const CommentMain = styled.div`
+  display: flex;
+`;
+
+const BtnBox = styled.div`
+  display: flex;
+  margin: auto;
+`;
