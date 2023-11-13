@@ -13,10 +13,6 @@ const DetailMBTI = () => {
     TF: '',
     PJ: '',
   });
-  const [userMBTI, setUserMBTI] = useState('');
-  const params = useParams();
-  const detailId = params.id;
-  const navigate = useNavigate();
 
   const handleOptionClick = (option, category) => {
     const updatedOptions = { ...selectedOptions, [category]: option };

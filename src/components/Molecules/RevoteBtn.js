@@ -36,7 +36,6 @@ const RevoteBtn = () => {
 
     fetch(`${process.env.REACT_APP_HOST}/accounts/user_info/`, requestOptions)
       .then(response => response.json())
-      .then(response => console.log(response))
       .then(result => {
         setUserInformation(result);
       });
@@ -71,7 +70,6 @@ const RevoteBtn = () => {
     })
       .then(response => response.json())
       .then(result => {
-        console.log('서버 응답:', result);
         console.log(
           'Request Body:',
           JSON.stringify({

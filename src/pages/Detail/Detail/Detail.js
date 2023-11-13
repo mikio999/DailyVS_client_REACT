@@ -16,6 +16,7 @@ import RevoteBtn from '../../../components/Molecules/RevoteBtn';
 import ResultBtn from '../../../components/Molecules/ResultBtn';
 import Writer from '../../../components/Molecules/Writer';
 import VoteDeleteBtn from '../../../components/Atoms/VoteDeleteBtn';
+import ReportVote from '../../../components/Atoms/ReportVote';
 
 const Detail = () => {
   const dispatch = useDispatch();
@@ -90,6 +91,7 @@ const Detail = () => {
             </SubInfo>
           ) : (
             <WriterInfo>
+              <ReportVote information={voteDetail?.poll} />
               <Writer information={voteDetail?.poll} />
             </WriterInfo>
           )}
@@ -122,14 +124,17 @@ const Detail = () => {
 export default Detail;
 
 const WriterInfo = styled.div`
-  margin-left: 10rem;
+  display: grid;
+  grid-template-columns: 20% 80%;
   white-space: nowrap;
+  width: 400px;
 `;
 
 const DetailContainer = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   margin: 0 auto;
   background-color: #f8f8ff;
 `;
