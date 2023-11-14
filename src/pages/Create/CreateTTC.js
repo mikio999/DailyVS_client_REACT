@@ -58,6 +58,7 @@ function CreateTTC({ formData, setFormData }) {
             <img
               src={require('../../assets/Buttons/image.png')}
               alt="image icon"
+              accept=".jpg, .jpeg, .png, .webp"
             />
             <input type="file" accept="image/*" onChange={handleFileChange} />
           </label>
