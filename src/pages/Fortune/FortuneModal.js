@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
 import html2canvas from 'html2canvas';
+import { useSelector } from 'react-redux';
 
 const FortuneModal = ({ isOpen, onClose }) => {
   const [fortuneDetail, setFortuneDetail] = useState([]);
@@ -9,6 +10,8 @@ const FortuneModal = ({ isOpen, onClose }) => {
   const [isTypingComplete, setIsTypingComplete] = useState(false);
 
   const fortuneRef = useRef(null);
+
+  const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
 
   const handleOverlayClick = e => {
     if (e.target === e.currentTarget) {

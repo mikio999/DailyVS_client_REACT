@@ -21,23 +21,31 @@ const Search = () => {
       });
   }, [value]);
 
-  if (loading) return;
+  if (loading) return null;
+
   return (
     <Container>
       <SearchTitle>검색 목록</SearchTitle>
-      <SearchGrid>
-        {searchData.map(item => (
-          <SearchContent key={item.id}>
-            <SearchCard item={item} />
-          </SearchContent>
-        ))}
-      </SearchGrid>
+      {searchData.length === 0 ? (
+        <NoSearchResults>{`"${value}"에 해당하는 검색어가 존재하지 않습니다.`}</NoSearchResults>
+      ) : (
+        <SearchGrid>
+          {searchData.map(item => (
+            <SearchContent key={item.id}>
+              <SearchCard item={item} />
+            </SearchContent>
+          ))}
+        </SearchGrid>
+      )}
     </Container>
   );
 };
+
 export default Search;
 
-const Container = styled.div``;
+const Container = styled.div`
+  min-height: 50vh;
+`;
 
 const SearchTitle = styled.h1`
   font-family: 'GongGothicLight';
@@ -58,3 +66,11 @@ const SearchGrid = styled.div`
 `;
 
 const SearchContent = styled.div``;
+
+const NoSearchResults = styled.p`
+  font-family: 'GongGothicLight';
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 18px;
+  color: #17355a;
+`;

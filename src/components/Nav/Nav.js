@@ -237,14 +237,13 @@ const NavFortune = styled(Link)`
   }
 `;
 
-const NavSearch = styled(Link)`
+const NavSearch = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
 
   &:hover {
     opacity: 0.8;
-    cursor: pointer;
   }
 `;
 
