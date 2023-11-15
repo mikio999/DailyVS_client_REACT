@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
+import UserOut from '../../../components/Atoms/UserOut';
 
 const Modify = ({ isAuthenticated }) => {
   const [userInformation, setUserInformation] = useState({
@@ -155,7 +156,6 @@ const Modify = ({ isAuthenticated }) => {
           >
             남성
           </GenderOption>
-
           <input
             className="radio-input"
             type="radio"
@@ -201,8 +201,8 @@ const Modify = ({ isAuthenticated }) => {
         </SignupBtn>
       </SignupContainer>
       <SignupToLogin>
-        <SignupLoginBtn to="/find-password">비밀번호</SignupLoginBtn>
-        변경하러 가기
+        <UserOut />
+        <SignupLoginBtn to="/find-password">비밀번호 변경</SignupLoginBtn>
       </SignupToLogin>
     </SignupPage>
   );
@@ -221,7 +221,7 @@ const SignupPage = styled.div`
 const SignupContainer = styled.form`
   display: flex;
   flex-direction: column;
-  padding: 0 20px 50px;
+  padding: 0 20px 30px;
 `;
 
 const SignupLogo = styled.img`
@@ -305,8 +305,22 @@ const SignupToLogin = styled.div`
 `;
 
 const SignupLoginBtn = styled(Link)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   color: #ff495a !important;
-  margin: 0px 5px;
+  width: 120px;
+  height: 40px;
+  margin-bottom: 10px;
+  font-size: 15px;
+  border: 1px solid #ff495a;
+  border-radius: 5px;
+  &:hover {
+    cursor: pointer;
+    color: white !important;
+    background-color: #ff495a;
+    border: 1px solid #ff495a;
+  }
 `;
 
 const MBTIDropdown = styled.select`
