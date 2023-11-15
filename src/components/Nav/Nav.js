@@ -74,26 +74,25 @@ const Nav = ({ checkAuthenticated, load_user, logout, isAuthenticated }) => {
       </Marquee>
       <NavContainer>
         <NavList>
+          {isAuthenticated ? (
+            <Logout href="/login" onClick={logout_user}>
+              로그아웃
+            </Logout>
+          ) : null}
           <NavLogo to="/">
             <LogoImg src={require('../../assets/Nav/Row.png')} alt="로고" />
           </NavLogo>
-
           <SearchMyPage>
             {isAuthenticated ? (
-              <>
-                <NavLink2 to="/my-page">
-                  <img
-                    src={require('../../assets/Nav/Logged.png')}
-                    alt="마이페이지"
-                  />
-                  <UserNickNameContainer>
-                    <UserNickName>{userInfo.nickname}</UserNickName>님
-                  </UserNickNameContainer>
-                </NavLink2>
-                <Logout href="/login" onClick={logout_user}>
-                  로그아웃
-                </Logout>
-              </>
+              <NavLink2 to="/my-page">
+                <img
+                  src={require('../../assets/Nav/Logged.png')}
+                  alt="마이페이지"
+                />
+                <UserNickNameContainer>
+                  <UserNickName>{userInfo.nickname}</UserNickName>님
+                </UserNickNameContainer>
+              </NavLink2>
             ) : (
               <NavLink1 to="/login">
                 <img
@@ -161,9 +160,6 @@ const SearchMyPage = styled.div`
     width: 30px;
     margin-right: 5px;
   }
-  @media screen and (min-width: 768px) {
-    margin-left: auto;
-  }
 `;
 
 const NavLink1 = styled(Link)`
@@ -194,11 +190,13 @@ const NavLink2 = styled(Link)`
     text-decoration: none;
   }
 `;
+
 const UserNickNameContainer = styled.div`
   @media screen and (max-width: 500px) {
     display: none;
   }
 `;
+
 const UserNickName = styled.span`
   color: #457c9e;
   margin-top: 2px;
