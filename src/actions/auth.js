@@ -287,8 +287,36 @@ export const reset_password_confirm =
     }
   };
 
-export const logout = () => dispatch => {
-  dispatch({
-    type: LOGOUT,
-  });
+export const logout = () => async dispatch => {
+  const accessToken = localStorage.getItem('access');
+  const refreshToken = localStorage.getItem('refresh');
+
+  if (!accessToken) {
+    return;
+  }
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+      Accept: 'application/json',
+    },
+    request: {
+      refresh: refreshToken,
+    },
+  };
+
+  try {
+    const res = await axios.post(
+      `${process.env.REACT_APP_HOST}/accounts/logout/`,
+      config,
+    );
+    console.log(res);
+
+    dispatch({
+      type: LOGOUT,
+      payload: res.data,
+    });
+  } catch (err) {
+    console.error('로그아웃 에러:', err.response.data);
+  }
 };
