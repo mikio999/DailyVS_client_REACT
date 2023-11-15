@@ -295,7 +295,10 @@ export const logout = () => async dispatch => {
     return;
   }
 
-  const data = { refresh: refreshToken };
+  const data = {
+    refresh: refreshToken,
+  };
+
   const config = {
     headers: {
       'Content-Type': 'application/json',
@@ -307,10 +310,9 @@ export const logout = () => async dispatch => {
   try {
     const res = await axios.post(
       `${process.env.REACT_APP_HOST}/accounts/logout/`,
-      config,
       data,
+      config,
     );
-    console.log(res);
 
     dispatch({
       type: LOGOUT,

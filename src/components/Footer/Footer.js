@@ -19,7 +19,7 @@ const FooterContainer = styled.div`
   align-items: center;
   width: 100vw;
   height: 20vh;
-  margin: 0 auto;
+  margin-bottom: 0 auto;
   padding: 100px 0;
   color: gray;
   background-color: ${props => props.theme.colors.pinkBgColor};
