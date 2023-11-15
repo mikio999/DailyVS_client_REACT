@@ -1,10 +1,17 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
 const SearchBox = () => {
   const [userInput, setUserInput] = useState('');
   const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname !== '/search') {
+      setUserInput('');
+    }
+  }, [location.pathname]); // Reset when the path changes
 
   const handleSearch = e => {
     setUserInput(e.target.value);
@@ -17,14 +24,19 @@ const SearchBox = () => {
   };
 
   const performSearch = () => {
-    navigate(`/search?keyword=${userInput}`, {
-      state: { value: userInput },
-    });
+    if (userInput.trim() === '') {
+      alert('검색어를 입력해주세요');
+    } else {
+      navigate(`/search?keyword=${userInput}`, {
+        state: { value: userInput },
+      });
+    }
   };
 
   const handleClear = () => {
     setUserInput('');
   };
+
   return (
     <Container>
       <SearchButton onClick={performSearch}>
