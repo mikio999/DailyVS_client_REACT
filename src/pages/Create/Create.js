@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
+import styled from 'styled-components';  
 import CreateTTC from './CreateTTC';
 import Carousel from 'react-multi-carousel';
 import { MintButton } from '../../components/Atoms/Buttons';
@@ -59,6 +59,7 @@ function Create() {
       .then(response => response.json())
       .then(result => {
         setUserInfo(result);
+        
       });
   }, []);
 
@@ -78,6 +79,7 @@ function Create() {
     e.preventDefault();
 
     const sendData = new FormData();
+    console.log(formData.category);
 
     sendData.append('owner', JSON.stringify(userInfo));
     sendData.append('title', formData.title);
@@ -153,6 +155,7 @@ function Create() {
         renderArrowsWhenDisabled={false}
         renderButtonGroupOutside
         customButtonGroup={<CustomButtonGroup />}
+        keyBoardControl={false}
       >
         <CreateTTC {...dataProps} />
         <CreateChoice {...dataProps} />

@@ -5,7 +5,7 @@ import HeaderSubText from '../../components/Atoms/HeaderSubText';
 import InputCatBox from '../../components/Molecules/InputCatBox';
 
 function CreateCat({ formData, setFormData }) {
-  const [selectedCat, setSelectedCat] = useState([]);
+  const [selectedCat, setSelectedCat] = useState([1, 2]);
 
   useEffect(() => {
     const transformedArr = selectedCat.map(item => ({ id: item }));
@@ -13,6 +13,7 @@ function CreateCat({ formData, setFormData }) {
       ...formData,
       category: transformedArr,
     });
+
   }, [selectedCat]);
 
   const catProps = {
@@ -24,8 +25,8 @@ function CreateCat({ formData, setFormData }) {
       <HeaderText content="분석 카테고리" />
       <HeaderSubText content="통계 및 분석하고 싶은 카테고리 (다중선택가능)" />
       <Categories>
-        <InputCatBox value={'성별'} placeholder={'성별'} id={1} {...catProps} />
-        <InputCatBox value={'MBTI'} placeholder={'MBTI'} id={2} {...catProps} />
+        <InputCatBox value={'성별'} placeholder={'성별'} id={1} {...catProps}/>
+        <InputCatBox value={'MBTI'} placeholder={'MBTI'} id={2} {...catProps}/>
         <InputCatBox
           value={'연령대'}
           placeholder={'연령대'}
