@@ -7,7 +7,6 @@ import CreateChoice from './CreateChoice';
 import CreateCat from './CreateCat';
 import { checkAuthenticated, load_user } from '../../actions/auth';
 import { useNavigate } from 'react-router-dom';
-import preventTab from '../../utils/preventTab';
 
 const responsive = {
   desktop: {
@@ -156,7 +155,7 @@ function Create() {
         renderArrowsWhenDisabled={false}
         renderButtonGroupOutside
         customButtonGroup={<CustomButtonGroup />}
-        onKeyDown={preventTab}
+        keyBoardControl={false}
       >
         <CreateTTC {...dataProps} />
         <CreateChoice {...dataProps} />
