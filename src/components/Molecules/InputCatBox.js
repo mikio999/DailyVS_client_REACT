@@ -1,17 +1,25 @@
-import React, { useContext, useRef } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import InputBox from '../Atoms/InputBox';
 import styled from 'styled-components';
 import useClickEffect from '../../utils/hooks/useClickEffect';
 import theme from '../../styles/theme';
 
 function InputCatBox({ value, placeholder, id, selectedCat, setSelectedCat }) {
+  const isSelected = selectedCat.includes(id);
   const ref = useRef(null);
 
   const { handleBtnMD, handleBtnMU, handleBtnME, handleBtnML } =
     useClickEffect(ref);
 
+  useEffect(() => {
+    if (isSelected) {
+      ref.current.style.border = `4px solid ${theme.colors.turquoisSecondaryColor}`;
+    } else {
+      ref.current.style.border = `none`;
+    }
+  }, [isSelected])
   const handleClick = () => {
-    if (selectedCat.includes(id)) {
+    if (isSelected) {
       ref.current.style.border = `none`;
       const updatedSelectedCat = selectedCat.filter(item => item !== id);
       updatedSelectedCat.sort((a, b) => a - b);
@@ -33,7 +41,7 @@ function InputCatBox({ value, placeholder, id, selectedCat, setSelectedCat }) {
       onMouseLeave={handleBtnML}
       onClick={handleClick}
     >
-      <InputBox value={value} placeholder={placeholder} readOnly={true} />
+      <InputBox value={value} placeholder={placeholder} readOnly={true} isSelected={isSelected}/>
     </Container>
   );
 }

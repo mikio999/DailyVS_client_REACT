@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
+import styled from 'styled-components';  
 import CreateTTC from './CreateTTC';
 import Carousel from 'react-multi-carousel';
 import { MintButton } from '../../components/Atoms/Buttons';
@@ -7,6 +7,7 @@ import CreateChoice from './CreateChoice';
 import CreateCat from './CreateCat';
 import { checkAuthenticated, load_user } from '../../actions/auth';
 import { useNavigate } from 'react-router-dom';
+import preventTab from '../../utils/preventTab';
 
 const responsive = {
   desktop: {
@@ -59,6 +60,7 @@ function Create() {
       .then(response => response.json())
       .then(result => {
         setUserInfo(result);
+        
       });
   }, []);
 
@@ -78,6 +80,7 @@ function Create() {
     e.preventDefault();
 
     const sendData = new FormData();
+    console.log(formData.category);
 
     sendData.append('owner', JSON.stringify(userInfo));
     sendData.append('title', formData.title);
@@ -153,6 +156,7 @@ function Create() {
         renderArrowsWhenDisabled={false}
         renderButtonGroupOutside
         customButtonGroup={<CustomButtonGroup />}
+        onKeyDown={preventTab}
       >
         <CreateTTC {...dataProps} />
         <CreateChoice {...dataProps} />
