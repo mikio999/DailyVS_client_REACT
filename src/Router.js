@@ -15,7 +15,6 @@ import PasswordInput from './pages/Signup/PasswordInput';
 import KakaoAuth from './pages/Login/KakaoAuth';
 import preventTab from './utils/preventTab';
 
-
 const Router = () => {
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
 

@@ -17,7 +17,7 @@ function InputCatBox({ value, placeholder, id, selectedCat, setSelectedCat }) {
     } else {
       ref.current.style.border = `none`;
     }
-  }, [isSelected])
+  }, [isSelected]);
   const handleClick = () => {
     if (isSelected) {
       ref.current.style.border = `none`;
@@ -41,7 +41,12 @@ function InputCatBox({ value, placeholder, id, selectedCat, setSelectedCat }) {
       onMouseLeave={handleBtnML}
       onClick={handleClick}
     >
-      <InputBox value={value} placeholder={placeholder} readOnly={true} isSelected={isSelected}/>
+      <InputBox
+        value={value}
+        placeholder={placeholder}
+        readOnly={true}
+        isSelected={isSelected}
+      />
     </Container>
   );
 }

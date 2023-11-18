@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';  
+import styled from 'styled-components';
 import CreateTTC from './CreateTTC';
 import Carousel from 'react-multi-carousel';
 import { MintButton } from '../../components/Atoms/Buttons';
@@ -59,7 +59,6 @@ function Create() {
       .then(response => response.json())
       .then(result => {
         setUserInfo(result);
-        
       });
   }, []);
 
