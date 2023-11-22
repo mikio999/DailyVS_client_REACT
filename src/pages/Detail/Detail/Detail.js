@@ -9,7 +9,7 @@ import {
   setCategory,
   setCategoryList,
 } from '../../../actions/actions';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import RegisterBtn from '../../../components/Molecules/DetailBtns/RegisterBtn';
 import AuthSubmitBtn from '../../../components/Molecules/AuthSubmitBtn';
 import RevoteBtn from '../../../components/Molecules/RevoteBtn';
@@ -56,25 +56,41 @@ const Detail = () => {
   }, [selectedChoice]);
 
   useEffect(() => {
-    const headers = new Headers();
-    headers.append('Content-Type', 'application/json');
+    const fetchData = async () => {
+      const headers = new Headers();
+      headers.append('Content-Type', 'application/json');
 
-    const accessToken = localStorage.getItem('access');
-    if (accessToken) {
-      headers.append('Authorization', `Bearer ${accessToken}`);
-    }
+      const accessToken = localStorage.getItem('access');
+      if (accessToken) {
+        headers.append('Authorization', `Bearer ${accessToken}`);
+      }
 
-    fetch(`${process.env.REACT_APP_HOST}/${detailId}`, {
-      method: 'GET',
-      headers: headers,
-    })
-      .then(response => response.json())
-      .then(result => {
+      try {
+        const response = await fetch(
+          `${process.env.REACT_APP_HOST}/${detailId}`,
+          {
+            method: 'GET',
+            headers: headers,
+          },
+        );
+
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+
+        const result = await response.json();
         setVoteDetail(result);
-      });
-  }, []);
 
-  const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
+        if (result && result.previous_choice) {
+          setSelectedOption(result.previous_choice - 1);
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, [detailId]);
   const isFormValid = () => {
     return selectedOption !== '';
   };
@@ -102,6 +118,7 @@ const Detail = () => {
             setSelectedOption={setSelectedOption}
             selectedChoice={selectedChoice}
             setSelectedChoice={setSelectedChoice}
+            previusChoice={voteDetail.previous_choice}
           />
           {voteDetail.previous_choice ? (
             <ReButtons>

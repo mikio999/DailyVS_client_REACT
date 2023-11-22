@@ -4,7 +4,6 @@ import ReportModal from '../Molecules/ReportModal';
 
 const ReportVote = ({ information }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  console.log(information);
   const openModal = () => {
     setIsModalOpen(true);
   };

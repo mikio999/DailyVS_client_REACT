@@ -192,6 +192,7 @@ const Signup = ({ signup, isAuthenticated }) => {
               checked={gender === 'M'}
               onChange={e => handleGenderChange(e)}
               id="male-radio"
+              style={{ display: 'none' }}
             />
             <GenderOption
               htmlFor="male-radio"
@@ -207,6 +208,7 @@ const Signup = ({ signup, isAuthenticated }) => {
               checked={gender === 'W'}
               onChange={e => handleGenderChange(e)}
               id="female-radio"
+              style={{ display: 'none' }}
             />
             <GenderOption
               htmlFor="female-radio"

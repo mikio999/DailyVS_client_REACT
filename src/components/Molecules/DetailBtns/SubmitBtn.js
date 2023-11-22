@@ -25,7 +25,6 @@ const SubmitBtn = ({ isFormValid }) => {
   const selectedCategoryList = useSelector(
     state => state.categoryList.selectedCategoryList,
   );
-  console.log(selectedChoice);
 
   const handleInformationClick = event => {
     event.preventDefault();
@@ -54,7 +53,6 @@ const SubmitBtn = ({ isFormValid }) => {
     })
       .then(response => response.json())
       .then(result => {
-        console.log('서버 응답:', result);
         console.log(
           'Request Body:',
           JSON.stringify({
@@ -82,7 +80,6 @@ const SubmitBtn = ({ isFormValid }) => {
   const closeModal = () => {
     setIsModalOpen(false);
   };
-  console.log(isAuthenticated);
 
   if (!isAuthenticated) {
     return (
