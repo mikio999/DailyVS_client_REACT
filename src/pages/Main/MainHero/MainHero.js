@@ -9,6 +9,7 @@ import tvRight from '../../../assets/TodayVS/tv_right.png';
 
 function MainHero({ data }) {
   const [todayPoll, setTodayPoll] = useState();
+  console.log(todayPoll);
   useEffect(() => {
     setTodayPoll(data);
   }, []);

@@ -19,14 +19,13 @@ const Main = () => {
     fetch(`${process.env.REACT_APP_HOST}/`)
       .then(response => response.json())
       .then(result => {
-        setNewPolls(result.polls);
-        setHotPolls(result.hot_polls);
-        setAgePolls(result.age_polls);
-        setGenderPolls(result.gender_polls);
-        setMbtiPolls(result.mbti_polls);
-        setTodayPoll(result.today_poll);
+        setNewPolls(result?.polls);
+        setHotPolls(result?.hot_polls);
+        setAgePolls(result?.age_polls);
+        setGenderPolls(result?.gender_polls);
+        setMbtiPolls(result?.mbti_polls);
+        setTodayPoll(result?.today_poll);
         setLoading(false);
-        console.log('받은 값', result);
       })
       .catch(error => {
         console.log('client: 값 받기 실패', error);

@@ -90,10 +90,6 @@ function Create() {
       sendData.append('choice', JSON.stringify(formData.choice[j]));
     }
 
-    sendData.forEach((value, key) => {
-      console.log('백엔드에 보낸 데이터', key, value);
-    });
-
     const accessToken = localStorage.getItem('access');
     const headers = new Headers();
     headers.append('Authorization', `Bearer ${accessToken}`);
@@ -104,7 +100,6 @@ function Create() {
     })
       .then(response => response.json())
       .then(data => {
-        console.log('데이터 받기 성공:', data);
         if (data.error) {
           alert(data.error, '필수 정보를 전부 입력하였는지 확인해주세요!');
         } else {
