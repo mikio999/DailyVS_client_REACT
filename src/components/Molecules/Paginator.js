@@ -45,7 +45,7 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 350px;
+  width: 100vw;
 `;
 
 const PageNumber = styled.div`
