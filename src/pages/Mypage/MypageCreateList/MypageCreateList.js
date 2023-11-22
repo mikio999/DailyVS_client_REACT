@@ -42,10 +42,7 @@ const MypageCreateList = () => {
       <VoteListTitle>내가 만든 VOTE</VoteListTitle>
       {createList.map((poll, index) => (
         <LikeLine key={index} to={`/vote-detail/${poll?.id}`}>
-          <LikeImage
-            src={`${process.env.REACT_APP_HOST}` + poll?.thumbnail}
-            alt={poll.poll?.title}
-          />
+          <LikeImage src={`${poll?.thumbnail}`} alt={poll.poll?.title} />
           <TruncateText>
             <LikeName>{poll?.title}</LikeName>
           </TruncateText>

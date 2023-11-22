@@ -45,10 +45,7 @@ const MypageLikeList = () => {
       <LikeTitle>나의 좋아요 VOTE</LikeTitle>
       {pollLike?.map((poll, index) => (
         <LikeLine key={index} to={`/vote-detail/${poll.id}`}>
-          <LikeImage
-            src={'http://127.0.0.1:8000' + poll.thumbnail}
-            alt={poll?.title}
-          />
+          <LikeImage src={`${poll.thumbnail}`} alt={poll?.title} />
           <TruncateText>
             <LikeName>{poll.title}</LikeName>
           </TruncateText>
