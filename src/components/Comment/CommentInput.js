@@ -11,6 +11,7 @@ function CommentInput({
   onCommentSubmit,
   userInfo,
   setCommentsCount,
+  setFilter,
   commentsCount,
 }) {
   const [comment, setComment] = useState('');
@@ -21,6 +22,11 @@ function CommentInput({
   };
 
   const handleSubmit = () => {
+    if (comment.length > 200) {
+      alert('댓글은 200자 이하로 입력해주세요.');
+      return;
+    }
+
     onCommentSubmit(comment);
 
     const headers = new Headers();
@@ -42,7 +48,9 @@ function CommentInput({
     })
       .then(response => response.json())
       .then(data => {
+        setFilter('newest');
         setCommentsCount(commentsCount + 1);
+        setCurrentPage(1);
       })
       .catch(error => {
         console.error('데이터 받기 실패:', error);

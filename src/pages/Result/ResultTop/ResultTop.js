@@ -102,7 +102,7 @@ const Option = styled.div`
   @media (min-width: 768px) {
     width: 100%;
     display: grid;
-    grid-gap: 20px;
+    grid-gap: 30px;
     grid-template-columns: 20% 20% 60%;
   }
 `;

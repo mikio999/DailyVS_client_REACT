@@ -24,7 +24,10 @@ const CommentHeader = ({
         </CommentCount>
       </CommentTitle>
       <CommentFunction>
-        <CommentFilter onChange={handleFilterChange}>
+        <CommentFilter
+          onChange={handleFilterChange}
+          value={filter === 'newest' ? '최신순' : '인기순'}
+        >
           {filterOption.map(option => (
             <option key={option} value={option}>
               {option}
@@ -37,6 +40,7 @@ const CommentHeader = ({
 };
 
 export default CommentHeader;
+
 const Container = styled.div`
   display: flex;
   width: min(100%, 1000px);

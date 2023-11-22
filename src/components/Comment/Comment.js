@@ -97,6 +97,7 @@ function Comment({ voteId, voteChoice }) {
         userInfo={userInfo}
         setCurrentPage={setCurrentPage}
         setCommentsCount={setCommentsCount}
+        setFilter={setFilter}
         commentsCount={commentsCount}
       />
       <Wrapper>

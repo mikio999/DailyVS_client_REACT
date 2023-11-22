@@ -137,8 +137,10 @@ const Info = styled.div`
 
 const Content = styled.div`
   display: flex;
-  padding: 10px 0;
+  padding: 10px;
   width: min(100%, 1000px);
+  line-height: 1.2;
+  word-break: keep-all;
 `;
 
 const Bottom = styled.div`

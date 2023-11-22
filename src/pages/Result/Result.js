@@ -16,7 +16,6 @@ const Result = () => {
   const [showWatermark, setShowWatermark] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [scrollColor, setScrollColor] = useState('#fff9f9');
-
   const resultRef = useRef(null);
   const params = useParams();
   const detailId = params.id;
@@ -27,6 +26,10 @@ const Result = () => {
   const changePage = pageNumber => {
     setCurrentPage(pageNumber);
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
