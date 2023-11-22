@@ -10,7 +10,7 @@ const DetailCard = ({ voteDetail }) => {
           <PollLikeBtn />
         </LikeBtnContainer>
         <DetailImage
-          src={'http://127.0.0.1:8000' + voteDetail.poll?.thumbnail}
+          src={`${voteDetail.poll?.thumbnail}`}
           alt={voteDetail.poll?.title}
         />
       </ImageContainer>
