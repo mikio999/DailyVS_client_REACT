@@ -16,36 +16,39 @@ const OptionCard = ({
   return (
     <DetailContainer>
       {voteDetail && voteDetail?.poll?.choices ? (
-        voteDetail?.poll?.choices.map((choice, index) => (
-          <OptionCardContainer key={choice.id}>
-            <DetailOption
-              className="radio-input"
-              type="radio"
-              name="option"
-              value={choice.id}
-              checked={index === selectedOption}
-              onChange={() => handleOptionChange(index)}
-              id={choice.id}
-            />
+        voteDetail?.poll?.choices.map((choice, index) => {
+          const isSelected = index === selectedOption;
+          return (
+            <OptionCardContainer key={choice.id}>
+              <DetailOption
+                className="radio-input"
+                type="radio"
+                name="option"
+                value={choice.id}
+                checked={isSelected}
+                onChange={() => handleOptionChange(index)}
+                id={choice.id}
+              />
 
-            <DetailOptionName
-              htmlFor={choice.id}
-              className={index === selectedOption ? 'selected' : ''}
-              onClick={() => {
-                setSelectedOption(index);
-                setSelectedChoice(choice.id);
-              }}
-            >
-              <VoteName>{choice.choice_text}</VoteName>
-            </DetailOptionName>
-            {index < voteDetail.poll.choices.length - 1 && (
-              <VSWord>
-                <VSRed>V</VSRed>
-                <VSBlue>S</VSBlue>
-              </VSWord>
-            )}
-          </OptionCardContainer>
-        ))
+              <DetailOptionName
+                htmlFor={choice.id}
+                className={isSelected ? 'selected' : ''}
+                onClick={() => {
+                  setSelectedOption(index);
+                  setSelectedChoice(choice.id);
+                }}
+              >
+                <VoteName>{choice.choice_text}</VoteName>
+              </DetailOptionName>
+              {index < voteDetail.poll.choices.length - 1 && (
+                <VSWord>
+                  <VSRed>V</VSRed>
+                  <VSBlue>S</VSBlue>
+                </VSWord>
+              )}
+            </OptionCardContainer>
+          );
+        })
       ) : (
         <p>Choice text not available</p>
       )}

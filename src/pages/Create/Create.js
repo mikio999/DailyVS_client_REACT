@@ -78,12 +78,31 @@ function Create() {
     e.preventDefault();
 
     const sendData = new FormData();
-    console.log(formData.category);
 
     sendData.append('owner', JSON.stringify(userInfo));
     sendData.append('title', formData.title);
     sendData.append('content', formData.content);
     sendData.append('thumbnail', formData.thumbnail);
+
+    const hasDuplicateChoices = choices => {
+      const choiceTexts = new Set();
+
+      for (const choice of choices) {
+        if (choiceTexts.has(choice.choice_text)) {
+          return true; // Duplicate found
+        }
+        choiceTexts.add(choice.choice_text);
+      }
+
+      return false;
+    };
+    const formChoices = formData.choice;
+
+    if (hasDuplicateChoices(formChoices)) {
+      alert('선택지의 내용은 다르게 바꿔주세요 :)');
+      return;
+    }
+
     for (let i = 0; i < formData.category.length; i++) {
       sendData.append('category', JSON.stringify(formData.category[i]));
     }
