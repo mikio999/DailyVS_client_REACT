@@ -240,7 +240,6 @@ export const reset_password = email => async dispatch => {
       'Content-Type': 'application/json',
     },
   };
-  console.log(config);
   const body = JSON.stringify({ email });
 
   try {

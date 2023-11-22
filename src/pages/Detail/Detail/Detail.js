@@ -9,7 +9,7 @@ import {
   setCategory,
   setCategoryList,
 } from '../../../actions/actions';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import RegisterBtn from '../../../components/Molecules/DetailBtns/RegisterBtn';
 import AuthSubmitBtn from '../../../components/Molecules/AuthSubmitBtn';
 import RevoteBtn from '../../../components/Molecules/RevoteBtn';
@@ -71,10 +71,10 @@ const Detail = () => {
       .then(response => response.json())
       .then(result => {
         setVoteDetail(result);
+        console.log('previous_choice', result.previous_choice);
       });
   }, []);
 
-  const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
   const isFormValid = () => {
     return selectedOption !== '';
   };
