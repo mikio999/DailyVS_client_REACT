@@ -69,14 +69,16 @@ export default MypageLikeList;
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   margin-bottom: 1rem;
-  @media (min-width: 768px) {
-    min-width: 100%;
-  }
+  width: min(100%, 1000px);
 `;
 
 const LikeTitle = styled.h1`
   display: flex;
+  justify-content: center;
+  align-items: center;
   font-family: 'GongGothicMedium';
   font-size: 24px;
   margin: 20px;
@@ -96,13 +98,6 @@ const LikeLine = styled(Link)`
     cursor: pointer;
     opacity: 0.8;
   }
-  @media (min-width: 890px) {
-    grid-template-columns: 10% 50% 20% 10%;
-    grid-gap: 10px;
-    width: 95%;
-    font-size: 16px;
-    margin-left: 30px;
-  }
 `;
 
 const TruncateText = styled.span`
@@ -118,10 +113,6 @@ const LikeName = styled.h1`
   font-size: 15px;
   margin: 5px;
   width: 150px;
-  @media (min-width: 768px) {
-    width: 100%;
-    font-size: 18px;
-  }
 `;
 
 const LikeImage = styled.img`
@@ -141,6 +132,7 @@ const LikeCreator = styled.div`
 const LikeDate = styled.div`
   display: flex;
   align-items: center;
+  justify-content: end;
   color: gray;
   font-size: 12px;
 `;

@@ -67,9 +67,9 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 1rem;
-  @media (min-width: 768px) {
-    min-width: 100%;
-  }
+  justify-content: center;
+  align-items: center;
+  width: min(100%, 1000px);
 `;
 
 const VoteListTitle = styled.h1`
@@ -95,13 +95,6 @@ const LikeLine = styled(Link)`
     cursor: pointer;
     opacity: 0.8;
   }
-  @media (min-width: 890px) {
-    grid-template-columns: 10% 60% 20% 10%;
-    width: 95%;
-    grid-gap: 10px;
-    font-size: 16px;
-    margin-left: 30px;
-  }
 `;
 
 const TruncateText = styled.span`
@@ -116,10 +109,6 @@ const LikeName = styled.h1`
   color: #17355a;
   font-size: 15px;
   margin: 5px;
-  @media (min-width: 768px) {
-    width: 100%;
-    font-size: 18px;
-  }
 `;
 
 const LikeImage = styled.img`
@@ -141,6 +130,7 @@ const LikeDate = styled.div`
   align-items: center;
   color: gray;
   font-size: 12px;
+  justify-content: end;
 `;
 
 const PageContainer = styled.div`

@@ -44,12 +44,12 @@ const Mypage = ({ logout }) => {
   return (
     <Container>
       <InformationTitle>나의 정보</InformationTitle>
-      <ResponseContainer>
-        <MypageInformation userInformation={userInformation} />
-        <MypageVoteList />
-        <MypageCreateList />
-        <MypageLikeList />
-      </ResponseContainer>
+
+      <MypageInformation userInformation={userInformation} />
+      <MypageVoteList />
+      <MypageCreateList />
+      <MypageLikeList />
+
       <LogoutContainer>
         <LogOut href="/login" onClick={logout_user}>
           로그아웃
@@ -65,7 +65,6 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: calc(100vh - 136px - 200px);
   background-color: ${props => props.theme.colors.blueBgColor};
 `;
 
@@ -76,7 +75,6 @@ const InformationTitle = styled.h1`
 `;
 
 const LogoutContainer = styled.div`
-  width: min(100%, 460px);
   height: 50px;
   display: flex;
   justify-content: center;
@@ -97,14 +95,5 @@ const LogOut = styled.div`
     background-color: white;
     border: 1px solid ${theme.colors.redpinkPrimaryColor};
     color: ${theme.colors.redpinkPrimaryColor};
-  }
-`;
-
-const ResponseContainer = styled.div`
-  @media (min-width: 768px) {
-    display: grid;
-    column-gap: 3rem;
-    grid-template-columns: repeat(2, minmax(300px, auto));
-    grid-template-rows: repeat(2, minmax(300px, auto));
   }
 `;

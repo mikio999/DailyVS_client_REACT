@@ -65,10 +65,10 @@ export default MypageVoteList;
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: min(100%, 1000px);
   margin-bottom: 1rem;
-  @media (min-width: 768px) {
-    min-width: 100%;
-  }
 `;
 
 const VoteListTitle = styled.h1`
@@ -92,13 +92,6 @@ const LikeLine = styled(Link)`
     cursor: pointer;
     opacity: 0.8;
   }
-  @media (min-width: 890px) {
-    grid-template-columns: 10% 50% 20% 10%;
-    grid-gap: 10px;
-    width: 95%;
-    font-size: 16px;
-    margin-left: 30px;
-  }
 `;
 
 const TruncateText = styled.span`
@@ -113,10 +106,6 @@ const LikeName = styled.h1`
   color: #17355a;
   margin: 5px;
   font-size: 15px;
-  @media (min-width: 768px) {
-    width: 100%;
-    font-size: 18px;
-  }
 `;
 
 const LikeImage = styled.img`
@@ -138,6 +127,7 @@ const LikeDate = styled.div`
   align-items: center;
   color: gray;
   font-size: 12px;
+  justify-content: end;
 `;
 
 const PageContainer = styled.div`
