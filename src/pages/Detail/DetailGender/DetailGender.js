@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { setGender } from '../../../actions/actions';
@@ -23,9 +23,13 @@ const DetailGender = () => {
   const isFormValid = () => {
     return selectedGender !== '';
   };
-  console.log(selectedGender);
+
   const selectedChoice = useSelector(state => state.choice.selectedChoice);
-  console.log('SC', selectedChoice);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <DetailGenderContainer>
       <GenderQuestion>당신의 성별은?</GenderQuestion>

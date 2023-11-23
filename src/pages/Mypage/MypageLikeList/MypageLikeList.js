@@ -86,7 +86,7 @@ const LikeLine = styled(Link)`
   display: grid;
   grid-template-columns: 10% 34% 30% 30%;
   margin-top: 10px;
-  width: 100%;
+  width: 90%;
   max-width: 1200px;
   font-family: 'GongGothicLight';
   font-size: 15px;
@@ -97,9 +97,11 @@ const LikeLine = styled(Link)`
     opacity: 0.8;
   }
   @media (min-width: 890px) {
-    grid-template-columns: 10% 230px 20% 20%;
-    width: 100%;
+    grid-template-columns: 10% 50% 20% 10%;
+    grid-gap: 10px;
+    width: 95%;
     font-size: 16px;
+    margin-left: 30px;
   }
 `;
 

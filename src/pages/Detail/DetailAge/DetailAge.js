@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { setAge } from '../../../actions/actions';
@@ -35,6 +35,10 @@ const DetailAge = () => {
   const isFormValid = () => {
     return selectedAge !== '';
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <Container>
