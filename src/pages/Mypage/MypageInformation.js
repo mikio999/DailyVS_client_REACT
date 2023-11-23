@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 const MypageInformation = ({ userInformation }) => {
   const navigate = useNavigate();
 
+  console.log(userInformation);
   function getAgeRange(age) {
     if (age === '10') {
       return '10대';
@@ -39,7 +40,6 @@ const MypageInformation = ({ userInformation }) => {
             </UserName>
             <UserModify onClick={moveToModify}>개인정보 수정</UserModify>
           </FeatureTop>
-
           <UserCharacter>
             <UserMBTI>
               MBTI : <MBTISpan>{userInformation.user?.mbti}</MBTISpan>
@@ -51,6 +51,12 @@ const MypageInformation = ({ userInformation }) => {
               나이 : <AgeSpan>{ageRange}</AgeSpan>
             </UserAge>
           </UserCharacter>
+          <UserPoint>
+            <CoinImg src={require('../../assets/Buttons/Coin.png')} />
+            <CoinName>유저 포인트 : </CoinName>
+            <CoinNumber>{userInformation.user?.point}</CoinNumber>
+            <CoinName>pt</CoinName>
+          </UserPoint>
         </UserFeature>
       </UserBox>
     </Container>
@@ -63,9 +69,8 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 2rem;
-  margin-left: auto;
-  margin-right: auto;
   min-width: 350px;
+  width: 100%;
   @media (min-width: 768px) {
     margin-top: 5rem;
   }
@@ -74,7 +79,8 @@ const Container = styled.div`
 const UserBox = styled.div`
   display: grid;
   grid-template-columns: 20% 80%;
-  width: 100%;
+  min-width: 350px;
+  margin-right: 20px;
 `;
 
 const UserImg = styled.img`
@@ -84,7 +90,7 @@ const UserImg = styled.img`
 
 const UserFeature = styled.div`
   margin-left: 20px;
-  width: 100%;
+  width: 90%;
 `;
 
 const UserName = styled.h2`
@@ -166,4 +172,28 @@ const UserGender = styled.div`
 
 const GenderSpan = styled.span`
   color: #ff495a;
+`;
+
+const UserPoint = styled.div`
+  display: flex;
+  align-items: center;
+  margin-top: 1rem;
+`;
+
+const CoinImg = styled.img`
+  width: 35px;
+`;
+
+const CoinName = styled.div`
+  display: flex;
+  align-items: center;
+  font-size: 17px;
+  font-family: 'GongGothicLight';
+  margin-left: 10px;
+`;
+
+const CoinNumber = styled.span`
+  font-family: 'GongGothicLight';
+  color: #ff495a;
+  margin-left: 10px;
 `;

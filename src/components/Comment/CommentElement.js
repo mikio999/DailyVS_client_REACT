@@ -148,7 +148,7 @@ const Content = styled.div`
   margin-right: 10px;
   width: min(100%, 1000px);
   line-height: 1.2;
-  word-break: keep-all;
+  word-break: break-word;
 `;
 
 const Bottom = styled.div`

@@ -133,7 +133,6 @@ const CommentText = styled.textarea`
   box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.25);
   font-size: 16px;
   padding: 7px 12px;
-  height: 30px;
   &:focus {
     outline: none;
   }

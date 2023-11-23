@@ -13,14 +13,9 @@ import Email from './pages/Signup/Email';
 import Password from './pages/Signup/Password';
 import PasswordInput from './pages/Signup/PasswordInput';
 import KakaoAuth from './pages/Login/KakaoAuth';
-import preventTab from './utils/preventTab';
 
 const Router = () => {
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
-
-  useEffect(() => {
-    document.addEventListener('keydown', preventTab);
-  }, []);
 
   return (
     <Provider store={store}>
