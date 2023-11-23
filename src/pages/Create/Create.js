@@ -89,7 +89,7 @@ function Create() {
 
       for (const choice of choices) {
         if (choiceTexts.has(choice.choice_text)) {
-          return true; // Duplicate found
+          return true;
         }
         choiceTexts.add(choice.choice_text);
       }

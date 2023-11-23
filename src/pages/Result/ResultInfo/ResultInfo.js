@@ -24,6 +24,8 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 2rem;
+  margin-right: auto;
+  margin-left: auto;
 `;
 
 const FirstWriter = styled.div`

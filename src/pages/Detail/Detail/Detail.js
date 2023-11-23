@@ -43,6 +43,10 @@ const Detail = () => {
   };
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     handleCategoryDispatch(voteDetail.category_list);
     handleCategoryListDispatch(voteDetail.category_list);
   }, [voteDetail]);

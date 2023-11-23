@@ -48,7 +48,6 @@ export default function (state = initialState, action) {
         isAuthenticated: true,
       };
     case LOGIN_SUCCESS:
-      console.log('LOGIN_SUCCESS');
       localStorage.setItem('access', payload.access);
       localStorage.setItem('refresh', payload.refresh);
       return {

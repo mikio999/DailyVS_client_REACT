@@ -8,10 +8,14 @@ import tvLeft from '../../../assets/TodayVS/tv_left.png';
 import tvRight from '../../../assets/TodayVS/tv_right.png';
 
 function MainHero({ data }) {
+  const [loading, setLoading] = useState(true);
   const [todayPoll, setTodayPoll] = useState();
+
   useEffect(() => {
     setTodayPoll(data);
-  }, []);
+    setLoading(false);
+  }, [data]);
+
   const navigate = useNavigate();
   const onClickDetailButton = () => {
     navigate(`/vote-detail/${data.poll.id}`);
@@ -60,12 +64,13 @@ function MainHero({ data }) {
   const [width, setWidth] = useState(0);
   useEffect(() => {
     if (TVImgLeftRef.current) {
-      let TVLwidth = TVImgLeftRef.current.clientWidth;
-      setWidth(TVLwidth);
-      TVImgLeftRef.current.style.height = `${width}px`;
-      TVImgRightRef.current.style.height = `${width}px`;
+      TVImgLeftRef.current.onload = () => {
+        let TVLwidth = TVImgLeftRef.current.clientWidth;
+        setWidth(TVLwidth);
+        TVImgLeftRef.current.style.height = `${width}px`;
+      };
     }
-  }, []);
+  }, [width]);
 
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
 
@@ -82,7 +87,7 @@ function MainHero({ data }) {
       <Container>
         <DailyVS onClick={onClickDetailButton}>
           <div className="tag">오늘의 VS</div>
-          <Title>{!!todayPoll && todayPoll.poll?.title}</Title>
+          <Title>{todayPoll?.poll?.title}</Title>
           <VS>
             <div>
               <img
@@ -231,18 +236,29 @@ const TVImgLeft = styled.div`
     color: white;
     font-size: 24px;
   }
+
   @media screen and (max-width: 700px) {
     width: 60%;
     height: 56%;
     right: 10%;
   }
+
+  @media screen and (max-width: 600px) {
+    top: 34%;
+    height: 50%;
+  }
+
   @media screen and (max-width: 500px) {
     top: 34%;
+    height: 50%;
   }
+
   @media screen and (max-width: 400px) {
     top: 39%;
+    height: 33%;
   }
 `;
+
 const TVImgRight = styled.div`
   width: 174px;
   height: 174px;
@@ -275,13 +291,23 @@ const TVImgRight = styled.div`
   }
   @media screen and (max-width: 700px) {
     width: 60%;
+    height: 56%;
     left: 13%;
   }
-  @media screen and (max-width: 500px) {
-    top: 35%;
+
+  @media screen and (max-width: 600px) {
+    top: 34%;
+    height: 50%;
   }
+
+  @media screen and (max-width: 500px) {
+    top: 34%;
+    height: 50%;
+  }
+
   @media screen and (max-width: 400px) {
     top: 39%;
+    height: 33%;
   }
 `;
 

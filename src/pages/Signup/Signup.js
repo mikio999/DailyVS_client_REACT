@@ -124,6 +124,7 @@ const Signup = ({ signup, isAuthenticated }) => {
             onChange={e => setFormData({ ...formData, email: e.target.value })}
             required
             autoComplete="new-password"
+            tabIndex={1}
           />
           <SignupLabel>비밀번호(8자 이상 15자 이하) </SignupLabel>
           <TextInput
@@ -136,6 +137,7 @@ const Signup = ({ signup, isAuthenticated }) => {
               setPasswordMatch(newPassword === password2);
             }}
             required
+            tabIndex={2}
           />
           <SignupLabel>
             확인 비밀번호
@@ -158,6 +160,7 @@ const Signup = ({ signup, isAuthenticated }) => {
               setFormData({ ...formData, password2: newPassword });
               setPasswordMatch(newPassword === password2);
             }}
+            tabIndex={3}
           />
           <SignupLabel>기타 정보 (성향 분석에 필요합니다!)</SignupLabel>
           <MBTIDropdown

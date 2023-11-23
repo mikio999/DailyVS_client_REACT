@@ -30,12 +30,12 @@ const VoteDetailBtn = ({ voteId }) => {
       .then(data => {
         console.log('성공:', data);
         alert('투표가 삭제되었습니다!');
-        navigate(`/my-page`);
+        navigate(`/`);
       })
       .catch(error => {
         console.error('데이터 받기 실패:', error);
         alert('투표가 정상적으로 삭제되었습니다!');
-        navigate(`/my-page`);
+        navigate(`/`);
       });
   };
 
