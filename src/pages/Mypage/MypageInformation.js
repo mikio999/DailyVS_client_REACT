@@ -31,7 +31,9 @@ const MypageInformation = ({ userInformation }) => {
   return (
     <Container>
       <UserBox>
-        <UserImg src={require('../../assets/Nav/Logged.png')} />
+        <UserIcon>
+          <UserImg src={require('../../assets/Nav/Logged.png')} />
+        </UserIcon>
         <UserFeature>
           <FeatureTop>
             <UserName>
@@ -47,10 +49,10 @@ const MypageInformation = ({ userInformation }) => {
             <UserGender>
               성별 : <GenderSpan>{userInformation.user?.gender}</GenderSpan>
             </UserGender>
-            <UserAge>
-              나이 : <AgeSpan>{ageRange}</AgeSpan>
-            </UserAge>
           </UserCharacter>
+          <UserAge>
+            나이 : <AgeSpan>{ageRange}</AgeSpan>
+          </UserAge>
           <UserPoint>
             <CoinImg src={require('../../assets/Buttons/Coin.png')} />
             <CoinName>유저 포인트 : </CoinName>
@@ -68,28 +70,33 @@ export default MypageInformation;
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   margin-bottom: 2rem;
   min-width: 350px;
   width: 100%;
-  @media (min-width: 768px) {
-    margin-top: 5rem;
-  }
 `;
 
 const UserBox = styled.div`
   display: grid;
-  grid-template-columns: 20% 80%;
-  min-width: 350px;
-  margin-right: 20px;
+  grid-template-columns: 30% 70%;
+  @media (min-width: 768px) {
+    display: grid;
+    grid-template-columns: 30% 70%;
+  }
 `;
 
 const UserImg = styled.img`
+  display: flex;
   width: 70px;
-  margin: auto;
+  @media (min-width: 768px) {
+    display: flex;
+    justify-content: center;
+  }
 `;
 
 const UserFeature = styled.div`
-  margin-left: 20px;
+  margin-left: 5px;
   width: 90%;
 `;
 
@@ -109,12 +116,9 @@ const UserSpan = styled.span`
 `;
 
 const UserAge = styled.h2`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  margin-top: 1rem;
   font-size: 17px;
   font-family: 'GongGothicLight';
-  margin-left: 10px;
 `;
 
 const AgeSpan = styled.span`
@@ -124,7 +128,6 @@ const AgeSpan = styled.span`
 
 const FeatureTop = styled.div`
   display: flex;
-
   padding-bottom: 15px;
   border-bottom: #bdbdbd 2px solid;
 `;
@@ -137,7 +140,7 @@ const UserModify = styled.button`
   border-radius: 5px;
   margin-left: 10px;
   font-size: 15px;
-  width: 120px;
+  width: 180px;
   height: 40px;
   color: white;
   background-color: #ff495a;
@@ -168,6 +171,10 @@ const UserGender = styled.div`
   margin-left: 10px;
   font-size: 17px;
   font-family: 'GongGothicLight';
+`;
+
+const UserIcon = styled.div`
+  margin: auto;
 `;
 
 const GenderSpan = styled.span`
