@@ -9,11 +9,13 @@ import { checkAuthenticated, load_user, logout } from '../../actions/auth';
 const Nav = ({ checkAuthenticated, load_user, logout, isAuthenticated }) => {
   const [redirect, setRedirect] = useState(false);
   const [userInfo, setUserInfo] = useState('');
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    setLoading(false);
     checkAuthenticated();
     load_user();
-  }, []);
+  }, [userInfo]);
 
   useEffect(() => {
     const accessToken = localStorage.getItem('access');

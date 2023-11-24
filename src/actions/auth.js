@@ -72,23 +72,66 @@ export const checkAuthenticated = () => async dispatch => {
       );
 
       if (res.data.code !== 'token_not_valid') {
+        console.log('valid');
         dispatch({
           type: AUTHENTICATED_SUCCESS,
         });
       } else {
-        dispatch({
-          type: AUTHENTICATED_FAIL,
-        });
+        console.log('not valid refreshToken 받아오기');
+        dispatch(refreshToken());
       }
     } catch (err) {
-      dispatch({
-        type: AUTHENTICATED_FAIL,
-      });
+      dispatch(refreshToken());
     }
   } else {
     dispatch({
       type: AUTHENTICATED_FAIL,
     });
+  }
+};
+
+export const refreshToken = () => async dispatch => {
+  const refresh_token = localStorage.getItem('refresh');
+
+  if (!refresh_token) {
+    dispatch({
+      type: AUTHENTICATED_FAIL,
+    });
+    return;
+  }
+
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+
+  const body = JSON.stringify({ refresh: refresh_token });
+  console.log('리프레쉬 토큰 보내기', body);
+  try {
+    const res = await axios.post(
+      `${process.env.REACT_APP_HOST}/accounts/token/refresh/`,
+      body,
+      config,
+    );
+
+    dispatch({
+      type: AUTHENTICATED_SUCCESS,
+    });
+
+    localStorage.setItem('access', res.data.access);
+    console.log('token', res.data.access);
+  } catch (err) {
+    dispatch({
+      type: AUTHENTICATED_FAIL,
+    });
+    alert('토큰 갱신 시간이 만료되었습니다. 다시 로그인해주세요.');
+
+    dispatch({
+      type: LOGOUT,
+    });
+
+    window.location.href = '/login';
   }
 };
 

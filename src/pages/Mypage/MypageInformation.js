@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
 const MypageInformation = ({ userInformation }) => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setLoading(false);
+  }, [userInformation]);
 
   console.log(userInformation);
   function getAgeRange(age) {
@@ -17,7 +22,7 @@ const MypageInformation = ({ userInformation }) => {
       return '30대 초반';
     } else if (age === '30_2') {
       return '30대 후반';
-    } else {
+    } else if (age === '40') {
       return '40대';
     }
   }

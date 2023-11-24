@@ -28,6 +28,7 @@ const initialState = {
 
 export default function (state = initialState, action) {
   const { type, payload } = action;
+
   switch (type) {
     case KAKAO_AUTH_SUCCESS:
       localStorage.setItem('access', payload.access);
@@ -83,7 +84,7 @@ export default function (state = initialState, action) {
     case LOGOUT:
       localStorage.removeItem('access');
       localStorage.removeItem('refresh');
-      window.location.reload();
+      window.location.reload('/');
       return {
         ...state,
         access: null,
