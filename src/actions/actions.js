@@ -60,3 +60,10 @@ export const setNickname = nickname => {
     payload: nickname,
   };
 };
+
+export const setKakao = kakao => {
+  return {
+    type: 'SET_KAKAO',
+    payload: kakao,
+  };
+};

@@ -15,6 +15,7 @@ import {
   SIGNUP_FAIL,
   KAKAO_AUTH_SUCCESS,
   KAKAO_AUTH_FAIL,
+  KAKAO_LOGOUT,
   ACTIVATION_SUCCESS,
   ACTIVATION_FAIL,
   LOGOUT,
@@ -72,7 +73,6 @@ export const checkAuthenticated = () => async dispatch => {
       );
 
       if (res.data.code !== 'token_not_valid') {
-        console.log('valid');
         dispatch({
           type: AUTHENTICATED_SUCCESS,
         });
@@ -107,13 +107,14 @@ export const refreshToken = () => async dispatch => {
   };
 
   const body = JSON.stringify({ refresh: refresh_token });
-  console.log('리프레쉬 토큰 보내기', body);
+
   try {
     const res = await axios.post(
       `${process.env.REACT_APP_HOST}/accounts/token/refresh/`,
       body,
       config,
     );
+    console.log('응답', res);
 
     dispatch({
       type: AUTHENTICATED_SUCCESS,
@@ -126,7 +127,6 @@ export const refreshToken = () => async dispatch => {
       type: AUTHENTICATED_FAIL,
     });
     alert('토큰 갱신 시간이 만료되었습니다. 다시 로그인해주세요.');
-
     dispatch({
       type: LOGOUT,
     });
@@ -196,6 +196,7 @@ export const signup =
         payload: res.data,
       });
     } catch (err) {
+      console.log(err);
       dispatch({
         type: SIGNUP_FAIL,
       });
@@ -363,4 +364,11 @@ export const logout = () => async dispatch => {
   } catch (err) {
     console.error('로그아웃 에러:', err.response.data);
   }
+};
+
+export const kakao_logout = () => async dispatch => {
+  console.log('kkkk');
+  dispatch({
+    type: KAKAO_LOGOUT,
+  });
 };

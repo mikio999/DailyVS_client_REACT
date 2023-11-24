@@ -12,6 +12,7 @@ const Modify = ({ isAuthenticated }) => {
   });
   const navigate = useNavigate();
   const [formData, setFormData] = useState(userInformation);
+  const [BtnDisabled, setBtnDisabled] = useState(true);
 
   useEffect(() => {
     const headers = new Headers();
@@ -31,13 +32,30 @@ const Modify = ({ isAuthenticated }) => {
       .then(response => response.json())
       .then(result => {
         setUserInformation(result.user);
-        console.log(result.user);
       });
   }, []);
-  formData.nickname = userInformation.nickname;
-  formData.gender = userInformation.gender;
-  formData.mbti = userInformation.mbti;
-  formData.age = userInformation.age;
+  formData.nickname = userInformation?.nickname;
+
+  const formFull = () => {
+    if (userInformation.gender == null) {
+      formData.nickname = 'M';
+      userInformation.gender = 'M';
+    } else formData.gender = userInformation.gender;
+
+    if (userInformation.mbti == null) {
+      formData.mbti = 'ISTJ';
+      userInformation.mbti = 'ISTJ';
+    } else formData.mbti = userInformation.mbti;
+
+    if (userInformation.age == null) {
+      formData.age = '10';
+      userInformation.age = '10';
+    } else {
+      formData.age = userInformation.age;
+    }
+  };
+
+  formFull();
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -75,6 +93,8 @@ const Modify = ({ isAuthenticated }) => {
 
   const handleModifyClick = event => {
     event.preventDefault();
+    formFull();
+
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
 

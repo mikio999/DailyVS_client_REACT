@@ -143,6 +143,19 @@ const userReducer = (state = initialUserState, action) => {
   }
 };
 
+const kakaoState = {
+  selectedKakao: '',
+};
+
+const kakaoReducer = (state = kakaoState, action) => {
+  switch (action.type) {
+    case 'SET_KAKAO':
+      return { ...state, selectedKakao: action.payload };
+    default:
+      return state;
+  }
+};
+
 const rootReducer = combineReducers({
   auth,
   nickname: nicknameReducer,
@@ -155,6 +168,7 @@ const rootReducer = combineReducers({
   age: ageReducer,
   category: categoryReducer,
   categoryList: categoryListReducer,
+  kakao: kakaoReducer,
 });
 
 export default rootReducer;

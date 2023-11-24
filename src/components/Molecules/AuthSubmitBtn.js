@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
 import { setGender, setAge, setMBTI } from '../../actions/actions';
+import Sending from '../Atoms/Sending';
 
 const AuthSubmitBtn = ({ isFormValid }) => {
   const params = useParams();
@@ -10,7 +11,9 @@ const AuthSubmitBtn = ({ isFormValid }) => {
   const detailId = params.id;
   const dispatch = useDispatch();
   const [userInformation, setUserInformation] = useState('');
+  const [errorMessage, setErrorMessage] = useState(null);
 
+  const [isSending, setIsSending] = useState(false);
   const selectedChoice = useSelector(state => state.choice.selectedChoice);
   const selectedOption = useSelector(state => state.option.selectedOption);
   const selectedGender = useSelector(state => state.gender.selectedGender);
@@ -47,6 +50,7 @@ const AuthSubmitBtn = ({ isFormValid }) => {
 
   const handleInformationClick = event => {
     event.preventDefault();
+    setIsSending(true);
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
 
@@ -75,14 +79,20 @@ const AuthSubmitBtn = ({ isFormValid }) => {
         }
       })
       .catch(error => {
+        setIsSending(false);
         console.error('POST 요청 오류:', error);
+        setErrorMessage('투표 등록 오류');
       });
   };
 
-  return (
+  return !isSending ? (
     <RegisterButton onClick={handleInformationClick} disabled={!isFormValid()}>
       투표하기
     </RegisterButton>
+  ) : (
+    <DataSending>
+      <Sending />
+    </DataSending>
   );
 };
 
@@ -102,4 +112,10 @@ const RegisterButton = styled.button`
   &:hover {
     cursor: pointer;
   }
+`;
+
+const DataSending = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
