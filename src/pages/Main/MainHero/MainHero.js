@@ -127,10 +127,7 @@ function MainHero({ data }) {
           <TV>
             <div>
               <TVImgLeft ref={TVImgLeftRef}>
-                <img
-                  src={`${process.env.REACT_APP_HOST}${data?.choice1}`}
-                  alt="choice1"
-                />
+                <img src={`${data?.choice1}`} alt="choice1" />
                 <div>
                   <span>
                     {!!todayPoll && todayPoll.poll?.choices[0].choice_text}
@@ -140,10 +137,7 @@ function MainHero({ data }) {
             </div>
             <div>
               <TVImgRight ref={TVImgRightRef}>
-                <img
-                  src={`${process.env.REACT_APP_HOST}${data?.choice2}`}
-                  alt="choice2"
-                />
+                <img src={`${data?.choice2}`} alt="choice2" />
                 <div>
                   <span>
                     {!!todayPoll && todayPoll.poll?.choices[1].choice_text}
