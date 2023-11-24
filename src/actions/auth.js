@@ -196,6 +196,7 @@ export const signup =
         payload: res.data,
       });
     } catch (err) {
+      console.log(err);
       dispatch({
         type: SIGNUP_FAIL,
       });

@@ -5,12 +5,7 @@ import Marquee from 'react-fast-marquee';
 import SearchBox from './SearchBox';
 import { setKakao } from '../../actions/actions';
 import { connect } from 'react-redux';
-import {
-  checkAuthenticated,
-  load_user,
-  logout,
-  kakao_logout,
-} from '../../actions/auth';
+import { checkAuthenticated, load_user, logout } from '../../actions/auth';
 import { useSelector, useDispatch } from 'react-redux';
 
 const Nav = ({ checkAuthenticated, load_user, logout, isAuthenticated }) => {

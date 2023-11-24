@@ -32,12 +32,9 @@ const Modify = ({ isAuthenticated }) => {
       .then(response => response.json())
       .then(result => {
         setUserInformation(result.user);
-        console.log(result.user);
       });
   }, []);
   formData.nickname = userInformation?.nickname;
-
-  console.log('formData', formData);
 
   const formFull = () => {
     if (userInformation.gender == null) {
