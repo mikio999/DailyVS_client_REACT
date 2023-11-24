@@ -13,6 +13,7 @@ import {
   SIGNUP_FAIL,
   KAKAO_AUTH_SUCCESS,
   KAKAO_AUTH_FAIL,
+  KAKAO_LOGOUT,
   ACTIVATION_SUCCESS,
   ACTIVATION_FAIL,
   LOGOUT,
@@ -33,13 +34,14 @@ export default function (state = initialState, action) {
     case KAKAO_AUTH_SUCCESS:
       localStorage.setItem('access', payload.access);
       localStorage.setItem('refresh', payload.refresh);
+      console.log(payload.refresh);
       return {
         ...state,
         isAuthenticated: true,
         access: payload.access,
         refresh: payload.refresh,
         user: {
-          nickname: payload.nickname, // Kakao에서 받은 닉네임을 사용자 정보로 저장
+          nickname: payload.nickname,
         },
       };
 
@@ -81,6 +83,17 @@ export default function (state = initialState, action) {
       alert('로그인 실패! 로그인 이메일과 비밀번호를 다시 한번 확인해주세요!');
     case SIGNUP_FAIL:
     case KAKAO_AUTH_FAIL:
+    case KAKAO_LOGOUT:
+      localStorage.removeItem('access');
+      localStorage.removeItem('refresh');
+      window.location.reload('/');
+      return {
+        ...state,
+        access: null,
+        refresh: null,
+        isAuthenticated: false,
+        user: null,
+      };
     case LOGOUT:
       localStorage.removeItem('access');
       localStorage.removeItem('refresh');

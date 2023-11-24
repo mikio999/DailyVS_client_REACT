@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
+import Sending from '../Atoms/Sending';
 
 const LoginModal = ({ isOpen, onClose }) => {
   const params = useParams();
@@ -71,12 +72,18 @@ const LoginModal = ({ isOpen, onClose }) => {
         <ModalContent>정보 입력 하나하나 번거로우시죠?</ModalContent>
         로그인을 하시면 자동 정보 입력 외에 <br />
         여러가지 기능을 이용하실 수 있어요!
-        <ModalButton>
-          <LoginButton onClick={handleLogin}>로그인하기</LoginButton>
-          <VoteButton onClick={handleInformationClick}>
-            그냥 투표하기
-          </VoteButton>
-        </ModalButton>
+        {!isLoading ? (
+          <ModalButton>
+            <LoginButton onClick={handleLogin}>로그인하기</LoginButton>
+            <VoteButton onClick={handleInformationClick}>
+              그냥 투표하기
+            </VoteButton>
+          </ModalButton>
+        ) : (
+          <DataSending>
+            <Sending />
+          </DataSending>
+        )}
       </ModalContainer>
     </ModalOverlay>
   ) : null;
@@ -152,9 +159,16 @@ const VoteButton = styled.button`
   font-size: 16px;
   color: #17355a;
   background-color: white;
+  white-space: nowrap;
   &:hover {
     background-color: #17355a;
     color: white;
     cursor: pointer;
   }
+`;
+
+const DataSending = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;

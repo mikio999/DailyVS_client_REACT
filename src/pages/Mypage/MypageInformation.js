@@ -10,7 +10,6 @@ const MypageInformation = ({ userInformation }) => {
     setLoading(false);
   }, [userInformation]);
 
-  console.log(userInformation);
   function getAgeRange(age) {
     if (age === '10') {
       return '10대';
@@ -47,17 +46,25 @@ const MypageInformation = ({ userInformation }) => {
             </UserName>
             <UserModify onClick={moveToModify}>개인정보 수정</UserModify>
           </FeatureTop>
-          <UserCharacter>
-            <UserMBTI>
-              MBTI : <MBTISpan>{userInformation.user?.mbti}</MBTISpan>
-            </UserMBTI>
-            <UserGender>
-              성별 : <GenderSpan>{userInformation.user?.gender}</GenderSpan>
-            </UserGender>
-          </UserCharacter>
-          <UserAge>
-            나이 : <AgeSpan>{ageRange}</AgeSpan>
-          </UserAge>
+          {userInformation.user?.mbti &&
+          userInformation.user?.gender &&
+          userInformation.user?.age ? (
+            <UserColumn>
+              <UserCharacter>
+                <UserMBTI>
+                  MBTI : <MBTISpan>{userInformation.user.mbti}</MBTISpan>
+                </UserMBTI>
+                <UserGender>
+                  성별 : <GenderSpan>{userInformation.user.gender}</GenderSpan>
+                </UserGender>
+              </UserCharacter>
+              <UserAge>
+                성별 : <AgeSpan>{userInformation.user.age}</AgeSpan>
+              </UserAge>
+            </UserColumn>
+          ) : (
+            <UserCharacter>개인정보 입력을 완성해주세요</UserCharacter>
+          )}
           <UserPoint>
             <CoinImg src={require('../../assets/Buttons/Coin.png')} />
             <CoinName>유저 포인트 : </CoinName>
@@ -131,6 +138,11 @@ const AgeSpan = styled.span`
   margin-left: 5px;
 `;
 
+const UserColumn = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
 const FeatureTop = styled.div`
   display: flex;
   padding-bottom: 15px;
@@ -159,6 +171,7 @@ const UserModify = styled.button`
 
 const UserCharacter = styled.div`
   display: flex;
+  align-items: center;
   margin-top: 15px;
   white-space: nowrap;
 `;

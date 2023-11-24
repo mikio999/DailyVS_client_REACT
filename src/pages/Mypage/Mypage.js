@@ -32,6 +32,7 @@ const Mypage = ({ logout }) => {
         setLoading(false);
       });
   }, []);
+
   const logout_user = () => {
     const shouldLogout = window.confirm('로그아웃 하시겠습니까?');
     if (shouldLogout) {

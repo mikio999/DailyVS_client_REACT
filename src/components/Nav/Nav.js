@@ -3,13 +3,29 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import Marquee from 'react-fast-marquee';
 import SearchBox from './SearchBox';
+import { setKakao } from '../../actions/actions';
 import { connect } from 'react-redux';
-import { checkAuthenticated, load_user, logout } from '../../actions/auth';
+import {
+  checkAuthenticated,
+  load_user,
+  logout,
+  kakao_logout,
+} from '../../actions/auth';
+import { useSelector, useDispatch } from 'react-redux';
 
 const Nav = ({ checkAuthenticated, load_user, logout, isAuthenticated }) => {
+  const dispatch = useDispatch();
   const [redirect, setRedirect] = useState(false);
   const [userInfo, setUserInfo] = useState('');
   const [loading, setLoading] = useState(true);
+
+  const handleDispatch = selectedKakao => {
+    dispatch(setKakao(selectedKakao));
+  };
+
+  handleDispatch(userInfo?.is_kakao);
+
+  const selectedKakaoAuth = useSelector(state => state.kakao.selectedKakao);
 
   useEffect(() => {
     setLoading(false);
@@ -31,20 +47,27 @@ const Nav = ({ checkAuthenticated, load_user, logout, isAuthenticated }) => {
       },
     };
 
-    fetch(`${process.env.REACT_APP_HOST}/accounts/user_info/`, {
+    fetch(`${process.env.REACT_APP_HOST}/mypage`, {
       headers: config.headers,
     })
       .then(response => response.json())
       .then(result => {
-        setUserInfo(result);
+        setUserInfo(result.user);
       });
   }, []);
 
   const logout_user = () => {
     const shouldLogout = window.confirm('로그아웃 하시겠습니까?');
     if (shouldLogout) {
-      logout();
-      setRedirect(true);
+      if (selectedKakaoAuth) {
+        localStorage.removeItem('access');
+        localStorage.removeItem('refresh');
+        window.location.reload('/');
+        setRedirect(true);
+      } else {
+        logout();
+        setRedirect(true);
+      }
     }
   };
 
@@ -92,7 +115,7 @@ const Nav = ({ checkAuthenticated, load_user, logout, isAuthenticated }) => {
                   alt="마이페이지"
                 />
                 <UserNickNameContainer>
-                  <UserNickName>{userInfo.nickname}</UserNickName>님
+                  <UserNickName>{userInfo?.nickname}</UserNickName>님
                 </UserNickNameContainer>
               </NavLink2>
             ) : (
