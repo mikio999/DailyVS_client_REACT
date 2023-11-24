@@ -7,19 +7,26 @@ import CreateChoice from './CreateChoice';
 import CreateCat from './CreateCat';
 import { checkAuthenticated, load_user } from '../../actions/auth';
 import { useNavigate } from 'react-router-dom';
+import preventTab from '../../utils/preventTab';
 
 const responsive = {
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
+    keyBoardControl: false,
+    onkeydown: preventTab,
     items: 1,
   },
   tablet: {
     breakpoint: { max: 1024, min: 768 },
     items: 1,
+    keyBoardControl: false,
+    onkeydown: preventTab,
   },
   mobile: {
     breakpoint: { max: 767, min: 200 },
     items: 1,
+    keyBoardControl: false,
+    onkeydown: preventTab,
   },
 };
 

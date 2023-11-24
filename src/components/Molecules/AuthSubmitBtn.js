@@ -70,17 +70,6 @@ const AuthSubmitBtn = ({ isFormValid }) => {
     })
       .then(response => response.json())
       .then(result => {
-        console.log('서버 응답:', result);
-        console.log(
-          'Request Body:',
-          JSON.stringify({
-            choice_id: selectedOption,
-            category_list: selectedCategoryList,
-            gender: selectedGender,
-            mbti: selectedMBTI,
-            age: selectedAge,
-          }),
-        );
         if (result) {
           navigate(`/vote-result/${detailId}`);
         }
