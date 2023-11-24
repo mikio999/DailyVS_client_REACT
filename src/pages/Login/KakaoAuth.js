@@ -5,12 +5,12 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 
 const KakaoAuth = () => {
   const REST_API_KEY = process.env.REACT_APP_REST_API_KEY;
-  const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI;
+  const REDIRECT_URI = process.env.REACT_APP_REDIRECT_KAKAO_URI;
 
   const [searchParams, setSearchParams] = useSearchParams();
 
   const code = searchParams.get('code');
-  console.log(code);
+
   const navigate = useNavigate();
 
   const getToken = async () => {
