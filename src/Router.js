@@ -43,6 +43,7 @@ const Router = () => {
             )}
             <Route path="/find-password" element={<Password />} />
             <Route path="/api/oauth/kakao/callback/" element={<KakaoAuth />} />
+            <Route path="/oauth/kakao/callback/" element={<KakaoAuth />} />
             <Route path="/*" element={<RouteWithNavFooter />} />
             <Route path="/activate/:uid/:token" element={<Activate />} />
             <Route path="*" element={<ErrorPage />} />
