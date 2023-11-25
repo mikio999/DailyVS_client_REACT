@@ -80,7 +80,6 @@ const DetailGenderContainer = styled.div`
   margin-left: auto;
   margin-right: auto;
   background-color: #f8f8ff;
-  width: 500px;
   min-height: 800px;
 `;
 
