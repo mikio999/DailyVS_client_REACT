@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import theme from '../../styles/theme';
+import preventTab from '../../utils/preventTab';
 
 function TextareaWithLimit({
   value,
@@ -28,6 +29,7 @@ function TextareaWithLimit({
         placeholder={placeholder}
         rows="5"
         maxLength={max}
+        onKeyDown={preventTab}
       />
       <p>
         입력한 내용: {value.length}/{max}

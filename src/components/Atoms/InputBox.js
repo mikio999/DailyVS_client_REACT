@@ -1,15 +1,32 @@
 import React from 'react';
 import styled from 'styled-components';
 import theme from '../../styles/theme';
+import preventTab from '../../utils/preventTab';
 
-function InputBox({ value, placeholder, readOnly = false, onChange }) {
-  return (
+function InputBox({
+  value,
+  placeholder,
+  readOnly = false,
+  onChange,
+  preventTabKey,
+}) {
+  return !readOnly ? (
     <Choice
       type="text"
       value={value}
       placeholder={placeholder}
       readOnly={readOnly}
       onChange={onChange}
+      onKeyDown={placeholder === '선택지 5' ? preventTab : undefined}
+    />
+  ) : (
+    <Choice
+      type="text"
+      value={value}
+      placeholder={placeholder}
+      readOnly={readOnly}
+      onChange={onChange}
+      onKeyDown={preventTab}
     />
   );
 }

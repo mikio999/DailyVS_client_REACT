@@ -154,9 +154,14 @@ function Create() {
             type="submit"
             onClick={handleSubmit}
             disabled={!isFormValid()}
+            onkeydown={preventTab}
           />
         ) : (
-          <MintButton content={'다음으로'} onClick={() => next()} />
+          <MintButton
+            content={'다음으로'}
+            onClick={() => next()}
+            onkeydown={preventTab}
+          />
         )}
       </ButtonGroup>
     );
@@ -176,6 +181,7 @@ function Create() {
         renderButtonGroupOutside
         customButtonGroup={<CustomButtonGroup />}
         keyBoardControl={false}
+        onkeydown={preventTab}
       >
         <CreateTTC {...dataProps} />
         <CreateChoice {...dataProps} />
