@@ -12,7 +12,6 @@ const Modify = ({ isAuthenticated }) => {
   });
   const navigate = useNavigate();
   const [formData, setFormData] = useState(userInformation);
-  const [BtnDisabled, setBtnDisabled] = useState(true);
 
   useEffect(() => {
     const headers = new Headers();
@@ -31,31 +30,38 @@ const Modify = ({ isAuthenticated }) => {
     fetch(`${process.env.REACT_APP_HOST}/mypage`, requestOptions)
       .then(response => response.json())
       .then(result => {
-        setUserInformation(result.user);
+        const defaultUserInformation = {
+          nickname: 'M',
+          gender: 'M',
+          mbti: 'ISTJ',
+          age: '10',
+        };
+
+        const mergedUserInformation = {
+          ...defaultUserInformation,
+          ...result.user,
+          gender:
+            result.user.gender !== null
+              ? result.user.gender
+              : defaultUserInformation.gender,
+          mbti:
+            result.user.mbti !== null
+              ? result.user.mbti
+              : defaultUserInformation.mbti,
+          age:
+            result.user.age !== null
+              ? result.user.age
+              : defaultUserInformation.age,
+        };
+
+        setUserInformation(mergedUserInformation);
       });
   }, []);
+
   formData.nickname = userInformation?.nickname;
-
-  const formFull = () => {
-    if (userInformation.gender == null) {
-      formData.nickname = 'M';
-      userInformation.gender = 'M';
-    } else formData.gender = userInformation.gender;
-
-    if (userInformation.mbti == null) {
-      formData.mbti = 'ISTJ';
-      userInformation.mbti = 'ISTJ';
-    } else formData.mbti = userInformation.mbti;
-
-    if (userInformation.age == null) {
-      formData.age = '10';
-      userInformation.age = '10';
-    } else {
-      formData.age = userInformation.age;
-    }
-  };
-
-  formFull();
+  formData.gender = userInformation?.gender;
+  formData.age = userInformation?.age;
+  formData.mbti = userInformation?.mbti;
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -93,7 +99,6 @@ const Modify = ({ isAuthenticated }) => {
 
   const handleModifyClick = event => {
     event.preventDefault();
-    formFull();
 
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -113,8 +118,6 @@ const Modify = ({ isAuthenticated }) => {
     fetch(`${process.env.REACT_APP_HOST}/mypage`, requestOptions)
       .then(response => response.json())
       .then(result => {
-        console.log('서버 응답:', result);
-
         if (result) {
           navigate(`/my-page`);
         }
