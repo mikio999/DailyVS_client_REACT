@@ -4,6 +4,7 @@ import theme from '../../styles/theme';
 import Versus from '../Atoms/VersusText';
 import DeleteBtn from '../Atoms/DeleteBtn';
 import InputBox from '../Atoms/InputBox';
+import preventTab from '../../utils/preventTab';
 
 function InputPollBox({
   value,
@@ -27,6 +28,7 @@ function InputPollBox({
           placeholder={`선택지 ${index + 1}`}
           readOnly={readOnly}
           onChange={handleChange}
+          onkeydown={e => preventTab(e)}
         />
         {!!deleteBtn && (
           <Delete>

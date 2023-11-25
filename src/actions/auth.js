@@ -237,12 +237,11 @@ export const kakaoAuthenticate = (state, code) => async dispatch => {
 
     try {
       const res = await axios.post(
-        `${process.env.REACT_APP_HOST}/accounts/kakao/login/callback/?${formBody}`,
+        `${process.env.REACT_APP_KAKAO_HOST}/accounts/kakao/login/callback/?${formBody}`,
         config,
       );
 
       const { access, refresh, nickname } = res.data;
-
       dispatch(kakaoAuthSuccess(access, refresh, nickname));
 
       dispatch(loadUser());

@@ -1,12 +1,10 @@
 import { useEffect } from 'react';
 import axios from 'axios';
-import { useDispatch } from 'react-redux';
 import qs from 'qs';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { kakaoAuthSuccess, kakaoAuthFail } from '../../actions/auth';
 
 const KakaoAuth = () => {
-  const dispatch = useDispatch();
   const REST_API_KEY = process.env.REACT_APP_REST_API_KEY;
   const REDIRECT_URI = process.env.REACT_APP_REDIRECT_KAKAO_URI;
 
