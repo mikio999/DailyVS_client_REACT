@@ -103,8 +103,10 @@ const AgeSquare = styled.div`
   align-items: center;
   font-family: 'GongGothicMedium';
   font-size: 22px;
-  height: 70px;
-  width: 180px;
+  min-height: 70px;
+  height: 10vh;
+  min-width: 120px;
+  width: 20vw;
   margin: 1rem;
   background-color: white;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);

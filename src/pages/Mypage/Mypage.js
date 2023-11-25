@@ -4,12 +4,16 @@ import MypageInformation from './MypageInformation';
 import MypageVoteList from './MypageVoteList/MypageVoteList';
 import MypageLikeList from './MypageLikeList/MypageLikeList';
 import theme from '../../styles/theme';
+import { logout } from '../../actions/auth';
+import { useSelector } from 'react-redux';
 import MypageCreateList from './MypageCreateList/MypageCreateList';
 
-const Mypage = ({ logout }) => {
+const Mypage = () => {
   const [userInformation, setUserInformation] = useState('');
   const [loading, setLoading] = useState(true);
   const [redirect, setRedirect] = useState(false);
+
+  const selectedKakaoAuth = useSelector(state => state.kakao.selectedKakao);
 
   useEffect(() => {
     const headers = new Headers();
@@ -33,11 +37,19 @@ const Mypage = ({ logout }) => {
       });
   }, []);
 
-  const logout_user = () => {
+  const logout_user = e => {
+    e.preventDefault();
     const shouldLogout = window.confirm('로그아웃 하시겠습니까?');
     if (shouldLogout) {
-      logout();
-      setRedirect(true);
+      if (selectedKakaoAuth) {
+        localStorage.removeItem('access');
+        localStorage.removeItem('refresh');
+        window.location.reload('/');
+        setRedirect(true);
+      } else {
+        logout();
+        setRedirect(true);
+      }
     }
   };
 

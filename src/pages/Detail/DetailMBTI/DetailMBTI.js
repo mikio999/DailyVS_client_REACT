@@ -105,7 +105,7 @@ const DetailMBTI = () => {
         </MbtiOption>
       </MBTIContainer>
       <MBTICooperation>
-        <MBTIMix>선택된 MBTI 조합 :</MBTIMix>
+        <MBTIMix>선택된 MBTI 조합 : </MBTIMix>
         <MBTIMixValue>{mixedMBTI()}</MBTIMixValue>
       </MBTICooperation>
       <RegisterBtn isFormValid={isFormValid} />
@@ -117,11 +117,10 @@ export default DetailMBTI;
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  margin-left: auto;
-  margin-right: auto;
+  justify-content: center;
   background-color: #f8f8ff;
-  width: 500px;
-  min-height: 700px;
+  width: 100vw;
+  min-height: 60vh;
 `;
 
 const MbtiQuestion = styled.h1`
@@ -151,8 +150,10 @@ const MbtiCheck = styled.div`
   flex-direction: column;
   justify-content: center;
   font-family: 'GongGothicMedium';
-  width: 80px;
-  height: 80px;
+  min-width: 60px;
+  min-height: 60px;
+  width: 10vw;
+  height: 10vh;
   margin: 10px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
   cursor: pointer;
@@ -171,6 +172,8 @@ const MBTICooperation = styled.div`
   height: 80px;
   display: grid;
   grid-template-columns: 1fr 1fr;
+  margin-left: auto;
+  margin-right: auto;
 `;
 
 const MBTIMix = styled.div`
@@ -179,28 +182,13 @@ const MBTIMix = styled.div`
   align-items: center;
   font-size: 20px;
   margin-left: 60px;
+  white-space: nowrap;
 `;
 
 const MBTIMixValue = styled.div`
   display: flex;
-
+  margin-left: 10px;
   align-items: center;
   font-size: 22px;
   font-family: 'GongGothicMedium';
-`;
-
-const SubmitButton = styled.button`
-  justify-content: center;
-  align-items: center;
-  margin: 40px auto;
-  width: 300px;
-  height: 50px;
-  font-size: 24px;
-  background-color: ${props => (props.disabled ? '#BDBDBD' : '#17355a')};
-  color: white;
-  border: none;
-  border-radius: 10px;
-  &:hover {
-    cursor: pointer;
-  }
 `;

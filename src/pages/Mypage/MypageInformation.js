@@ -23,6 +23,8 @@ const MypageInformation = ({ userInformation }) => {
       return '30대 후반';
     } else if (age === '40') {
       return '40대';
+    } else {
+      return '나이를 입력해주세요.';
     }
   }
 
@@ -59,7 +61,7 @@ const MypageInformation = ({ userInformation }) => {
                 </UserGender>
               </UserCharacter>
               <UserAge>
-                성별 : <AgeSpan>{userInformation.user.age}</AgeSpan>
+                성별 : <AgeSpan>{ageRange}</AgeSpan>
               </UserAge>
             </UserColumn>
           ) : (
