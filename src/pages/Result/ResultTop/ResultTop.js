@@ -121,7 +121,7 @@ const OptionName = styled.div`
   margin-left: 5px;
   align-items: center;
   font-size: 16px;
-  width: 100%;
+  width: 85%;
   color: ${props => props.theme.colors.grayColor};
 `;
 
