@@ -61,11 +61,7 @@ const CommentLikeBtn = ({ commentId }) => {
 
       fetch(`${process.env.REACT_APP_HOST}/${commentId}/comment_like`, {
         ...requestOptions,
-      })
-        .then(response => response.json())
-        .then(result => {
-          console.log(result);
-        });
+      }).then(response => response.json());
     } else {
       alert('로그인 후 이용바랍니다.');
     }

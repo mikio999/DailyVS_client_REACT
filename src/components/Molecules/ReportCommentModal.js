@@ -85,9 +85,15 @@ const ReportCommentModal = ({ isOpen, onClose, commentId }) => {
       )
         .then(response => response.json())
         .then(result => {
-          console.log(result);
-          alert('신고가 정상적으로 접수되었습니다.');
-          setSending(false);
+          console.log(result.message);
+          if (result?.message === 'success') {
+            alert('신고가 정상적으로 접수되었습니다.');
+            setSending(false);
+          } else if (result?.message === 'reported') {
+            alert('이미 신고한 댓글입니다.');
+
+            setSending(false);
+          }
           onClose();
         });
     }
@@ -124,6 +130,7 @@ const ReportCommentModal = ({ isOpen, onClose, commentId }) => {
         {sending ? (
           <SendingContainer>
             <Sending />
+            <SendingReport>신고 전송중..</SendingReport>
           </SendingContainer>
         ) : null}
       </FortuneModalContainer>
@@ -153,7 +160,7 @@ const FortuneModalContainer = styled.div`
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   position: relative;
   width: 400px;
-  height: 430px;
+  height: 450px;
   z-index: 100;
 `;
 
@@ -243,4 +250,11 @@ const SendingContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+
+const SendingReport = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 10px;
 `;
