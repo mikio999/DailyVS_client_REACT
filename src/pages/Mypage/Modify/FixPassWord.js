@@ -7,7 +7,6 @@ const FixPassWord = () => {
   const [password1, setPassword1] = useState('');
   const [password2, setPassword2] = useState('');
   const [passwordMatch, setPasswordMatch] = useState(false);
-  console.log(password1, password2);
   const url = window.location.href;
   const uid = url.split('/').slice(-3, -2)[0];
   const token = url.split('/').slice(-2)[0];
@@ -48,8 +47,6 @@ const FixPassWord = () => {
     )
       .then(response => response.json())
       .then(result => {
-        console.log('서버 응답:', result);
-        console.log('Request Body:', JSON.stringify({}));
         if (result) {
           navigate(`/`);
         }

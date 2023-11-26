@@ -64,11 +64,7 @@ const PollLikeBtn = () => {
       fetch(`${process.env.REACT_APP_HOST}/${detailId}/like`, {
         ...requestOptions,
         body: requestBody,
-      })
-        .then(response => response.json())
-        .then(result => {
-          console.log(result);
-        });
+      }).then(response => response.json());
     }
   };
 

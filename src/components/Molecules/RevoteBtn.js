@@ -70,16 +70,6 @@ const RevoteBtn = () => {
     })
       .then(response => response.json())
       .then(result => {
-        console.log(
-          'Request Body:',
-          JSON.stringify({
-            choice_id: selectedOption,
-            category_list: selectedCategoryList,
-            gender: selectedGender,
-            mbti: selectedMBTI,
-            age: selectedAge,
-          }),
-        );
         if (result) {
           navigate(`/vote-result/${detailId}`);
         }

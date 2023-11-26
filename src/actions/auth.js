@@ -77,7 +77,6 @@ export const checkAuthenticated = () => async dispatch => {
           type: AUTHENTICATED_SUCCESS,
         });
       } else {
-        console.log('not valid refreshToken 받아오기');
         dispatch(refreshToken());
       }
     } catch (err) {
@@ -114,14 +113,12 @@ export const refreshToken = () => async dispatch => {
       body,
       config,
     );
-    console.log('응답', res);
 
     dispatch({
       type: AUTHENTICATED_SUCCESS,
     });
 
     localStorage.setItem('access', res.data.access);
-    console.log('token', res.data.access);
   } catch (err) {
     dispatch({
       type: AUTHENTICATED_FAIL,
@@ -158,7 +155,6 @@ export const login = (email, password) => async dispatch => {
 
     dispatch(load_user());
   } catch (err) {
-    console.error('로그인 에러:', err.response.data);
     dispatch({
       type: LOGIN_FAIL,
     });
@@ -196,7 +192,6 @@ export const signup =
         payload: res.data,
       });
     } catch (err) {
-      console.log(err);
       dispatch({
         type: SIGNUP_FAIL,
       });
@@ -366,7 +361,6 @@ export const logout = () => async dispatch => {
 };
 
 export const kakao_logout = () => async dispatch => {
-  console.log('kkkk');
   dispatch({
     type: KAKAO_LOGOUT,
   });
