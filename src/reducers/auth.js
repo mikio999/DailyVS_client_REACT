@@ -34,7 +34,6 @@ export default function (state = initialState, action) {
     case KAKAO_AUTH_SUCCESS:
       localStorage.setItem('access', payload.access);
       localStorage.setItem('refresh', payload.refresh);
-      console.log(payload.refresh);
       return {
         ...state,
         isAuthenticated: true,

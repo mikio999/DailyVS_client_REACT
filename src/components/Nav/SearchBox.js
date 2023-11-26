@@ -11,7 +11,7 @@ const SearchBox = () => {
     if (location.pathname !== '/search') {
       setUserInput('');
     }
-  }, [location.pathname]); // Reset when the path changes
+  }, [location.pathname]);
 
   const handleSearch = e => {
     setUserInput(e.target.value);

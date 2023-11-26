@@ -39,7 +39,6 @@ const ReportModal = ({ isOpen, onClose, information }) => {
   ];
 
   const handleReportTypeChange = e => {
-    console.log('Selected value:', e.target.value);
     setReportType(e.target.value);
   };
 
@@ -77,7 +76,6 @@ const ReportModal = ({ isOpen, onClose, information }) => {
       })
         .then(response => response.json())
         .then(result => {
-          console.log(result);
           setSending(false);
           alert('신고가 정상적으로 접수되었습니다.');
           onClose();
