@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
+import Sending from '../Atoms/Sending';
 
 const ReportCommentModal = ({ isOpen, onClose, commentId }) => {
   const reportRef = useRef(null);
   const [reportType, setReportType] = useState('');
+  const [sending, setSending] = useState(false);
 
   useEffect(() => {
     if (isOpen) {
@@ -56,6 +58,7 @@ const ReportCommentModal = ({ isOpen, onClose, commentId }) => {
     if (!isAuthenticated) {
       alert('로그인 후 이용해주시길 바랍니다.');
     } else {
+      setSending(true);
       const headers = new Headers();
       headers.append('Content-Type', 'application/json');
 
@@ -84,9 +87,10 @@ const ReportCommentModal = ({ isOpen, onClose, commentId }) => {
         .then(result => {
           console.log(result);
           alert('신고가 정상적으로 접수되었습니다.');
+          setSending(false);
+          onClose();
         });
     }
-    onClose();
   };
 
   return isOpen ? (
@@ -117,6 +121,11 @@ const ReportCommentModal = ({ isOpen, onClose, commentId }) => {
             신고하기
           </SubmitButton>
         </ModalContent>
+        {sending ? (
+          <SendingContainer>
+            <Sending />
+          </SendingContainer>
+        ) : null}
       </FortuneModalContainer>
     </ModalOverlay>
   ) : null;
@@ -228,4 +237,10 @@ const ReportOption = styled.input`
     background-color: #ff495a;
     color: white;
   }
+`;
+
+const SendingContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;

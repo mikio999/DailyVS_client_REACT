@@ -1,10 +1,12 @@
 import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
+import Sending from '../Atoms/Sending';
 
 const ReportModal = ({ isOpen, onClose, information }) => {
   const reportRef = useRef(null);
   const [reportType, setReportType] = useState('');
+  const [sending, setSending] = useState(false);
 
   const handleOverlayClick = e => {
     e.preventDefault();
@@ -12,6 +14,7 @@ const ReportModal = ({ isOpen, onClose, information }) => {
       onClose();
     }
   };
+
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
 
   const reportOptions = [
@@ -49,6 +52,7 @@ const ReportModal = ({ isOpen, onClose, information }) => {
   const handleReportSubmit = () => {
     if (!isAuthenticated) {
       alert('로그인 후 이용해주시길 바랍니다.');
+      onClose();
     } else {
       const headers = new Headers();
       headers.append('Content-Type', 'application/json');
@@ -74,7 +78,9 @@ const ReportModal = ({ isOpen, onClose, information }) => {
         .then(response => response.json())
         .then(result => {
           console.log(result);
+          setSending(false);
           alert('신고가 정상적으로 접수되었습니다.');
+          onClose();
         });
     }
     onClose();
@@ -108,6 +114,11 @@ const ReportModal = ({ isOpen, onClose, information }) => {
             신고하기
           </SubmitButton>
         </ModalContent>
+        {sending ? (
+          <SendingContainer>
+            <Sending />
+          </SendingContainer>
+        ) : null}
       </FortuneModalContainer>
     </ModalOverlay>
   ) : null;
@@ -135,7 +146,7 @@ const FortuneModalContainer = styled.div`
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   position: relative;
   width: 400px;
-  height: 430px;
+  height: 450px;
 `;
 
 const ModalCloseButton = styled.button`
@@ -218,4 +229,10 @@ const ReportOption = styled.input`
     background-color: #ff495a;
     color: white;
   }
+`;
+
+const SendingContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
