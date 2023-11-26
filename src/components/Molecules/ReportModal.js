@@ -76,12 +76,18 @@ const ReportModal = ({ isOpen, onClose, information }) => {
       })
         .then(response => response.json())
         .then(result => {
-          setSending(false);
-          alert('신고가 정상적으로 접수되었습니다.');
+          console.log(result.message);
+          if (result?.message === 'success') {
+            alert('신고가 정상적으로 접수되었습니다.');
+            setSending(false);
+          } else if (result?.message === 'reported') {
+            alert('이미 신고한 게시글입니다.');
+
+            setSending(false);
+          }
           onClose();
         });
     }
-    onClose();
   };
 
   return isOpen ? (
@@ -115,6 +121,7 @@ const ReportModal = ({ isOpen, onClose, information }) => {
         {sending ? (
           <SendingContainer>
             <Sending />
+            <SendingReport>신고 전송중..</SendingReport>
           </SendingContainer>
         ) : null}
       </FortuneModalContainer>
@@ -233,4 +240,11 @@ const SendingContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+
+const SendingReport = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 10px;
 `;
