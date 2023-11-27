@@ -70,7 +70,7 @@ const Result = () => {
       })
         .then(response => response.json())
         .then(result => {
-          if (result.detail === '찾을 수 없습니다.') {
+          if (result?.detail === '찾을 수 없습니다.') {
             navigate('/error');
           } else {
             setVoteResult(result);

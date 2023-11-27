@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 
 const Password = () => {
   const dispatch = useDispatch();
+  const [isInputDisabled, setIsInputDisabled] = useState(false);
   const [newemail, setNewemail] = useState('');
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [isSending, setIsSending] = useState(false);
@@ -37,6 +38,8 @@ const Password = () => {
 
   const sendResetPasswordRequest = email => {
     setIsButtonDisabled(true);
+    setErrorMessage(null);
+    setSuccessMessage(null);
     fetch(`${process.env.REACT_APP_HOST}/accounts/password/reset/`, {
       method: 'POST',
       headers: {
@@ -45,17 +48,27 @@ const Password = () => {
       body: JSON.stringify({ email }),
     })
       .then(response => {
-        console.log(response);
-        if (response.message === 'success') {
+        if (response.status === 200) {
           setIsSending(false);
           console.log('Password reset successful');
           setSuccessMessage(`${newemail}`);
-
           setNewemail('');
+        } else if (response.status === 521) {
+          setIsSending(false);
+          console.error('Password reset failed');
+          setErrorMessage('이메일 전송 실패, 카카오 로그인을 이용해주세요.');
+        } else if (response.status === 520) {
+          setIsSending(false);
+          console.error('Password reset failed');
+          setErrorMessage('이메일 전송 실패, 등록되지 않은 이메일입니다.');
+        } else if (response.status === 522) {
+          setIsSending(false);
+          console.error('Password reset failed');
+          setErrorMessage('이메일 전송 실패, 현재 로그인된 이메일이 아닙니다.');
         } else {
           setIsSending(false);
           console.error('Password reset failed');
-          setErrorMessage('이메일 전송 실패');
+          setErrorMessage('이메일 전송 실패.');
         }
       })
       .catch(error => {
@@ -63,6 +76,10 @@ const Password = () => {
         console.error('Error:', error);
         setErrorMessage('이메일 전송 중 오류 발생');
       });
+  };
+
+  const handleResendEmail = () => {
+    window.location.reload();
   };
 
   return (
@@ -78,6 +95,7 @@ const Password = () => {
             placeholder="이메일 입력"
             value={newemail}
             onChange={handleEmailChange}
+            disabled={isInputDisabled}
           />
         </EmailQuestion>
         <EmailRegister
@@ -99,13 +117,23 @@ const Password = () => {
             <SuccessMent>이메일 전송 성공!</SuccessMent>
             <SuccessMessage>{successMessage}</SuccessMessage>
             <SuccessMent>을 확인해주세요!</SuccessMent>
-            <SuccessNavigate to="/">메인으로</SuccessNavigate>
+            <Buttons>
+              <SuccessNavigate to="/">메인으로</SuccessNavigate>
+              <RewriteEmail onClick={handleResendEmail}>
+                이메일 재전송
+              </RewriteEmail>
+            </Buttons>
           </>
         )}
         {errorMessage && (
           <ErrorColumn>
             <ErrorMessage>{errorMessage}</ErrorMessage>
-            <RewriteEmail to="/find-password">이메일 재전송하기</RewriteEmail>
+            <Buttons>
+              <SuccessNavigate to="/">메인으로</SuccessNavigate>
+              <RewriteEmail onClick={handleResendEmail}>
+                이메일 재전송
+              </RewriteEmail>
+            </Buttons>
           </ErrorColumn>
         )}
       </Container>
@@ -207,14 +235,15 @@ const SuccessNavigate = styled(Link)`
   align-items: center;
   font-size: 16px;
   margin-top: 1rem;
+  margin-right: 10px;
   background-color: #17355a;
   color: white !important;
-  width: 6rem;
+  width: 9rem;
   height: 2rem;
   &:hover {
     border: 1px solid #17355a;
     background-color: white;
-    color: #17355a;
+    color: #17355a !important;
   }
 `;
 
@@ -223,19 +252,27 @@ const ErrorColumn = styled.div`
   flex-direction: column;
 `;
 
-const RewriteEmail = styled(Link)`
+const RewriteEmail = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 16px;
   margin-top: 1rem;
+  margin-left: auto;
+  margin-right: auto;
   background-color: #17355a;
   color: white !important;
-  width: 10rem;
+  width: 9rem;
   height: 2rem;
   &:hover {
     border: 1px solid #17355a;
     background-color: white;
     color: #17355a !important;
   }
+`;
+
+const Buttons = styled.div`
+  display: flex;
+  justify-content: center;
+  margin: 1rem auto;
 `;
