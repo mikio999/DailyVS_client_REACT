@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import LoginNav from '../../components/LoginNav/LoginNav';
-import axios from 'axios';
-import { reset_password } from '../../actions/auth';
 import { useDispatch } from 'react-redux';
 import { setEmail } from '../../actions/actions';
 import Sending from '../../components/Atoms/Sending';
+import { Link } from 'react-router-dom';
 
 const Password = () => {
   const dispatch = useDispatch();
@@ -27,7 +26,6 @@ const Password = () => {
     dispatch(setEmail(selectedEmail));
   };
 
-  console.log(newemail);
   const onSubmit = e => {
     e.preventDefault();
 
@@ -38,6 +36,7 @@ const Password = () => {
   };
 
   const sendResetPasswordRequest = email => {
+    setIsButtonDisabled(true);
     fetch(`${process.env.REACT_APP_HOST}/accounts/password/reset/`, {
       method: 'POST',
       headers: {
@@ -46,10 +45,12 @@ const Password = () => {
       body: JSON.stringify({ email }),
     })
       .then(response => {
-        if (response.ok) {
+        if (response.status === 200) {
           setIsSending(false);
           console.log('Password reset successful');
           setSuccessMessage(`${newemail}`);
+
+          setNewemail('');
         } else {
           setIsSending(false);
           console.error('Password reset failed');
@@ -97,9 +98,15 @@ const Password = () => {
             <SuccessMent>이메일 전송 성공!</SuccessMent>
             <SuccessMessage>{successMessage}</SuccessMessage>
             <SuccessMent>을 확인해주세요!</SuccessMent>
+            <SuccessNavigate to="/">메인으로</SuccessNavigate>
           </>
         )}
-        {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
+        {errorMessage && (
+          <ErrorColumn>
+            <ErrorMessage>{errorMessage}</ErrorMessage>
+            <RewriteEmail to="find-password">이메일 재전송하기</RewriteEmail>
+          </ErrorColumn>
+        )}
       </Container>
     </>
   );
@@ -174,6 +181,7 @@ const ErrorMessage = styled.div`
   align-items: center;
   justify-content: center;
   color: #ff495a;
+  margin-top: 1rem;
 `;
 
 const SuccessMessage = styled.div`
@@ -190,4 +198,47 @@ const SuccessMent = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+`;
+
+const SuccessNavigate = styled(Link)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  margin-top: 1rem;
+  background-color: #17355a;
+  color: white !important;
+  width: 6rem;
+  height: 2rem;
+  &:hover {
+    border: 1px solid #17355a;
+    background-color: white;
+    color: #17355a;
+  }
+`;
+
+const ErrorColumn = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const EmailAgain = styled.button`
+  display: flex;
+`;
+
+const RewriteEmail = styled(Link)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  margin-top: 1rem;
+  background-color: #17355a;
+  color: white !important;
+  width: 6rem;
+  height: 2rem;
+  &:hover {
+    border: 1px solid #17355a;
+    background-color: white;
+    color: #17355a;
+  }
 `;

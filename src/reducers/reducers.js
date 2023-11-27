@@ -22,7 +22,6 @@ const initialEmailState = {
 const emailReducer = (state = initialEmailState, action) => {
   switch (action.type) {
     case 'SET_EMAIL':
-      console.log(action.payload);
       return { ...state, selectedEmail: action.payload };
     default:
       return state;
