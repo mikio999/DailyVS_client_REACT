@@ -45,7 +45,8 @@ const Password = () => {
       body: JSON.stringify({ email }),
     })
       .then(response => {
-        if (response.status === 200) {
+        console.log(response);
+        if (response.message === 'success') {
           setIsSending(false);
           console.log('Password reset successful');
           setSuccessMessage(`${newemail}`);
@@ -104,7 +105,7 @@ const Password = () => {
         {errorMessage && (
           <ErrorColumn>
             <ErrorMessage>{errorMessage}</ErrorMessage>
-            <RewriteEmail to="find-password">이메일 재전송하기</RewriteEmail>
+            <RewriteEmail to="/find-password">이메일 재전송하기</RewriteEmail>
           </ErrorColumn>
         )}
       </Container>
@@ -222,10 +223,6 @@ const ErrorColumn = styled.div`
   flex-direction: column;
 `;
 
-const EmailAgain = styled.button`
-  display: flex;
-`;
-
 const RewriteEmail = styled(Link)`
   display: flex;
   justify-content: center;
@@ -234,11 +231,11 @@ const RewriteEmail = styled(Link)`
   margin-top: 1rem;
   background-color: #17355a;
   color: white !important;
-  width: 6rem;
+  width: 10rem;
   height: 2rem;
   &:hover {
     border: 1px solid #17355a;
     background-color: white;
-    color: #17355a;
+    color: #17355a !important;
   }
 `;
