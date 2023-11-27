@@ -56,6 +56,7 @@ const PasswordInput = () => {
       },
     )
       .then(response => {
+        console.log(response);
         if (response.ok) {
           alert('비밀번호 변경 성공! 다시 로그인해 주세요!');
         } else {

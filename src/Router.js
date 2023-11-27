@@ -17,6 +17,8 @@ import KakaoAuth from './pages/Login/KakaoAuth';
 const Router = () => {
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
 
+  const HASH_URI = process.env.REACT_APP_HASH_URI;
+
   return (
     <Provider store={store}>
       <AuthProvider>
@@ -43,6 +45,10 @@ const Router = () => {
             )}
             <Route path="/find-password" element={<Password />} />
             <Route path="/api/oauth/kakao/callback/" element={<KakaoAuth />} />
+            <Route
+              path={`${HASH_URI}/oauth/kakao/callback/`}
+              element={<KakaoAuth />}
+            />
             <Route path="/oauth/kakao/callback/" element={<KakaoAuth />} />
             <Route path="/*" element={<RouteWithNavFooter />} />
             <Route path="/activate/:uid/:token" element={<Activate />} />

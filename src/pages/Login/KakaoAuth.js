@@ -42,7 +42,16 @@ const KakaoAuth = () => {
       kakaoAuthSuccess();
       navigate('/');
     } catch (err) {
-      console.log(err);
+      if (err.response.status === 400) {
+        alert('카카오 인증 실패. 다시 시도해주세요!');
+        navigate('/login');
+      } else if (err.response.status === 500) {
+        alert(
+          '이미 가입한 전적이 있는 이메일입니다. 일반 로그인을 사용해주세요!',
+        );
+        navigate('/login');
+      }
+
       kakaoAuthFail();
     }
   };
