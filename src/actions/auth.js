@@ -361,7 +361,39 @@ export const logout = () => async dispatch => {
 };
 
 export const kakao_logout = () => async dispatch => {
-  dispatch({
-    type: KAKAO_LOGOUT,
-  });
+  console.log('hello');
+  const accessToken = localStorage.getItem('access');
+  const refreshToken = localStorage.getItem('refresh');
+
+  if (!accessToken) {
+    return;
+  }
+
+  const data = {
+    access_kakao: accessToken,
+    refresh: refreshToken,
+  };
+
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+      Accept: 'application/json',
+    },
+  };
+
+  try {
+    const res = await axios.post(
+      `${process.env.REACT_APP_HOST}/accounts/kakao/logout/`,
+      data,
+      config,
+    );
+
+    dispatch({
+      type: KAKAO_LOGOUT,
+      payload: res.data,
+    });
+  } catch (err) {
+    console.error('로그아웃 에러:', err);
+  }
 };
