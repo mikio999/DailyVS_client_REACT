@@ -60,9 +60,8 @@ const Nav = ({ checkAuthenticated, load_user, logout, isAuthenticated }) => {
     const shouldLogout = window.confirm('로그아웃 하시겠습니까?');
     if (shouldLogout) {
       if (selectedKakaoAuth) {
-        localStorage.removeItem('access');
-        localStorage.removeItem('refresh');
-        window.location.reload('/');
+        dispatch(kakao_logout());
+        setRedirect(true);
       } else {
         logout();
         setRedirect(true);
