@@ -72,6 +72,9 @@ export const checkAuthenticated = () => async dispatch => {
         config,
       );
 
+      if (res.status === 401) {
+        window.location.reload('/');
+      }
       if (res.data.code !== 'token_not_valid') {
         dispatch({
           type: AUTHENTICATED_SUCCESS,
