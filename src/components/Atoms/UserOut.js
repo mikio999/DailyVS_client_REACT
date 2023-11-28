@@ -1,9 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import { logout } from '../../actions/auth';
+import { useSelector } from 'react-redux';
 
 const UserOut = () => {
+  const selectedKakaoAuth = useSelector(state => state.kakao.selectedKakao);
+  console.log(selectedKakaoAuth);
   const navigate = useNavigate();
   const handleOutClick = event => {
     event.preventDefault();
@@ -30,30 +32,59 @@ const UserOut = () => {
             headers.append('Authorization', `Bearer ${accessToken}`);
           }
 
-          const requestOptions = {
-            method: 'DELETE',
-            headers: headers,
-          };
+          if (!selectedKakaoAuth) {
+            const requestOptions = {
+              method: 'DELETE',
+              headers: headers,
+            };
 
-          fetch(
-            `${process.env.REACT_APP_HOST}/accounts/delete/`,
-            requestOptions,
-          )
-            .then(response => response.json())
-            .then(result => {
-              console.log('서버 응답:', result);
+            fetch(
+              `${process.env.REACT_APP_HOST}/accounts/delete/`,
+              requestOptions,
+            )
+              .then(response => response.json())
+              .then(result => {
+                console.log('서버 응답:', result);
 
-              if (result) {
-                localStorage.removeItem('access');
-                localStorage.removeItem('refresh');
+                if (result) {
+                  localStorage.removeItem('access');
+                  localStorage.removeItem('refresh');
 
-                navigate(`/`);
-                window.location.reload();
-              }
-            })
-            .catch(error => {
-              console.error('POST 요청 오류:', error);
-            });
+                  navigate(`/`);
+                  window.location.reload();
+                }
+              })
+              .catch(error => {
+                console.error('POST 요청 오류:', error);
+              });
+          } else {
+            const accessToken = localStorage.getItem('access');
+            const requestOptions = {
+              method: 'DELETE',
+              headers: headers,
+            };
+            const data = { access_kakao: accessToken };
+            fetch(
+              `${process.env.REACT_APP_HOST}/accounts/delete/`,
+              requestOptions,
+              data,
+            )
+              .then(response => response.json())
+              .then(result => {
+                console.log('서버 응답:', result);
+
+                if (result) {
+                  localStorage.removeItem('access');
+                  localStorage.removeItem('refresh');
+
+                  navigate(`/`);
+                  window.location.reload();
+                }
+              })
+              .catch(error => {
+                console.error('POST 요청 오류:', error);
+              });
+          }
         }
       }
     }

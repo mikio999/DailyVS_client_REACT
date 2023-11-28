@@ -361,7 +361,6 @@ export const logout = () => async dispatch => {
 };
 
 export const kakao_logout = () => async dispatch => {
-  console.log('hello');
   const accessToken = localStorage.getItem('access');
   const refreshToken = localStorage.getItem('refresh');
 
