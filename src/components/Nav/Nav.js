@@ -28,12 +28,13 @@ const Nav = ({ checkAuthenticated, load_user, logout, isAuthenticated }) => {
   const selectedKakaoAuth = useSelector(state => state.kakao.selectedKakao);
 
   useEffect(() => {
-    setLoading(false);
+    setLoading(true);
     checkAuthenticated();
     load_user();
   }, [userInfo]);
 
   useEffect(() => {
+    setLoading(true);
     const accessToken = localStorage.getItem('access');
     if (!accessToken) {
       return;
@@ -52,7 +53,8 @@ const Nav = ({ checkAuthenticated, load_user, logout, isAuthenticated }) => {
     })
       .then(response => response.json())
       .then(result => {
-        setUserInfo(result.user);
+        setUserInfo(result?.user);
+        setLoading(false);
       });
   }, []);
 
@@ -69,70 +71,71 @@ const Nav = ({ checkAuthenticated, load_user, logout, isAuthenticated }) => {
     }
   };
 
-  return (
-    <>
-      <Marquee
-        style={{
-          background: 'linear-gradient(135deg, #e0e9ff, #f5e8fc, #ffdbe3)',
-          cursor: 'unset',
-        }}
-      >
-        <InnerMarquee>
-          <span>매일매일의 즐거움 Daily VS</span>
-          {userInfo && userInfo.mbti ? (
-            <span>{`${userInfo.mbti}인 당신은 무엇을 골랐을까?`}</span>
-          ) : (
-            <span>INFP인 그녀는 무엇을 골랐을까?</span>
-          )}
-          <span>매일매일의 즐거움 Daily VS</span>
-          <span>INFP인 그녀는 무엇을 골랐을까?</span>
-          <span>매일매일의 즐거움 Daily VS</span>
-          {userInfo && userInfo.mbti ? (
-            <span>{`${userInfo.mbti}인 당신은 무엇을 골랐을까?`}</span>
-          ) : (
-            <span>INFP인 그녀는 무엇을 골랐을까?</span>
-          )}
-          <span>매일매일의 즐거움 Daily VS</span>
-        </InnerMarquee>
-      </Marquee>
-      <NavContainer>
-        <NavList>
-          {isAuthenticated ? (
-            <Logout href="/login" onClick={logout_user}>
-              로그아웃
-            </Logout>
-          ) : null}
-          <NavLogo to="/">
-            <LogoImg src={require('../../assets/Nav/Row.png')} alt="로고" />
-          </NavLogo>
-          <SearchMyPage>
-            {isAuthenticated ? (
-              <NavLink2 to="/my-page">
-                <img
-                  src={require('../../assets/Nav/Logged.png')}
-                  alt="마이페이지"
-                />
-                <UserNickNameContainer>
-                  <UserNickName>{userInfo?.nickname}</UserNickName>님
-                </UserNickNameContainer>
-              </NavLink2>
+  if (loading)
+    return (
+      <>
+        <Marquee
+          style={{
+            background: 'linear-gradient(135deg, #e0e9ff, #f5e8fc, #ffdbe3)',
+            cursor: 'unset',
+          }}
+        >
+          <InnerMarquee>
+            <span>매일매일의 즐거움 Daily VS</span>
+            {userInfo && userInfo.mbti ? (
+              <span>{`${userInfo.mbti}인 당신은 무엇을 골랐을까?`}</span>
             ) : (
-              <NavLink1 to="/login">
-                <img
-                  src={require('../../assets/Nav/Unlogged.png')}
-                  alt="로그인"
-                />
-                로그인
-              </NavLink1>
+              <span>INFP인 그녀는 무엇을 골랐을까?</span>
             )}
-          </SearchMyPage>
-        </NavList>
-      </NavContainer>
-      <NavSearch>
-        <SearchBox />
-      </NavSearch>
-    </>
-  );
+            <span>매일매일의 즐거움 Daily VS</span>
+            <span>INFP인 그녀는 무엇을 골랐을까?</span>
+            <span>매일매일의 즐거움 Daily VS</span>
+            {userInfo && userInfo.mbti ? (
+              <span>{`${userInfo.mbti}인 당신은 무엇을 골랐을까?`}</span>
+            ) : (
+              <span>INFP인 그녀는 무엇을 골랐을까?</span>
+            )}
+            <span>매일매일의 즐거움 Daily VS</span>
+          </InnerMarquee>
+        </Marquee>
+        <NavContainer>
+          <NavList>
+            {isAuthenticated ? (
+              <Logout href="/login" onClick={logout_user}>
+                로그아웃
+              </Logout>
+            ) : null}
+            <NavLogo to="/">
+              <LogoImg src={require('../../assets/Nav/Row.png')} alt="로고" />
+            </NavLogo>
+            <SearchMyPage>
+              {isAuthenticated ? (
+                <NavLink2 to="/my-page">
+                  <img
+                    src={require('../../assets/Nav/Logged.png')}
+                    alt="마이페이지"
+                  />
+                  <UserNickNameContainer>
+                    <UserNickName>{userInfo?.nickname}</UserNickName>님
+                  </UserNickNameContainer>
+                </NavLink2>
+              ) : (
+                <NavLink1 to="/login">
+                  <img
+                    src={require('../../assets/Nav/Unlogged.png')}
+                    alt="로그인"
+                  />
+                  로그인
+                </NavLink1>
+              )}
+            </SearchMyPage>
+          </NavList>
+        </NavContainer>
+        <NavSearch>
+          <SearchBox />
+        </NavSearch>
+      </>
+    );
 };
 
 const mapStateToProps = state => ({
