@@ -40,11 +40,18 @@ const Password = () => {
     setIsButtonDisabled(true);
     setErrorMessage(null);
     setSuccessMessage(null);
+
+    const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    const accessToken = localStorage.getItem('access');
+
+    if (accessToken) {
+      headers.append('Authorization', `Bearer ${accessToken}`);
+    }
+
     fetch(`${process.env.REACT_APP_HOST}/accounts/password/reset/`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: headers,
       body: JSON.stringify({ email }),
     })
       .then(response => {
