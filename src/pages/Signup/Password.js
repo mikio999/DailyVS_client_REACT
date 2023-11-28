@@ -50,7 +50,6 @@ const Password = () => {
       .then(response => {
         if (response.status === 200) {
           setIsSending(false);
-          console.log('Password reset successful');
           setSuccessMessage(`${newemail}`);
           setNewemail('');
         } else if (response.status === 521) {

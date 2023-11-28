@@ -14,9 +14,10 @@ const Email = () => {
   const navigate = useNavigate();
 
   const handleResendEmail = async () => {
-    console.log('click');
     try {
-      await axios.post(`${process.env.REACT_APP_HOST}/accounts/resend-email/`);
+      await axios.post(`${process.env.REACT_APP_HOST}/accounts/resend-email/`, {
+        email: selectedEmail,
+      });
     } catch (error) {
       console.error('Error resending email:', error);
     }
