@@ -7,27 +7,21 @@ const PasswordInput = () => {
   const [passwordMatch, setPasswordMatch] = useState(false);
   const [password1, setPassword1] = useState('');
   const [password2, setPassword2] = useState('');
-  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+
   const location = useLocation();
-  const navigate = useNavigate();
-  console.log(location);
 
   const pathArray = location.pathname.split('/');
   const uid = pathArray[pathArray.length - 3];
   const token = pathArray[pathArray.length - 2];
 
-  console.log('uid', uid);
-  console.log('token', token);
   const handlePassword1Change = e => {
     const newPassword1 = e.target.value;
     setPassword1(newPassword1);
-    console.log(newPassword1);
   };
 
   const handlePassword2Change = e => {
     const newPassword2 = e.target.value;
     setPassword2(newPassword2);
-    console.log(newPassword2);
   };
   useEffect(() => {
     if (password1 === password2 && password1.length >= 8) {
@@ -56,7 +50,8 @@ const PasswordInput = () => {
       },
     )
       .then(response => {
-        console.log(response);
+        console.log('아악');
+        alert('아아아악');
         if (response.ok) {
           alert('비밀번호 변경 성공! 다시 로그인해 주세요!');
         } else {
@@ -102,8 +97,8 @@ const PasswordInput = () => {
         <PasswordLabel>
           {passwordMatch && (
             <PasswordMatchText>
-              비밀번호 일치{' '}
-              <PassWordCheck src={require('../../assets/LoginNav/check.png')} />
+              비밀번호 일치
+              <PassWordCheck src="./password_check.png" />
             </PasswordMatchText>
           )}
         </PasswordLabel>
