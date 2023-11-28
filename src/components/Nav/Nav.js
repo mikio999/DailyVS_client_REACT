@@ -16,7 +16,7 @@ import { useSelector, useDispatch } from 'react-redux';
 const Nav = ({ checkAuthenticated, load_user, logout, isAuthenticated }) => {
   const dispatch = useDispatch();
   const [redirect, setRedirect] = useState(false);
-  const [userInfo, setUserInfo] = useState('');
+  const [userInfo, setUserInfo] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const handleDispatch = selectedKakao => {
@@ -30,7 +30,7 @@ const Nav = ({ checkAuthenticated, load_user, logout, isAuthenticated }) => {
   useEffect(() => {
     checkAuthenticated();
     load_user();
-  }, [userInfo]);
+  }, []);
 
   useEffect(() => {
     setLoading(true);
@@ -50,12 +50,18 @@ const Nav = ({ checkAuthenticated, load_user, logout, isAuthenticated }) => {
     fetch(`${process.env.REACT_APP_HOST}/mypage`, {
       headers: config.headers,
     })
-      .then(response => response.json())
+      .then(response => {
+        if (response.status === 403) {
+          window.location.reload();
+          return;
+        }
+        return response.json();
+      })
       .then(result => {
-        setUserInfo(result?.user);
+        setUserInfo(result.user);
         setLoading(false);
       });
-  }, [userInfo]);
+  }, []);
 
   const logout_user = () => {
     const shouldLogout = window.confirm('로그아웃 하시겠습니까?');
@@ -114,7 +120,8 @@ const Nav = ({ checkAuthenticated, load_user, logout, isAuthenticated }) => {
                   alt="마이페이지"
                 />
                 <UserNickNameContainer>
-                  <UserNickName>{userInfo?.nickname}</UserNickName>님
+                  {userInfo && <UserNickName>{userInfo.nickname}</UserNickName>}
+                  님
                 </UserNickNameContainer>
               </NavLink2>
             ) : (
