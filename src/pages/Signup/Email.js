@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import LoginNav from '../../components/LoginNav/LoginNav';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Sending from '../../components/Atoms/Sending';
 
 const Email = () => {
   const selectedEmail = useSelector(state => state.email.selectedEmail);
@@ -12,14 +13,31 @@ const Email = () => {
   );
 
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const [resendSuccess, setResendSuccess] = useState(false);
 
   const handleResendEmail = async () => {
+    setLoading(true);
+    setResendSuccess(false);
+
     try {
-      await axios.post(`${process.env.REACT_APP_HOST}/accounts/resend-email/`, {
-        email: selectedEmail,
-      });
+      const response = await axios.post(
+        `${process.env.REACT_APP_HOST}/accounts/resend-email/`,
+        {
+          email: selectedEmail,
+        },
+      );
+
+      if (response.status === 200) {
+        setResendSuccess(true);
+        setLoading(false);
+      } else {
+        alert('이메일 전송 중 에러 발생:', response.status);
+        setLoading(false);
+      }
     } catch (error) {
-      console.error('Error resending email:', error);
+      alert('이메일 전송 중 에러 발생', error);
+      setLoading(false);
     }
   };
 
@@ -51,10 +69,20 @@ const Email = () => {
                 이메일 인증을 완료해주세요!
               </p>
               <EmailQuestion>아직 이메일을 받지 않으셨다면? </EmailQuestion>
-              <EmailBtn onClick={handleResendEmail}>
-                인증 이메일 다시받기
+              <EmailBtn onClick={handleResendEmail} disabled={loading}>
+                {loading ? '이메일 재전송 중...' : '인증 이메일 다시받기'}
               </EmailBtn>
+              {loading ? (
+                <>
+                  <Sending />
+                </>
+              ) : null}
             </div>
+          )}
+          {resendSuccess && (
+            <SuccessMessage>
+              이메일 전송 성공! <br /> 이메일함을 확인해주세요!
+            </SuccessMessage>
           )}
         </EmailContent>
       </Container>
@@ -101,11 +129,12 @@ const EmailBtn = styled.button`
   width: 200px;
   height: 35px;
   border: solid 1px #ff495a;
-  background-color: white;
-  color: #ff495a;
+  background-color: ${props => (props.disabled ? '#bdbdbd' : 'white')};
+  color: ${props => (props.disabled ? 'white' : '#ff495a')};
   &:hover {
-    background-color: #ff495a;
+    background-color: ${props => (props.disabled ? '#bdbdbd' : '#ff495a')};
     color: white;
+    cursor: ${props => (props.disabled ? 'not-allowed' : 'pointer')};
   }
 `;
 
@@ -113,4 +142,9 @@ const EmailQuestion = styled.div`
   margin-top: 20px;
   font-size: 18px;
   text-align: center;
+`;
+
+const SuccessMessage = styled.div`
+  color: #17355a;
+  margin-top: 10px;
 `;
