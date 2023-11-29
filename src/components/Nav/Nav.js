@@ -25,7 +25,7 @@ const Nav = ({ checkAuthenticated, load_user, logout, isAuthenticated }) => {
 
   handleDispatch(userInfo?.is_kakao);
 
-  const selectedKakaoAuth = useSelector(state => state.kakao.selectedKakao);
+  const selectedKakaoAuth = localStorage.getItem('isKakao');
 
   useEffect(() => {
     checkAuthenticated();
@@ -66,10 +66,13 @@ const Nav = ({ checkAuthenticated, load_user, logout, isAuthenticated }) => {
   const logout_user = () => {
     const shouldLogout = window.confirm('로그아웃 하시겠습니까?');
     if (shouldLogout) {
+      localStorage.removeItem('isKakao');
       if (selectedKakaoAuth) {
+        console.log('kakao 로그아웃');
         dispatch(kakao_logout());
         setRedirect(true);
       } else {
+        console.log('일반 로그아웃');
         logout();
         setRedirect(true);
       }
