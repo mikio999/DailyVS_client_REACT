@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 
 const UserOut = () => {
-  const selectedKakaoAuth = useSelector(state => state.kakao.selectedKakao);
+  const selectedKakaoAuth = localStorage.getItem('isKakao');
+
   console.log(selectedKakaoAuth);
   const navigate = useNavigate();
   const handleOutClick = event => {
@@ -76,6 +76,7 @@ const UserOut = () => {
                 if (result) {
                   localStorage.removeItem('access');
                   localStorage.removeItem('refresh');
+                  localStorage.removeItem('isKakao');
 
                   navigate(`/`);
                   window.location.reload();
