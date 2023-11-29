@@ -2,7 +2,9 @@ import { useEffect } from 'react';
 import axios from 'axios';
 import qs from 'qs';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import { setKakao } from '../../actions/actions';
 import { kakaoAuthSuccess, kakaoAuthFail } from '../../actions/auth';
+import { useSelector, useDispatch } from 'react-redux';
 
 const KakaoAuth = () => {
   const REST_API_KEY = process.env.REACT_APP_REST_API_KEY;
@@ -13,6 +15,11 @@ const KakaoAuth = () => {
   const code = searchParams.get('code');
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleDispatch = selectedKakao => {
+    dispatch(setKakao(selectedKakao));
+  };
 
   const getToken = async () => {
     const payload = qs.stringify({
@@ -41,6 +48,8 @@ const KakaoAuth = () => {
       localStorage.setItem('token', token);
       localStorage.setItem('refresh', yourToken);
       localStorage.setItem('access', ourToken);
+      localStorage.setItem('isKakao', true);
+      handleDispatch(true);
       kakaoAuthSuccess();
       navigate('/');
     } catch (err) {

@@ -4,16 +4,17 @@ import MypageInformation from './MypageInformation';
 import MypageVoteList from './MypageVoteList/MypageVoteList';
 import MypageLikeList from './MypageLikeList/MypageLikeList';
 import theme from '../../styles/theme';
-import { logout } from '../../actions/auth';
-import { useSelector } from 'react-redux';
+import { logout, kakao_logout } from '../../actions/auth';
 import MypageCreateList from './MypageCreateList/MypageCreateList';
+import { useSelector, useDispatch } from 'react-redux';
 
 const Mypage = () => {
   const [userInformation, setUserInformation] = useState('');
   const [loading, setLoading] = useState(true);
   const [redirect, setRedirect] = useState(false);
+  const dispatch = useDispatch();
 
-  const selectedKakaoAuth = useSelector(state => state.kakao.selectedKakao);
+  const selectedKakaoAuth = localStorage.getItem('isKakao');
 
   useEffect(() => {
     const headers = new Headers();
@@ -41,10 +42,9 @@ const Mypage = () => {
     e.preventDefault();
     const shouldLogout = window.confirm('로그아웃 하시겠습니까?');
     if (shouldLogout) {
+      localStorage.removeItem('isKakao');
       if (selectedKakaoAuth) {
-        localStorage.removeItem('access');
-        localStorage.removeItem('refresh');
-        window.location.reload('/');
+        dispatch(kakao_logout());
         setRedirect(true);
       } else {
         logout();
