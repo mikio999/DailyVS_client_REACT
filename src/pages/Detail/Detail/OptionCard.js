@@ -12,8 +12,6 @@ const OptionCard = ({
     setSelectedOption(index);
     setSelectedChoice(index);
   };
-  console.log('selectedChoice', selectedChoice);
-  console.log(voteDetail);
 
   return (
     <DetailContainer>
