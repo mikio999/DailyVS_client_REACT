@@ -96,6 +96,9 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   margin-right: 1rem;
+  background-color: rgba(0, 0, 0, 0.2);
+  padding: 9px;
+  border-radius: 30px;
 
   &:hover {
     opacity: 0.9;
@@ -116,10 +119,10 @@ const LikeCount = styled.div`
   justify-content: center;
   align-items: center;
   margin-right: 0.5rem;
-  color: gray;
+  color: white;
 `;
 
 const Likes = styled.div`
   margin-right: 0.2rem;
-  color: gray;
+  color: white;
 `;

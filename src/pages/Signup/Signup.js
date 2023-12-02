@@ -5,9 +5,11 @@ import LoginNav from '../../components/LoginNav/LoginNav';
 import { connect, useDispatch } from 'react-redux';
 import { signup } from '../../actions/auth';
 import { setEmail, setNickname } from '../../actions/actions';
+import Sending from '../../components/Atoms/Sending';
 
 const Signup = ({ signup, isAuthenticated }) => {
   const dispatch = useDispatch();
+  const [isSending, setIsSending] = useState(false);
   const [accountCreated, setAccountCreated] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
@@ -61,6 +63,7 @@ const Signup = ({ signup, isAuthenticated }) => {
 
   const onSubmit = e => {
     e.preventDefault();
+    setIsSending(true);
     handleEmailDispatch(formData.email);
     handleNicknameDispatch(formData.nickname);
     if (password1 === password2) {
@@ -78,6 +81,7 @@ const Signup = ({ signup, isAuthenticated }) => {
 
   useEffect(() => {
     if (accountCreated) {
+      setIsSending(false);
       navigate('/signup/email');
     }
   }, [accountCreated, navigate]);
@@ -232,7 +236,13 @@ const Signup = ({ signup, isAuthenticated }) => {
               </option>
             ))}
           </MBTIDropdown>
-          <SignupBtn disabled={!isFormValid()}>회원가입</SignupBtn>
+          {!isSending ? (
+            <SignupBtn disabled={!isFormValid()}>회원가입</SignupBtn>
+          ) : (
+            <DataSending>
+              <Sending />
+            </DataSending>
+          )}
           <SignupToLogin>
             바로 <SignupLoginBtn to="/login">로그인</SignupLoginBtn>하러 가기
           </SignupToLogin>
@@ -373,4 +383,10 @@ const MBTIDropdown = styled.select`
   border: 1px rgba(128, 128, 128, 0.2) solid;
   background-color: #f4faff;
   padding-left: 20px;
+`;
+
+const DataSending = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;

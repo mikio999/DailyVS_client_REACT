@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import theme from '../../styles/theme';
 import { MintButton } from '../Atoms/Buttons';
 import { useSelector } from 'react-redux';
+import Sending from '../Atoms/Sending';
 
 function ReplyInput({
   voteId,
@@ -14,6 +15,7 @@ function ReplyInput({
 }) {
   const [comment, setComment] = useState('');
   const [userInfo, setUserInfo] = useState('');
+  const [isSending, setIsSending] = useState(false);
 
   const handleChange = e => {
     const newComment = e.target.value;
@@ -45,6 +47,7 @@ function ReplyInput({
 
   const handleSubmit = () => {
     onCommentSubmit(comment);
+    setIsSending(true);
 
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -68,10 +71,12 @@ function ReplyInput({
     fetch(`${process.env.REACT_APP_HOST}/${voteId}/comment`, requestOptions)
       .then(response => response.json())
       .then(data => {
+        setIsSending(false);
         console.log('성공:', data);
         setReplyCount(replyCount + 1);
       })
       .catch(error => {
+        setIsSending(false);
         console.error('데이터 받기 실패:', error);
       });
 
@@ -96,11 +101,17 @@ function ReplyInput({
             placeholder="댓글을 입력하세요"
           />
           <div style={{ width: '30%', marginLeft: 'auto' }}>
-            <MintButton
-              content={'댓글 달기'}
-              onClick={handleSubmit}
-              disabled={comment.length === 0}
-            />
+            {!isSending ? (
+              <MintButton
+                content={'댓글 달기'}
+                onClick={handleSubmit}
+                disabled={comment.length === 0}
+              />
+            ) : (
+              <DataSending>
+                <Sending />
+              </DataSending>
+            )}
           </div>
         </>
       ) : (
@@ -156,4 +167,9 @@ const CommentText = styled.textarea`
   }
 `;
 
+const DataSending = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 export default ReplyInput;

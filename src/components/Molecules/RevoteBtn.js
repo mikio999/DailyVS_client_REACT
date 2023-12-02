@@ -73,9 +73,11 @@ const RevoteBtn = ({ previousChoiceId }) => {
       .then(response => response.json())
       .then(result => {
         if (result) {
+          setIsSending(false);
           navigate(`/vote-result/${detailId}`);
         }
       })
+
       .catch(error => {
         setIsSending(false);
         console.error('POST 요청 오류:', error);
