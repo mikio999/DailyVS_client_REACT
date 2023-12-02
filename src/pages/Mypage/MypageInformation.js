@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import CoinInformation from '../../components/Atoms/CoinInformation';
 
 const MypageInformation = ({ userInformation }) => {
   const navigate = useNavigate();
@@ -54,14 +55,14 @@ const MypageInformation = ({ userInformation }) => {
             <UserColumn>
               <UserCharacter>
                 <UserMBTI>
-                  MBTI : <MBTISpan>{userInformation.user.mbti}</MBTISpan>
+                  MBTI <MBTISpan>{userInformation.user.mbti}</MBTISpan>
                 </UserMBTI>
                 <UserGender>
-                  성별 : <GenderSpan>{userInformation.user.gender}</GenderSpan>
+                  성별 <GenderSpan>{userInformation.user.gender}</GenderSpan>
                 </UserGender>
               </UserCharacter>
               <UserAge>
-                성별 : <AgeSpan>{ageRange}</AgeSpan>
+                나이 <AgeSpan>{ageRange}</AgeSpan>
               </UserAge>
             </UserColumn>
           ) : (
@@ -69,9 +70,10 @@ const MypageInformation = ({ userInformation }) => {
           )}
           <UserPoint>
             <CoinImg src={require('../../assets/Buttons/Coin.png')} />
-            <CoinName>유저 포인트 : </CoinName>
+            <CoinName>VS 포인트 </CoinName>
             <CoinNumber>{userInformation.user?.point}</CoinNumber>
             <CoinName>pt</CoinName>
+            <CoinInformation />
           </UserPoint>
         </UserFeature>
       </UserBox>
@@ -122,6 +124,7 @@ const UserName = styled.h2`
   font-family: 'GongGothicLight';
   color: #457c9e;
   white-space: nowrap;
+  width: 200px;
 `;
 
 const UserSpan = styled.span`
@@ -208,7 +211,7 @@ const UserPoint = styled.div`
 `;
 
 const CoinImg = styled.img`
-  width: 35px;
+  width: 30px;
 `;
 
 const CoinName = styled.div`
