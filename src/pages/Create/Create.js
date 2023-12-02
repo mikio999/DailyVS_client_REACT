@@ -8,6 +8,7 @@ import CreateCat from './CreateCat';
 import { checkAuthenticated, load_user } from '../../actions/auth';
 import { useNavigate } from 'react-router-dom';
 import preventTab from '../../utils/preventTab';
+import Sending from '../../components/Atoms/Sending';
 
 const responsive = {
   desktop: {
@@ -33,6 +34,7 @@ const responsive = {
 function Create() {
   const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState('');
+  const [isSending, setIsSending] = useState(false);
 
   const isFormValid = () => {
     const { title, content, thumbnail, category, choice } = formData;
@@ -148,14 +150,22 @@ function Create() {
           <MintButton content={'이전으로'} onClick={() => previous()} />
         )}
         {currentSlide === 2 ? (
-          <MintButton
-            as="button"
-            content={'제출하기'}
-            type="submit"
-            onClick={handleSubmit}
-            disabled={!isFormValid()}
-            onkeydown={preventTab}
-          />
+          !isSending ? (
+            <>
+              <MintButton
+                as="button"
+                content={'제출하기'}
+                type="submit"
+                onClick={handleSubmit}
+                disabled={!isFormValid()}
+                onkeydown={preventTab}
+              />
+            </>
+          ) : (
+            <DataSending>
+              <Sending />
+            </DataSending>
+          )
         ) : (
           <MintButton
             content={'다음으로'}
@@ -213,5 +223,11 @@ const ButtonGroup = styled.div`
   & > button {
     flex: 1;
   }
+`;
+
+const DataSending = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 export default Create;

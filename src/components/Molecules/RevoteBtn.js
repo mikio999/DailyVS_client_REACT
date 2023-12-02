@@ -3,13 +3,15 @@ import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
 import { setGender, setAge, setMBTI } from '../../actions/actions';
+import Sending from '../Atoms/Sending';
 
-const RevoteBtn = () => {
+const RevoteBtn = ({ previousChoiceId }) => {
   const params = useParams();
   const navigate = useNavigate();
   const detailId = params.id;
   const dispatch = useDispatch();
   const [userInformation, setUserInformation] = useState('');
+  const [isSending, setIsSending] = useState(false);
 
   const selectedChoice = useSelector(state => state.choice.selectedChoice);
   const selectedOption = useSelector(state => state.option.selectedOption);
@@ -38,15 +40,15 @@ const RevoteBtn = () => {
       .then(response => response.json())
       .then(result => {
         setUserInformation(result);
+        dispatch(setAge(userInformation?.age));
+        dispatch(setMBTI(userInformation?.mbti));
+        dispatch(setGender(userInformation?.gender));
       });
   }, []);
 
-  dispatch(setAge(userInformation?.age));
-  dispatch(setMBTI(userInformation?.mbti));
-  dispatch(setGender(userInformation?.gender));
-
   const handleInformationClick = event => {
     event.preventDefault();
+    setIsSending(true);
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
 
@@ -61,7 +63,7 @@ const RevoteBtn = () => {
       headers: headers,
       body: JSON.stringify({
         choice_number: selectedOption,
-        choice_id: selectedChoice,
+        choice_id: selectedChoice || previousChoiceId,
         category_list: selectedCategoryList,
         gender: selectedGender,
         mbti: selectedMBTI,
@@ -75,11 +77,18 @@ const RevoteBtn = () => {
         }
       })
       .catch(error => {
+        setIsSending(false);
         console.error('POST 요청 오류:', error);
       });
   };
 
-  return <Container onClick={handleInformationClick}>다시투표</Container>;
+  return !isSending ? (
+    <Container onClick={handleInformationClick}>다시투표</Container>
+  ) : (
+    <DataSending>
+      <Sending />
+    </DataSending>
+  );
 };
 
 export default RevoteBtn;
@@ -95,4 +104,10 @@ const Container = styled.button`
   &:hover {
     cursor: pointer;
   }
+`;
+
+const DataSending = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
