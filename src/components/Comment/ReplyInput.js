@@ -6,16 +6,36 @@ import { useSelector } from 'react-redux';
 import Sending from '../Atoms/Sending';
 
 function ReplyInput({
+  data,
   voteId,
   voteChoice,
   onCommentSubmit,
   parentId,
   replyCount,
   setReplyCount,
+  commentCategory,
 }) {
   const [comment, setComment] = useState('');
   const [userInfo, setUserInfo] = useState('');
   const [isSending, setIsSending] = useState(false);
+
+  function getAgeRange(age) {
+    if (age === '10') {
+      return '10대';
+    } else if (age === '20_1') {
+      return '20대 초';
+    } else if (age === '20_2') {
+      return '20대 후';
+    } else if (age === '30_1') {
+      return '30대 초';
+    } else if (age === '30_2') {
+      return '30대 후';
+    } else if (age === '40') {
+      return '40대 이상';
+    } else {
+      return '나이를 입력해주세요.';
+    }
+  }
 
   const handleChange = e => {
     const newComment = e.target.value;
@@ -85,15 +105,31 @@ function ReplyInput({
 
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
 
+  function truncateString(str, maxLength) {
+    if (str?.length > maxLength) {
+      return str.slice(0, maxLength) + '...';
+    }
+    return str;
+  }
+  console.log('vc', voteChoice);
+
   return (
     <Container>
       {isAuthenticated ? (
         <>
           <Info>
             <div className="name">{userInfo.nickname}</div>
-            <div className="mbti">{userInfo.mbti}</div>
-            <div className="gender">{userInfo.gender}</div>
-            <div className="result">{voteChoice?.choice_text}</div>
+            {commentCategory?.map(category => (
+              <div key={category.id} className={category.name}>
+                {category.name === 'age'
+                  ? getAgeRange(userInfo?.[category.name])
+                  : userInfo?.[category.name]}
+              </div>
+            ))}
+            <div className="result">
+              {' '}
+              {truncateString(data?.choice_text, 8)}
+            </div>
           </Info>
           <CommentText
             value={comment}
@@ -136,14 +172,28 @@ const Info = styled.div`
   align-items: flex-end;
 
   & .name {
-    font-weight: 900;
-    font-size: 20px;
-    margin-right: 10px;
+    font-family: 'GongGothicLight';
+    font-size: 18px;
+    margin-right: 3px;
   }
+
+  & .mbti {
+    margin: 0 3px;
+    font-size: 14px;
+  }
+
   & .gender {
-    margin: 0 5px;
+    margin: 0 3px;
+    font-size: 14px;
   }
+
+  & .age {
+    margin: 0 3px;
+    font-size: 14px;
+  }
+
   & .result {
+    font-size: 14px;
     color: ${theme.colors.turquoisSecondaryColor};
   }
 `;

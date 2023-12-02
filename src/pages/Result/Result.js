@@ -89,6 +89,8 @@ const Result = () => {
     }
   }, []);
 
+  const commentCategory = voteResult?.poll?.category;
+  console.log(commentCategory);
   const handleCapture = () => {
     setShowWatermark(true);
     html2canvas(resultRef.current, { scale: 4 }).then(canvas => {
@@ -123,6 +125,7 @@ const Result = () => {
         voteId={detailId}
         voteChoice={voteResult?.choice}
         comments={voteResult?.comments}
+        commentCategory={commentCategory}
       />
       <LatestPolls voteList={voteResult?.latest_polls} />
     </ResultContainer>

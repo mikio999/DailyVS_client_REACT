@@ -11,6 +11,7 @@ function CommentBox({
   setCommentsCount,
   replyCount,
   setReplyCount,
+  commentCategory,
 }) {
   const [reply, setReply] = useState({});
   const [user, setUser] = useState({});
@@ -39,6 +40,7 @@ function CommentBox({
         setCommentsCount={setCommentsCount}
         replyCount={replyCount}
         setReplyCount={setReplyCount}
+        commentCategory={commentCategory}
       />
 
       {!!showReply &&
@@ -51,17 +53,20 @@ function CommentBox({
             voteId={voteId}
             replyCount={replyCount}
             setReplyCount={setReplyCount}
+            commentCategory={commentCategory}
           />
         ))}
 
       {!!showReply && (
         <ReplyInput
+          data={data}
           parentId={parentId}
           onCommentSubmit={addReply}
           voteId={voteId}
           setCurrentPage={setCurrentPage}
           setReplyCount={setReplyCount}
           replyCount={replyCount}
+          commentCategory={commentCategory}
         />
       )}
     </>

@@ -118,7 +118,7 @@ const OptionName = styled.div`
   font-family: 'GongGothicLight';
   display: flex;
   justify-content: start;
-  margin-left: 5px;
+  margin-left: 10px;
   align-items: center;
   font-size: 16px;
   width: 85%;
