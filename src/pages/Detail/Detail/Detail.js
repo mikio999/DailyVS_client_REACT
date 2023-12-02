@@ -98,6 +98,8 @@ const Detail = () => {
     return selectedOption !== '';
   };
 
+  const isAuth = localStorage.getItem('access');
+
   return (
     <DetailContainer>
       {voteDetail ? (
@@ -123,7 +125,7 @@ const Detail = () => {
             setSelectedChoice={setSelectedChoice}
             previusChoice={voteDetail.previous_choice}
           />
-          {voteDetail.previous_choice ? (
+          {voteDetail.previous_choice && isAuth ? (
             <ReButtons>
               <RevoteBtn previousChoiceId={voteDetail?.previous_choice_id} />
               <ResultBtn />
