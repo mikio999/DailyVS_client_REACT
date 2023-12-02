@@ -6,9 +6,8 @@ import Paginator from '../Molecules/Paginator';
 import { useSelector } from 'react-redux';
 import CommentHeader from './CommentHeader';
 
-function Comment({ voteId, voteChoice }) {
+function Comment({ voteId, voteChoice, commentCategory }) {
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
-
   const [comments, setComments] = useState('');
   const [commentsCount, setCommentsCount] = useState('');
   const [userInfo, setUserInfo] = useState('');
@@ -99,6 +98,7 @@ function Comment({ voteId, voteChoice }) {
         setCommentsCount={setCommentsCount}
         setFilter={setFilter}
         commentsCount={commentsCount}
+        commentCategory={commentCategory}
       />
       <Wrapper>
         {comments &&
@@ -114,6 +114,7 @@ function Comment({ voteId, voteChoice }) {
               setReplyCount={setReplyCount}
               commentsCount={commentsCount}
               setCommentsCount={setCommentsCount}
+              commentCategory={commentCategory}
             />
           ))}
       </Wrapper>

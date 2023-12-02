@@ -13,6 +13,7 @@ function ReplyElement({
   replyCount,
   setReplyCount,
   voteId,
+  commentCategory,
 }) {
   function truncateString(str, maxLength) {
     if (str?.length > maxLength) {
@@ -21,11 +22,29 @@ function ReplyElement({
     return str;
   }
 
+  function getAgeRange(age) {
+    if (age === '10') {
+      return '10대';
+    } else if (age === '20_1') {
+      return '20대 초';
+    } else if (age === '20_2') {
+      return '20대 후';
+    } else if (age === '30_1') {
+      return '30대 초';
+    } else if (age === '30_2') {
+      return '30대 후';
+    } else if (age === '40') {
+      return '40대 이상';
+    } else {
+      return '나이를 입력해주세요.';
+    }
+  }
+
   const Time = () => {
     return (
       <span
         style={{
-          fontSize: 14,
+          fontSize: 13,
           color: theme.colors.grayColor,
           marginLeft: 'auto',
         }}
@@ -72,8 +91,13 @@ function ReplyElement({
       )}
       <Info>
         <div className="name">{user.nickname}</div>
-        <div className="mbti">{user.mbti}</div>
-        <div className="gender">{user.gender}</div>
+        {commentCategory?.map(category => (
+          <div key={category.id} className={category.name}>
+            {category.name === 'age'
+              ? getAgeRange(user?.[category.name])
+              : user?.[category.name]}
+          </div>
+        ))}
         <div className="result"> {truncateString(data?.choice_text, 8)}</div>
         <Time />
       </Info>
@@ -123,14 +147,28 @@ const Info = styled.div`
   white-space: nowrap;
 
   & .name {
-    font-weight: 900;
-    font-size: 20px;
-    margin-right: 10px;
+    font-family: 'GongGothicLight';
+    font-size: 18px;
+    margin-right: 3px;
   }
+
+  & .mbti {
+    margin: 0 3px;
+    font-size: 14px;
+  }
+
   & .gender {
-    margin: 0 5px;
+    margin: 0 3px;
+    font-size: 14px;
   }
+
+  & .age {
+    margin: 0 3px;
+    font-size: 14px;
+  }
+
   & .result {
+    font-size: 14px;
     color: ${theme.colors.turquoisSecondaryColor};
   }
 `;
