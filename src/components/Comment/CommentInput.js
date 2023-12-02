@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import theme from '../../styles/theme';
 import { MintButton } from '../Atoms/Buttons';
 import { useSelector } from 'react-redux';
+import Sending from '../Atoms/Sending';
 
 function CommentInput({
   setCurrentPage,
@@ -15,6 +16,7 @@ function CommentInput({
   commentsCount,
 }) {
   const [comment, setComment] = useState('');
+  const [isSending, setIsSending] = useState(false);
 
   const handleChange = e => {
     const newComment = e.target.value;
@@ -26,7 +28,7 @@ function CommentInput({
       alert('댓글은 200자 이하로 입력해주세요.');
       return;
     }
-
+    setIsSending(true);
     onCommentSubmit(comment);
 
     const headers = new Headers();
@@ -51,8 +53,10 @@ function CommentInput({
         setFilter('newest');
         setCommentsCount(commentsCount + 1);
         setCurrentPage(1);
+        setIsSending(false);
       })
       .catch(error => {
+        setIsSending(false);
         console.error('데이터 받기 실패:', error);
       });
 
@@ -86,11 +90,17 @@ function CommentInput({
             placeholder="댓글을 입력하세요"
           />
           <div style={{ width: '30%', marginLeft: 'auto' }}>
-            <MintButton
-              content={'댓글 달기'}
-              onClick={handleSubmit}
-              disabled={comment?.length === 0}
-            />
+            {!isSending ? (
+              <MintButton
+                content={'댓글 달기'}
+                onClick={handleSubmit}
+                disabled={comment?.length === 0}
+              />
+            ) : (
+              <DataSending>
+                <Sending />
+              </DataSending>
+            )}
           </div>
         </>
       ) : (
@@ -144,6 +154,12 @@ const CommentText = styled.textarea`
   &:focus::placeholder {
     color: ${theme.colors.turquoisSecondaryColor};
   }
+`;
+
+const DataSending = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export default CommentInput;
