@@ -456,6 +456,7 @@ const HeroMenuContainer = styled.div`
     height: 200px;
   }
 `;
+
 const FortuneContainer = styled(Link)`
   display: flex;
   flex-direction: column;

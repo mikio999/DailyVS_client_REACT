@@ -127,7 +127,7 @@ const Container = styled.div`
   width: 95%;
   border-radius: 10px;
   padding: 15px 0;
-  margin: 0 2rem;
+  margin: 0 1rem;
   display: flex;
   justify-content: center;
   flex-direction: column;
