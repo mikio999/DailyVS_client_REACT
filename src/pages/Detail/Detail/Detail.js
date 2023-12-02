@@ -25,7 +25,6 @@ const Detail = () => {
   const [selectedChoice, setSelectedChoice] = useState('');
   const params = useParams();
   const detailId = params.id;
-
   const handleDispatch = selectedOption => {
     dispatch(setOption(selectedOption + 1));
   };
@@ -126,7 +125,7 @@ const Detail = () => {
           />
           {voteDetail.previous_choice ? (
             <ReButtons>
-              <RevoteBtn />
+              <RevoteBtn previousChoiceId={voteDetail?.previous_choice_id} />
               <ResultBtn />
             </ReButtons>
           ) : voteDetail.category_list?.length === 0 ? (
