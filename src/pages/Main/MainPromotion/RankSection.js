@@ -1,33 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-const RankSection = () => {
-  const [ranking, setRanking] = useState([]);
-
-  useEffect(() => {
-    fetch('/data/ranking.json')
-      .then(res => res.json())
-      .then(data => {
-        setRanking(data);
-      });
-  }, []);
-
+const RankSection = ({ topUser }) => {
   return (
     <div>
-      {ranking.map((item, index) => (
+      {topUser?.slice(0, 3)?.map((item, index) => (
         <Container key={index}>
           <MedalImg
             src={require(`../../../assets/MainSide/medal${index + 1}.png`)}
           />
           <RankRight>
-            <RankNickname>{item.user_info.nickname}</RankNickname>
+            <RankNickname>{item?.nickname}</RankNickname>
             <RankPoint>
-              <PointNumber>{item.user_info.vs_point}</PointNumber>
+              <PointNumber>{item?.point}</PointNumber>
               <Point>VS POINT</Point>
             </RankPoint>
-            <RecentVote to={item.user_info.recent_url}>
-              {item.user_info.recent_vote}
+            <RecentVote to={`vote-detail/${item?.most_recent_poll?.id}`}>
+              {item?.most_recent_poll?.title}
             </RecentVote>
           </RankRight>
         </Container>

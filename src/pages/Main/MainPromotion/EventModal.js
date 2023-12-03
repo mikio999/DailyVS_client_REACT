@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
-const EventModal = ({ isOpen, onClose }) => {
+const EventModal = ({ isOpen, onClose, event }) => {
   const handleOverlayClick = e => {
     if (e.target === e.currentTarget) {
-      onClose();
-      console.log('click');
+      onClose(e);
     }
   };
 
@@ -17,22 +16,8 @@ const EventModal = ({ isOpen, onClose }) => {
           <Red>Daily VS</Red>
           <span>Event</span>
         </ModalTitle>
-        <ModalContent>
-          <img src={require('../../../assets/MainSide/C33.png')} />
-          <div>
-            <p>
-              본인 계정으로 업로드한 투표에 투표 데이터가 쌓일 때마다 VS POINT
-              획득!
-            </p>
-            <div>사이트 첫 500, 1000, 50000 포인트 달성 시 차등 보상! </div>
-            <ul>
-              <li>500 포인트 (5명) - 4500원 기프티콘</li>{' '}
-              <li>1000 포인트 (3명) - 10000원 기프티콘</li>
-              <li> 20000 포인트 (1명) - 5만원 현금 지급</li>
-            </ul>
-          </div>
-          <div>본인의 포인트는 마이페이지에서 확인 가능합니다!</div>
-        </ModalContent>
+        <ModalImg src={require('../../../assets/MainSide/C33.png')} />
+        <ModalContent>{event}</ModalContent>
       </Container>
     </ModalOverlay>
   ) : null;
@@ -88,55 +73,15 @@ const Red = styled.span`
   margin-right: 10px;
 `;
 
-const ModalContent = styled.div`
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
+const ModalImg = styled.img`
+  width: 80%;
+`;
 
-  & div {
-    margin-top: 1rem;
-    font-size: 18px;
-  }
-
-  & img {
-    width: 50vw;
-  }
-
-  & p {
-    font-size: 20px;
-    font-family: 'GongGothicLight';
-  }
-
-  & ul {
-    margin-top: 2rem;
-  }
-
-  & ul li {
-    margin-top: 1rem;
-  }
-  @media screen and (max-width: 800px) {
-    & div {
-      margin-top: 1rem;
-      font-size: 14px;
-      word-break: keep-all;
-    }
-
-    & img {
-      width: 50vw;
-    }
-
-    & p {
-      font-size: 15px;
-      font-family: 'GongGothicLight';
-      word-break: keep-all;
-    }
-
-    & ul {
-      margin-top: 2rem;
-    }
-
-    & ul li {
-      margin-top: 1rem;
-    }
-  }
+const ModalContent = styled.p`
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  word-wrap: break-word;
+  line-height: 1.2em;
+  height: 3.6em;
 `;

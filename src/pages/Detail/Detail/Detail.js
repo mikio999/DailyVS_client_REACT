@@ -99,7 +99,7 @@ const Detail = () => {
   };
 
   const isAuth = localStorage.getItem('access');
-  console.log('vd', voteDetail);
+
   return (
     <DetailContainer>
       {voteDetail ? (
