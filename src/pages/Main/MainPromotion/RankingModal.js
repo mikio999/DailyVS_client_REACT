@@ -52,6 +52,8 @@ const ModalOverlay = styled.div`
   position: fixed;
   top: 0;
   left: 0;
+  right: 0;
+  bottom: 0;
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
@@ -68,12 +70,13 @@ const Container = styled.div`
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   position: relative;
   width: 70vw;
+  height: 95vh;
   @media screen and (max-width: 800px) {
     width: 500px;
-    height: 70vh;
+    height: 95vh;
   }
   @media screen and (max-width: 500px) {
-    height: 70vh;
+    height: 90vh;
     width: 90vw;
   }
 `;
@@ -136,7 +139,7 @@ const ModalTop = styled.div`
 
 const ModalGrid = styled.div`
   display: grid;
-  grid-template-columns: 30px 100px 150px 100px;
+  grid-template-columns: 35px 100px 150px 100px;
   @media screen and (max-width: 900px) {
     grid-template-columns: 30px 100px 150px 100px;
     font-size: 14px;
@@ -185,6 +188,9 @@ const ModalRecent = styled(Link)`
   @media screen and (max-width: 500px) {
     word-break: keep-all;
     font-size: 13px;
+  }
+  @media screen and (max-width: 330px) {
+    font-size: 10px;
   }
 `;
 
