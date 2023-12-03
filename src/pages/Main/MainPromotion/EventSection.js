@@ -46,12 +46,11 @@ const StyledSlider = styled(Slider)`
     object-fit: cover;
   }
   .slick-prev {
-    z-index: 1;
-    left: 30px;
+    display: none;
   }
 
   .slick-next {
-    right: 20px;
+    display: none;
   }
 
   .slick-prev:before,

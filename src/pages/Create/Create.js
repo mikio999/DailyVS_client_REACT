@@ -86,6 +86,9 @@ function Create() {
   const handleSubmit = e => {
     e.preventDefault();
 
+    if (!isFormValid()) {
+      return alert('필수 항목을 전부 기입해주세요!');
+    }
     const sendData = new FormData();
 
     sendData.append('owner', JSON.stringify(userInfo));

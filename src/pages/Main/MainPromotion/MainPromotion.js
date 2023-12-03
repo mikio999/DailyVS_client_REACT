@@ -153,6 +153,7 @@ const EventBtn = styled.button`
   margin-top: 80px;
   border: none;
   background-color: none;
+  cursor: pointer;
   @media screen and (max-width: 800px) {
     display: none;
   }
