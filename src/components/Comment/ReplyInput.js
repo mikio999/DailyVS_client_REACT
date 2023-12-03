@@ -92,7 +92,6 @@ function ReplyInput({
       .then(response => response.json())
       .then(data => {
         setIsSending(false);
-        console.log('성공:', data);
         setReplyCount(replyCount + 1);
       })
       .catch(error => {
@@ -111,7 +110,6 @@ function ReplyInput({
     }
     return str;
   }
-  console.log('vc', voteChoice);
 
   return (
     <Container>

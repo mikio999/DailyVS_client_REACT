@@ -5,6 +5,7 @@ import theme from '../../styles/theme';
 import MainHero from './MainHero/MainHero';
 import { MainSliderSideLeft, MainSliderSideRight } from './MainSlider/MainSide';
 import MainSlider from './MainSlider/MainSlider';
+import MainPromotion from './MainPromotion/MainPromotion';
 
 const Main = () => {
   const [loading, setLoading] = useState(true);
@@ -40,6 +41,7 @@ const Main = () => {
 
   return (
     <Container>
+      <MainPromotion />
       <MainHero data={todayPoll} />
       <MainSliderContainer>
         {width < 1200 ? null : <MainSliderSideLeft />}
@@ -93,6 +95,7 @@ const MakeVoteBanner = styled.div`
 
 const MainSliderContainer = styled.div`
   display: flex;
+  margin: 0 auto;
   width: 100%;
 
   & > .mainSlider-wrapper {
