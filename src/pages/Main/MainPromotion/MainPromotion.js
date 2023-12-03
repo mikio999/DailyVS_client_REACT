@@ -21,7 +21,6 @@ const MainPromotion = () => {
       });
   }, []);
 
-  console.log(promotion);
   const openRank = () => {
     setIsRankOpen(true);
   };
@@ -53,7 +52,7 @@ const MainPromotion = () => {
         <EventModal
           isOpen={isEventOpen}
           onClose={closeEvent}
-          event={promotion?.event_description}
+          event={promotion}
         />
       </EventContainer>
       <RankContainer>

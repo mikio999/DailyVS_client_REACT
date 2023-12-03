@@ -16,8 +16,14 @@ const EventModal = ({ isOpen, onClose, event }) => {
           <Red>Daily VS</Red>
           <span>Event</span>
         </ModalTitle>
+        <ContentTitle>{event?.event_title}</ContentTitle>
+        <ContentSubTitle>{event?.event_sub_title}</ContentSubTitle>
         <ModalImg src={require('../../../assets/MainSide/C33.png')} />
-        <ModalContent>{event}</ModalContent>
+        <ModalContent>
+          {event?.event_description.map(desc => (
+            <EventDescription key={desc.id}>{desc.text}</EventDescription>
+          ))}
+        </ModalContent>
       </Container>
     </ModalOverlay>
   ) : null;
@@ -41,16 +47,25 @@ const ModalOverlay = styled.div`
 const Container = styled.div`
   background-color: white;
   border-radius: 5px;
-  padding: 20px;
+  padding: 30px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   position: relative;
-  width: 70vw;
-  margin-bottom: 4rem;
+  word-break: keep-all;
+  line-height: 1.2;
+  margin-bottom: 10px;
+  @media screen and (max-width: 800px) {
+    width: 60vw;
+  }
+  @media screen and (max-width: 500px) {
+    width: 80vw;
+  }
+  @media screen and (max-width: 300px) {
+    width: 90vw;
+  }
 `;
 
 const ModalTitle = styled.h1`
   display: flex;
-  flex-direction: column;
   justify-content: center;
   font-size: 1.5rem;
   margin: 1rem;
@@ -74,14 +89,39 @@ const Red = styled.span`
 `;
 
 const ModalImg = styled.img`
-  width: 80%;
+  width: 500px;
+  @media screen and (max-width: 800px) {
+    width: 50vw;
+  }
+  @media screen and (max-width: 500px) {
+    width: 40vw;
+  }
+  @media screen and (max-width: 300px) {
+    width: 30vw;
+  }
 `;
 
-const ModalContent = styled.p`
-  display: -webkit-box;
-  -webkit-line-clamp: 5;
-  -webkit-box-orient: vertical;
-  word-wrap: break-word;
-  line-height: 1.2em;
-  height: 3.6em;
+const ModalContent = styled.p``;
+
+const ContentTitle = styled.h1`
+  font-family: 'GongGothicMedium';
+  font-size: 16px;
+`;
+
+const ContentSubTitle = styled.h2`
+  margin-top: 0.5rem;
+  font-family: 'GongGothicLight';
+  color: #17355a;
+  font-size: 14px;
+`;
+
+const EventDescription = styled.div`
+  margin: 0.5rem 0;
+  line-height: 1.5;
+  @media screen and (max-width: 800px) {
+    font-size: 14px;
+  }
+  @media screen and (max-width: 500px) {
+    font-size: 12px;
+  }
 `;

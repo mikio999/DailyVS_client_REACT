@@ -23,11 +23,11 @@ const MintButtonSubmit = ({ content, link }) => {
 };
 
 export const MintButton = ({ content, onClick, disabled }) => (
-  <div>
+  <button>
     <MintButtonCSS onClick={onClick} disabled={disabled}>
       {content}
     </MintButtonCSS>
-  </div>
+  </button>
 );
 
 const MintButtonCSS = styled.div`

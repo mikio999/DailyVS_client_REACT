@@ -100,7 +100,6 @@ const FortuneModal = ({ isOpen, onClose }) => {
   return isOpen ? (
     <ModalOverlay onClick={handleOverlayClick}>
       <FortuneModalContainer>
-        <ModalCloseButton onClick={onClose}>&times;</ModalCloseButton>
         <ModalContent ref={fortuneRef}>
           <DailyVSLogo>Daily VS</DailyVSLogo>
           <img
