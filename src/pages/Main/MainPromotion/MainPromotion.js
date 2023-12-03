@@ -8,7 +8,7 @@ import RankingModal from './RankingModal';
 const MainPromotion = () => {
   const [isRankOpen, setIsRankOpen] = useState(false);
   const [isEventOpen, setIsEventOpen] = useState(false);
-  console.log(isEventOpen);
+
   const openRank = () => {
     setIsRankOpen(true);
   };
