@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import RankSection from './RankSection';
 import EventSection from './EventSection';
@@ -6,9 +6,22 @@ import EventModal from './EventModal';
 import RankingModal from './RankingModal';
 
 const MainPromotion = () => {
+  const [promotion, setPromotion] = useState([]);
   const [isRankOpen, setIsRankOpen] = useState(false);
   const [isEventOpen, setIsEventOpen] = useState(false);
 
+  useEffect(() => {
+    fetch(`${process.env.REACT_APP_HOST}/event/`)
+      .then(response => response.json())
+      .then(result => {
+        setPromotion(result);
+      })
+      .catch(error => {
+        console.log('client: 값 받기 실패', error);
+      });
+  }, []);
+
+  console.log(promotion);
   const openRank = () => {
     setIsRankOpen(true);
   };
@@ -37,7 +50,11 @@ const MainPromotion = () => {
           <EventBtn>더보기</EventBtn>
         </EventTitle>
         <EventSection />
-        <EventModal isOpen={isEventOpen} onClose={closeEvent} />
+        <EventModal
+          isOpen={isEventOpen}
+          onClose={closeEvent}
+          event={promotion?.event_description}
+        />
       </EventContainer>
       <RankContainer>
         <RankTitle onClick={openRank}>
@@ -45,8 +62,12 @@ const MainPromotion = () => {
           <RankImg src={require('../../../assets/MainSide/trophy.png')} />
           <EventBtn>더보기</EventBtn>
         </RankTitle>
-        <RankSection />
-        <RankingModal isOpen={isRankOpen} onClose={closeRank} />
+        <RankSection topUser={promotion?.top_users} />
+        <RankingModal
+          isOpen={isRankOpen}
+          onClose={closeRank}
+          topUser={promotion?.top_users}
+        />
       </RankContainer>
     </Container>
   );
@@ -131,6 +152,8 @@ const RankTitle = styled.h1`
 
 const EventBtn = styled.button`
   margin-top: 80px;
+  border: none;
+  background-color: none;
   @media screen and (max-width: 800px) {
     display: none;
   }
