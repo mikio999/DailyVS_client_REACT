@@ -134,7 +134,7 @@ function Create() {
       .then(response => response.json())
       .then(data => {
         if (data.error) {
-          alert(data.error, '필수 정보를 전부 입력하였는지 확인해주세요!');
+          alert(data.error, '필수 정보를 전부 입력하였는지 확인해주세요!!');
         } else {
           isSending(false);
           navigate(`/vote-detail/${data.id}`);
