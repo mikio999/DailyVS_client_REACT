@@ -175,6 +175,9 @@ const Chevron = styled.img`
 const Information = styled.div`
   display: flex;
   justify-content: center;
+  @media screen and (max-width: 500px) {
+    display: none;
+  }
 `;
 
 const OptionName = styled.div`

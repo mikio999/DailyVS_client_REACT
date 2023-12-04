@@ -40,7 +40,7 @@ const Main = () => {
   }, [width]);
 
   return (
-    <Container>
+    <Container style={{ overflowX: 'hidden' }}>
       <MainPromotion />
       <MainHero data={todayPoll} />
       <MainSliderContainer>
