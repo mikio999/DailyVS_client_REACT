@@ -18,6 +18,12 @@ function CreateTTC({ formData, setFormData }) {
   const handleFileChange = e => {
     const file = e.target.files[0];
     if (file) {
+      const maxSizeInBytes = 5 * 1024 * 1024;
+      if (file.size > maxSizeInBytes) {
+        alert('이미지 용량 5MB 초과. 다른 이미지를 선택해주세요.');
+        return;
+      }
+
       const reader = new FileReader();
       reader.onload = e => {
         const imageDataURL = e.target.result;
@@ -54,11 +60,14 @@ function CreateTTC({ formData, setFormData }) {
           </>
         ) : (
           <label className="custom-file-input">
-            <span>이미지 넣기</span>
+            <ImgTitle>이미지 넣기</ImgTitle>
+            <SubContent>
+              5MB 이하의 .jpg .jpeg .png .webp .heif .heic 형식 지원
+            </SubContent>
             <img
-              src={require('../../assets/Buttons/image.png')}
+              src={require('../../assets/Buttons/image2.png')}
               alt="image icon"
-              accept=".jpg, .jpeg, .png, .webp"
+              accept=".jpg, .jpeg, .png, .webp, .heif, .heic"
             />
             <input type="file" accept="image/*" onChange={handleFileChange} />
           </label>
@@ -110,7 +119,7 @@ const ThumbnailContainer = styled.div`
   height: 360px;
   overflow: hidden;
   margin: 10px auto 0 auto;
-  background-color: ${theme.colors.mintSecondaryColor};
+  background-color: ${theme.colors.darkbluePrimaryColor};
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   box-shadow:
@@ -191,4 +200,11 @@ const Input = styled.input`
   }
 `;
 
+const ImgTitle = styled.span`
+  color: white;
+`;
+const SubContent = styled.span`
+  color: #bdbdbd;
+  font-size: 12px;
+`;
 export default CreateTTC;
