@@ -89,7 +89,7 @@ function Create() {
     if (!isFormValid()) {
       return alert('필수 항목을 전부 기입해주세요!');
     }
-    isSending(true);
+    setIsSending(true);
     const sendData = new FormData();
 
     sendData.append('owner', JSON.stringify(userInfo));
@@ -136,12 +136,12 @@ function Create() {
         if (data.error) {
           alert(data.error, '필수 정보를 전부 입력하였는지 확인해주세요!!');
         } else {
-          isSending(false);
+          setIsSending(false);
           navigate(`/vote-detail/${data.id}`);
         }
       })
       .catch(error => {
-        isSending(false);
+        setIsSending(false);
         console.error(error);
       });
   };
