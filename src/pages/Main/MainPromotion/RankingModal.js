@@ -52,6 +52,8 @@ const ModalOverlay = styled.div`
   position: fixed;
   top: 0;
   left: 0;
+  right: 0;
+  bottom: 0;
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
@@ -68,12 +70,13 @@ const Container = styled.div`
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   position: relative;
   width: 70vw;
+  height: 90vh;
   @media screen and (max-width: 800px) {
     width: 500px;
-    height: 70vh;
+    height: 95vh;
   }
   @media screen and (max-width: 500px) {
-    height: 70vh;
+    height: 95vh;
     width: 90vw;
   }
 `;
@@ -82,7 +85,7 @@ const ModalTitle = styled.h1`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  font-size: 1rem;
+  font-size: 1.2rem;
   margin: 1rem;
   @media screen and (max-width: 500px) {
     display: flex;
@@ -128,15 +131,17 @@ const ModalTop = styled.div`
   padding-bottom: 2px;
   @media screen and (max-width: 900px) {
     flex-direction: column;
+    margin-top: 0.5rem;
   }
   @media screen and (max-width: 500px) {
     flex-direction: column;
+    margin-top: 0.2rem;
   }
 `;
 
 const ModalGrid = styled.div`
   display: grid;
-  grid-template-columns: 30px 100px 150px 100px;
+  grid-template-columns: 35px 100px 150px 100px;
   @media screen and (max-width: 900px) {
     grid-template-columns: 30px 100px 150px 100px;
     font-size: 14px;
@@ -186,6 +191,9 @@ const ModalRecent = styled(Link)`
     word-break: keep-all;
     font-size: 13px;
   }
+  @media screen and (max-width: 330px) {
+    font-size: 10px;
+  }
 `;
 
 const RankPoint = styled.div`
@@ -217,6 +225,9 @@ const ModalEmail = styled.div`
   align-items: center;
   font-size: 10px;
   color: gray;
+  @media screen and (max-width: 500px) {
+    font-size: 8px;
+  }
   @media screen and (max-width: 350px) {
     display: none;
   }

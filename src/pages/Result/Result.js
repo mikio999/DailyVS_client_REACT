@@ -90,7 +90,7 @@ const Result = () => {
   }, []);
 
   const commentCategory = voteResult?.poll?.category;
-  console.log(commentCategory);
+
   const handleCapture = () => {
     setShowWatermark(true);
     html2canvas(resultRef.current, { scale: 4 }).then(canvas => {
@@ -147,6 +147,7 @@ const ResultTitle = styled.h1`
   justify-content: center;
   text-align: center;
   margin-top: 20px;
+  padding: 0 10px;
   font-size: 28px;
   font-family: 'GongGothicMedium';
   color: ${props => props.theme.colors.darkbluePrimaryColor};

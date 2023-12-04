@@ -3,6 +3,10 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const RankSection = ({ topUser }) => {
+  const truncateText = text => {
+    return text?.length > 12 ? `${text?.slice(0, 12)}...` : text;
+  };
+
   return (
     <div>
       {topUser?.slice(0, 3)?.map((item, index) => (
@@ -17,7 +21,7 @@ const RankSection = ({ topUser }) => {
               <Point>VS POINT</Point>
             </RankPoint>
             <RecentVote to={`vote-detail/${item?.most_recent_poll?.id}`}>
-              {item?.most_recent_poll?.title}
+              {truncateText(item?.most_recent_poll?.title)}
             </RecentVote>
           </RankRight>
         </Container>
