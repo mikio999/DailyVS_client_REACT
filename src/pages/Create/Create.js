@@ -151,7 +151,7 @@ function Create() {
       carouselState: { currentSlide },
     } = rest;
     return (
-      <ButtonGroup>
+      <ButtonGroup style={{ cursor: 'pointer' }}>
         {currentSlide === 0 ? null : (
           <MintButton content={'이전으로'} onClick={() => previous()} />
         )}

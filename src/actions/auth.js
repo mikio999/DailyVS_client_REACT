@@ -330,6 +330,7 @@ export const reset_password_confirm =
 export const logout = () => async dispatch => {
   const accessToken = localStorage.getItem('access');
   const refreshToken = localStorage.getItem('refresh');
+  console.log('logout!');
 
   if (!accessToken) {
     return;

@@ -25,8 +25,6 @@ const Nav = ({ checkAuthenticated, load_user, logout, isAuthenticated }) => {
 
   handleDispatch(userInfo?.is_kakao);
 
-  const selectedKakaoAuth = localStorage.getItem('isKakao');
-
   useEffect(() => {
     checkAuthenticated();
     load_user();
@@ -106,13 +104,14 @@ const Nav = ({ checkAuthenticated, load_user, logout, isAuthenticated }) => {
       <NavContainer>
         <NavList>
           {isAuthenticated ? (
-            <Logout href="/login" onClick={logout_user}>
-              로그아웃
-            </Logout>
+            <Logout onClick={logout_user}>로그아웃</Logout>
           ) : null}
           <NavLogo to="/">
             <LogoImg src={require('../../assets/Nav/Row.png')} alt="로고" />
           </NavLogo>
+          {isAuthenticated ? (
+            <Logout2 onClick={logout_user}>로그아웃</Logout2>
+          ) : null}
           <SearchMyPage>
             {isAuthenticated ? (
               <NavLink2 to="/my-page">
@@ -291,6 +290,24 @@ const Logout = styled.div`
   }
 
   @media screen and (max-width: 600px) {
+    display: none;
+  }
+`;
+
+const Logout2 = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'GongGothicLight';
+  font-size: 13px;
+  color: #17355a;
+
+  &:hover {
+    opacity: 0.8;
+    cursor: pointer;
+  }
+
+  @media screen and (min-width: 600px) {
     display: none;
   }
 `;

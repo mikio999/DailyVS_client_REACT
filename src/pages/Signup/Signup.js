@@ -323,8 +323,8 @@ const TextInput = styled.input`
 
 const GenderRadioGroup = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 20px;
+  grid-template-columns: 130px 130px;
+  grid-gap: 30px;
 `;
 
 const GenderOption = styled.label`
