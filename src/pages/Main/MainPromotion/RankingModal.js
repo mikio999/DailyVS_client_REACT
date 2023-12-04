@@ -70,13 +70,13 @@ const Container = styled.div`
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   position: relative;
   width: 70vw;
-  height: 90vh;
+  height: 80vh;
   @media screen and (max-width: 800px) {
     width: 500px;
-    height: 95vh;
+    height: 90vh;
   }
   @media screen and (max-width: 500px) {
-    height: 95vh;
+    height: 80vh;
     width: 90vw;
   }
 `;
@@ -108,7 +108,7 @@ const ModalCloseButton = styled.button`
   right: 10px;
   background-color: transparent;
   border: none;
-  font-size: 24px;
+  font-size: 32px;
   cursor: pointer;
 `;
 
@@ -131,11 +131,11 @@ const ModalTop = styled.div`
   padding-bottom: 2px;
   @media screen and (max-width: 900px) {
     flex-direction: column;
-    margin-top: 0.5rem;
+    margin-top: 0.2rem;
   }
   @media screen and (max-width: 500px) {
     flex-direction: column;
-    margin-top: 0.2rem;
+    margin-top: 0.1rem;
   }
 `;
 
@@ -182,17 +182,17 @@ const ModalRecent = styled(Link)`
   align-items: center;
   margin-top: 5px;
   margin-left: 2.2rem;
-  font-size: 14px;
+  font-size: 12px;
   white-space: nowrap;
   &:hover {
     opacity: 0.8;
   }
   @media screen and (max-width: 500px) {
     word-break: keep-all;
-    font-size: 13px;
+    font-size: 11px;
   }
   @media screen and (max-width: 330px) {
-    font-size: 10px;
+    font-size: 8px;
   }
 `;
 

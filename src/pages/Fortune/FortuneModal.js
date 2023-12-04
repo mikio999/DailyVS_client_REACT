@@ -11,8 +11,6 @@ const FortuneModal = ({ isOpen, onClose }) => {
 
   const fortuneRef = useRef(null);
 
-  const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
-
   const handleOverlayClick = e => {
     if (e.target === e.currentTarget) {
       onClose();

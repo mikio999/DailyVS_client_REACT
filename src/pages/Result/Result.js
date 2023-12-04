@@ -104,7 +104,12 @@ const Result = () => {
   };
 
   return (
-    <ResultContainer style={{ backgroundColor: scrollColor }}>
+    <ResultContainer
+      style={{
+        backgroundColor: scrollColor,
+        overflowX: 'hidden',
+      }}
+    >
       <CaptureContainer ref={resultRef}>
         <ResultTitle>{voteResult.poll?.title}</ResultTitle>
         <ResultTotalPeople>
