@@ -38,8 +38,7 @@ const Mypage = () => {
       });
   }, []);
 
-  const logout_user = e => {
-    e.preventDefault();
+  const logout_user = () => {
     const shouldLogout = window.confirm('로그아웃 하시겠습니까?');
     if (shouldLogout) {
       localStorage.removeItem('isKakao');
@@ -64,7 +63,7 @@ const Mypage = () => {
       <MypageLikeList />
 
       <LogoutContainer>
-        <LogOut href="/login" onClick={logout_user}>
+        <LogOut onClick={logout_user} style={{ cursor: 'pointer' }}>
           로그아웃
         </LogOut>
       </LogoutContainer>
