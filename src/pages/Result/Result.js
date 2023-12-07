@@ -132,7 +132,10 @@ const Result = () => {
         comments={voteResult?.comments}
         commentCategory={commentCategory}
       />
-      <LatestPolls voteList={voteResult?.latest_polls} />
+      <LatestPolls
+        voteList={voteResult?.latest_polls}
+        current_poll_index={voteResult?.current_poll_index}
+      />
     </ResultContainer>
   );
 };

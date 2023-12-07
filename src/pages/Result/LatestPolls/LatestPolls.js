@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-const LatestPolls = ({ voteList }) => {
+const LatestPolls = ({ voteList, current_poll_index }) => {
   function truncateString(str, maxLength) {
     if (str?.length > maxLength) {
       return str?.slice(0, maxLength) + '...';
@@ -14,15 +14,37 @@ const LatestPolls = ({ voteList }) => {
     <Container>
       <LatestTitle>이런 투표도 있어요!</LatestTitle>
 
-      {voteList?.map((poll, index) => (
-        <LikeLine key={index} to={`/vote-detail/${poll?.id}`}>
-          <LikeImage src={`${poll?.thumbnail}`} alt={poll.poll?.title} />
-          <TruncateText>
-            <LikeName>{truncateString(poll?.title, 18)}</LikeName>
-          </TruncateText>
-          <LikeCreator>{poll.owner?.nickname}</LikeCreator>
-        </LikeLine>
-      ))}
+      {voteList?.map((poll, index) => {
+        if (index === current_poll_index) {
+          // current_poll_index와 일치하는 경우에만 추가적인 처리
+          return (
+            <LikeLine
+              key={index}
+              to={`/vote-detail/${poll?.id}`}
+              style={{ backgroundColor: 'lightgray' }}
+            >
+              <LikeImage src={`${poll?.thumbnail}`} alt={poll.poll?.title} />
+              <TruncateText>
+                <LikeName style={{ fontWeight: 'bold', color: 'red' }}>
+                  {truncateString(poll?.title, 18)}
+                </LikeName>
+              </TruncateText>
+              <LikeCreator>{poll.owner?.nickname}</LikeCreator>
+            </LikeLine>
+          );
+        } else {
+          // current_poll_index와 일치하지 않는 경우 기존의 LikeLine 컴포넌트 유지
+          return (
+            <LikeLine key={index} to={`/vote-detail/${poll?.id}`}>
+              <LikeImage src={`${poll?.thumbnail}`} alt={poll.poll?.title} />
+              <TruncateText>
+                <LikeName>{truncateString(poll?.title, 18)}</LikeName>
+              </TruncateText>
+              <LikeCreator>{poll.owner?.nickname}</LikeCreator>
+            </LikeLine>
+          );
+        }
+      })}
     </Container>
   );
 };
@@ -50,8 +72,8 @@ const LikeLine = styled(Link)`
     cursor: pointer;
     opacity: 0.8;
   }
+  border-top: 1px solid #d9d9d9;
   border-bottom: 1px solid #d9d9d9;
-  padding-bottom: 5px;
 `;
 
 const TruncateText = styled.span`
