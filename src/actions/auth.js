@@ -366,13 +366,14 @@ export const logout = () => async dispatch => {
 export const kakao_logout = () => async dispatch => {
   const accessToken = localStorage.getItem('access');
   const refreshToken = localStorage.getItem('refresh');
+  const accessKakao = localStorage.getItem('token');
 
   if (!accessToken) {
     return;
   }
 
   const data = {
-    access_kakao: accessToken,
+    access_kakao: accessKakao,
     refresh: refreshToken,
   };
 
