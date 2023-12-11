@@ -13,6 +13,7 @@ const OptionCard = ({
   if (!isAuth) {
     setSelectedChoice('');
     setSelectedOption('');
+    console.log('slsc', selectedChoice, selectedOption);
   }
 
   const handleOptionChange = index => {
