@@ -85,6 +85,8 @@ export default function (state = initialState, action) {
     case KAKAO_LOGOUT:
       localStorage.removeItem('access');
       localStorage.removeItem('refresh');
+      document.cookie =
+        'sessionid=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
       window.location.reload('/');
       return {
         ...state,
@@ -96,6 +98,8 @@ export default function (state = initialState, action) {
     case LOGOUT:
       localStorage.removeItem('access');
       localStorage.removeItem('refresh');
+      document.cookie =
+        'sessionid=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
       window.location.reload('/');
       return {
         ...state,
