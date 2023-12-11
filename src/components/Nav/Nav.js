@@ -10,6 +10,7 @@ import {
   load_user,
   logout,
   kakao_logout,
+  unlinkKakaoAccount,
 } from '../../actions/auth';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -71,6 +72,7 @@ const Nav = ({ checkAuthenticated, load_user, logout, isAuthenticated }) => {
       if (userInfo?.is_kakao) {
         localStorage.removeItem('token');
         dispatch(kakao_logout());
+        dispatch(unlinkKakaoAccount());
         setRedirect(true);
       } else {
         logout();
@@ -78,16 +80,6 @@ const Nav = ({ checkAuthenticated, load_user, logout, isAuthenticated }) => {
       }
     }
   };
-  function deleteCookie(name) {
-    document.cookie =
-      name + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-  }
-
-  if (!isAuthenticated) {
-    deleteCookie('sessionid');
-    document.cookie =
-      'sessionid=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-  }
 
   return (
     <>
