@@ -91,6 +91,10 @@ const Detail = () => {
         //메타 태그
         document.title = result.poll.title; // 페이지의 타이틀 설정
         // Open Graph Protocol 메타 태그 설정
+        const ogUrlTag = document.querySelector('meta[property="og:url"]');
+        if (ogUrlTag) {
+          ogUrlTag.content = `https://daily-vs.com/vote-detail/${result.poll.id}`;
+        }
         const ogTitleTag = document.querySelector('meta[property="og:title"]');
         if (ogTitleTag) {
           ogTitleTag.content = result.poll.title;
