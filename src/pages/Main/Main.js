@@ -34,7 +34,7 @@ const Main = () => {
     );
     if (ogDescriptionTag) {
       ogDescriptionTag.content =
-        'asdfasdfINTP인 그 사람은 뭘 골랐을까? MBTI에 따른 밸런스 게임 통계 사이트'; // 여기에 적절한 이미지 URL을 가져와 설정
+        '제발asdfasdfINTP인 그 사람은 뭘 골랐을까? MBTI에 따른 밸런스 게임 통계 사이트'; // 여기에 적절한 이미지 URL을 가져와 설정
     }
     fetch(`${process.env.REACT_APP_HOST}/`)
       .then(response => response.json())
