@@ -43,8 +43,9 @@ const KakaoAuth = () => {
         },
       );
 
-      const ourToken = accessTokenPost.data.access;
       const yourToken = accessTokenPost.data.refresh;
+      const ourToken = accessTokenPost.data.access;
+
       localStorage.setItem('token', token);
       localStorage.setItem('refresh', yourToken);
       localStorage.setItem('access', ourToken);

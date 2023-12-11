@@ -3,18 +3,11 @@ import styled from 'styled-components';
 import MypageInformation from './MypageInformation';
 import MypageVoteList from './MypageVoteList/MypageVoteList';
 import MypageLikeList from './MypageLikeList/MypageLikeList';
-import theme from '../../styles/theme';
-import { logout, kakao_logout } from '../../actions/auth';
 import MypageCreateList from './MypageCreateList/MypageCreateList';
-import { useSelector, useDispatch } from 'react-redux';
 
 const Mypage = () => {
   const [userInformation, setUserInformation] = useState('');
   const [loading, setLoading] = useState(true);
-  const [redirect, setRedirect] = useState(false);
-  const dispatch = useDispatch();
-
-  const selectedKakaoAuth = localStorage.getItem('isKakao');
 
   useEffect(() => {
     const headers = new Headers();
