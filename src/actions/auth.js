@@ -16,8 +16,6 @@ import {
   KAKAO_AUTH_SUCCESS,
   KAKAO_AUTH_FAIL,
   KAKAO_LOGOUT,
-  KAKAO_UNLINK_FAILURE,
-  KAKAO_UNLINK_SUCCESS,
   ACTIVATION_SUCCESS,
   ACTIVATION_FAIL,
   LOGOUT,
@@ -332,7 +330,6 @@ export const reset_password_confirm =
 export const logout = () => async dispatch => {
   const accessToken = localStorage.getItem('access');
   const refreshToken = localStorage.getItem('refresh');
-  console.log('logout!');
 
   if (!accessToken) {
     return;
@@ -366,43 +363,8 @@ export const logout = () => async dispatch => {
   }
 };
 
-export const unlinkKakaoAccount = async dispatch => {
-  const accessToken = localStorage.getItem('access');
-
-  const config = {
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${accessToken}`,
-      Accept: 'application/json',
-    },
-  };
-
-  try {
-    const res = await axios.post(
-      'https://kapi.kakao.com/v1/user/unlink',
-      { accessToken: accessToken },
-      config,
-    );
-
-    dispatch({
-      type: KAKAO_UNLINK_SUCCESS,
-      payload: res.data, // Fix the variable name here
-    });
-
-    return res.data;
-  } catch (err) {
-    console.error('Kakao unlink 에러:', err);
-
-    dispatch({
-      type: KAKAO_UNLINK_FAILURE,
-      payload: err,
-    });
-
-    throw err; // Rethrow the error to handle it in the calling function
-  }
-};
-
 export const kakao_logout = () => async dispatch => {
+  console.log('kkkk');
   const accessToken = localStorage.getItem('access');
   const refreshToken = localStorage.getItem('refresh');
 

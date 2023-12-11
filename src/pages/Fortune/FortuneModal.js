@@ -10,6 +10,7 @@ const FortuneModal = ({ isOpen, onClose }) => {
   const [isTypingComplete, setIsTypingComplete] = useState(false);
 
   const fortuneRef = useRef(null);
+  const isAuth = localStorage.getItem('access');
 
   const handleOverlayClick = e => {
     if (e.target === e.currentTarget) {

@@ -10,9 +10,8 @@ import {
   load_user,
   logout,
   kakao_logout,
-  unlinkKakaoAccount,
 } from '../../actions/auth';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 const Nav = ({ checkAuthenticated, load_user, logout, isAuthenticated }) => {
   const dispatch = useDispatch();
@@ -72,7 +71,7 @@ const Nav = ({ checkAuthenticated, load_user, logout, isAuthenticated }) => {
       if (userInfo?.is_kakao) {
         localStorage.removeItem('token');
         dispatch(kakao_logout());
-        dispatch(unlinkKakaoAccount());
+
         setRedirect(true);
       } else {
         logout();
