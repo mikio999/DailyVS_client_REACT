@@ -57,6 +57,7 @@ const Detail = () => {
   useEffect(() => {
     handleChoiceDispatch(selectedChoice);
   }, [selectedChoice]);
+  console.log(voteDetail);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -67,7 +68,6 @@ const Detail = () => {
       if (accessToken) {
         headers.append('Authorization', `Bearer ${accessToken}`);
       }
-
       try {
         const response = await fetch(
           `${process.env.REACT_APP_HOST}/${detailId}`,
@@ -152,7 +152,7 @@ const Detail = () => {
               <RevoteBtn previousChoiceId={voteDetail?.previous_choice_id} />
               <ResultBtn />
             </ReButtons>
-          ) : voteDetail.category_list?.length === 0 ? (
+          ) : voteDetail.category_list?.length === 0 && isAuth ? (
             <AuthSubmitBtn isFormValid={isFormValid} />
           ) : (
             <RegisterBtn isFormValid={isFormValid} />
