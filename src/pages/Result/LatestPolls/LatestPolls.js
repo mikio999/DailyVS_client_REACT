@@ -21,11 +21,11 @@ const LatestPolls = ({ voteList, current_poll_index }) => {
             <LikeLine
               key={index}
               to={`/vote-detail/${poll?.id}`}
-              style={{ backgroundColor: 'lightgray' }}
+              style={{ backgroundColor: '#D9D9D9' }}
             >
               <LikeImage src={`${poll?.thumbnail}`} alt={poll.poll?.title} />
               <TruncateText>
-                <LikeName style={{ fontWeight: 'bold', color: 'red' }}>
+                <LikeName style={{ fontWeight: 'bold', color: 'black' }}>
                   {truncateString(poll?.title, 18)}
                 </LikeName>
               </TruncateText>
@@ -57,6 +57,7 @@ const Container = styled.div`
 
 const LatestTitle = styled.h1`
   display: flex;
+  align-items: center;
   justify-content: center;
   font-family: 'GongGothicLight';
   font-size: 24px;
@@ -65,15 +66,17 @@ const LatestTitle = styled.h1`
 
 const LikeLine = styled(Link)`
   display: grid;
+  align-items: center;
   grid-template-columns: 10% 60% 30%;
-  margin: 1rem 2rem;
+  margin: 0.7rem 1.5rem;
+  height: 2.2rem;
   font-family: 'GongGothicLight';
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.15);
   &:hover {
     cursor: pointer;
     opacity: 0.8;
+    background-color: #d9d9d9;
   }
-  border-top: 1px solid #d9d9d9;
-  border-bottom: 1px solid #d9d9d9;
 `;
 
 const TruncateText = styled.span`
@@ -84,7 +87,6 @@ const TruncateText = styled.span`
 `;
 
 const LikeName = styled.h1`
-  font-family: 'GongGothicLight';
   color: #17355a;
   font-size: 18px;
   margin: 5px;
@@ -95,6 +97,7 @@ const LikeImage = styled.img`
   height: 30px;
   border-radius: 50%;
   margin-right: 10px;
+  margin-left: 5px;
 `;
 
 const LikeCreator = styled.div`
@@ -102,10 +105,6 @@ const LikeCreator = styled.div`
   align-items: center;
   justify-content: center;
   color: #457c9e;
-`;
-
-const LikeDate = styled.div`
-  display: flex;
-  align-items: center;
-  color: gray;
+  font-size: 14px;
+  font-family: 'NEXON Lv1 Gothic OTF';
 `;
