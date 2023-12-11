@@ -87,8 +87,9 @@ const Detail = () => {
         if (result && result.previous_choice) {
           setSelectedOption(result.previous_choice - 1);
         }
-        document.title = result.poll.title; // 페이지의 타이틀 설정
 
+        //메타 태그
+        document.title = result.poll.title; // 페이지의 타이틀 설정
         // Open Graph Protocol 메타 태그 설정
         const ogTitleTag = document.querySelector('meta[property="og:title"]');
         if (ogTitleTag) {
@@ -96,7 +97,13 @@ const Detail = () => {
         }
         const ogImageTag = document.querySelector('meta[property="og:image"]');
         if (ogImageTag) {
-          ogImageTag.content = result.poll.thumbnail; // 여기에 적절한 이미지 URL을 가져와 설정
+          ogImageTag.content = result.poll.thumbnail;
+        }
+        const ogDescriptionTag = document.querySelector(
+          'meta[property="og:description"]',
+        );
+        if (ogDescriptionTag) {
+          ogDescriptionTag.content = result.poll.content;
         }
       } catch (error) {
         console.error('Error fetching data:', error);

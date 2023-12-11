@@ -87,7 +87,28 @@ const Result = () => {
           }
         });
     }
-  }, []);
+    //메타 태그
+    document.title = voteResult?.poll?.title; // 페이지의 타이틀 설정
+    // Open Graph Protocol 메타 태그 설정
+    const ogTitleTag = document.querySelector('meta[property="og:title"]');
+    if (ogTitleTag) {
+      ogTitleTag.content = voteResult?.poll?.title;
+    }
+    const ogImageTag = document.querySelector('meta[property="og:image"]');
+    if (ogImageTag) {
+      ogImageTag.content = voteResult?.poll?.thumbnail;
+    }
+    const ogDescriptionTag = document.querySelector(
+      'meta[property="og:description"]',
+    );
+    if (ogDescriptionTag) {
+      ogDescriptionTag.content = voteResult?.poll?.content;
+    }
+  }, [
+    voteResult?.poll?.content,
+    voteResult?.poll?.thumbnail,
+    voteResult?.poll?.title,
+  ]);
 
   const commentCategory = voteResult?.poll?.category;
 

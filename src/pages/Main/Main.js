@@ -17,8 +17,21 @@ const Main = () => {
   const [todayPoll, setTodayPoll] = useState({});
 
   useEffect(() => {
+    //메타 태그
+    document.title = 'Daily VS';
     const ogImageTag = document.querySelector('meta[property="og:image"]');
     ogImageTag.content = 'https://ifh.cc/g/jrVAyz.png'; // 여기에 적절한 이미지 URL을 가져와 설정
+    const ogTitleTag = document.querySelector('meta[property="og:title"]');
+    if (ogTitleTag) {
+      ogTitleTag.content = 'DAILY VS';
+    }
+    const ogDescriptionTag = document.querySelector(
+      'meta[property="og:description"]',
+    );
+    if (ogDescriptionTag) {
+      ogDescriptionTag.content =
+        'INTP인 그 사람은 뭘 골랐을까? MBTI에 따른 밸런스 게임 통계 사이트'; // 여기에 적절한 이미지 URL을 가져와 설정
+    }
     fetch(`${process.env.REACT_APP_HOST}/`)
       .then(response => response.json())
       .then(result => {
