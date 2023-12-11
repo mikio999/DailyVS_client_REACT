@@ -17,6 +17,8 @@ const Main = () => {
   const [todayPoll, setTodayPoll] = useState({});
 
   useEffect(() => {
+    const ogImageTag = document.querySelector('meta[property="og:image"]');
+    ogImageTag.content = 'https://ifh.cc/g/jrVAyz.png'; // 여기에 적절한 이미지 URL을 가져와 설정
     fetch(`${process.env.REACT_APP_HOST}/`)
       .then(response => response.json())
       .then(result => {
