@@ -10,12 +10,6 @@ const OptionCard = ({
 }) => {
   const isAuth = localStorage.getItem('access');
 
-  if (!isAuth) {
-    setSelectedChoice('');
-    setSelectedOption('');
-    console.log('slsc', selectedChoice, selectedOption);
-  }
-
   const handleOptionChange = index => {
     setSelectedOption(index);
     setSelectedChoice(index);
