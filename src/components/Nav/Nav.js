@@ -64,8 +64,12 @@ const Nav = ({ checkAuthenticated, load_user, logout, isAuthenticated }) => {
   const logout_user = () => {
     const shouldLogout = window.confirm('로그아웃 하시겠습니까?');
     if (shouldLogout) {
+      document.cookie =
+        'sessionid=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+
       localStorage.removeItem('isKakao');
       if (userInfo?.is_kakao) {
+        localStorage.removeItem('token');
         dispatch(kakao_logout());
         setRedirect(true);
       } else {
