@@ -47,6 +47,14 @@ const Detail = () => {
 
   useEffect(() => {
     handleCategoryDispatch(voteDetail.category_list);
+
+    if (!isAuth) {
+      const categoryNames = voteDetail?.poll?.category.map(
+        category => category.name,
+      );
+      handleCategoryDispatch(categoryNames);
+    }
+
     handleCategoryListDispatch(voteDetail.category_list);
   }, [voteDetail]);
 
@@ -152,7 +160,7 @@ const Detail = () => {
               <RevoteBtn previousChoiceId={voteDetail?.previous_choice_id} />
               <ResultBtn />
             </ReButtons>
-          ) : voteDetail.category_list?.length === 0 && isAuth ? (
+          ) : isAuth && voteDetail?.poll.category_list?.length === 0 ? (
             <AuthSubmitBtn isFormValid={isFormValid} />
           ) : (
             <RegisterBtn isFormValid={isFormValid} />

@@ -8,6 +8,13 @@ const OptionCard = ({
   selectedChoice,
   setSelectedChoice,
 }) => {
+  const isAuth = localStorage.getItem('access');
+
+  if (!isAuth) {
+    setSelectedChoice('');
+    setSelectedOption('');
+  }
+
   const handleOptionChange = index => {
     setSelectedOption(index);
     setSelectedChoice(index);
