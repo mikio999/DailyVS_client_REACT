@@ -78,6 +78,16 @@ const Nav = ({ checkAuthenticated, load_user, logout, isAuthenticated }) => {
       }
     }
   };
+  function deleteCookie(name) {
+    document.cookie =
+      name + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+  }
+
+  if (!isAuthenticated) {
+    deleteCookie('sessionid');
+    document.cookie =
+      'sessionid=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+  }
 
   return (
     <>
