@@ -92,8 +92,8 @@ const Detail = () => {
         const result = await response.json();
         setVoteDetail(result);
 
-        if (result && result.previous_choice) {
-          setSelectedOption(result.previous_choice - 1);
+        if (isAuth && result && result?.previous_choice) {
+          setSelectedOption(result?.previous_choice - 1);
         }
 
         //메타 태그
