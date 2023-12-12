@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 const UserOut = () => {
   const selectedKakaoAuth = localStorage.getItem('isKakao');
 
-  console.log(selectedKakaoAuth);
   const navigate = useNavigate();
   const handleOutClick = event => {
     event.preventDefault();
