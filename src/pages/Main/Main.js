@@ -18,23 +18,23 @@ const Main = () => {
 
   useEffect(() => {
     //메타 태그
-    document.title = 'aasdfDaily VS';
+    document.title = 'Daily VS';
     const ogUrlTag = document.querySelector('meta[property="og:url"]');
     if (ogUrlTag) {
       ogUrlTag.content = `https://daily-vs.com/`;
     }
     const ogImageTag = document.querySelector('meta[property="og:image"]');
-    ogImageTag.content = 'https://ifh.cc/g/jrVAyz.png'; // 여기에 적절한 이미지 URL을 가져와 설정
+    ogImageTag.content = 'https://ifh.cc/v-hbs61J.png'; // 여기에 적절한 이미지 URL을 가져와 설정
     const ogTitleTag = document.querySelector('meta[property="og:title"]');
     if (ogTitleTag) {
-      ogTitleTag.content = 'asdfasdfDAILY VS';
+      ogTitleTag.content = 'DAILY VS';
     }
     const ogDescriptionTag = document.querySelector(
       'meta[property="og:description"]',
     );
     if (ogDescriptionTag) {
       ogDescriptionTag.content =
-        '제발asdfasdfINTP인 그 사람은 뭘 골랐을까? MBTI에 따른 밸런스 게임 통계 사이트'; // 여기에 적절한 이미지 URL을 가져와 설정
+        'INTP인 그 사람은 뭘 골랐을까? MBTI에 따른 밸런스 게임 통계 사이트'; // 여기에 적절한 이미지 URL을 가져와 설정
     }
     fetch(`${process.env.REACT_APP_HOST}/`)
       .then(response => response.json())
