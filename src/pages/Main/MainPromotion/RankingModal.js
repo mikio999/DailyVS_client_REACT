@@ -100,6 +100,9 @@ const SubTitle = styled.div`
   display: flex;
   justify-content: center;
   font-size: 20px;
+  @media screen and (max-width: 700px) {
+    display: none;
+  }
 `;
 
 const ModalCloseButton = styled.button`
@@ -148,7 +151,7 @@ const ModalGrid = styled.div`
   }
   @media screen and (max-width: 500px) {
     grid-template-columns: 25px 50px 100px 100px;
-    font-size: 12px;
+    font-size: 11px;
   }
 `;
 
@@ -189,10 +192,12 @@ const ModalRecent = styled(Link)`
   }
   @media screen and (max-width: 500px) {
     word-break: keep-all;
-    font-size: 11px;
+    margin-top: 1px;
+    font-size: 9px;
   }
   @media screen and (max-width: 330px) {
     font-size: 8px;
+    margin-top: 1px;
   }
 `;
 
@@ -207,7 +212,7 @@ const RankPoint = styled.div`
 `;
 
 const PointNumber = styled.div`
-  font-size: 12px;
+  font-size: 11px;
 `;
 
 const Point = styled.div`
