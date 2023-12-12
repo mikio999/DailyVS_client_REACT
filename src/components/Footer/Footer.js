@@ -97,6 +97,8 @@ const SecondSection = styled.div`
 
 const Paragraph = styled.div`
   margin-top: 5px;
+  line-height: 1.2;
+  word-break: keep-all;
 `;
 
 const SnsSection = styled.div`
