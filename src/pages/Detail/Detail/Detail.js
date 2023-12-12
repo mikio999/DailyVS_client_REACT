@@ -96,8 +96,6 @@ const Detail = () => {
           setSelectedOption(result?.previous_choice - 1);
         }
 
-        //메타 태그
-        document.title = result.poll.title; // 페이지의 타이틀 설정
         // Open Graph Protocol 메타 태그 설정
         const ogUrlTag = document.querySelector('meta[property="og:url"]');
         if (ogUrlTag) {
