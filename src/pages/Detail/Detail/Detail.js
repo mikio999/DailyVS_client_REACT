@@ -65,7 +65,6 @@ const Detail = () => {
   useEffect(() => {
     handleChoiceDispatch(selectedChoice);
   }, [selectedChoice]);
-  console.log(voteDetail);
 
   useEffect(() => {
     const fetchData = async () => {

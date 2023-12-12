@@ -118,14 +118,15 @@ const Modify = ({ isAuthenticated }) => {
     fetch(`${process.env.REACT_APP_HOST}/mypage`, requestOptions)
       .then(response => response.json())
       .then(result => {
-        if (result) {
-          navigate(`/my-page`);
-        }
+        navigate(`/my-page`);
+
+        window.location.reload();
       })
       .catch(error => {
         console.error('POST 요청 오류:', error);
       });
   };
+
   return (
     <SignupPage>
       <SignupContainer>
