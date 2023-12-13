@@ -39,8 +39,12 @@ const CoinInformation = () => {
               투표를 올리고 투표 링크를 사람들에게 공유 후 <br />
               본인이 올린 주제에 투표가 쌓이게끔 하세요! <br />
               <br />
-              비로그인 유저의 투표 = 1 VS Point <br />
-              Daily VS 유저의 투표 = 100 VS Point <br />
+              본인이 올린 투표에 <br />
+              비로그인 유저가 투표 시 : 1 VS Point 획득 <br />
+              Daily VS 유저의 투표 시 : 10 VS Point 획득 <br />
+              <br />
+              다른 유저가 올린 투표에 <br />
+              본인이 투표 시 = 3 VS 포인트 획득 <br />
               <br />
               VS 포인트를 올려 받을 수 있는 혜택은 <br />
               이벤트를 참조해주세요 :)
@@ -95,7 +99,7 @@ const CoinModal = styled.div`
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   position: relative;
   width: 400px;
-  height: 430px;
+  height: 450px;
 `;
 
 const ModalTitle = styled.h1`
