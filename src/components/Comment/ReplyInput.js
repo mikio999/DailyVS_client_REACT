@@ -19,6 +19,7 @@ function ReplyInput({
   const [userInfo, setUserInfo] = useState('');
   const [isSending, setIsSending] = useState(false);
 
+  console.log(voteChoice);
   function getAgeRange(age) {
     if (age === '10') {
       return '10대';
@@ -126,7 +127,7 @@ function ReplyInput({
             ))}
             <div className="result">
               {' '}
-              {truncateString(data?.choice_text, 8)}
+              {truncateString(voteChoice?.choice_text, 8)}
             </div>
           </Info>
           <CommentText

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
 import LoginNav from '../../components/LoginNav/LoginNav';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 const PasswordInput = () => {
   const [passwordMatch, setPasswordMatch] = useState(false);
@@ -50,9 +50,7 @@ const PasswordInput = () => {
       },
     )
       .then(response => {
-        console.log('아악');
-        alert('아아아악');
-        if (response.ok) {
+        if (response) {
           alert('비밀번호 변경 성공! 다시 로그인해 주세요!');
         } else {
           console.error('Password reset failed');

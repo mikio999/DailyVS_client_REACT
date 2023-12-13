@@ -72,11 +72,7 @@ const Email = () => {
               <EmailBtn onClick={handleResendEmail} disabled={loading}>
                 {loading ? '이메일 재전송 중...' : '인증 이메일 다시받기'}
               </EmailBtn>
-              {loading ? (
-                <>
-                  <Sending />
-                </>
-              ) : null}
+              {loading ? <Sending /> : null}
             </div>
           )}
           {resendSuccess && (

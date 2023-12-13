@@ -14,7 +14,6 @@ import {
   KAKAO_AUTH_SUCCESS,
   KAKAO_AUTH_FAIL,
   KAKAO_LOGOUT,
-  KAKAO_UNLINK_SUCCESS,
   ACTIVATION_SUCCESS,
   ACTIVATION_FAIL,
   LOGOUT,
@@ -81,11 +80,10 @@ export default function (state = initialState, action) {
       };
     case LOGIN_FAIL:
       alert('로그인 실패! 로그인 이메일과 비밀번호를 다시 한번 확인해주세요!');
+      break;
     case SIGNUP_FAIL:
     case KAKAO_AUTH_FAIL:
-    case KAKAO_UNLINK_SUCCESS:
-      document.cookie =
-        'sessionid=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+
     case KAKAO_LOGOUT:
       localStorage.removeItem('access');
       localStorage.removeItem('refresh');
