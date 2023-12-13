@@ -7,6 +7,7 @@ function CommentBox({
   setCurrentPage,
   data,
   voteId,
+  voteChoice,
   commentsCount,
   setCommentsCount,
   replyCount,
@@ -51,6 +52,7 @@ function CommentBox({
             user={repl?.user_info}
             data={repl}
             voteId={voteId}
+            voteChoice={voteChoice}
             replyCount={replyCount}
             setReplyCount={setReplyCount}
             commentCategory={commentCategory}
@@ -63,6 +65,7 @@ function CommentBox({
           parentId={parentId}
           onCommentSubmit={addReply}
           voteId={voteId}
+          voteChoice={voteChoice}
           setCurrentPage={setCurrentPage}
           setReplyCount={setReplyCount}
           replyCount={replyCount}

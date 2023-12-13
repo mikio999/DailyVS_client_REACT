@@ -13,7 +13,7 @@ import LatestPolls from './LatestPolls/LatestPolls';
 
 const Result = () => {
   const [voteResult, setVoteResult] = useState([]);
-  const [showWatermark, setShowWatermark] = useState(false);
+
   const [currentPage, setCurrentPage] = useState(1);
   const [scrollColor, setScrollColor] = useState('#fff9f9');
   const resultRef = useRef(null);
@@ -115,14 +115,12 @@ const Result = () => {
   const commentCategory = voteResult?.poll?.category;
 
   const handleCapture = () => {
-    setShowWatermark(true);
     html2canvas(resultRef.current, { scale: 4 }).then(canvas => {
       const capturedImage = canvas.toDataURL('image/png');
       const link = document.createElement('a');
       link.href = capturedImage;
       link.download = 'result_capture.png';
       link.click();
-      setShowWatermark(false);
     });
   };
 
