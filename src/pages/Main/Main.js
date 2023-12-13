@@ -47,18 +47,20 @@ const Main = () => {
       <MainSliderContainer>
         {width < 1200 ? null : <MainSliderSideLeft />}
         <div className="mainSlider-wrapper" ref={ref}>
-          {newPolls.length > 0 && (
-            <MainSlider title="NEW! 새로 올라온 VS" list={newPolls} />
-          )}
           {hotPolls.length > 0 && (
             <MainSlider title="요즘 핫🔥한 VS" list={hotPolls} />
           )}
-          {mbtiPolls.length > 0 && (
-            <MainSlider title="MBTI가 있는" list={mbtiPolls} />
+          {newPolls.length > 0 && (
+            <MainSlider title="NEW! 새로 올라온 VS" list={newPolls} />
           )}
-          {agePolls.length > 0 && <MainSlider title="나이" list={agePolls} />}
+          {mbtiPolls.length > 0 && (
+            <MainSlider title="MBTI별 통계" list={mbtiPolls} />
+          )}
+          {agePolls.length > 0 && (
+            <MainSlider title="나이와 관련된" list={agePolls} />
+          )}
           {genderPolls.length > 0 && (
-            <MainSlider title="성별" list={genderPolls} />
+            <MainSlider title="성별에 따라 다른" list={genderPolls} />
           )}
         </div>
         {width < 1200 ? null : <MainSliderSideRight />}
