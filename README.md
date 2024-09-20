@@ -87,32 +87,33 @@ DailyVS는 사용자들이 성별, 나이, MBTI 등 다양한 카테고리에 �
 **이전 코드**
 
 <details>
+  
 ```
-<!-- vote/detail.html -->
-{% extends 'base_generic.html' %}
-{% load static %}
+  {% extends 'base_generic.html' %}
+  {% load static %}
+  
+  {% block content %}
+  
+  <div class="vote-container">
+      <h2>당신의 성별은?</h2>
+      <form action="{% url 'vote:submit_vote' %}" method="post">
+          {% csrf_token %}
+          {% for choice in choices %}
+          <label>
+              <input type="radio" name="gender" value="{{ choice.id }}">
+              {{ choice.description }}
+          </label><br>
+          {% endfor %}
+          <input type="submit" value="투표하기">
+      </form>
+  </div>
+  {% endblock %}
 
-{% block content %}
-
-<div class="vote-container">
-    <h2>당신의 성별은?</h2>
-    <form action="{% url 'vote:submit_vote' %}" method="post">
-        {% csrf_token %}
-        {% for choice in choices %}
-        <label>
-            <input type="radio" name="gender" value="{{ choice.id }}">
-            {{ choice.description }}
-        </label><br>
-        {% endfor %}
-        <input type="submit" value="투표하기">
-    </form>
-</div>
-{% endblock %}
 ```
+
 기존 Django의 `views.py` 파일에서는 페이지가 바뀔 때마다 사용자의 요청을 처리하고 데이터베이스와의 상호작용을 관리합니다.
 
 ```
-# views.py
 def submit_vote(request):
     if request.method == "POST":
         choice_id = request.POST.get('gender')
@@ -134,7 +135,7 @@ def submit_vote(request):
 **개선된 코드**
 
 <details>
-**액션 생성자 (Action Creators)**
+액션 생성자 (Action Creators)
 
 리덕스에서 사용자의 투표 선택, 성별, MBTI, 나이대를 저장하는 액션 생성자입니다.
 
@@ -220,14 +221,13 @@ const store = createStore(
   </Routes>
 ```
 
-```
 
 - **토큰 관리**:
     - 로그인 성공 시 토큰을 localStorage와 쿠키에 저장하고,
-    - API 호출 시, 저장된 토큰을 `Authorization` 헤더에 포함하여 백엔드에 전송하는 방식을 차용하였습니다..
+    - API 호출 시, 저장된 토큰을 `Authorization` 헤더에 포함하여 백엔드에 전송하는 방식을 차용하였습니다.
 
 - **사용자 인터페이스 반응성**:
     - 로그인/로그아웃 시 UI가 동적으로 반응하도록 리액트 컴포넌트를 조정하고
     - 로그인 상태에 따라 네비게이션 바의 표시 항목 변경하는 등의 작업을 통해 UX를 향상시켰습니다.
-```
+
 </details>
